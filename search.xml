@@ -1,42 +1,66 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title>Hello World</title>
-    <url>/RdnRoydonNote/2024/07/24/hello-world/</url>
-    <content><![CDATA[<p>測試用文章</p>
+    <title>ISO 映像檔燒錄 USB 隨身碟</title>
+    <url>/RdnRoydonNote/2024/07/24/ISO-to-USB/</url>
+    <content><![CDATA[<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a><font size='5'>前言</font></h3><blockquote>
+<p><font size='3'>在當今數位化的世界裡，ISO 映像檔成為了一種非常普遍的文件格式，用於分發操作系統、軟體安裝包以及其他需要保留原始文件結構的資料。ISO 映像檔的優勢在於它能夠將整個光碟的內容完整地保存下來，並且可以輕鬆地分發和複製。然而，隨著光碟驅動器的逐漸淘汰和 USB 隨身碟的普及，越來越多的人選擇將 ISO 映像檔燒錄到 USB 隨身碟上，以便更方便地安裝操作系統或運行應用程式。</font></p>
+</blockquote>
+<font size='3'>
+這篇文章將詳細介紹如何將 ISO 映像檔燒錄到 USB 隨身碟，幫助你輕鬆完成這一過程。無論你是要安裝新的操作系統、進行系統修復，還是需要創建可啟動的 USB 隨身碟，這篇指南都將提供你所需的步驟和工具。讓我們開始吧！
+</font>
+
 <span id="more"></span>
 
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure>
+<h3 id="解決方法"><a href="#解決方法" class="headerlink" title="解決方法"></a>解決方法</h3><ol>
+<li><h4 id="Rufus"><a href="#Rufus" class="headerlink" title="Rufus"></a><a href="https://rufus.ie/zh_TW/">Rufus</a></h4><p> <img data-src='rufus.png' width='300'></img></p>
+<ul>
+<li><font size='3'>步驟 1：下載安裝 Rufus</font></li>
+<li><font size='3'>步驟 2：準備 USB 隨身碟</font></li>
+<li><font size='3'>步驟 3：選擇 ISO檔來源、確認隨身碟位置（ 基本預設即可 ）</font></li>
+<li><font size='3'>步驟 4：開始燒錄等待完成</font></li>
+</ul>
+</li>
+<li><h4 id="Etcher"><a href="#Etcher" class="headerlink" title="Etcher"></a><a href="https://etcher.balena.io/">Etcher</a></h4><p> <img data-src='etcher.png' width='500'></img></p>
+<ul>
+<li><font size='3'>步驟 1：下載安裝 Etcher</font></li>
+<li><font size='3'>步驟 2：準備 USB 隨身碟</font></li>
+<li><font size='3'>步驟 3：選擇 ISO檔來源</font></li>
+<li><font size='3'>步驟 4：確認隨身碟位置</font></li>
+<li><font size='3'>步驟 5：開始燒錄等待完成</font></li>
+</ul>
+</li>
+<li><h4 id="Ventoy"><a href="#Ventoy" class="headerlink" title="Ventoy"></a><a href="https://www.ventoy.net/en/download.html">Ventoy</a></h4><p> <img data-src='ventoy.png' width='300'></img></p>
+<ul>
+<li><font size='3'>步驟 1：下載安裝 Ventoy</font></li>
+<li><font size='3'>步驟 2：準備 USB 隨身碟</font></li>
+<li><font size='3'>步驟 3：打開 Ventoy2Disk.exe</font></li>
+<li><font size='3'>步驟 4：確認隨身碟位置</font></li>
+<li><font size='3'>步驟 5：選擇 Install</font></li>
+<li><font size='3'>步驟 6：等待完成後，可直接將 ISO 直接丟到隨身碟中 （ Window 與 Linux 都可 ）</font></li>
+</ul>
+ <br>
 
-<p>More info: <a href="https://hexo.io/docs/writing.html">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
+ <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line"># 解壓縮後，執行</span><br><span class="line">bash VentoyWeb.sh</span><br><span class="line"></span><br><span class="line"># 打開網頁 24680 Port，接下來與 Windows 相同操作</span><br><span class="line"></span><br></pre></td></tr></table></figure>
 
-<p>More info: <a href="https://hexo.io/docs/server.html">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/generating.html">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
-]]></content>
-      <tags>
-        <tag>test</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>test</title>
-    <url>/RdnRoydonNote/2024/07/24/test/</url>
-    <content><![CDATA[<p>測試用文章</p>
-<span id="more"></span>
-
-<p><img data-src="/RdnRoydonNote/2024/07/24/test/avatar.gif" alt="圖片"></p>
-<p><img data-src="https://shuwn.dev/2024/05/23/Raspberry_Pi_5_SSD_Enable_%E6%95%99%E5%AD%B8/X1002-IMG-7124.jpg" alt="測試"></p>
+</li>
+<li><h4 id="UNetbootin"><a href="#UNetbootin" class="headerlink" title="UNetbootin"></a><a href="https://unetbootin.github.io/">UNetbootin</a></h4><p> <img data-src='UNetbootin.png' width='500'></img></p>
+<ul>
+<li><font size='3'>步驟 1：下載安裝 UNetbootin</font></li>
+<li><font size='3'>步驟 2：準備 USB 隨身碟</font></li>
+<li><font size='3'>步驟 3：可選擇版本，軟體會自動幫忙下載，也可手動</font></li>
+<li><font size='3'>步驟 4：確認隨身碟位置</font></li>
+<li><font size='3'>步驟 5：開始燒錄等待完成</font></li>
+</ul>
+</li>
+</ol>
 ]]></content>
       <categories>
-        <category>test</category>
+        <category>工具</category>
       </categories>
       <tags>
-        <tag>test</tag>
+        <tag>USB</tag>
+        <tag>ISO</tag>
       </tags>
   </entry>
 </search>
