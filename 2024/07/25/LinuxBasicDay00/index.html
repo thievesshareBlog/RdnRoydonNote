@@ -23,30 +23,35 @@
     var CONFIG = {"hostname":"thievesshareblog.github.io","root":"/RdnRoydonNote/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":true},"copycode":{"enable":true,"show_result":true,"style":"mac"},"back2top":{"enable":true,"sidebar":true,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":true,"lazyload":true,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
-  <meta name="description" content="少說一句話，少出一趟門，偷得半日閒，自在如我。">
-<meta property="og:type" content="website">
-<meta property="og:title" content="Roydon&#39;s Note">
-<meta property="og:url" content="https://thievesshareblog.github.io/RdnRoydonNote/index.html">
+  <meta name="description" content="前言 Linux，自誕生以來，經歷了從科研領域到廣泛應用的演變，已成為現代計算機系統的核心之一。無論是桌面環境還是伺服器環境，Linux 都以其穩定性、靈活性和安全性受到廣泛歡迎。本指南旨在帶你深入了解 Linux 系統，從歷史背景到實際操作，全面掌握這一強大系統的各個方面。  以下數據皆由 AI 生成，若有問題請及時聯絡以利修正">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Linux 入門 Day00 - Linux 基礎理論">
+<meta property="og:url" content="https://thievesshareblog.github.io/RdnRoydonNote/2024/07/25/LinuxBasicDay00/index.html">
 <meta property="og:site_name" content="Roydon&#39;s Note">
-<meta property="og:description" content="少說一句話，少出一趟門，偷得半日閒，自在如我。">
+<meta property="og:description" content="前言 Linux，自誕生以來，經歷了從科研領域到廣泛應用的演變，已成為現代計算機系統的核心之一。無論是桌面環境還是伺服器環境，Linux 都以其穩定性、靈活性和安全性受到廣泛歡迎。本指南旨在帶你深入了解 Linux 系統，從歷史背景到實際操作，全面掌握這一強大系統的各個方面。  以下數據皆由 AI 生成，若有問題請及時聯絡以利修正">
 <meta property="og:locale" content="zh_TW">
+<meta property="article:published_time" content="2024-07-25T04:17:42.000Z">
+<meta property="article:modified_time" content="2024-07-25T13:23:15.581Z">
 <meta property="article:author" content="Roydon">
+<meta property="article:tag" content="Linux">
+<meta property="article:tag" content="Shell">
+<meta property="article:tag" content="Basic">
 <meta name="twitter:card" content="summary">
 
-<link rel="canonical" href="https://thievesshareblog.github.io/RdnRoydonNote/">
+<link rel="canonical" href="https://thievesshareblog.github.io/RdnRoydonNote/2024/07/25/LinuxBasicDay00/">
 
 
 <script id="page-configurations">
   // https://hexo.io/docs/variables.html
   CONFIG.page = {
     sidebar: "",
-    isHome : true,
-    isPost : false,
+    isHome : false,
+    isPost : true,
     lang   : 'zh-TW'
   };
 </script>
 
-  <title>Roydon's Note</title>
+  <title>Linux 入門 Day00 - Linux 基礎理論 | Roydon's Note</title>
   
 
 
@@ -185,225 +190,10 @@
         <div class="content-wrap">
           
 
-          <div class="content index posts-expand">
+          <div class="content post posts-expand">
             
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-TW">
-    <link itemprop="mainEntityOfPage" href="https://thievesshareblog.github.io/RdnRoydonNote/2024/07/25/LinuxBasicDay02/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/RdnRoydonNote/images/death.svg">
-      <meta itemprop="name" content="Roydon">
-      <meta itemprop="description" content="少說一句話，少出一趟門，偷得半日閒，自在如我。">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Roydon's Note">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/RdnRoydonNote/2024/07/25/LinuxBasicDay02/" class="post-title-link" itemprop="url">Linux 入門 Day02 - 基本文件檔案的操作</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">發表於</span>
-              
-
-              <time title="創建時間：2024-07-25 20:44:17 / 修改時間：20:46:23" itemprop="dateCreated datePublished" datetime="2024-07-25T20:44:17+08:00">2024-07-25</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分類於</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/RdnRoydonNote/categories/Linux/" itemprop="url" rel="index"><span itemprop="name">Linux</span></a>
-                </span>
-            </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Disqus：</span>
-    
-    <a title="disqus" href="/RdnRoydonNote/2024/07/25/LinuxBasicDay02/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2024/07/25/LinuxBasicDay02/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  <br>
-            <span class="post-meta-item" title="文章字數">
-              <span class="post-meta-item-icon">
-                <i class="far fa-file-word"></i>
-              </span>
-                <span class="post-meta-item-text">文章字數：</span>
-              <span>2.6k</span>
-            </span>
-            <span class="post-meta-item" title="所需閱讀時間">
-              <span class="post-meta-item-icon">
-                <i class="far fa-clock"></i>
-              </span>
-                <span class="post-meta-item-text">所需閱讀時間 &asymp;</span>
-              <span>2 分鐘</span>
-            </span>
-
-        </div>
-      </header>
 
     
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a><font size='5'>前言</font></h3><blockquote>
-<p><font size='3'>在 Linux 和 Unix 系統中，掌握 Shell 指令是提高工作效率和系統管理能力的重要技能之一。Shell 提供了一個強大且靈活的命令行界面，允許使用者執行各種操作，包括文件和目錄的管理。對於初學者來說，學會如何使用 Shell 指令來操作文件和目錄是入門的第一步。<br></font></p>
-</blockquote>
-<font size='3'>
-讓我們繼續這段探索 Shell 指令的旅程，揭開命令行世界的神秘面紗！
-</font>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/RdnRoydonNote/2024/07/25/LinuxBasicDay02/#more" rel="contents">
-                閱讀全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-TW">
-    <link itemprop="mainEntityOfPage" href="https://thievesshareblog.github.io/RdnRoydonNote/2024/07/25/LinuxBasicDay01/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/RdnRoydonNote/images/death.svg">
-      <meta itemprop="name" content="Roydon">
-      <meta itemprop="description" content="少說一句話，少出一趟門，偷得半日閒，自在如我。">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Roydon's Note">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/RdnRoydonNote/2024/07/25/LinuxBasicDay01/" class="post-title-link" itemprop="url">Linux 入門 Day01 - 基本檔案、目錄操作指令</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">發表於</span>
-              
-
-              <time title="創建時間：2024-07-25 18:40:54 / 修改時間：20:46:20" itemprop="dateCreated datePublished" datetime="2024-07-25T18:40:54+08:00">2024-07-25</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分類於</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/RdnRoydonNote/categories/Linux/" itemprop="url" rel="index"><span itemprop="name">Linux</span></a>
-                </span>
-            </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Disqus：</span>
-    
-    <a title="disqus" href="/RdnRoydonNote/2024/07/25/LinuxBasicDay01/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2024/07/25/LinuxBasicDay01/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  <br>
-            <span class="post-meta-item" title="文章字數">
-              <span class="post-meta-item-icon">
-                <i class="far fa-file-word"></i>
-              </span>
-                <span class="post-meta-item-text">文章字數：</span>
-              <span>2.4k</span>
-            </span>
-            <span class="post-meta-item" title="所需閱讀時間">
-              <span class="post-meta-item-icon">
-                <i class="far fa-clock"></i>
-              </span>
-                <span class="post-meta-item-text">所需閱讀時間 &asymp;</span>
-              <span>2 分鐘</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a><font size='5'>前言</font></h3><blockquote>
-<p><font size='3'>在現代的計算機操作中，命令行界面（Command Line Interface，簡稱 CLI）依然扮演著不可或缺的角色。無論是系統管理員、開發者，還是一般使用者，都能從中受益，提升工作效率。Shell 是一種命令行解釋器，它提供了與操作系統進行交互的強大工具。學習和掌握 Shell 指令，不僅能讓你更有效地管理系統資源，還能自動化重複性任務，簡化工作流程。</font></p>
-</blockquote>
-<font size='3'>
-讓我們開始這段探索 Shell 指令的旅程，揭開命令行世界的神秘面紗，並充分利用這一強大的工具來提升你的生產力和技能！
-</font>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/RdnRoydonNote/2024/07/25/LinuxBasicDay01/#more" rel="contents">
-                閱讀全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-TW">
@@ -419,10 +209,9 @@
       <meta itemprop="name" content="Roydon's Note">
     </span>
       <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/RdnRoydonNote/2024/07/25/LinuxBasicDay00/" class="post-title-link" itemprop="url">Linux 入門 Day00 - Linux 基礎理論</a>
-        </h2>
+        <h1 class="post-title" itemprop="name headline">
+          Linux 入門 Day00 - Linux 基礎理論
+        </h1>
 
         <div class="post-meta">
             <span class="post-meta-item">
@@ -483,153 +272,138 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a><font size='5'>前言</font></h3><blockquote>
+        <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a><font size='5'>前言</font></h3><blockquote>
 <p><font size='3'>Linux，自誕生以來，經歷了從科研領域到廣泛應用的演變，已成為現代計算機系統的核心之一。無論是桌面環境還是伺服器環境，Linux 都以其穩定性、靈活性和安全性受到廣泛歡迎。本指南旨在帶你深入了解 Linux 系統，從歷史背景到實際操作，全面掌握這一強大系統的各個方面。</font></p>
 </blockquote>
 <p><font size='3'>以下數據皆由 AI 生成，若有問題請及時聯絡以利修正</font></p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/RdnRoydonNote/2024/07/25/LinuxBasicDay00/#more" rel="contents">
-                閱讀全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
+<span id="more"></span>
+
+<br>
+
+<h3 id="作業系統的分類"><a href="#作業系統的分類" class="headerlink" title="作業系統的分類"></a>作業系統的分類</h3><ul>
+<li>Windows</li>
+<li>Unix</li>
+<li>BSD</li>
+<li>Linux</li>
+</ul>
+<h3 id="Linux-作業系統的比對"><a href="#Linux-作業系統的比對" class="headerlink" title="Linux 作業系統的比對"></a>Linux 作業系統的比對</h3><table>
+<thead>
+<tr>
+<th>發行版</th>
+<th>基於</th>
+<th>優點</th>
+<th>缺點</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>Ubuntu</strong></td>
+<td>Debian</td>
+<td>- 簡單、易用，適合初學者<br>- 大社群支援<br>- 提供 Server、Desktop、Core 版等多種版本<br>- 每年四月和十月推出新版本，LTS 版本每兩年推出一次<br>- LTS 版本技術支援長達 5 年</td>
+<td>- 一些高級用戶可能認為過於簡化<br>- 默認包含許多預裝軟體，對於需要輕量級系統的用戶可能不適合</td>
+</tr>
+<tr>
+<td><strong>Debian</strong></td>
+<td>N&#x2F;A</td>
+<td>- 穩定、安全<br>- 擁有非常大的軟體庫<br>- 社群活躍且支援度高<br>- 適合伺服器和桌面環境<br>- 注重自由軟體</td>
+<td>- 軟體版本更新速度較慢，不適合需要最新軟體的用戶<br>- 安裝和配置過程對於初學者可能有些複雜</td>
+</tr>
+<tr>
+<td><strong>CentOS</strong></td>
+<td>Red Hat</td>
+<td>- 社群支援的 Red Hat Enterprise Linux (RHEL) 的免費版本<br>- 穩定性高，適合伺服器環境<br>- 長期支援</td>
+<td>- 軟體版本更新速度慢<br>- Red Hat 宣布不再提供 CentOS 版本更新，改為 CentOS Stream，可能導致一些用戶轉向其他發行版</td>
+</tr>
+<tr>
+<td><strong>Fedora</strong></td>
+<td>Red Hat</td>
+<td>- 最新技術的試驗場<br>- 社群活躍，支援度高<br>- 提供 Workstation、Server 和 CoreOS 版<br>- 提供快速更新和新技術的早期體驗</td>
+<td>- 生命週期短（大約 13 個月），需要頻繁升級<br>- 穩定性可能不如其他長期支援的發行版</td>
+</tr>
+<tr>
+<td><strong>Arch Linux</strong></td>
+<td>N&#x2F;A</td>
+<td>- 滾動更新模型，始終擁有最新的軟體<br>- 高度可配置，適合進階用戶<br>- 社群活躍且有大量的文檔支援（Arch Wiki）</td>
+<td>- 安裝和配置過程對於初學者來說較為困難<br>- 滾動更新模型可能會導致系統不穩定</td>
+</tr>
+<tr>
+<td><strong>openSUSE</strong></td>
+<td>N&#x2F;A</td>
+<td>- 提供 Tumbleweed（滾動更新）和 Leap（穩定版）兩種版本<br>- Yast 工具簡化系統管理<br>- 社群支援和文檔豐富</td>
+<td>- 滾動更新模型可能會導致系統不穩定（針對 Tumbleweed）<br>- 軟體庫相對較小，與其他發行版相比某些軟體可能不夠齊全</td>
+</tr>
+<tr>
+<td><strong>Linux Mint</strong></td>
+<td>Ubuntu</td>
+<td>- 基於 Ubuntu，保持簡單易用<br>- 適合初學者和桌面用戶<br>- 預裝多種常用軟體，減少初始配置工作<br>- Cinnamon 桌面環境美觀且易用</td>
+<td>- 新技術和軟體的更新速度相對較慢<br>- 主要依賴 Ubuntu 的更新和支援</td>
+</tr>
+<tr>
+<td><strong>Manjaro</strong></td>
+<td>Arch Linux</td>
+<td>- 基於 Arch Linux，但提供更簡單的安裝和配置<br>- 滾動更新模型，但經過更多測試，穩定性較高<br>- 適合桌面和伺服器環境</td>
+<td>- 社群相對較小，某些問題的支援可能不如其他大發行版<br>- 滾動更新模型仍然有潛在的系統不穩定風險</td>
+</tr>
+<tr>
+<td><strong>Red Hat Enterprise Linux (RHEL)</strong></td>
+<td>N&#x2F;A</td>
+<td>- 高穩定性和安全性<br>- 商業技術支援<br>- 適合企業級應用和伺服器環境<br>- 長期支援</td>
+<td>- 收費模式，對於個人用戶和小企業可能成本較高<br>- 不開源，某些用戶可能更偏好開源的替代品</td>
+</tr>
+<tr>
+<td><strong>Kali Linux</strong></td>
+<td>Debian</td>
+<td>- 專為資訊安全和滲透測試設計<br>- 內建大量安全工具和軟體<br>- 社群支援和文檔豐富</td>
+<td>- 不適合作為日常桌面系統使用<br>- 需要一定的安全知識和經驗</td>
+</tr>
+</tbody></table>
+<hr>
+<h4 id="待補充"><a href="#待補充" class="headerlink" title="待補充~"></a><font size='8' align='center'>待補充~</font></h4>
     </div>
 
     
     
     
+
       <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-TW">
-    <link itemprop="mainEntityOfPage" href="https://thievesshareblog.github.io/RdnRoydonNote/2024/07/24/ISO-to-USB/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/RdnRoydonNote/images/death.svg">
-      <meta itemprop="name" content="Roydon">
-      <meta itemprop="description" content="少說一句話，少出一趟門，偷得半日閒，自在如我。">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Roydon's Note">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
           
-            <a href="/RdnRoydonNote/2024/07/24/ISO-to-USB/" class="post-title-link" itemprop="url">ISO 映像檔燒錄 USB 隨身碟</a>
-        </h2>
+          <div class="post-tags">
+              <a href="/RdnRoydonNote/tags/Linux/" rel="tag"><i class="fa fa-tag"></i> Linux</a>
+              <a href="/RdnRoydonNote/tags/Shell/" rel="tag"><i class="fa fa-tag"></i> Shell</a>
+              <a href="/RdnRoydonNote/tags/Basic/" rel="tag"><i class="fa fa-tag"></i> Basic</a>
+          </div>
 
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">發表於</span>
-
-              <time title="創建時間：2024-07-24 23:08:52" itemprop="dateCreated datePublished" datetime="2024-07-24T23:08:52+08:00">2024-07-24</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新於</span>
-                <time title="修改時間：2024-07-25 00:32:37" itemprop="dateModified" datetime="2024-07-25T00:32:37+08:00">2024-07-25</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分類於</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/RdnRoydonNote/categories/%E5%B7%A5%E5%85%B7/" itemprop="url" rel="index"><span itemprop="name">工具</span></a>
-                </span>
-            </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Disqus：</span>
-    
-    <a title="disqus" href="/RdnRoydonNote/2024/07/24/ISO-to-USB/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2024/07/24/ISO-to-USB/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  <br>
-            <span class="post-meta-item" title="文章字數">
-              <span class="post-meta-item-icon">
-                <i class="far fa-file-word"></i>
-              </span>
-                <span class="post-meta-item-text">文章字數：</span>
-              <span>690</span>
-            </span>
-            <span class="post-meta-item" title="所需閱讀時間">
-              <span class="post-meta-item-icon">
-                <i class="far fa-clock"></i>
-              </span>
-                <span class="post-meta-item-text">所需閱讀時間 &asymp;</span>
-              <span>1 分鐘</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a><font size='5'>前言</font></h3><blockquote>
-<p><font size='3'>在當今數位化的世界裡，ISO 映像檔成為了一種非常普遍的文件格式，用於分發操作系統、軟體安裝包以及其他需要保留原始文件結構的資料。ISO 映像檔的優勢在於它能夠將整個光碟的內容完整地保存下來，並且可以輕鬆地分發和複製。然而，隨著光碟驅動器的逐漸淘汰和 USB 隨身碟的普及，越來越多的人選擇將 ISO 映像檔燒錄到 USB 隨身碟上，以便更方便地安裝操作系統或運行應用程式。</font></p>
-</blockquote>
-<font size='3'>
-這篇文章將詳細介紹如何將 ISO 映像檔燒錄到 USB 隨身碟，幫助你輕鬆完成這一過程。無論你是要安裝新的操作系統、進行系統修復，還是需要創建可啟動的 USB 隨身碟，這篇指南都將提供你所需的步驟和工具。讓我們開始吧！
-</font>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/RdnRoydonNote/2024/07/24/ISO-to-USB/#more" rel="contents">
-                閱讀全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
         
-      
-    </div>
 
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/RdnRoydonNote/2024/07/24/ISO-to-USB/" rel="prev" title="ISO 映像檔燒錄 USB 隨身碟">
+      <i class="fa fa-chevron-left"></i> ISO 映像檔燒錄 USB 隨身碟
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/RdnRoydonNote/2024/07/25/LinuxBasicDay01/" rel="next" title="Linux 入門 Day01 - 基本檔案、目錄操作指令">
+      Linux 入門 Day01 - 基本檔案、目錄操作指令 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
       </footer>
+    
   </article>
   
   
-  
-
-
   
 
 
 
           </div>
           
+    
+  <div class="comments">
+    <div id="disqus_thread">
+      <noscript>Please enable JavaScript to view the comments powered by Disqus.</noscript>
+    </div>
+  </div>
+  
 
 <script>
   window.addEventListener('tabs:register', () => {
@@ -676,6 +450,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%89%8D%E8%A8%80"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BD%9C%E6%A5%AD%E7%B3%BB%E7%B5%B1%E7%9A%84%E5%88%86%E9%A1%9E"><span class="nav-number">2.</span> <span class="nav-text">作業系統的分類</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Linux-%E4%BD%9C%E6%A5%AD%E7%B3%BB%E7%B5%B1%E7%9A%84%E6%AF%94%E5%B0%8D"><span class="nav-number">3.</span> <span class="nav-text">Linux 作業系統的比對</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%BE%85%E8%A3%9C%E5%85%85"><span class="nav-number">3.1.</span> <span class="nav-text">待補充~</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -893,6 +668,26 @@ window.addEventListener('pjax:success', () => {
   }
   // defer loading until the whole page loading is completed
   window.addEventListener('load', loadCount, false);
+</script>
+<script>
+  var disqus_config = function() {
+    this.page.url = "https://thievesshareblog.github.io/RdnRoydonNote/2024/07/25/LinuxBasicDay00/";
+    this.page.identifier = "2024/07/25/LinuxBasicDay00/";
+    this.page.title = "Linux 入門 Day00 - Linux 基礎理論";
+    };
+  NexT.utils.loadComments(document.querySelector('#disqus_thread'), () => {
+    if (window.DISQUS) {
+      DISQUS.reset({
+        reload: true,
+        config: disqus_config
+      });
+    } else {
+      var d = document, s = d.createElement('script');
+      s.src = 'https://cloud-blog.disqus.com/embed.js';
+      s.setAttribute('data-timestamp', '' + +new Date());
+      (d.head || d.body).appendChild(s);
+    }
+  });
 </script>
 
     </div>
