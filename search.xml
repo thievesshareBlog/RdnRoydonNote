@@ -63,4 +63,176 @@
         <tag>ISO</tag>
       </tags>
   </entry>
+  <entry>
+    <title>Linux 入門 Day01 - 基礎指令篇</title>
+    <url>/RdnRoydonNote/2024/07/25/LinuxBasicDay01/</url>
+    <content><![CDATA[<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a><font size='5'>前言</font></h3><blockquote>
+<p><font size='3'>在現代的計算機操作中，命令行界面（Command Line Interface，簡稱 CLI）依然扮演著不可或缺的角色。無論是系統管理員、開發者，還是一般使用者，都能從中受益，提升工作效率。Shell 是一種命令行解釋器，它提供了與操作系統進行交互的強大工具。學習和掌握 Shell 指令，不僅能讓你更有效地管理系統資源，還能自動化重複性任務，簡化工作流程。</font></p>
+</blockquote>
+<font size='3'>
+讓我們開始這段探索 Shell 指令的旅程，揭開命令行世界的神秘面紗，並充分利用這一強大的工具來提升你的生產力和技能！
+</font>
+
+<span id="more"></span>
+
+<br>
+
+<h3 id="系統登錄"><a href="#系統登錄" class="headerlink" title="系統登錄"></a>系統登錄</h3><ul>
+<li>登出<ul>
+<li>exit</li>
+<li>logout</li>
+<li>快速鍵： [ Ctrl ] + [ D ]</li>
+</ul>
+</li>
+<li>關機<ul>
+<li>poweroff</li>
+<li>halt  –poweroff</li>
+<li>shutdown  -h  0</li>
+<li>shutdown  -h  now</li>
+</ul>
+</li>
+<li>重開機<ul>
+<li>reboot</li>
+<li>halt  –reboot</li>
+<li>shutdown  -r  0</li>
+</ul>
+</li>
+</ul>
+<br>
+
+<h3 id="基礎指令"><a href="#基礎指令" class="headerlink" title="基礎指令"></a>基礎指令</h3><ul>
+<li>cal，列印日曆</li>
+<li>echo，回覆列印</li>
+<li>date，時間相關<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">date  +%x</span><br><span class="line">date  &quot;+%A,%B %u,%Y&quot;</span><br></pre></td></tr></table></figure></li>
+<li>reset、tset，重設螢幕 </li>
+<li>clear，清除螢幕、快速鍵： [ Ctrl ] + [ l ]</li>
+<li>pwd，查詢所在目錄位置</li>
+<li>touch，建立檔案</li>
+<li>mkdir，建立目錄</li>
+<li>cp，複製檔案</li>
+<li>cd，切換目錄</li>
+<li>mv，搬移檔案、改名檔案</li>
+<li>rm，刪除檔案</li>
+<li>rmdir，刪除目錄，只能刪除空目錄 （ -p ）</li>
+<li>ls，列出檔案或目錄<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">-a     列出隱藏目錄或檔案	        -d    列出目錄</span><br><span class="line">-l     條列式顯示 ( 含細節 )</span><br><span class="line">-F     檔案類型</span><br><span class="line">-u     排序：存取時間 ( Access )   -t     排序：異動時間 ( Modify )</span><br><span class="line">-S     排序：檔案大小              -r     排序：反向排序</span><br><span class="line"></span><br><span class="line">ls  -lh  /etc</span><br></pre></td></tr></table></figure></li>
+</ul>
+<br>
+
+<h3 id="常用的查詢"><a href="#常用的查詢" class="headerlink" title="常用的查詢"></a>常用的查詢</h3><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">[ SPACE ] 	  : 向下翻頁	    [ Page Down ]   : 向下翻頁</span><br><span class="line">[ TAB ]       : 下一個節點</span><br><span class="line">[ Page Up ]   : 向上翻頁		[ ENTER ]       : 進入節點</span><br><span class="line">[ U ]	      : 上一層章節</span><br><span class="line">[ q ]         : 離開		    </span><br><span class="line">[ N ]	      : 下一個章節     </span><br><span class="line">[ P ]         : 前一個章節</span><br><span class="line">[ / ]         : 向下搜尋</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p>help</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">cal  --help</span><br><span class="line">date  --help</span><br><span class="line">date  --help  |  less</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>man</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">/usr/share/man/</span><br><span class="line">1  一般指令</span><br><span class="line">2  系統呼叫</span><br><span class="line">3  函式呼叫</span><br><span class="line">4  特殊檔案</span><br><span class="line">5  檔案格式</span><br><span class="line">6  遊戲相關</span><br><span class="line">7  其他說明文件</span><br><span class="line">8  系統管理員指令</span><br><span class="line">9  核心相關</span><br><span class="line"></span><br><span class="line">man  cal</span><br><span class="line">man  5  passwd</span><br><span class="line"></span><br></pre></td></tr></table></figure></li>
+<li><p>info</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">info  echo</span><br><span class="line">info  date</span><br><span class="line">info  -a  cat</span><br></pre></td></tr></table></figure></li>
+</ul>
+<br>
+
+<h3 id="搜尋檔案"><a href="#搜尋檔案" class="headerlink" title="搜尋檔案"></a>搜尋檔案</h3><ul>
+<li>which，搜尋系統路徑 ( PATH )<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">僅列執行檔，且須寫完整檔名</span></span><br><span class="line"></span><br><span class="line">-a  列出 PATH 中所有符合的執行檔</span><br><span class="line"></span><br><span class="line">which  rm</span><br><span class="line">which  -a  ip</span><br></pre></td></tr></table></figure></li>
+<li>whereis，搜尋特定路徑 ( &#x2F;bin&#x2F;、&#x2F;sbin&#x2F;、&#x2F;usr&#x2F;bin&#x2F;、&#x2F;usr&#x2F;sbin&#x2F;… )<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">須寫完整名稱</span></span><br><span class="line"></span><br><span class="line">-b  執行檔        </span><br><span class="line">-m  找 man 或 info檔        </span><br><span class="line">-s  僅找source檔</span><br><span class="line"></span><br><span class="line">whereis  date</span><br><span class="line">whereis  -b  find</span><br><span class="line">whereis  -m  find</span><br></pre></td></tr></table></figure></li>
+<li>locate，搜尋資料庫，可模糊搜尋 (  關鍵字 )<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">有變動時，需更新資料庫</span></span><br><span class="line"></span><br><span class="line">Ubuntu 20.4 起未裝 # mlocate、plocate</span><br><span class="line">updatedb，建立本機檔案資料庫 ( /var/lib/mlocate/mlocate.db )</span><br><span class="line"></span><br><span class="line">-i  忽略大小寫		 </span><br><span class="line">-c 計算總共有幾個</span><br><span class="line">-S 計算資料庫檔案與目錄數量</span><br><span class="line"></span><br><span class="line">locate  -c   kernel</span><br><span class="line">locate  -S</span><br><span class="line"></span><br><span class="line">updatedb</span><br></pre></td></tr></table></figure></li>
+<li>find，搜尋特定位置、狀態的檔案<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">-amin  n	 -name  PATTERN</span><br><span class="line">-cmin  n	 -type  [bdfl]</span><br><span class="line">-empty		 -size  n[cwbkMG]</span><br><span class="line"></span><br><span class="line">find  .bash*</span><br><span class="line">find  /  -name  mv</span><br></pre></td></tr></table></figure></li>
+</ul>
+<br>
+
+<h3 id="系統目錄與架構"><a href="#系統目錄與架構" class="headerlink" title="系統目錄與架構"></a>系統目錄與架構</h3><table>
+<thead>
+<tr>
+<th>目錄</th>
+<th>功能描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>/</code></td>
+<td>根目錄，所有文件和目錄的起點。</td>
+</tr>
+<tr>
+<td><code>/bin</code></td>
+<td>基本二進位執行檔，包含系統啟動和單人模式下使用的基本指令，例如 <code>ls</code>、<code>cp</code>、<code>mv</code>。</td>
+</tr>
+<tr>
+<td><code>/boot</code></td>
+<td>启动相關文件，包括內核映像和啟動加載器配置文件。</td>
+</tr>
+<tr>
+<td><code>/dev</code></td>
+<td>設備文件，包含系統中所有硬體設備的接口，如硬碟、鍵盤、終端等。例如：<code>/dev/sda1</code>（第一個硬碟的第一個分區）。</td>
+</tr>
+<tr>
+<td><code>/etc</code></td>
+<td>系統配置文件，包含各種服務和應用程序的配置文件，例如網絡設置、用戶帳號信息等。</td>
+</tr>
+<tr>
+<td><code>/home</code></td>
+<td>用戶主目錄，包含所有普通用戶的個人文件和設置。例如：<code>/home/user</code> 是用戶 <code>user</code> 的主目錄。</td>
+</tr>
+<tr>
+<td><code>/lib</code></td>
+<td>系統庫文件，包含系統啟動和基本命令所需的共享庫。</td>
+</tr>
+<tr>
+<td><code>/media</code></td>
+<td>可移動媒體掛載點，如 CD&#x2F;DVD、USB 設備。通常系統會自動在此處掛載移動存儲設備。</td>
+</tr>
+<tr>
+<td><code>/mnt</code></td>
+<td>暫時掛載文件系統的掛載點，用於手動掛載的文件系統。</td>
+</tr>
+<tr>
+<td><code>/opt</code></td>
+<td>可選軟體包，通常用於安裝附加軟件或第三方軟件包。</td>
+</tr>
+<tr>
+<td><code>/proc</code></td>
+<td>虚拟文件系统，提供系統進程和系統信息的接口。文件內容由系統動態生成，例如：<code>/proc/cpuinfo</code> 提供 CPU 信息。</td>
+</tr>
+<tr>
+<td><code>/root</code></td>
+<td>超級使用者（root）的主目錄。</td>
+</tr>
+<tr>
+<td><code>/run</code></td>
+<td>進程相關信息的運行時數據，通常在系統啟動後動態創建並在系統重啟後清空。</td>
+</tr>
+<tr>
+<td><code>/sbin</code></td>
+<td>系統二進位文件，包含系統管理和維護所需的命令，如 <code>fdisk</code>、<code>ifconfig</code>。</td>
+</tr>
+<tr>
+<td><code>/srv</code></td>
+<td>服務數據，包含系統啟動後提供的各種服務相關的數據，如網站數據。</td>
+</tr>
+<tr>
+<td><code>/sys</code></td>
+<td>系統文件，提供系統硬件信息和系統設置的接口。</td>
+</tr>
+<tr>
+<td><code>/tmp</code></td>
+<td>臨時文件，系統和應用程序在運行時產生的臨時文件。該目錄中的文件通常會在系統重啟時刪除。</td>
+</tr>
+<tr>
+<td><code>/usr</code></td>
+<td>用戶相關的應用程序和文件，包含二進位文件、庫文件、文檔等。類似於 <code>/bin</code> 和 <code>/lib</code> 但主要用于存放第三方軟件和系統應用程序。</td>
+</tr>
+<tr>
+<td><code>/var</code></td>
+<td>可變數據文件，包含系統運行時產生的數據，如日誌文件、郵件存儲、臨時文件和鎖文件。</td>
+</tr>
+</tbody></table>
+<br>
+
+<h3 id="萬用字元"><a href="#萬用字元" class="headerlink" title="萬用字元"></a>萬用字元</h3><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">* # 任意字元、任意長度</span><br><span class="line"></span><br><span class="line">ls  /bin/z*</span><br><span class="line">ls  /bin/*a*</span><br><span class="line"></span><br><span class="line">? # 任意字元、指定長度</span><br><span class="line"></span><br><span class="line">ls  /bin/??</span><br><span class="line">ls  /bin/?a??</span><br></pre></td></tr></table></figure>]]></content>
+      <categories>
+        <category>Linux</category>
+      </categories>
+      <tags>
+        <tag>Linux</tag>
+        <tag>Shell</tag>
+        <tag>Basic</tag>
+      </tags>
+  </entry>
 </search>
