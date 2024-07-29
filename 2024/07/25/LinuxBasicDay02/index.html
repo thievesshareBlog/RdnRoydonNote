@@ -1,0 +1,656 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 7.3.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/RdnRoydonNote/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/RdnRoydonNote/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/RdnRoydonNote/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/RdnRoydonNote/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/RdnRoydonNote/css/main.css">
+
+
+<link rel="stylesheet" href="/RdnRoydonNote/lib/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"thievesshareblog.github.io","root":"/RdnRoydonNote/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":false,"style":"mac"},"back2top":{"enable":true,"sidebar":true,"scrollpercent":true},"bookmark":{"enable":true,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":true,"lazyload":true,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="前言 在 Linux 和 Unix 系統中，掌握 Shell 指令是提高工作效率和系統管理能力的重要技能之一。Shell 提供了一個強大且靈活的命令行界面，允許使用者執行各種操作，包括文件和目錄的管理。對於初學者來說，學會如何使用 Shell 指令來操作文件和目錄是入門的第一步。   讓我們繼續這段探索 Shell 指令的旅程，揭開命令行世界的神秘面紗！">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Linux 入門 Day02 - 基本文件檔案操作">
+<meta property="og:url" content="https://thievesshareblog.github.io/RdnRoydonNote/2024/07/25/LinuxBasicDay02/index.html">
+<meta property="og:site_name" content="Roydon&#39;s Note">
+<meta property="og:description" content="前言 在 Linux 和 Unix 系統中，掌握 Shell 指令是提高工作效率和系統管理能力的重要技能之一。Shell 提供了一個強大且靈活的命令行界面，允許使用者執行各種操作，包括文件和目錄的管理。對於初學者來說，學會如何使用 Shell 指令來操作文件和目錄是入門的第一步。   讓我們繼續這段探索 Shell 指令的旅程，揭開命令行世界的神秘面紗！">
+<meta property="og:locale" content="zh_TW">
+<meta property="article:published_time" content="2024-07-25T12:44:17.000Z">
+<meta property="article:modified_time" content="2024-07-26T00:46:06.600Z">
+<meta property="article:author" content="Roydon">
+<meta property="article:tag" content="Linux">
+<meta property="article:tag" content="Shell">
+<meta property="article:tag" content="Basic">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="https://thievesshareblog.github.io/RdnRoydonNote/2024/07/25/LinuxBasicDay02/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-TW'
+  };
+</script>
+
+  <title>Linux 入門 Day02 - 基本文件檔案操作 | Roydon's Note</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切換導航欄">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/RdnRoydonNote/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Roydon's Note</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">Looking for fun in your Coding ~</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/RdnRoydonNote/" rel="section"><i class="fa fa-home fa-fw"></i>首頁</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/RdnRoydonNote/about/" rel="section"><i class="fa fa-user fa-fw"></i>關於</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/RdnRoydonNote/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>標籤<span class="badge">7</span></a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/RdnRoydonNote/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分類<span class="badge">2</span></a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/RdnRoydonNote/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>歸檔<span class="badge">6</span></a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜尋
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜尋..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="reading-progress-bar"></div>
+  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-TW">
+    <link itemprop="mainEntityOfPage" href="https://thievesshareblog.github.io/RdnRoydonNote/2024/07/25/LinuxBasicDay02/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/RdnRoydonNote/images/death.svg">
+      <meta itemprop="name" content="Roydon">
+      <meta itemprop="description" content="少說一句話，少出一趟門，偷得半日閒，自在如我。">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Roydon's Note">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Linux 入門 Day02 - 基本文件檔案操作
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">發表於</span>
+
+              <time title="創建時間：2024-07-25 20:44:17" itemprop="dateCreated datePublished" datetime="2024-07-25T20:44:17+08:00">2024-07-25</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新於</span>
+                <time title="修改時間：2024-07-26 08:46:06" itemprop="dateModified" datetime="2024-07-26T08:46:06+08:00">2024-07-26</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分類於</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/RdnRoydonNote/categories/Linux/" itemprop="url" rel="index"><span itemprop="name">Linux</span></a>
+                </span>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus：</span>
+    
+    <a title="disqus" href="/RdnRoydonNote/2024/07/25/LinuxBasicDay02/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2024/07/25/LinuxBasicDay02/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  <br>
+            <span class="post-meta-item" title="文章字數">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">文章字數：</span>
+              <span>2.6k</span>
+            </span>
+            <span class="post-meta-item" title="所需閱讀時間">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">所需閱讀時間 &asymp;</span>
+              <span>2 分鐘</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a><font size='5'>前言</font></h3><blockquote>
+<p><font size='3'>在 Linux 和 Unix 系統中，掌握 Shell 指令是提高工作效率和系統管理能力的重要技能之一。Shell 提供了一個強大且靈活的命令行界面，允許使用者執行各種操作，包括文件和目錄的管理。對於初學者來說，學會如何使用 Shell 指令來操作文件和目錄是入門的第一步。<br></font></p>
+</blockquote>
+<font size='3'>
+讓我們繼續這段探索 Shell 指令的旅程，揭開命令行世界的神秘面紗！
+</font>
+
+<span id="more"></span>
+
+<br>
+
+<h3 id="文件內容輸出"><a href="#文件內容輸出" class="headerlink" title="文件內容輸出"></a>文件內容輸出</h3><ul>
+<li><code>cat</code>，將內容輸出於標準輸出 ( standard output，螢幕 )</li>
+<li><code>tac</code>，如同 cat 但為反向輸出</li>
+<li><code>nl</code>，將內容一行一行輸出於螢幕上，並標註行號</li>
+</ul>
+<br>
+
+<h3 id="文件瀏覽工具"><a href="#文件瀏覽工具" class="headerlink" title="文件瀏覽工具"></a>文件瀏覽工具</h3><ul>
+<li><code>more</code>，全螢幕瀏覽</li>
+<li><code>less</code>，全螢幕瀏覽<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">[ SPACE ] 	   : 向下翻頁	</span><br><span class="line">[ Page Down ]  : 向下翻頁		[g]	: 最前頁</span><br><span class="line">[ Page Up ]    : 向上翻頁		[G]	: 最後頁</span><br><span class="line"></span><br><span class="line">/字串           : 向下搜尋		[N]	: 上一個搜尋</span><br><span class="line">?字串           : 向上搜尋		[ n]	: 下一個搜尋</span><br><span class="line">[ q]           : 離開</span><br><span class="line"></span><br></pre></td></tr></table></figure></li>
+</ul>
+<br>
+
+<h3 id="文件內容擷取"><a href="#文件內容擷取" class="headerlink" title="文件內容擷取"></a>文件內容擷取</h3><ul>
+<li><code>head</code>，擷取檔案內容前面內容<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">head  [選項]  檔案名稱</span><br><span class="line">-c  n  前多少字元	 -c  -n 全部字元，最尾 n 字元不擷取</span><br><span class="line">-n  n  前多少行		 -n  -n 全部行數，最尾 n 行不擷取</span><br><span class="line"></span><br><span class="line">head  content.txt</span><br><span class="line">head  -n  3  content.txt</span><br><span class="line"></span><br><span class="line">head  -c  10  content.txt</span><br><span class="line">head  -c  -10  content.txt</span><br></pre></td></tr></table></figure></li>
+<li><code>tail</code>，擷取檔案內容後面內容<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">tail  [選項]  檔案名稱</span><br><span class="line">-c  n  前多少字元	 -c  +n 全部字元，最頭 n 字元不擷取</span><br><span class="line">-n  n  前多少行		 -n  +n 全部行數，最頭 n 行不擷取</span><br><span class="line"></span><br><span class="line">tail  content.txt</span><br><span class="line">tail  -n  3  content.txt</span><br><span class="line"></span><br><span class="line">tail  -c  10  content.txt</span><br><span class="line">tail  -c  -10  content.txt</span><br></pre></td></tr></table></figure></li>
+</ul>
+<br>
+
+<h3 id="資料排序與統計"><a href="#資料排序與統計" class="headerlink" title="資料排序與統計"></a>資料排序與統計</h3><ul>
+<li><code>sort</code>，資料排序<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">sort  [選項]  檔案名稱</span><br><span class="line">-b  忽略空白字元	-f  忽略大小寫</span><br><span class="line">-t   以 &quot;符號&quot; 做分隔	-k  n  分隔區間指定 ( 通常與 -t 合併使用 )</span><br><span class="line">-r   反向排序		-u  列出所有資料並去除重複 ( 等同 uniq -u )</span><br><span class="line">-n  以數字排序 ( 非ASCII )</span><br><span class="line"></span><br><span class="line">sort  -r  namelist.txt</span><br><span class="line">sort  -t  &quot;  &quot;  -k  2  namelist.txt</span><br><span class="line">sort  -u  namelist.txt</span><br></pre></td></tr></table></figure></li>
+<li><code>wc</code>，資料統計<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">wc  [選項]  檔案名稱</span><br><span class="line">-l  行數總計		-L  最長行數的字數</span><br><span class="line">-w  字數統計</span><br><span class="line">-m 字元統計		-c  位元組統計 ( byte，容量 )</span><br><span class="line"></span><br><span class="line">wc  -L  namelist.txt</span><br><span class="line">wc  -m  -c  namelist.txt</span><br></pre></td></tr></table></figure></li>
+</ul>
+<br>
+
+<h3 id="打包備份與解包"><a href="#打包備份與解包" class="headerlink" title="打包備份與解包"></a>打包備份與解包</h3><ul>
+<li><code>tar</code>，檔案或資料的封裝，可選擇壓縮功能<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">tar  [選項]  壓縮檔名  來源檔案或目錄  [來源檔案或目錄 n]</span><br><span class="line">-c  建立打包檔		   -v  列出詳盡過程	-f  指定打包檔名</span><br><span class="line">-j   bzip2壓縮格式 ( .bz2 )   -z  gzip壓縮格式 ( .gz )</span><br><span class="line">-t  檢視打包檔內容</span><br><span class="line">-x  解壓縮		   -C  指定解壓縮位置</span><br><span class="line"></span><br><span class="line">tar  -zcv  -f  userdata.tar.gz   /root   /home</span><br><span class="line">tar  -t  -f  userdata.tar.gz</span><br><span class="line">tar  -xv  -f  userdata.tar.gz   -C   /tmp</span><br></pre></td></tr></table></figure></li>
+</ul>
+<br>
+
+<h3 id="內容分割與合併"><a href="#內容分割與合併" class="headerlink" title="內容分割與合併"></a>內容分割與合併</h3><ul>
+<li><code>split</code>，內容分割；適用於文字檔、執行檔、壓縮檔<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">split  [選項]  來源檔案名稱  目的檔案名稱</span><br><span class="line"></span><br><span class="line">-a  n  檔名後綴多少字元	     -d  使用數字後綴 ( 預設為英文 )</span><br><span class="line">-b  n  大小分割  K,M,G,T… ( powers of 1024 ) / KB,MB,GB… ( powers of 1000 ) 	</span><br><span class="line">-l  n  行數分割</span><br><span class="line"></span><br><span class="line">split  -l  5  content.txt  content.txt.split</span><br><span class="line">split  -d  -b  1M  GMJLive.mp3  GMJLive.mp3.split</span><br><span class="line">ls  GMJLive.mp3.split*</span><br></pre></td></tr></table></figure></li>
+<li><code>cat</code>，內容合併；適用於文字檔、執行檔、壓縮檔<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">cat  來源檔案名稱1  [來源檔案名稱n]  &gt;  目的檔案名稱</span><br><span class="line"></span><br><span class="line">cat  content.txt.splitaa  content.txt.splitab   \</span><br><span class="line">content.txt.splitac   &gt;   content.merge</span><br><span class="line"></span><br><span class="line">cat  GMJLive.mp3.split*  &gt;  GMJLive.mp3.merge</span><br></pre></td></tr></table></figure></li>
+</ul>
+<br>
+
+<h3 id="輸出轉向"><a href="#輸出轉向" class="headerlink" title="輸出轉向"></a>輸出轉向</h3><ul>
+<li><code>&gt;</code> 輸出轉向<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cat  ~/.bashrc  &gt;  .bashrc.backup</span><br><span class="line">cat  .bashrc.backup</span><br></pre></td></tr></table></figure></li>
+<li><code>&gt;&gt;</code> 輸出附加轉向<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">date  &gt;&gt;  dateLogs.txt</span><br></pre></td></tr></table></figure></li>
+<li><code>2&gt;</code> 錯誤輸出轉向<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cd  /cat  2&gt;  errorLog.txt</span><br></pre></td></tr></table></figure>
+<br></li>
+</ul>
+<h3 id="輸入轉向"><a href="#輸入轉向" class="headerlink" title="輸入轉向"></a>輸入轉向</h3><ul>
+<li><code>&lt;</code> 輸入轉向<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">head  -n  3  &lt;  namelist.txt</span><br></pre></td></tr></table></figure></li>
+<li><code>&lt;&lt;</code> 輸入附加轉向<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">cat  &gt;  stdIO.txt  &lt;&lt;  &quot;END&quot;</span><br><span class="line"><span class="meta prompt_">&gt; </span><span class="language-bash">HAHA!</span> </span><br><span class="line"><span class="meta prompt_">&gt;</span><span class="language-bash"></span></span><br><span class="line"><span class="language-bash">&gt; This  is  not  the  use  of  vi/vim.</span></span><br><span class="line"><span class="meta prompt_">&gt;</span><span class="language-bash"></span></span><br><span class="line"><span class="language-bash">&gt; END</span></span><br></pre></td></tr></table></figure></li>
+<li><code>2&gt;&gt;</code> 錯誤輸出附加轉向<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">date  -qq  2&gt;&gt;  errorLogs.txt</span><br><span class="line">date  -ww  2&gt;&gt;  errorLogs.txt</span><br></pre></td></tr></table></figure></li>
+</ul>
+<br>
+
+<h3 id="全部轉向"><a href="#全部轉向" class="headerlink" title="全部轉向"></a>全部轉向</h3><ul>
+<li><code>&amp;&gt;</code>  輸出與錯誤輸出轉向<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">head  -n  1  /etc/host  /etc/hosts   &amp;&gt;  allTurn.txt</span><br></pre></td></tr></table></figure></li>
+<li><code>&amp;&gt;&gt;</code> 輸出與錯誤輸出附加轉向<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">head  -n  1  ~/.bashrc   ~/.bash   &amp;&gt;&gt;  allTurns.txt</span><br><span class="line">ls  /unix   /linux   &amp;&gt;&gt;  allTurns.txt</span><br></pre></td></tr></table></figure></li>
+</ul>
+<br>
+
+<h3 id="管線"><a href="#管線" class="headerlink" title="管線"></a>管線</h3><ul>
+<li><code>grep</code>，列出符合指定關鍵字的行數<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">grep  [選項]  關鍵字  檔案名稱</span><br><span class="line">-i  忽略大小寫		-w  完整符合 ( 以字為單位 )</span><br><span class="line">-c  符合關鍵字的數量     -n  輸出行數加上行號 ( 等同 nl、cat -n 效果 )</span><br><span class="line">-v  相反輸出 ( 輸出不符合關鍵字資料 )</span><br><span class="line"></span><br><span class="line">grep  &quot;Peter  Parker&quot;  namelist.txt</span><br><span class="line">grep  -in  b  namelist.txt</span><br><span class="line">cat  namelist.txt  |  grep  -iw  wanda</span><br><span class="line">cat  namelist.txt  |  grep  -ic  loki</span><br></pre></td></tr></table></figure></li>
+<li><code>uniq</code>，統計已排序資料之獨特性 ( 以行為處理單位，比較鄰近行 )<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">uniq  [選項]  檔案名稱        </span><br><span class="line">-c   標出每個資料的統計</span><br><span class="line">-d  只列出有重複的資料</span><br><span class="line">-u  只列出沒有重復的資料</span><br><span class="line"></span><br><span class="line">uniq  namelist.txt</span><br><span class="line">sort  namelist.txt  |  uniq  -c</span><br><span class="line">sort  namelist.txt  |  uniq  -d</span><br><span class="line">sort  namelist.txt  |  uniq  -dc</span><br></pre></td></tr></table></figure></li>
+</ul>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          
+          <div class="post-tags">
+              <a href="/RdnRoydonNote/tags/Linux/" rel="tag"><i class="fa fa-tag"></i> Linux</a>
+              <a href="/RdnRoydonNote/tags/Shell/" rel="tag"><i class="fa fa-tag"></i> Shell</a>
+              <a href="/RdnRoydonNote/tags/Basic/" rel="tag"><i class="fa fa-tag"></i> Basic</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/RdnRoydonNote/2024/07/25/LinuxBasicDay01/" rel="prev" title="Linux 入門 Day01 - 基本檔案、目錄操作指令">
+      <i class="fa fa-chevron-left"></i> Linux 入門 Day01 - 基本檔案、目錄操作指令
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/RdnRoydonNote/2024/07/25/LinuxBasicDay03/" rel="next" title="Linux 入門 Day03 - 文字編輯器 & 網路管理">
+      Linux 入門 Day03 - 文字編輯器 & 網路管理 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+    
+  <div class="comments">
+    <div id="disqus_thread">
+      <noscript>Please enable JavaScript to view the comments powered by Disqus.</noscript>
+    </div>
+  </div>
+  
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目錄
+        </li>
+        <li class="sidebar-nav-overview">
+          本站概要
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%89%8D%E8%A8%80"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%96%87%E4%BB%B6%E5%85%A7%E5%AE%B9%E8%BC%B8%E5%87%BA"><span class="nav-number">2.</span> <span class="nav-text">文件內容輸出</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%96%87%E4%BB%B6%E7%80%8F%E8%A6%BD%E5%B7%A5%E5%85%B7"><span class="nav-number">3.</span> <span class="nav-text">文件瀏覽工具</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%96%87%E4%BB%B6%E5%85%A7%E5%AE%B9%E6%93%B7%E5%8F%96"><span class="nav-number">4.</span> <span class="nav-text">文件內容擷取</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%B3%87%E6%96%99%E6%8E%92%E5%BA%8F%E8%88%87%E7%B5%B1%E8%A8%88"><span class="nav-number">5.</span> <span class="nav-text">資料排序與統計</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%89%93%E5%8C%85%E5%82%99%E4%BB%BD%E8%88%87%E8%A7%A3%E5%8C%85"><span class="nav-number">6.</span> <span class="nav-text">打包備份與解包</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%85%A7%E5%AE%B9%E5%88%86%E5%89%B2%E8%88%87%E5%90%88%E4%BD%B5"><span class="nav-number">7.</span> <span class="nav-text">內容分割與合併</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%BC%B8%E5%87%BA%E8%BD%89%E5%90%91"><span class="nav-number">8.</span> <span class="nav-text">輸出轉向</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%BC%B8%E5%85%A5%E8%BD%89%E5%90%91"><span class="nav-number">9.</span> <span class="nav-text">輸入轉向</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%85%A8%E9%83%A8%E8%BD%89%E5%90%91"><span class="nav-number">10.</span> <span class="nav-text">全部轉向</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%AE%A1%E7%B7%9A"><span class="nav-number">11.</span> <span class="nav-text">管線</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Roydon"
+      src="/RdnRoydonNote/images/death.svg">
+  <p class="site-author-name" itemprop="name">Roydon</p>
+  <div class="site-description" itemprop="description">少說一句話，少出一趟門，偷得半日閒，自在如我。</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/RdnRoydonNote/archives/">
+        
+          <span class="site-state-item-count">6</span>
+          <span class="site-state-item-name">文章</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/RdnRoydonNote/categories/">
+          
+        <span class="site-state-item-count">2</span>
+        <span class="site-state-item-name">分類</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/RdnRoydonNote/tags/">
+          
+        <span class="site-state-item-count">7</span>
+        <span class="site-state-item-name">標籤</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="mailto:thievesshare@gmail.com" title="E-Mail → mailto:thievesshare@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i></a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://www.youtube.com/@coding9413" title="YouTube → https:&#x2F;&#x2F;www.youtube.com&#x2F;@coding9413" rel="noopener" target="_blank"><i class="fab fa-youtube fa-fw"></i></a>
+      </span>
+  </div>
+
+
+
+      </div>
+        <div class="back-to-top motion-element">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2024</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Roydon</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+    <span title="總字數">10k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="所需總閱讀時間">10 分鐘</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 強力驅動
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/RdnRoydonNote/lib/anime.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js"></script>
+  <script src="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/medium-zoom@1/dist/medium-zoom.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/lozad@1/dist/lozad.min.js"></script>
+  <script src="/RdnRoydonNote/lib/velocity/velocity.min.js"></script>
+  <script src="/RdnRoydonNote/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/RdnRoydonNote/js/utils.js"></script>
+
+<script src="/RdnRoydonNote/js/motion.js"></script>
+
+
+<script src="/RdnRoydonNote/js/schemes/pisces.js"></script>
+
+
+<script src="/RdnRoydonNote/js/next-boot.js"></script>
+
+<script src="/RdnRoydonNote/js/bookmark.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/RdnRoydonNote/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+<script>
+document.querySelectorAll('.pdfobject-container').forEach(element => {
+  let url = element.dataset.target;
+  let pdfOpenParams = {
+    navpanes : 0,
+    toolbar  : 0,
+    statusbar: 0,
+    pagemode : 'thumbs',
+    view     : 'FitH'
+  };
+  let pdfOpenFragment = '#' + Object.entries(pdfOpenParams).map(([key, value]) => `${key}=${encodeURIComponent(value)}`).join('&');
+  let fullURL = `/RdnRoydonNote/lib/pdf/web/viewer.html?file=${encodeURIComponent(url)}${pdfOpenFragment}`;
+
+  if (NexT.utils.supportsPDFs()) {
+    element.innerHTML = `<embed class="pdfobject" src="${url + pdfOpenFragment}" type="application/pdf" style="height: ${element.dataset.height};">`;
+  } else {
+    element.innerHTML = `<iframe src="${fullURL}" style="height: ${element.dataset.height};" frameborder="0"></iframe>`;
+  }
+});
+</script>
+
+
+<script>
+if (document.querySelectorAll('pre.mermaid').length) {
+  NexT.utils.getScript('//cdn.jsdelivr.net/npm/mermaid@8/dist/mermaid.min.js', () => {
+    mermaid.initialize({
+      theme    : 'forest',
+      logLevel : 3,
+      flowchart: { curve     : 'linear' },
+      gantt    : { axisFormat: '%m/%d/%Y' },
+      sequence : { actorMargin: 50 }
+    });
+  }, window.mermaid);
+}
+</script>
+
+
+  
+
+  
+
+<script>
+  function loadCount() {
+    var d = document, s = d.createElement('script');
+    s.src = 'https://cloud-blog.disqus.com/count.js';
+    s.id = 'dsq-count-scr';
+    (d.head || d.body).appendChild(s);
+  }
+  // defer loading until the whole page loading is completed
+  window.addEventListener('load', loadCount, false);
+</script>
+<script>
+  var disqus_config = function() {
+    this.page.url = "https://thievesshareblog.github.io/RdnRoydonNote/2024/07/25/LinuxBasicDay02/";
+    this.page.identifier = "2024/07/25/LinuxBasicDay02/";
+    this.page.title = "Linux 入門 Day02 - 基本文件檔案操作";
+    };
+  NexT.utils.loadComments(document.querySelector('#disqus_thread'), () => {
+    if (window.DISQUS) {
+      DISQUS.reset({
+        reload: true,
+        config: disqus_config
+      });
+    } else {
+      var d = document, s = d.createElement('script');
+      s.src = 'https://cloud-blog.disqus.com/embed.js';
+      s.setAttribute('data-timestamp', '' + +new Date());
+      (d.head || d.body).appendChild(s);
+    }
+  });
+</script>
+
+</body>
+</html>
