@@ -23,13 +23,13 @@
 
   <meta name="description" content="前言 在現代的計算機操作中，命令行界面（Command Line Interface，簡稱 CLI）依然扮演著不可或缺的角色。無論是系統管理員、開發者，還是一般使用者，都能從中受益，提升工作效率。Shell 是一種命令行解釋器，它提供了與操作系統進行交互的強大工具。學習和掌握 Shell 指令，不僅能讓你更有效地管理系統資源，還能自動化重複性任務，簡化工作流程。   讓我們開始這段探索 Shell">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Linux 入門 Day06 - Shell Script - 2">
+<meta property="og:title" content="Linux 入門 Day06 - Shell Script - 1">
 <meta property="og:url" content="https://thievesshareblog.github.io/RdnRoydonNote/2024/07/29/LinuxBasicDay06/index.html">
 <meta property="og:site_name" content="Roydon&#39;s Note">
 <meta property="og:description" content="前言 在現代的計算機操作中，命令行界面（Command Line Interface，簡稱 CLI）依然扮演著不可或缺的角色。無論是系統管理員、開發者，還是一般使用者，都能從中受益，提升工作效率。Shell 是一種命令行解釋器，它提供了與操作系統進行交互的強大工具。學習和掌握 Shell 指令，不僅能讓你更有效地管理系統資源，還能自動化重複性任務，簡化工作流程。   讓我們開始這段探索 Shell">
 <meta property="og:locale" content="zh_TW">
 <meta property="article:published_time" content="2024-07-29T02:15:11.000Z">
-<meta property="article:modified_time" content="2024-07-29T02:22:03.152Z">
+<meta property="article:modified_time" content="2024-07-29T02:59:01.430Z">
 <meta property="article:author" content="Roydon">
 <meta property="article:tag" content="Linux">
 <meta property="article:tag" content="Shell">
@@ -49,7 +49,7 @@
   };
 </script>
 
-  <title>Linux 入門 Day06 - Shell Script - 2 | Roydon's Note</title>
+  <title>Linux 入門 Day06 - Shell Script - 1 | Roydon's Note</title>
   
 
 
@@ -209,7 +209,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          Linux 入門 Day06 - Shell Script - 2
+          Linux 入門 Day06 - Shell Script - 1
         </h1>
 
         <div class="post-meta">
@@ -220,7 +220,7 @@
               <span class="post-meta-item-text">發表於</span>
               
 
-              <time title="創建時間：2024-07-29 10:15:11 / 修改時間：10:22:03" itemprop="dateCreated datePublished" datetime="2024-07-29T10:15:11+08:00">2024-07-29</time>
+              <time title="創建時間：2024-07-29 10:15:11 / 修改時間：10:59:01" itemprop="dateCreated datePublished" datetime="2024-07-29T10:15:11+08:00">2024-07-29</time>
             </span>
 
           
@@ -243,7 +243,7 @@
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">文章字數：</span>
-              <span>329</span>
+              <span>937</span>
             </span>
             <span class="post-meta-item" title="所需閱讀時間">
               <span class="post-meta-item-icon">
@@ -275,7 +275,11 @@
 
 <h3 id="條件計算-test"><a href="#條件計算-test" class="headerlink" title="條件計算 test"></a>條件計算 test</h3><ul>
 <li>任何計算比較後都僅回覆 0 或 1</li>
-<li>檔案操作：檔案目錄存在與屬性檢查<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">-f       檢查檔案存在(正規)</span><br><span class="line">-e       檢查檔案存在	         -r       檢查檔案讀取性</span><br><span class="line">-w       檢查檔案可寫性          </span><br><span class="line">-d       檢查目錄存在	         -x       檢查檔案執行性</span><br></pre></td></tr></table></figure></li>
+<li>也可用 [ ] 改寫</li>
+<li><h4 id="檔案操作：檔案目錄存在與屬性檢查"><a href="#檔案操作：檔案目錄存在與屬性檢查" class="headerlink" title="檔案操作：檔案目錄存在與屬性檢查"></a>檔案操作：檔案目錄存在與屬性檢查</h4>  <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">-f       檢查檔案存在(正規)</span><br><span class="line">-e       檢查檔案存在	         -r       檢查檔案讀取性</span><br><span class="line">-w       檢查檔案可寫性          </span><br><span class="line">-d       檢查目錄存在	         -x       檢查檔案執行性</span><br><span class="line"></span><br><span class="line">test  -e  /etc/passwd  </span><br><span class="line"></span><br><span class="line">-nt      檢查 檔案A 是否比 檔案B 新</span><br><span class="line">-ot      檢查 檔案A 是否比 檔案B 舊</span><br><span class="line">-ef      檢查 檔案A 是否與 檔案B 有鏈結關係</span><br><span class="line"></span><br><span class="line">test  ~/.profile  -nt  ~/.bashrc</span><br><span class="line">test  ~/.profile  -ot  ~/.bashrc</span><br><span class="line">test  /sbin/poweroff  -ef  /sbin/reboot</span><br></pre></td></tr></table></figure></li>
+<li><h4 id="字串操作：空值檢查"><a href="#字串操作：空值檢查" class="headerlink" title="字串操作：空值檢查"></a>字串操作：空值檢查</h4>  <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">-z      檢查值是否為空值    </span><br><span class="line">-n      檢查值是否非為空值</span><br><span class="line">	</span><br><span class="line">myValue=99</span><br><span class="line">test  -z  $myValue</span><br><span class="line">1</span><br><span class="line">test  -n  $myValue</span><br><span class="line">0</span><br></pre></td></tr></table></figure></li>
+<li><h4 id="字串操作：字元比較"><a href="#字串操作：字元比較" class="headerlink" title="字串操作：字元比較"></a>字串操作：字元比較</h4>  <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">!= (-ne)     # 檢查是否不相等字串     </span><br><span class="line">== (-eq)     # 檢查是否相等字串       </span><br><span class="line">&lt;            # 檢查是否小於某字串</span><br><span class="line"><span class="meta prompt_">&gt; </span><span class="language-bash">           <span class="comment"># 檢查是否大於某字串</span></span></span><br><span class="line"></span><br><span class="line">test  $myString1  ==  $myString2</span><br><span class="line">test  $myString1  \&lt;  $myString2</span><br><span class="line">test  $myString1  \&gt;  $myString2</span><br></pre></td></tr></table></figure></li>
+<li><h4 id="字串操作：數字比較"><a href="#字串操作：數字比較" class="headerlink" title="字串操作：數字比較"></a>字串操作：數字比較</h4>  <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">數字比較用英文比較為好</span></span><br><span class="line"></span><br><span class="line">!= (-ne)     # 檢查是否不相等某值 </span><br><span class="line">== (-eq)     # 檢查是否相等某值      </span><br><span class="line">&lt;  (-lt)     # 檢查是否小於某值</span><br><span class="line"><span class="meta prompt_">&gt; </span><span class="language-bash"> (-gt)     <span class="comment"># 檢查是否大於某值</span></span></span><br><span class="line">&lt;= (-le)     # 檢查是否小於等於某值</span><br><span class="line"><span class="meta prompt_">&gt;</span><span class="language-bash">= (-ge)     <span class="comment"># 檢查是否大於等於某值</span></span></span><br><span class="line"></span><br><span class="line">test  $myValue1  -eq  $myValue2</span><br><span class="line">test  $myValue1  -lt  $myValue2</span><br></pre></td></tr></table></figure></li>
 </ul>
 
     </div>
@@ -367,7 +371,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%89%8D%E8%A8%80"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%A2%9D%E4%BB%B6%E8%A8%88%E7%AE%97-test"><span class="nav-number">2.</span> <span class="nav-text">條件計算 test</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%89%8D%E8%A8%80"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%A2%9D%E4%BB%B6%E8%A8%88%E7%AE%97-test"><span class="nav-number">2.</span> <span class="nav-text">條件計算 test</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%AA%94%E6%A1%88%E6%93%8D%E4%BD%9C%EF%BC%9A%E6%AA%94%E6%A1%88%E7%9B%AE%E9%8C%84%E5%AD%98%E5%9C%A8%E8%88%87%E5%B1%AC%E6%80%A7%E6%AA%A2%E6%9F%A5"><span class="nav-number">2.1.</span> <span class="nav-text">檔案操作：檔案目錄存在與屬性檢查</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%AD%97%E4%B8%B2%E6%93%8D%E4%BD%9C%EF%BC%9A%E7%A9%BA%E5%80%BC%E6%AA%A2%E6%9F%A5"><span class="nav-number">2.2.</span> <span class="nav-text">字串操作：空值檢查</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%AD%97%E4%B8%B2%E6%93%8D%E4%BD%9C%EF%BC%9A%E5%AD%97%E5%85%83%E6%AF%94%E8%BC%83"><span class="nav-number">2.3.</span> <span class="nav-text">字串操作：字元比較</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%AD%97%E4%B8%B2%E6%93%8D%E4%BD%9C%EF%BC%9A%E6%95%B8%E5%AD%97%E6%AF%94%E8%BC%83"><span class="nav-number">2.4.</span> <span class="nav-text">字串操作：數字比較</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -444,7 +448,7 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-area"></i>
     </span>
-    <span title="總字數">10k</span>
+    <span title="總字數">11k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
@@ -562,7 +566,7 @@ if (document.querySelectorAll('pre.mermaid').length) {
   var disqus_config = function() {
     this.page.url = "https://thievesshareblog.github.io/RdnRoydonNote/2024/07/29/LinuxBasicDay06/";
     this.page.identifier = "2024/07/29/LinuxBasicDay06/";
-    this.page.title = "Linux 入門 Day06 - Shell Script - 2";
+    this.page.title = "Linux 入門 Day06 - Shell Script - 1";
     };
   NexT.utils.loadComments(document.querySelector('#disqus_thread'), () => {
     if (window.DISQUS) {
