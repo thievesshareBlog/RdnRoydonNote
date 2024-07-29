@@ -1,6 +1,229 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>ISO 映像檔燒錄 USB 隨身碟</title>
+    <url>/RdnRoydonNote/2024/07/24/ISO-to-USB/</url>
+    <content><![CDATA[<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a><font size='5'>前言</font></h3><blockquote>
+<p><font size='3'>在當今數位化的世界裡，ISO 映像檔成為了一種非常普遍的文件格式，用於分發操作系統、軟體安裝包以及其他需要保留原始文件結構的資料。ISO 映像檔的優勢在於它能夠將整個光碟的內容完整地保存下來，並且可以輕鬆地分發和複製。然而，隨著光碟驅動器的逐漸淘汰和 USB 隨身碟的普及，越來越多的人選擇將 ISO 映像檔燒錄到 USB 隨身碟上，以便更方便地安裝操作系統或運行應用程式。</font></p>
+</blockquote>
+<font size='3'>
+這篇文章將詳細介紹如何將 ISO 映像檔燒錄到 USB 隨身碟，幫助你輕鬆完成這一過程。無論你是要安裝新的操作系統、進行系統修復，還是需要創建可啟動的 USB 隨身碟，這篇指南都將提供你所需的步驟和工具。讓我們開始吧！
+</font>
+
+<span id="more"></span>
+
+<h3 id="解決方法"><a href="#解決方法" class="headerlink" title="解決方法"></a>解決方法</h3><ol>
+<li><h4 id="Rufus"><a href="#Rufus" class="headerlink" title="Rufus"></a><a href="https://rufus.ie/zh_TW/">Rufus</a></h4><p> <img data-src='rufus.png' width='300'></img></p>
+<ul>
+<li><font size='3'>步驟 1：下載安裝 Rufus</font></li>
+<li><font size='3'>步驟 2：準備 USB 隨身碟</font></li>
+<li><font size='3'>步驟 3：選擇 ISO檔來源、確認隨身碟位置（ 基本預設即可 ）</font></li>
+<li><font size='3'>步驟 4：開始燒錄等待完成</font></li>
+</ul>
+</li>
+<li><h4 id="Etcher"><a href="#Etcher" class="headerlink" title="Etcher"></a><a href="https://etcher.balena.io/">Etcher</a></h4><p> <img data-src='etcher.png' width='500'></img></p>
+<ul>
+<li><font size='3'>步驟 1：下載安裝 Etcher</font></li>
+<li><font size='3'>步驟 2：準備 USB 隨身碟</font></li>
+<li><font size='3'>步驟 3：選擇 ISO檔來源</font></li>
+<li><font size='3'>步驟 4：確認隨身碟位置</font></li>
+<li><font size='3'>步驟 5：開始燒錄等待完成</font></li>
+</ul>
+</li>
+<li><h4 id="Ventoy"><a href="#Ventoy" class="headerlink" title="Ventoy"></a><a href="https://www.ventoy.net/en/download.html">Ventoy</a></h4><p> <img data-src='ventoy.png' width='300'></img></p>
+<ul>
+<li><font size='3'>步驟 1：下載安裝 Ventoy</font></li>
+<li><font size='3'>步驟 2：準備 USB 隨身碟</font></li>
+<li><font size='3'>步驟 3：打開 Ventoy2Disk.exe</font></li>
+<li><font size='3'>步驟 4：確認隨身碟位置</font></li>
+<li><font size='3'>步驟 5：選擇 Install</font></li>
+<li><font size='3'>步驟 6：等待完成後，可直接將 ISO 直接丟到隨身碟中 （ Window 與 Linux 都可 ）</font></li>
+</ul>
+ <br>
+
+ <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line"># 解壓縮後，執行</span><br><span class="line">bash VentoyWeb.sh</span><br><span class="line"></span><br><span class="line"># 打開網頁 24680 Port，接下來與 Windows 相同操作</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+</li>
+<li><h4 id="UNetbootin"><a href="#UNetbootin" class="headerlink" title="UNetbootin"></a><a href="https://unetbootin.github.io/">UNetbootin</a></h4><p> <img data-src='UNetbootin.png' width='500'></img></p>
+<ul>
+<li><font size='3'>步驟 1：下載安裝 UNetbootin</font></li>
+<li><font size='3'>步驟 2：準備 USB 隨身碟</font></li>
+<li><font size='3'>步驟 3：可選擇版本，軟體會自動幫忙下載，也可手動</font></li>
+<li><font size='3'>步驟 4：確認隨身碟位置</font></li>
+<li><font size='3'>步驟 5：開始燒錄等待完成</font></li>
+</ul>
+</li>
+</ol>
+]]></content>
+      <categories>
+        <category>工具</category>
+      </categories>
+      <tags>
+        <tag>USB</tag>
+        <tag>ISO</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Linux 入門 Day02 - 基本文件檔案操作</title>
+    <url>/RdnRoydonNote/2024/07/25/LinuxBasicDay02/</url>
+    <content><![CDATA[<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a><font size='5'>前言</font></h3><blockquote>
+<p><font size='3'>在 Linux 和 Unix 系統中，掌握 Shell 指令是提高工作效率和系統管理能力的重要技能之一。Shell 提供了一個強大且靈活的命令行界面，允許使用者執行各種操作，包括文件和目錄的管理。對於初學者來說，學會如何使用 Shell 指令來操作文件和目錄是入門的第一步。<br></font></p>
+</blockquote>
+<font size='3'>
+讓我們繼續這段探索 Shell 指令的旅程，揭開命令行世界的神秘面紗！
+</font>
+
+<span id="more"></span>
+
+<br>
+
+<h3 id="文件內容輸出"><a href="#文件內容輸出" class="headerlink" title="文件內容輸出"></a>文件內容輸出</h3><ul>
+<li><code>cat</code>，將內容輸出於標準輸出 ( standard output，螢幕 )</li>
+<li><code>tac</code>，如同 cat 但為反向輸出</li>
+<li><code>nl</code>，將內容一行一行輸出於螢幕上，並標註行號</li>
+</ul>
+<br>
+
+<h3 id="文件瀏覽工具"><a href="#文件瀏覽工具" class="headerlink" title="文件瀏覽工具"></a>文件瀏覽工具</h3><ul>
+<li><code>more</code>，全螢幕瀏覽</li>
+<li><code>less</code>，全螢幕瀏覽<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">[ SPACE ] 	   : 向下翻頁	</span><br><span class="line">[ Page Down ]  : 向下翻頁		[g]	: 最前頁</span><br><span class="line">[ Page Up ]    : 向上翻頁		[G]	: 最後頁</span><br><span class="line"></span><br><span class="line">/字串           : 向下搜尋		[N]	: 上一個搜尋</span><br><span class="line">?字串           : 向上搜尋		[ n]	: 下一個搜尋</span><br><span class="line">[ q]           : 離開</span><br><span class="line"></span><br></pre></td></tr></table></figure></li>
+</ul>
+<br>
+
+<h3 id="文件內容擷取"><a href="#文件內容擷取" class="headerlink" title="文件內容擷取"></a>文件內容擷取</h3><ul>
+<li><code>head</code>，擷取檔案內容前面內容<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">head  [選項]  檔案名稱</span><br><span class="line">-c  n  前多少字元	 -c  -n 全部字元，最尾 n 字元不擷取</span><br><span class="line">-n  n  前多少行		 -n  -n 全部行數，最尾 n 行不擷取</span><br><span class="line"></span><br><span class="line">head  content.txt</span><br><span class="line">head  -n  3  content.txt</span><br><span class="line"></span><br><span class="line">head  -c  10  content.txt</span><br><span class="line">head  -c  -10  content.txt</span><br></pre></td></tr></table></figure></li>
+<li><code>tail</code>，擷取檔案內容後面內容<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">tail  [選項]  檔案名稱</span><br><span class="line">-c  n  前多少字元	 -c  +n 全部字元，最頭 n 字元不擷取</span><br><span class="line">-n  n  前多少行		 -n  +n 全部行數，最頭 n 行不擷取</span><br><span class="line"></span><br><span class="line">tail  content.txt</span><br><span class="line">tail  -n  3  content.txt</span><br><span class="line"></span><br><span class="line">tail  -c  10  content.txt</span><br><span class="line">tail  -c  -10  content.txt</span><br></pre></td></tr></table></figure></li>
+</ul>
+<br>
+
+<h3 id="資料排序與統計"><a href="#資料排序與統計" class="headerlink" title="資料排序與統計"></a>資料排序與統計</h3><ul>
+<li><code>sort</code>，資料排序<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">sort  [選項]  檔案名稱</span><br><span class="line">-b  忽略空白字元	-f  忽略大小寫</span><br><span class="line">-t   以 &quot;符號&quot; 做分隔	-k  n  分隔區間指定 ( 通常與 -t 合併使用 )</span><br><span class="line">-r   反向排序		-u  列出所有資料並去除重複 ( 等同 uniq -u )</span><br><span class="line">-n  以數字排序 ( 非ASCII )</span><br><span class="line"></span><br><span class="line">sort  -r  namelist.txt</span><br><span class="line">sort  -t  &quot;  &quot;  -k  2  namelist.txt</span><br><span class="line">sort  -u  namelist.txt</span><br></pre></td></tr></table></figure></li>
+<li><code>wc</code>，資料統計<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">wc  [選項]  檔案名稱</span><br><span class="line">-l  行數總計		-L  最長行數的字數</span><br><span class="line">-w  字數統計</span><br><span class="line">-m 字元統計		-c  位元組統計 ( byte，容量 )</span><br><span class="line"></span><br><span class="line">wc  -L  namelist.txt</span><br><span class="line">wc  -m  -c  namelist.txt</span><br></pre></td></tr></table></figure></li>
+</ul>
+<br>
+
+<h3 id="打包備份與解包"><a href="#打包備份與解包" class="headerlink" title="打包備份與解包"></a>打包備份與解包</h3><ul>
+<li><code>tar</code>，檔案或資料的封裝，可選擇壓縮功能<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">tar  [選項]  壓縮檔名  來源檔案或目錄  [來源檔案或目錄 n]</span><br><span class="line">-c  建立打包檔		   -v  列出詳盡過程	-f  指定打包檔名</span><br><span class="line">-j   bzip2壓縮格式 ( .bz2 )   -z  gzip壓縮格式 ( .gz )</span><br><span class="line">-t  檢視打包檔內容</span><br><span class="line">-x  解壓縮		   -C  指定解壓縮位置</span><br><span class="line"></span><br><span class="line">tar  -zcv  -f  userdata.tar.gz   /root   /home</span><br><span class="line">tar  -t  -f  userdata.tar.gz</span><br><span class="line">tar  -xv  -f  userdata.tar.gz   -C   /tmp</span><br></pre></td></tr></table></figure></li>
+</ul>
+<br>
+
+<h3 id="內容分割與合併"><a href="#內容分割與合併" class="headerlink" title="內容分割與合併"></a>內容分割與合併</h3><ul>
+<li><code>split</code>，內容分割；適用於文字檔、執行檔、壓縮檔<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">split  [選項]  來源檔案名稱  目的檔案名稱</span><br><span class="line"></span><br><span class="line">-a  n  檔名後綴多少字元	     -d  使用數字後綴 ( 預設為英文 )</span><br><span class="line">-b  n  大小分割  K,M,G,T… ( powers of 1024 ) / KB,MB,GB… ( powers of 1000 ) 	</span><br><span class="line">-l  n  行數分割</span><br><span class="line"></span><br><span class="line">split  -l  5  content.txt  content.txt.split</span><br><span class="line">split  -d  -b  1M  GMJLive.mp3  GMJLive.mp3.split</span><br><span class="line">ls  GMJLive.mp3.split*</span><br></pre></td></tr></table></figure></li>
+<li><code>cat</code>，內容合併；適用於文字檔、執行檔、壓縮檔<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">cat  來源檔案名稱1  [來源檔案名稱n]  &gt;  目的檔案名稱</span><br><span class="line"></span><br><span class="line">cat  content.txt.splitaa  content.txt.splitab   \</span><br><span class="line">content.txt.splitac   &gt;   content.merge</span><br><span class="line"></span><br><span class="line">cat  GMJLive.mp3.split*  &gt;  GMJLive.mp3.merge</span><br></pre></td></tr></table></figure></li>
+</ul>
+<br>
+
+<h3 id="輸出轉向"><a href="#輸出轉向" class="headerlink" title="輸出轉向"></a>輸出轉向</h3><ul>
+<li><code>&gt;</code> 輸出轉向<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">cat  ~/.bashrc  &gt;  .bashrc.backup</span><br><span class="line">cat  .bashrc.backup</span><br></pre></td></tr></table></figure></li>
+<li><code>&gt;&gt;</code> 輸出附加轉向<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">date  &gt;&gt;  dateLogs.txt</span><br></pre></td></tr></table></figure></li>
+<li><code>2&gt;</code> 錯誤輸出轉向<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">cd  /cat  2&gt;  errorLog.txt</span><br></pre></td></tr></table></figure>
+<br></li>
+</ul>
+<h3 id="輸入轉向"><a href="#輸入轉向" class="headerlink" title="輸入轉向"></a>輸入轉向</h3><ul>
+<li><code>&lt;</code> 輸入轉向<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">head  -n  3  &lt;  namelist.txt</span><br></pre></td></tr></table></figure></li>
+<li><code>&lt;&lt;</code> 輸入附加轉向<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">cat  &gt;  stdIO.txt  &lt;&lt;  &quot;END&quot;</span><br><span class="line"><span class="meta prompt_">&gt; </span><span class="language-bash">HAHA!</span> </span><br><span class="line"><span class="meta prompt_">&gt;</span><span class="language-bash"></span></span><br><span class="line"><span class="language-bash">&gt; This  is  not  the  use  of  vi/vim.</span></span><br><span class="line"><span class="meta prompt_">&gt;</span><span class="language-bash"></span></span><br><span class="line"><span class="language-bash">&gt; END</span></span><br></pre></td></tr></table></figure></li>
+<li><code>2&gt;&gt;</code> 錯誤輸出附加轉向<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">date  -qq  2&gt;&gt;  errorLogs.txt</span><br><span class="line">date  -ww  2&gt;&gt;  errorLogs.txt</span><br></pre></td></tr></table></figure></li>
+</ul>
+<br>
+
+<h3 id="全部轉向"><a href="#全部轉向" class="headerlink" title="全部轉向"></a>全部轉向</h3><ul>
+<li><code>&amp;&gt;</code>  輸出與錯誤輸出轉向<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">head  -n  1  /etc/host  /etc/hosts   &amp;&gt;  allTurn.txt</span><br></pre></td></tr></table></figure></li>
+<li><code>&amp;&gt;&gt;</code> 輸出與錯誤輸出附加轉向<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">head  -n  1  ~/.bashrc   ~/.bash   &amp;&gt;&gt;  allTurns.txt</span><br><span class="line">ls  /unix   /linux   &amp;&gt;&gt;  allTurns.txt</span><br></pre></td></tr></table></figure></li>
+</ul>
+<br>
+
+<h3 id="管線"><a href="#管線" class="headerlink" title="管線"></a>管線</h3><ul>
+<li><code>grep</code>，列出符合指定關鍵字的行數<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">grep  [選項]  關鍵字  檔案名稱</span><br><span class="line">-i  忽略大小寫		-w  完整符合 ( 以字為單位 )</span><br><span class="line">-c  符合關鍵字的數量     -n  輸出行數加上行號 ( 等同 nl、cat -n 效果 )</span><br><span class="line">-v  相反輸出 ( 輸出不符合關鍵字資料 )</span><br><span class="line"></span><br><span class="line">grep  &quot;Peter  Parker&quot;  namelist.txt</span><br><span class="line">grep  -in  b  namelist.txt</span><br><span class="line">cat  namelist.txt  |  grep  -iw  wanda</span><br><span class="line">cat  namelist.txt  |  grep  -ic  loki</span><br></pre></td></tr></table></figure></li>
+<li><code>uniq</code>，統計已排序資料之獨特性 ( 以行為處理單位，比較鄰近行 )<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">uniq  [選項]  檔案名稱        </span><br><span class="line">-c   標出每個資料的統計</span><br><span class="line">-d  只列出有重複的資料</span><br><span class="line">-u  只列出沒有重復的資料</span><br><span class="line"></span><br><span class="line">uniq  namelist.txt</span><br><span class="line">sort  namelist.txt  |  uniq  -c</span><br><span class="line">sort  namelist.txt  |  uniq  -d</span><br><span class="line">sort  namelist.txt  |  uniq  -dc</span><br></pre></td></tr></table></figure></li>
+</ul>
+]]></content>
+      <categories>
+        <category>Linux</category>
+      </categories>
+      <tags>
+        <tag>Linux</tag>
+        <tag>Shell</tag>
+        <tag>Basic</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Linux 入門 Day03 - 文字編輯器 &amp; 網路管理</title>
+    <url>/RdnRoydonNote/2024/07/25/LinuxBasicDay03/</url>
+    <content><![CDATA[<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a><font size='5'>前言</font></h3><blockquote>
+<p><font size='3'>在現代的計算環境中，網路管理對於 Linux 系統的操作和維護至關重要。無論是個人使用的桌面系統還是企業級的伺服器環境，穩定且高效的網路連接都是確保系統正常運行的關鍵。Linux 以其強大的網路功能和靈活的配置選項，在各種網路環境中廣泛應用。</font></p>
+</blockquote>
+<font size='3'>
+接下來的內容將深入探討 Linux 網路管理的各個方面，並介紹具體的工具和技術。
+</font>
+
+<span id="more"></span>
+
+<br>
+
+<h3 id="常見的文字編輯器"><a href="#常見的文字編輯器" class="headerlink" title="常見的文字編輯器"></a>常見的文字編輯器</h3><ul>
+<li><a href="https://www.gnu.org/software/emacs">emacs ( GNU Emacs )</a></li>
+<li><a href="https://www.nano-editor.org/">nano ( GNU nano )</a></li>
+<li><a href="https://joe-editor.sourceforge.io/">joe ( Joe’s Own Editor )</a></li>
+<li><a href="https://www.vim.org/">Vim ( Vi IMproved )</a></li>
+</ul>
+<br>
+
+<h4 id="Vim-的常用設定"><a href="#Vim-的常用設定" class="headerlink" title="Vim 的常用設定"></a>Vim 的常用設定</h4><ul>
+<li>於編輯器中 命令模式 ( command mode ) 設定</li>
+<li>於個人家目錄建立 <code>.vimrc</code> 與內容設定 <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">vim  .vimrc</span><br><span class="line">set  nu</span><br><span class="line">set  ts=4</span><br><span class="line">set  hls</span><br></pre></td></tr></table></figure></li>
+<li>常用的輔助設定<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">:set  all		查閱所有設定組態</span><br><span class="line">:set  number  	顯示行號  ( :set  nu )</span><br><span class="line">:set  nonumber	不顯示行號 ( :set  nonu )</span><br><span class="line">:set  tabstop=4	設定 TAB 跳格為 4 個字元 ( :set  ts=4 ) ( 預設為 8 個字元 )</span><br><span class="line">:set  spell		拼字檢查</span><br><span class="line">:set  nospell	不使用拼字檢查</span><br><span class="line">:set  hlsearch	搜尋高亮度顯示 ( :set  hls )</span><br><span class="line">:set  nohlsearch	不使用搜尋高亮度顯示 ( :set  nohls )</span><br><span class="line">:set  cursorline	游標行標線</span><br></pre></td></tr></table></figure></li>
+</ul>
+<br>
+
+<h3 id="文字檔案內容的比較"><a href="#文字檔案內容的比較" class="headerlink" title="文字檔案內容的比較"></a>文字檔案內容的比較</h3><ul>
+<li><code>diff</code>，兩檔案內容比較 ( 行比較 )<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">-c  上下文比較</span><br><span class="line">-u  組合合併</span><br><span class="line"></span><br><span class="line">diff  -c  doc1.a  doc1.b</span><br><span class="line">diff  -u  doc2.a  doc2.b</span><br></pre></td></tr></table></figure></li>
+<li><code>diff3</code>，三檔案內容比較 ( 行比較 )<ul>
+<li>diff3  doc1.a  doc1.b  doc1.c</li>
+</ul>
+</li>
+<li><code>vimdiff</code>，使用 vim 對兩檔案內容比較 ( 行比較 )<ul>
+<li>vimdiff  doc1.a  doc1.b</li>
+</ul>
+</li>
+<li><code>tr</code>，轉換、刪除指定字符<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">-d  刪除符合 指定1 內容</span><br><span class="line">-s   刪除符合 指定1 內容，但保留一個 （ 表示將重複出現的字符簡化為一個 ）</span><br><span class="line"></span><br><span class="line">tr  -d  12345  &lt;  doc.tr</span><br><span class="line">tr  -s  1-5  &lt;  doc.tr</span><br><span class="line">tr  -d  &#x27;\n&#x27;  &lt;  doc.tr</span><br></pre></td></tr></table></figure></li>
+<li><code>dos2unix</code>、<code>unix2dos</code>，換行字元轉換<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">dos2unix  [選項]  檔案名稱</span><br><span class="line">unix2dos  [選項]  檔案名稱</span><br><span class="line"></span><br><span class="line">-u   轉為 unix 換行字元 LF ( \n )</span><br><span class="line">-d   轉為  dos 換行字元 CRLF ( \r\n )</span><br><span class="line"></span><br><span class="line">dos2unix  FILENAME</span><br><span class="line">unix2dos –u  FILENAME</span><br></pre></td></tr></table></figure></li>
+</ul>
+<br>
+
+<h3 id="常用網路工具"><a href="#常用網路工具" class="headerlink" title="常用網路工具"></a>常用網路工具</h3><ul>
+<li><code>ping</code>，遠端主機探測、查詢<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">-c   n   指定測試次數</span><br><span class="line">-i   n   封包發送間隔	-W  n   等待回覆封包時間</span><br><span class="line"></span><br><span class="line">ping 8.8.8.8</span><br></pre></td></tr></table></figure></li>
+<li><code>tracepath</code>，網路路由探測、查詢<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">-n     不查詢節點主機名稱 (預設會查詢 )</span><br><span class="line">-m  n  指定查詢節點數上限</span><br><span class="line"></span><br><span class="line">tracepath  -n  8.8.8.8</span><br><span class="line">tracepath  -n  -m  5  8.8.8.8</span><br></pre></td></tr></table></figure></li>
+<li><code>nslookup</code>，網域正解、反解查詢</li>
+<li><code>net-tools</code>，ifconfig、route<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">ifconfig  網路介面  up/down</span></span><br><span class="line">ifconfig  ens33  up     # 網路介面啟用</span><br><span class="line">ifconfig  ens33  down   # 網路介面停用</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">ifconfig  網路介面  IP位置/網路遮罩</span></span><br><span class="line">ifconfig  ens33  192.168.1.10/24 # 設定網路介面 IP 組態</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">設定網路路由</span></span><br><span class="line">route  del  default # 刪除預設路由</span><br><span class="line">route  add  -net  192.168.1.0/24  ens33</span><br><span class="line">route  add  default  gw  192.168.1.1</span><br><span class="line">route  -n</span><br></pre></td></tr></table></figure></li>
+<li><code>iproute</code><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">網路介面組態檢視</span> </span><br><span class="line">ip  address  show ens33</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">網卡介面檢視</span> </span><br><span class="line">ip  link  show ens33</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">網路路由查詢</span></span><br><span class="line">ip  route  show 192.168.1.1</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">網路介面 啟用/停用</span></span><br><span class="line">ip  link  set  ens33  up/down</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">設定網路介面 IP 組態</span></span><br><span class="line">ip  address  add  192.168.1.10/24  dev  ens33</span><br><span class="line">ip  address  del  192.168.1.110/24  dev  ens33</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">設定網路路由</span></span><br><span class="line"></span><br><span class="line">指令： ip  route  del   網段/網路遮罩</span><br><span class="line">指令： ip  route  del   default</span><br><span class="line">指令： ip  route  del   路由IP位置</span><br><span class="line">指令： ip  route  add  網段/網路遮罩  dev  網卡編號</span><br><span class="line">指令： ip  route  add  default  via  閘道IP位置  [ dev  網卡編號 ]</span><br><span class="line">指令： ip  route  add  路由IP位置  [ dev  網卡編號 ]</span><br><span class="line"></span><br><span class="line">ip  route  del  default</span><br><span class="line">ip  route  add  default  via 192.168.1.1</span><br></pre></td></tr></table></figure></li>
+</ul>
+<br>
+
+<h3 id="DNS-組態"><a href="#DNS-組態" class="headerlink" title="DNS 組態"></a>DNS 組態</h3><ul>
+<li>&#x2F;etc&#x2F;resolve.conf<ul>
+<li>管理服務：systemd-resolve.service</li>
+</ul>
+</li>
+</ul>
+<br>
+
+<h3 id="網路管理套件"><a href="#網路管理套件" class="headerlink" title="網路管理套件"></a>網路管理套件</h3><ul>
+<li><code>dhclient</code>、<code>dhcpcd</code><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">/etc/dhcpcd.conf # 相關組態檔</span><br><span class="line">/etc/dhcp/dhclient.conf</span><br><span class="line"></span><br><span class="line">Ubuntu： /var/lib/dhcpcd/ens33.lease</span><br><span class="line"></span><br><span class="line">Ubuntu：cat  /var/lib/dhcp/dhclient.lease</span><br><span class="line">CentOS：cat  /var/lib/dhclient/dhclient.leases</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">取得IP                                -x     只刪除 dhcpcd 程序</span><br><span class="line">-4     只要求 IPv4                    -6     只要求 IPv4</span><br><span class="line">-k     釋放IP並刪除 dhcpcd</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">dhclient，啟用或停用</span></span><br><span class="line"></span><br><span class="line">dhcpcd   ens33</span><br><span class="line">dhcpcd  -k  ens33</span><br></pre></td></tr></table></figure></li>
+<li><code>NetworkManager</code><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">/etc/sysconfig/network-scripts/ifcfg-網路介面 # 相關組態檔</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">使用動態 IP</span> </span><br><span class="line">vim  /etc/sysconfig/network-scripts/ifcfg-ens33</span><br><span class="line">TYPE=&quot;Ethernet&quot;</span><br><span class="line">BOOTPROTO=&quot;dhcp&quot;</span><br><span class="line">DEVICE=&quot;ens33&quot;</span><br><span class="line">ONBOOT=&quot;yes&quot;</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">使用靜態 IP</span> </span><br><span class="line">TYPE=&quot;Ethernet&quot;</span><br><span class="line">BOOTPROTO=&quot;static&quot;</span><br><span class="line">DEVICE=&quot;ens33&quot;</span><br><span class="line">ONBOOT=&quot;yes&quot;</span><br><span class="line">IPADDR=&quot;192.168.1.20&quot;</span><br><span class="line">GATEWAY=&quot;192.168.1.1&quot;</span><br><span class="line">NETMASK=&quot;255.255.255.0&quot;</span><br><span class="line">DNS1=&quot;8.8.8.8&quot;</span><br><span class="line">DNS2=&quot;168.95.1.1&quot;</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">重啟</span></span><br><span class="line">service  NetworkManager  restart</span><br><span class="line">nmcli  networking  off</span><br><span class="line">nmcli  networking  on</span><br></pre></td></tr></table></figure></li>
+<li><code>netplan</code><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">/etc/netplan/＊.yaml # 相關組態檔</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">使用動態 IP</span> </span><br><span class="line"></span><br><span class="line">vim  /etc/netplan/＊.yaml </span><br><span class="line">network:</span><br><span class="line">    version: 2</span><br><span class="line">    renderer: networkd</span><br><span class="line">    ethernets:</span><br><span class="line">        ens33:</span><br><span class="line">            dhcp4: yes</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">使用靜態 IP</span></span><br><span class="line"></span><br><span class="line">vim  /etc/netplan/＊.yaml</span><br><span class="line">network:</span><br><span class="line">    version: 2</span><br><span class="line">    ethernets:</span><br><span class="line">        ens33:</span><br><span class="line">           dhcp4: no</span><br><span class="line">           addresses: </span><br><span class="line">           -  192.168.1.10/24</span><br><span class="line">           routes:</span><br><span class="line">           -  to:  default</span><br><span class="line">               via:  192.168.1.1</span><br><span class="line">           nameservers:</span><br><span class="line">                addresses:</span><br><span class="line">                -  8.8.8.8</span><br><span class="line">                -  168.95.1.1</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">啟動或重新套用組態</span></span><br><span class="line">netplan  apply</span><br></pre></td></tr></table></figure></li>
+</ul>
+]]></content>
+      <categories>
+        <category>Linux</category>
+      </categories>
+      <tags>
+        <tag>Linux</tag>
+        <tag>Shell</tag>
+        <tag>Basic</tag>
+        <tag>Network</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Linux 入門 Day00 - Linux 基礎理論</title>
     <url>/RdnRoydonNote/2024/07/25/LinuxBasicDay00/</url>
     <content><![CDATA[<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a><font size='5'>前言</font></h3><blockquote>
@@ -96,258 +319,6 @@
         <tag>Linux</tag>
         <tag>Shell</tag>
         <tag>Basic</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>ISO 映像檔燒錄 USB 隨身碟</title>
-    <url>/RdnRoydonNote/2024/07/24/ISO-to-USB/</url>
-    <content><![CDATA[<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a><font size='5'>前言</font></h3><blockquote>
-<p><font size='3'>在當今數位化的世界裡，ISO 映像檔成為了一種非常普遍的文件格式，用於分發操作系統、軟體安裝包以及其他需要保留原始文件結構的資料。ISO 映像檔的優勢在於它能夠將整個光碟的內容完整地保存下來，並且可以輕鬆地分發和複製。然而，隨著光碟驅動器的逐漸淘汰和 USB 隨身碟的普及，越來越多的人選擇將 ISO 映像檔燒錄到 USB 隨身碟上，以便更方便地安裝操作系統或運行應用程式。</font></p>
-</blockquote>
-<font size='3'>
-這篇文章將詳細介紹如何將 ISO 映像檔燒錄到 USB 隨身碟，幫助你輕鬆完成這一過程。無論你是要安裝新的操作系統、進行系統修復，還是需要創建可啟動的 USB 隨身碟，這篇指南都將提供你所需的步驟和工具。讓我們開始吧！
-</font>
-
-<span id="more"></span>
-
-<h3 id="解決方法"><a href="#解決方法" class="headerlink" title="解決方法"></a>解決方法</h3><ol>
-<li><h4 id="Rufus"><a href="#Rufus" class="headerlink" title="Rufus"></a><a href="https://rufus.ie/zh_TW/">Rufus</a></h4><p> <img data-src='rufus.png' width='300'></img></p>
-<ul>
-<li><font size='3'>步驟 1：下載安裝 Rufus</font></li>
-<li><font size='3'>步驟 2：準備 USB 隨身碟</font></li>
-<li><font size='3'>步驟 3：選擇 ISO檔來源、確認隨身碟位置（ 基本預設即可 ）</font></li>
-<li><font size='3'>步驟 4：開始燒錄等待完成</font></li>
-</ul>
-</li>
-<li><h4 id="Etcher"><a href="#Etcher" class="headerlink" title="Etcher"></a><a href="https://etcher.balena.io/">Etcher</a></h4><p> <img data-src='etcher.png' width='500'></img></p>
-<ul>
-<li><font size='3'>步驟 1：下載安裝 Etcher</font></li>
-<li><font size='3'>步驟 2：準備 USB 隨身碟</font></li>
-<li><font size='3'>步驟 3：選擇 ISO檔來源</font></li>
-<li><font size='3'>步驟 4：確認隨身碟位置</font></li>
-<li><font size='3'>步驟 5：開始燒錄等待完成</font></li>
-</ul>
-</li>
-<li><h4 id="Ventoy"><a href="#Ventoy" class="headerlink" title="Ventoy"></a><a href="https://www.ventoy.net/en/download.html">Ventoy</a></h4><p> <img data-src='ventoy.png' width='300'></img></p>
-<ul>
-<li><font size='3'>步驟 1：下載安裝 Ventoy</font></li>
-<li><font size='3'>步驟 2：準備 USB 隨身碟</font></li>
-<li><font size='3'>步驟 3：打開 Ventoy2Disk.exe</font></li>
-<li><font size='3'>步驟 4：確認隨身碟位置</font></li>
-<li><font size='3'>步驟 5：選擇 Install</font></li>
-<li><font size='3'>步驟 6：等待完成後，可直接將 ISO 直接丟到隨身碟中 （ Window 與 Linux 都可 ）</font></li>
-</ul>
- <br>
-
- <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line"># 解壓縮後，執行</span><br><span class="line">bash VentoyWeb.sh</span><br><span class="line"></span><br><span class="line"># 打開網頁 24680 Port，接下來與 Windows 相同操作</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-</li>
-<li><h4 id="UNetbootin"><a href="#UNetbootin" class="headerlink" title="UNetbootin"></a><a href="https://unetbootin.github.io/">UNetbootin</a></h4><p> <img data-src='UNetbootin.png' width='500'></img></p>
-<ul>
-<li><font size='3'>步驟 1：下載安裝 UNetbootin</font></li>
-<li><font size='3'>步驟 2：準備 USB 隨身碟</font></li>
-<li><font size='3'>步驟 3：可選擇版本，軟體會自動幫忙下載，也可手動</font></li>
-<li><font size='3'>步驟 4：確認隨身碟位置</font></li>
-<li><font size='3'>步驟 5：開始燒錄等待完成</font></li>
-</ul>
-</li>
-</ol>
-]]></content>
-      <categories>
-        <category>工具</category>
-      </categories>
-      <tags>
-        <tag>USB</tag>
-        <tag>ISO</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Linux 入門 Day03 - 文字編輯器 &amp; 網路管理</title>
-    <url>/RdnRoydonNote/2024/07/25/LinuxBasicDay03/</url>
-    <content><![CDATA[<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a><font size='5'>前言</font></h3><blockquote>
-<p><font size='3'>在現代的計算環境中，網路管理對於 Linux 系統的操作和維護至關重要。無論是個人使用的桌面系統還是企業級的伺服器環境，穩定且高效的網路連接都是確保系統正常運行的關鍵。Linux 以其強大的網路功能和靈活的配置選項，在各種網路環境中廣泛應用。</font></p>
-</blockquote>
-<font size='3'>
-接下來的內容將深入探討 Linux 網路管理的各個方面，並介紹具體的工具和技術。
-</font>
-
-<span id="more"></span>
-
-<br>
-
-<h3 id="常見的文字編輯器"><a href="#常見的文字編輯器" class="headerlink" title="常見的文字編輯器"></a>常見的文字編輯器</h3><ul>
-<li><a href="https://www.gnu.org/software/emacs">emacs ( GNU Emacs )</a></li>
-<li><a href="https://www.nano-editor.org/">nano ( GNU nano )</a></li>
-<li><a href="https://joe-editor.sourceforge.io/">joe ( Joe’s Own Editor )</a></li>
-<li><a href="https://www.vim.org/">Vim ( Vi IMproved )</a></li>
-</ul>
-<br>
-
-<h4 id="Vim-的常用設定"><a href="#Vim-的常用設定" class="headerlink" title="Vim 的常用設定"></a>Vim 的常用設定</h4><ul>
-<li>於編輯器中 命令模式 ( command mode ) 設定</li>
-<li>於個人家目錄建立 <code>.vimrc</code> 與內容設定 <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">vim  .vimrc</span><br><span class="line">set  nu</span><br><span class="line">set  ts=4</span><br><span class="line">set  hls</span><br></pre></td></tr></table></figure></li>
-<li>常用的輔助設定<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">:set  all		查閱所有設定組態</span><br><span class="line">:set  number  	顯示行號  ( :set  nu )</span><br><span class="line">:set  nonumber	不顯示行號 ( :set  nonu )</span><br><span class="line">:set  tabstop=4	設定 TAB 跳格為 4 個字元 ( :set  ts=4 ) ( 預設為 8 個字元 )</span><br><span class="line">:set  spell		拼字檢查</span><br><span class="line">:set  nospell	不使用拼字檢查</span><br><span class="line">:set  hlsearch	搜尋高亮度顯示 ( :set  hls )</span><br><span class="line">:set  nohlsearch	不使用搜尋高亮度顯示 ( :set  nohls )</span><br><span class="line">:set  cursorline	游標行標線</span><br></pre></td></tr></table></figure></li>
-</ul>
-<br>
-
-<h3 id="文字檔案內容的比較"><a href="#文字檔案內容的比較" class="headerlink" title="文字檔案內容的比較"></a>文字檔案內容的比較</h3><ul>
-<li><code>diff</code>，兩檔案內容比較 ( 行比較 )<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">-c  上下文比較</span><br><span class="line">-u  組合合併</span><br><span class="line"></span><br><span class="line">diff  -c  doc1.a  doc1.b</span><br><span class="line">diff  -u  doc2.a  doc2.b</span><br></pre></td></tr></table></figure></li>
-<li><code>diff3</code>，三檔案內容比較 ( 行比較 )<ul>
-<li>diff3  doc1.a  doc1.b  doc1.c</li>
-</ul>
-</li>
-<li><code>vimdiff</code>，使用 vim 對兩檔案內容比較 ( 行比較 )<ul>
-<li>vimdiff  doc1.a  doc1.b</li>
-</ul>
-</li>
-<li><code>tr</code>，轉換、刪除指定字符<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">-d  刪除符合 指定1 內容</span><br><span class="line">-s   刪除符合 指定1 內容，但保留一個 （ 表示將重複出現的字符簡化為一個 ）</span><br><span class="line"></span><br><span class="line">tr  -d  12345  &lt;  doc.tr</span><br><span class="line">tr  -s  1-5  &lt;  doc.tr</span><br><span class="line">tr  -d  &#x27;\n&#x27;  &lt;  doc.tr</span><br></pre></td></tr></table></figure></li>
-<li><code>dos2unix</code>、<code>unix2dos</code>，換行字元轉換<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">dos2unix  [選項]  檔案名稱</span><br><span class="line">unix2dos  [選項]  檔案名稱</span><br><span class="line"></span><br><span class="line">-u   轉為 unix 換行字元 LF ( \n )</span><br><span class="line">-d   轉為  dos 換行字元 CRLF ( \r\n )</span><br><span class="line"></span><br><span class="line">dos2unix  FILENAME</span><br><span class="line">unix2dos –u  FILENAME</span><br></pre></td></tr></table></figure></li>
-</ul>
-<br>
-
-<h3 id="常用網路工具"><a href="#常用網路工具" class="headerlink" title="常用網路工具"></a>常用網路工具</h3><ul>
-<li><code>ping</code>，遠端主機探測、查詢<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">-c   n   指定測試次數</span><br><span class="line">-i   n   封包發送間隔	-W  n   等待回覆封包時間</span><br><span class="line"></span><br><span class="line">ping 8.8.8.8</span><br></pre></td></tr></table></figure></li>
-<li><code>tracepath</code>，網路路由探測、查詢<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">-n     不查詢節點主機名稱 (預設會查詢 )</span><br><span class="line">-m  n  指定查詢節點數上限</span><br><span class="line"></span><br><span class="line">tracepath  -n  8.8.8.8</span><br><span class="line">tracepath  -n  -m  5  8.8.8.8</span><br></pre></td></tr></table></figure></li>
-<li><code>nslookup</code>，網域正解、反解查詢</li>
-<li><code>net-tools</code>，ifconfig、route<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">ifconfig  網路介面  up/down</span></span><br><span class="line">ifconfig  ens33  up     # 網路介面啟用</span><br><span class="line">ifconfig  ens33  down   # 網路介面停用</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">ifconfig  網路介面  IP位置/網路遮罩</span></span><br><span class="line">ifconfig  ens33  192.168.1.10/24 # 設定網路介面 IP 組態</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">設定網路路由</span></span><br><span class="line">route  del  default # 刪除預設路由</span><br><span class="line">route  add  -net  192.168.1.0/24  ens33</span><br><span class="line">route  add  default  gw  192.168.1.1</span><br><span class="line">route  -n</span><br></pre></td></tr></table></figure></li>
-<li><code>iproute</code><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">網路介面組態檢視</span> </span><br><span class="line">ip  address  show ens33</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">網卡介面檢視</span> </span><br><span class="line">ip  link  show ens33</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">網路路由查詢</span></span><br><span class="line">ip  route  show 192.168.1.1</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">網路介面 啟用/停用</span></span><br><span class="line">ip  link  set  ens33  up/down</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">設定網路介面 IP 組態</span></span><br><span class="line">ip  address  add  192.168.1.10/24  dev  ens33</span><br><span class="line">ip  address  del  192.168.1.110/24  dev  ens33</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">設定網路路由</span></span><br><span class="line"></span><br><span class="line">指令： ip  route  del   網段/網路遮罩</span><br><span class="line">指令： ip  route  del   default</span><br><span class="line">指令： ip  route  del   路由IP位置</span><br><span class="line">指令： ip  route  add  網段/網路遮罩  dev  網卡編號</span><br><span class="line">指令： ip  route  add  default  via  閘道IP位置  [ dev  網卡編號 ]</span><br><span class="line">指令： ip  route  add  路由IP位置  [ dev  網卡編號 ]</span><br><span class="line"></span><br><span class="line">ip  route  del  default</span><br><span class="line">ip  route  add  default  via 192.168.1.1</span><br></pre></td></tr></table></figure></li>
-</ul>
-<br>
-
-<h3 id="DNS-組態"><a href="#DNS-組態" class="headerlink" title="DNS 組態"></a>DNS 組態</h3><ul>
-<li>&#x2F;etc&#x2F;resolve.conf<ul>
-<li>管理服務：systemd-resolve.service</li>
-</ul>
-</li>
-</ul>
-<br>
-
-<h3 id="網路管理套件"><a href="#網路管理套件" class="headerlink" title="網路管理套件"></a>網路管理套件</h3><ul>
-<li><code>dhclient</code>、<code>dhcpcd</code><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">/etc/dhcpcd.conf # 相關組態檔</span><br><span class="line">/etc/dhcp/dhclient.conf</span><br><span class="line"></span><br><span class="line">Ubuntu： /var/lib/dhcpcd/ens33.lease</span><br><span class="line"></span><br><span class="line">Ubuntu：cat  /var/lib/dhcp/dhclient.lease</span><br><span class="line">CentOS：cat  /var/lib/dhclient/dhclient.leases</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">取得IP                                -x     只刪除 dhcpcd 程序</span><br><span class="line">-4     只要求 IPv4                    -6     只要求 IPv4</span><br><span class="line">-k     釋放IP並刪除 dhcpcd</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">dhclient，啟用或停用</span></span><br><span class="line"></span><br><span class="line">dhcpcd   ens33</span><br><span class="line">dhcpcd  -k  ens33</span><br></pre></td></tr></table></figure></li>
-<li><code>NetworkManager</code><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">/etc/sysconfig/network-scripts/ifcfg-網路介面 # 相關組態檔</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">使用動態 IP</span> </span><br><span class="line">vim  /etc/sysconfig/network-scripts/ifcfg-ens33</span><br><span class="line">TYPE=&quot;Ethernet&quot;</span><br><span class="line">BOOTPROTO=&quot;dhcp&quot;</span><br><span class="line">DEVICE=&quot;ens33&quot;</span><br><span class="line">ONBOOT=&quot;yes&quot;</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">使用靜態 IP</span> </span><br><span class="line">TYPE=&quot;Ethernet&quot;</span><br><span class="line">BOOTPROTO=&quot;static&quot;</span><br><span class="line">DEVICE=&quot;ens33&quot;</span><br><span class="line">ONBOOT=&quot;yes&quot;</span><br><span class="line">IPADDR=&quot;192.168.1.20&quot;</span><br><span class="line">GATEWAY=&quot;192.168.1.1&quot;</span><br><span class="line">NETMASK=&quot;255.255.255.0&quot;</span><br><span class="line">DNS1=&quot;8.8.8.8&quot;</span><br><span class="line">DNS2=&quot;168.95.1.1&quot;</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">重啟</span></span><br><span class="line">service  NetworkManager  restart</span><br><span class="line">nmcli  networking  off</span><br><span class="line">nmcli  networking  on</span><br></pre></td></tr></table></figure></li>
-<li><code>netplan</code><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">/etc/netplan/＊.yaml # 相關組態檔</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">使用動態 IP</span> </span><br><span class="line"></span><br><span class="line">vim  /etc/netplan/＊.yaml </span><br><span class="line">network:</span><br><span class="line">    version: 2</span><br><span class="line">    renderer: networkd</span><br><span class="line">    ethernets:</span><br><span class="line">        ens33:</span><br><span class="line">            dhcp4: yes</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">使用靜態 IP</span></span><br><span class="line"></span><br><span class="line">vim  /etc/netplan/＊.yaml</span><br><span class="line">network:</span><br><span class="line">    version: 2</span><br><span class="line">    ethernets:</span><br><span class="line">        ens33:</span><br><span class="line">           dhcp4: no</span><br><span class="line">           addresses: </span><br><span class="line">           -  192.168.1.10/24</span><br><span class="line">           routes:</span><br><span class="line">           -  to:  default</span><br><span class="line">               via:  192.168.1.1</span><br><span class="line">           nameservers:</span><br><span class="line">                addresses:</span><br><span class="line">                -  8.8.8.8</span><br><span class="line">                -  168.95.1.1</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">啟動或重新套用組態</span></span><br><span class="line">netplan  apply</span><br></pre></td></tr></table></figure></li>
-</ul>
-]]></content>
-      <categories>
-        <category>Linux</category>
-      </categories>
-      <tags>
-        <tag>Linux</tag>
-        <tag>Shell</tag>
-        <tag>Basic</tag>
-        <tag>Network</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Linux 入門 Day02 - 基本文件檔案操作</title>
-    <url>/RdnRoydonNote/2024/07/25/LinuxBasicDay02/</url>
-    <content><![CDATA[<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a><font size='5'>前言</font></h3><blockquote>
-<p><font size='3'>在 Linux 和 Unix 系統中，掌握 Shell 指令是提高工作效率和系統管理能力的重要技能之一。Shell 提供了一個強大且靈活的命令行界面，允許使用者執行各種操作，包括文件和目錄的管理。對於初學者來說，學會如何使用 Shell 指令來操作文件和目錄是入門的第一步。<br></font></p>
-</blockquote>
-<font size='3'>
-讓我們繼續這段探索 Shell 指令的旅程，揭開命令行世界的神秘面紗！
-</font>
-
-<span id="more"></span>
-
-<br>
-
-<h3 id="文件內容輸出"><a href="#文件內容輸出" class="headerlink" title="文件內容輸出"></a>文件內容輸出</h3><ul>
-<li><code>cat</code>，將內容輸出於標準輸出 ( standard output，螢幕 )</li>
-<li><code>tac</code>，如同 cat 但為反向輸出</li>
-<li><code>nl</code>，將內容一行一行輸出於螢幕上，並標註行號</li>
-</ul>
-<br>
-
-<h3 id="文件瀏覽工具"><a href="#文件瀏覽工具" class="headerlink" title="文件瀏覽工具"></a>文件瀏覽工具</h3><ul>
-<li><code>more</code>，全螢幕瀏覽</li>
-<li><code>less</code>，全螢幕瀏覽<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">[ SPACE ] 	   : 向下翻頁	</span><br><span class="line">[ Page Down ]  : 向下翻頁		[g]	: 最前頁</span><br><span class="line">[ Page Up ]    : 向上翻頁		[G]	: 最後頁</span><br><span class="line"></span><br><span class="line">/字串           : 向下搜尋		[N]	: 上一個搜尋</span><br><span class="line">?字串           : 向上搜尋		[ n]	: 下一個搜尋</span><br><span class="line">[ q]           : 離開</span><br><span class="line"></span><br></pre></td></tr></table></figure></li>
-</ul>
-<br>
-
-<h3 id="文件內容擷取"><a href="#文件內容擷取" class="headerlink" title="文件內容擷取"></a>文件內容擷取</h3><ul>
-<li><code>head</code>，擷取檔案內容前面內容<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">head  [選項]  檔案名稱</span><br><span class="line">-c  n  前多少字元	 -c  -n 全部字元，最尾 n 字元不擷取</span><br><span class="line">-n  n  前多少行		 -n  -n 全部行數，最尾 n 行不擷取</span><br><span class="line"></span><br><span class="line">head  content.txt</span><br><span class="line">head  -n  3  content.txt</span><br><span class="line"></span><br><span class="line">head  -c  10  content.txt</span><br><span class="line">head  -c  -10  content.txt</span><br></pre></td></tr></table></figure></li>
-<li><code>tail</code>，擷取檔案內容後面內容<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">tail  [選項]  檔案名稱</span><br><span class="line">-c  n  前多少字元	 -c  +n 全部字元，最頭 n 字元不擷取</span><br><span class="line">-n  n  前多少行		 -n  +n 全部行數，最頭 n 行不擷取</span><br><span class="line"></span><br><span class="line">tail  content.txt</span><br><span class="line">tail  -n  3  content.txt</span><br><span class="line"></span><br><span class="line">tail  -c  10  content.txt</span><br><span class="line">tail  -c  -10  content.txt</span><br></pre></td></tr></table></figure></li>
-</ul>
-<br>
-
-<h3 id="資料排序與統計"><a href="#資料排序與統計" class="headerlink" title="資料排序與統計"></a>資料排序與統計</h3><ul>
-<li><code>sort</code>，資料排序<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">sort  [選項]  檔案名稱</span><br><span class="line">-b  忽略空白字元	-f  忽略大小寫</span><br><span class="line">-t   以 &quot;符號&quot; 做分隔	-k  n  分隔區間指定 ( 通常與 -t 合併使用 )</span><br><span class="line">-r   反向排序		-u  列出所有資料並去除重複 ( 等同 uniq -u )</span><br><span class="line">-n  以數字排序 ( 非ASCII )</span><br><span class="line"></span><br><span class="line">sort  -r  namelist.txt</span><br><span class="line">sort  -t  &quot;  &quot;  -k  2  namelist.txt</span><br><span class="line">sort  -u  namelist.txt</span><br></pre></td></tr></table></figure></li>
-<li><code>wc</code>，資料統計<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">wc  [選項]  檔案名稱</span><br><span class="line">-l  行數總計		-L  最長行數的字數</span><br><span class="line">-w  字數統計</span><br><span class="line">-m 字元統計		-c  位元組統計 ( byte，容量 )</span><br><span class="line"></span><br><span class="line">wc  -L  namelist.txt</span><br><span class="line">wc  -m  -c  namelist.txt</span><br></pre></td></tr></table></figure></li>
-</ul>
-<br>
-
-<h3 id="打包備份與解包"><a href="#打包備份與解包" class="headerlink" title="打包備份與解包"></a>打包備份與解包</h3><ul>
-<li><code>tar</code>，檔案或資料的封裝，可選擇壓縮功能<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">tar  [選項]  壓縮檔名  來源檔案或目錄  [來源檔案或目錄 n]</span><br><span class="line">-c  建立打包檔		   -v  列出詳盡過程	-f  指定打包檔名</span><br><span class="line">-j   bzip2壓縮格式 ( .bz2 )   -z  gzip壓縮格式 ( .gz )</span><br><span class="line">-t  檢視打包檔內容</span><br><span class="line">-x  解壓縮		   -C  指定解壓縮位置</span><br><span class="line"></span><br><span class="line">tar  -zcv  -f  userdata.tar.gz   /root   /home</span><br><span class="line">tar  -t  -f  userdata.tar.gz</span><br><span class="line">tar  -xv  -f  userdata.tar.gz   -C   /tmp</span><br></pre></td></tr></table></figure></li>
-</ul>
-<br>
-
-<h3 id="內容分割與合併"><a href="#內容分割與合併" class="headerlink" title="內容分割與合併"></a>內容分割與合併</h3><ul>
-<li><code>split</code>，內容分割；適用於文字檔、執行檔、壓縮檔<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">split  [選項]  來源檔案名稱  目的檔案名稱</span><br><span class="line"></span><br><span class="line">-a  n  檔名後綴多少字元	     -d  使用數字後綴 ( 預設為英文 )</span><br><span class="line">-b  n  大小分割  K,M,G,T… ( powers of 1024 ) / KB,MB,GB… ( powers of 1000 ) 	</span><br><span class="line">-l  n  行數分割</span><br><span class="line"></span><br><span class="line">split  -l  5  content.txt  content.txt.split</span><br><span class="line">split  -d  -b  1M  GMJLive.mp3  GMJLive.mp3.split</span><br><span class="line">ls  GMJLive.mp3.split*</span><br></pre></td></tr></table></figure></li>
-<li><code>cat</code>，內容合併；適用於文字檔、執行檔、壓縮檔<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">cat  來源檔案名稱1  [來源檔案名稱n]  &gt;  目的檔案名稱</span><br><span class="line"></span><br><span class="line">cat  content.txt.splitaa  content.txt.splitab   \</span><br><span class="line">content.txt.splitac   &gt;   content.merge</span><br><span class="line"></span><br><span class="line">cat  GMJLive.mp3.split*  &gt;  GMJLive.mp3.merge</span><br></pre></td></tr></table></figure></li>
-</ul>
-<br>
-
-<h3 id="輸出轉向"><a href="#輸出轉向" class="headerlink" title="輸出轉向"></a>輸出轉向</h3><ul>
-<li><code>&gt;</code> 輸出轉向<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">cat  ~/.bashrc  &gt;  .bashrc.backup</span><br><span class="line">cat  .bashrc.backup</span><br></pre></td></tr></table></figure></li>
-<li><code>&gt;&gt;</code> 輸出附加轉向<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">date  &gt;&gt;  dateLogs.txt</span><br></pre></td></tr></table></figure></li>
-<li><code>2&gt;</code> 錯誤輸出轉向<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">cd  /cat  2&gt;  errorLog.txt</span><br></pre></td></tr></table></figure>
-<br></li>
-</ul>
-<h3 id="輸入轉向"><a href="#輸入轉向" class="headerlink" title="輸入轉向"></a>輸入轉向</h3><ul>
-<li><code>&lt;</code> 輸入轉向<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">head  -n  3  &lt;  namelist.txt</span><br></pre></td></tr></table></figure></li>
-<li><code>&lt;&lt;</code> 輸入附加轉向<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">cat  &gt;  stdIO.txt  &lt;&lt;  &quot;END&quot;</span><br><span class="line"><span class="meta prompt_">&gt; </span><span class="language-bash">HAHA!</span> </span><br><span class="line"><span class="meta prompt_">&gt;</span><span class="language-bash"></span></span><br><span class="line"><span class="language-bash">&gt; This  is  not  the  use  of  vi/vim.</span></span><br><span class="line"><span class="meta prompt_">&gt;</span><span class="language-bash"></span></span><br><span class="line"><span class="language-bash">&gt; END</span></span><br></pre></td></tr></table></figure></li>
-<li><code>2&gt;&gt;</code> 錯誤輸出附加轉向<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">date  -qq  2&gt;&gt;  errorLogs.txt</span><br><span class="line">date  -ww  2&gt;&gt;  errorLogs.txt</span><br></pre></td></tr></table></figure></li>
-</ul>
-<br>
-
-<h3 id="全部轉向"><a href="#全部轉向" class="headerlink" title="全部轉向"></a>全部轉向</h3><ul>
-<li><code>&amp;&gt;</code>  輸出與錯誤輸出轉向<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">head  -n  1  /etc/host  /etc/hosts   &amp;&gt;  allTurn.txt</span><br></pre></td></tr></table></figure></li>
-<li><code>&amp;&gt;&gt;</code> 輸出與錯誤輸出附加轉向<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">head  -n  1  ~/.bashrc   ~/.bash   &amp;&gt;&gt;  allTurns.txt</span><br><span class="line">ls  /unix   /linux   &amp;&gt;&gt;  allTurns.txt</span><br></pre></td></tr></table></figure></li>
-</ul>
-<br>
-
-<h3 id="管線"><a href="#管線" class="headerlink" title="管線"></a>管線</h3><ul>
-<li><code>grep</code>，列出符合指定關鍵字的行數<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">grep  [選項]  關鍵字  檔案名稱</span><br><span class="line">-i  忽略大小寫		-w  完整符合 ( 以字為單位 )</span><br><span class="line">-c  符合關鍵字的數量     -n  輸出行數加上行號 ( 等同 nl、cat -n 效果 )</span><br><span class="line">-v  相反輸出 ( 輸出不符合關鍵字資料 )</span><br><span class="line"></span><br><span class="line">grep  &quot;Peter  Parker&quot;  namelist.txt</span><br><span class="line">grep  -in  b  namelist.txt</span><br><span class="line">cat  namelist.txt  |  grep  -iw  wanda</span><br><span class="line">cat  namelist.txt  |  grep  -ic  loki</span><br></pre></td></tr></table></figure></li>
-<li><code>uniq</code>，統計已排序資料之獨特性 ( 以行為處理單位，比較鄰近行 )<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">uniq  [選項]  檔案名稱        </span><br><span class="line">-c   標出每個資料的統計</span><br><span class="line">-d  只列出有重複的資料</span><br><span class="line">-u  只列出沒有重復的資料</span><br><span class="line"></span><br><span class="line">uniq  namelist.txt</span><br><span class="line">sort  namelist.txt  |  uniq  -c</span><br><span class="line">sort  namelist.txt  |  uniq  -d</span><br><span class="line">sort  namelist.txt  |  uniq  -dc</span><br></pre></td></tr></table></figure></li>
-</ul>
-]]></content>
-      <categories>
-        <category>Linux</category>
-      </categories>
-      <tags>
-        <tag>Linux</tag>
-        <tag>Shell</tag>
-        <tag>Basic</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Linux 入門 Day06 - Shell Script - 1</title>
-    <url>/RdnRoydonNote/2024/07/29/LinuxBasicDay06/</url>
-    <content><![CDATA[<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a><font size='5'>前言</font></h3><blockquote>
-<p><font size='3'>在現代的計算機操作中，命令行界面（Command Line Interface，簡稱 CLI）依然扮演著不可或缺的角色。無論是系統管理員、開發者，還是一般使用者，都能從中受益，提升工作效率。Shell 是一種命令行解釋器，它提供了與操作系統進行交互的強大工具。學習和掌握 Shell 指令，不僅能讓你更有效地管理系統資源，還能自動化重複性任務，簡化工作流程。</font></p>
-</blockquote>
-<font size='3'>
-讓我們開始這段探索 Shell 指令的旅程，揭開命令行世界的神秘面紗，並充分利用這一強大的工具來提升你的生產力和技能！
-</font>
-
-<span id="more"></span>
-
-<br>
-
-<h3 id="條件計算-test"><a href="#條件計算-test" class="headerlink" title="條件計算 test"></a>條件計算 test</h3><ul>
-<li>任何計算比較後都僅回覆 0 或 1</li>
-<li>也可用 [ ] 改寫</li>
-<li><h4 id="檔案操作：檔案目錄存在與屬性檢查"><a href="#檔案操作：檔案目錄存在與屬性檢查" class="headerlink" title="檔案操作：檔案目錄存在與屬性檢查"></a>檔案操作：檔案目錄存在與屬性檢查</h4>  <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">-f       檢查檔案存在(正規)</span><br><span class="line">-e       檢查檔案存在	         -r       檢查檔案讀取性</span><br><span class="line">-w       檢查檔案可寫性          </span><br><span class="line">-d       檢查目錄存在	         -x       檢查檔案執行性</span><br><span class="line"></span><br><span class="line">test  -e  /etc/passwd  </span><br><span class="line"></span><br><span class="line">-nt      檢查 檔案A 是否比 檔案B 新</span><br><span class="line">-ot      檢查 檔案A 是否比 檔案B 舊</span><br><span class="line">-ef      檢查 檔案A 是否與 檔案B 有鏈結關係</span><br><span class="line"></span><br><span class="line">test  ~/.profile  -nt  ~/.bashrc</span><br><span class="line">test  ~/.profile  -ot  ~/.bashrc</span><br><span class="line">test  /sbin/poweroff  -ef  /sbin/reboot</span><br></pre></td></tr></table></figure></li>
-<li><h4 id="字串操作：空值檢查"><a href="#字串操作：空值檢查" class="headerlink" title="字串操作：空值檢查"></a>字串操作：空值檢查</h4>  <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">-z      檢查值是否為空值    </span><br><span class="line">-n      檢查值是否非為空值</span><br><span class="line">	</span><br><span class="line">myValue=99</span><br><span class="line">test  -z  $myValue</span><br><span class="line">1</span><br><span class="line">test  -n  $myValue</span><br><span class="line">0</span><br></pre></td></tr></table></figure></li>
-<li><h4 id="字串操作：字元比較"><a href="#字串操作：字元比較" class="headerlink" title="字串操作：字元比較"></a>字串操作：字元比較</h4>  <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">!= (-ne)     # 檢查是否不相等字串     </span><br><span class="line">== (-eq)     # 檢查是否相等字串       </span><br><span class="line">&lt;            # 檢查是否小於某字串</span><br><span class="line"><span class="meta prompt_">&gt; </span><span class="language-bash">           <span class="comment"># 檢查是否大於某字串</span></span></span><br><span class="line"></span><br><span class="line">test  $myString1  ==  $myString2</span><br><span class="line">test  $myString1  \&lt;  $myString2</span><br><span class="line">test  $myString1  \&gt;  $myString2</span><br></pre></td></tr></table></figure></li>
-<li><h4 id="字串操作：數字比較"><a href="#字串操作：數字比較" class="headerlink" title="字串操作：數字比較"></a>字串操作：數字比較</h4>  <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">數字比較用英文比較為好</span></span><br><span class="line"></span><br><span class="line">!= (-ne)     # 檢查是否不相等某值 </span><br><span class="line">== (-eq)     # 檢查是否相等某值      </span><br><span class="line">&lt;  (-lt)     # 檢查是否小於某值</span><br><span class="line"><span class="meta prompt_">&gt; </span><span class="language-bash"> (-gt)     <span class="comment"># 檢查是否大於某值</span></span></span><br><span class="line">&lt;= (-le)     # 檢查是否小於等於某值</span><br><span class="line"><span class="meta prompt_">&gt;</span><span class="language-bash">= (-ge)     <span class="comment"># 檢查是否大於等於某值</span></span></span><br><span class="line"></span><br><span class="line">test  $myValue1  -eq  $myValue2</span><br><span class="line">test  $myValue1  -lt  $myValue2</span><br></pre></td></tr></table></figure></li>
-</ul>
-]]></content>
-      <tags>
-        <tag>Linux</tag>
-        <tag>Shell</tag>
-        <tag>Script</tag>
       </tags>
   </entry>
   <entry>
@@ -524,6 +495,80 @@
         <tag>Linux</tag>
         <tag>Shell</tag>
         <tag>Basic</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Linux 入門 Day06 - Shell Script - 1</title>
+    <url>/RdnRoydonNote/2024/07/29/LinuxBasicDay06/</url>
+    <content><![CDATA[<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a><font size='5'>前言</font></h3><blockquote>
+<p><font size='3'>在 Linux 系統中，條件計算和判斷式是腳本編程和系統管理中至關重要的部分。這些工具和技術允許用戶在腳本中根據不同的條件執行特定的操作，從而自動化任務和優化系統性能。理解這些基本的條件判斷和選擇判斷式的用法對於撰寫高效的 shell 腳本至關重要。</font></p>
+</blockquote>
+<font size='3'>
+這些基礎知識和技能是編寫有效的 Linux 腳本和進行系統管理的基石。掌握條件計算、判斷式、選擇判斷式和路徑分析將使您能夠在 Linux 環境中更加高效地完成各種任務。
+</font>
+
+<span id="more"></span>
+
+<br>
+
+<h3 id="條件計算"><a href="#條件計算" class="headerlink" title="條件計算"></a>條件計算</h3><ul>
+<li><code>test</code></li>
+<li>任何計算比較後都僅回覆 0 或 1</li>
+<li>也可用 [ ] 改寫</li>
+<li><h4 id="檔案操作：檔案目錄存在與屬性檢查"><a href="#檔案操作：檔案目錄存在與屬性檢查" class="headerlink" title="檔案操作：檔案目錄存在與屬性檢查"></a>檔案操作：檔案目錄存在與屬性檢查</h4>  <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">-f       檢查檔案存在(正規)</span><br><span class="line">-e       檢查檔案存在	         -r       檢查檔案讀取性</span><br><span class="line">-w       檢查檔案可寫性          </span><br><span class="line">-d       檢查目錄存在	         -x       檢查檔案執行性</span><br><span class="line"></span><br><span class="line">test  -e  /etc/passwd  </span><br><span class="line"></span><br><span class="line">-nt      檢查 檔案A 是否比 檔案B 新</span><br><span class="line">-ot      檢查 檔案A 是否比 檔案B 舊</span><br><span class="line">-ef      檢查 檔案A 是否與 檔案B 有鏈結關係</span><br><span class="line"></span><br><span class="line">test  ~/.profile  -nt  ~/.bashrc</span><br><span class="line">test  ~/.profile  -ot  ~/.bashrc</span><br><span class="line">test  /sbin/poweroff  -ef  /sbin/reboot</span><br></pre></td></tr></table></figure></li>
+<li><h4 id="字串操作：空值檢查"><a href="#字串操作：空值檢查" class="headerlink" title="字串操作：空值檢查"></a>字串操作：空值檢查</h4>  <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">-z      檢查值是否為空值    </span><br><span class="line">-n      檢查值是否非為空值</span><br><span class="line">	</span><br><span class="line">myValue=99</span><br><span class="line">test  -z  $myValue</span><br><span class="line">1</span><br><span class="line">test  -n  $myValue</span><br><span class="line">0</span><br></pre></td></tr></table></figure></li>
+<li><h4 id="字串操作：字元比較"><a href="#字串操作：字元比較" class="headerlink" title="字串操作：字元比較"></a>字串操作：字元比較</h4>  <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">!= (-ne)     # 檢查是否不相等字串     </span><br><span class="line">== (-eq)     # 檢查是否相等字串       </span><br><span class="line">&lt;            # 檢查是否小於某字串</span><br><span class="line"><span class="meta prompt_">&gt; </span><span class="language-bash">           <span class="comment"># 檢查是否大於某字串</span></span></span><br><span class="line"></span><br><span class="line">test  $myString1  ==  $myString2</span><br><span class="line">test  $myString1  \&lt;  $myString2</span><br><span class="line">test  $myString1  \&gt;  $myString2</span><br></pre></td></tr></table></figure></li>
+<li><h4 id="字串操作：數字比較"><a href="#字串操作：數字比較" class="headerlink" title="字串操作：數字比較"></a>字串操作：數字比較</h4>  <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">數字比較用英文比較為好</span></span><br><span class="line"></span><br><span class="line">!= (-ne)     # 檢查是否不相等某值 </span><br><span class="line">== (-eq)     # 檢查是否相等某值      </span><br><span class="line">&lt;  (-lt)     # 檢查是否小於某值</span><br><span class="line"><span class="meta prompt_">&gt; </span><span class="language-bash"> (-gt)     <span class="comment"># 檢查是否大於某值</span></span></span><br><span class="line">&lt;= (-le)     # 檢查是否小於等於某值</span><br><span class="line"><span class="meta prompt_">&gt;</span><span class="language-bash">= (-ge)     <span class="comment"># 檢查是否大於等於某值</span></span></span><br><span class="line"></span><br><span class="line">test  $myValue1  -eq  $myValue2</span><br><span class="line">test  $myValue1  -lt  $myValue2</span><br></pre></td></tr></table></figure>
+
+  <br></li>
+</ul>
+<h3 id="判斷式"><a href="#判斷式" class="headerlink" title="判斷式"></a>判斷式</h3><ul>
+<li><code>if</code><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">標準格式</span></span><br><span class="line">if  EXPRESSIONS</span><br><span class="line">then</span><br><span class="line">	COMMANDS</span><br><span class="line">elif EXPRESSIONS</span><br><span class="line">then</span><br><span class="line">	COMMANDS</span><br><span class="line">else</span><br><span class="line">	COMMANDS</span><br><span class="line">fi</span><br></pre></td></tr></table></figure></li>
+<li>範例<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">範例</span></span><br><span class="line">varName=&quot;&quot;</span><br><span class="line"></span><br><span class="line">echo  &quot;Please  enter  a  file  name,  directory  name(May  contain  path):  &quot;</span><br><span class="line">read  varName</span><br><span class="line"></span><br><span class="line">if  [  -e  $varName  ]</span><br><span class="line">then</span><br><span class="line">    echo  &quot;$varName  is  exists!&quot;</span><br><span class="line">else</span><br><span class="line">    echo  &quot;$varName  does  not  exist&quot;</span><br><span class="line">fi</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<br></li>
+</ul>
+<h3 id="選擇判斷式"><a href="#選擇判斷式" class="headerlink" title="選擇判斷式"></a>選擇判斷式</h3><ul>
+<li><code>case</code><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">標準格式</span></span><br><span class="line">case  WORD   in</span><br><span class="line">	PATTERN1  )</span><br><span class="line">	    COMMANDS </span><br><span class="line">	;;</span><br><span class="line">	PATTERN2  )</span><br><span class="line">		COMMANDS </span><br><span class="line">	;;</span><br><span class="line">	*  )</span><br><span class="line">		COMMANDS </span><br><span class="line">	;;</span><br><span class="line">esac</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">大小寫字母還是數字</span></span><br><span class="line">[[:upper:]]  )</span><br><span class="line">[[:lower:]]  )</span><br><span class="line">[[:digit:]]  )</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">範例</span></span><br><span class="line">varDay=`date  +%u`</span><br><span class="line"></span><br><span class="line">case  $varDay  in</span><br><span class="line">    [12345]  )</span><br><span class="line">        echo  &quot;Today  is  `date +%A`,  a  work  day.&quot;</span><br><span class="line">    ;;</span><br><span class="line">    [67]  )</span><br><span class="line">        echo  &quot;Today  is  `date +%A`,  a  holiday.&quot;</span><br><span class="line">    ;;</span><br><span class="line">esac</span><br></pre></td></tr></table></figure></li>
+</ul>
+<br>
+
+<h3 id="路徑分析"><a href="#路徑分析" class="headerlink" title="路徑分析"></a>路徑分析</h3><ul>
+<li><code>dirname</code>，將整個檔案路徑分析出路徑<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">參數</span></span><br><span class="line">-z      不輸出換行字元</span><br><span class="line"></span><br><span class="line">dirname  -z  /etc/network/interface     # /etc/networkroot</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">範例</span></span><br><span class="line">read  -p  &quot;Please  enter  a file-name  to  search:  &quot;  varFilename</span><br><span class="line"></span><br><span class="line">findit=`find  $varPath  -type  f   -name  $varFilename`</span><br><span class="line"></span><br><span class="line">echo  &quot;==  SEARCH  COMPLETE  ==&quot;</span><br><span class="line">dirname  $findit</span><br><span class="line"></span><br><span class="line">exit  0</span><br></pre></td></tr></table></figure></li>
+<li><code>basename</code></li>
+<li>將整個檔案路徑分析出檔名<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">參數</span></span><br><span class="line">-z      不輸出換行字元</span><br><span class="line"></span><br><span class="line">basename  -z  /etc/network/interface     # /etc/networkroot</span><br></pre></td></tr></table></figure></li>
+</ul>
+<br>
+
+<h3 id="除錯輔助"><a href="#除錯輔助" class="headerlink" title="除錯輔助"></a>除錯輔助</h3><ul>
+<li><code>bash</code>，指定執行為除錯模式<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">-v     執行，但顯示所讀之程式碼</span><br><span class="line">-x     執行，僅顯示所執行之程式碼</span><br><span class="line"></span><br><span class="line">bash  -x  ./debug.sh</span><br><span class="line"></span><br></pre></td></tr></table></figure></li>
+<li><code>set</code>，將目前 shell 設為除錯模式<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">-v     執行，但顯示所讀之程式碼</span><br><span class="line">-x     執行，僅顯示所執行之程式碼</span><br><span class="line"></span><br><span class="line">+v     執行，但不顯示所讀之程式碼</span><br><span class="line">+x     執行，但不顯示所執行之程式碼</span><br><span class="line"></span><br><span class="line">set  -x</span><br><span class="line">./debug.sh</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">取消</span></span><br><span class="line">set  +x</span><br></pre></td></tr></table></figure></li>
+</ul>
+<br>
+
+<h3 id="迴圈"><a href="#迴圈" class="headerlink" title="迴圈"></a>迴圈</h3><ul>
+<li><code>for</code></li>
+<li>$IFS，為空白、換行、制表 用以處理字段分割的法子，<code>IFS=$&#39; \t\n&#39;</code></li>
+<li>標準語法<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">for  NAME   in  WORD1  WORD2  WORD3…</span><br><span class="line">do</span><br><span class="line">	COMMANDS </span><br><span class="line">done</span><br></pre></td></tr></table></figure></li>
+<li>範例<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">for  x  in  Hubert  David  Albert  350  Travis  Guru</span><br><span class="line">do</span><br><span class="line">    echo  &quot;My  favorite  teacher:  $x&quot;</span><br><span class="line">done</span><br><span class="line"></span><br><span class="line">exit  0</span><br></pre></td></tr></table></figure></li>
+<li>寫法二<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">for  ((  INITIALIZATION  ;  CONDITION  ; INCREMENT or DECREMENT )) </span><br><span class="line">do</span><br><span class="line">	COMMANDS </span><br><span class="line">done</span><br></pre></td></tr></table></figure></li>
+<li>範例<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">for  ((  x=1  ;  x&lt;=100  ;  x=x+1  ))</span><br><span class="line">do</span><br><span class="line">    echo  -n  -e  &quot;$x\t&quot;</span><br><span class="line">    let  varNewline=$x%10</span><br><span class="line">    [  $varNewline  ==  &quot;0&quot;  ]   &amp;&amp;   echo  &quot;&quot;</span><br><span class="line">done</span><br><span class="line">exit  0</span><br></pre></td></tr></table></figure></li>
+</ul>
+<br>
+
+<h3 id="值的計算"><a href="#值的計算" class="headerlink" title="值的計算"></a>值的計算</h3><ul>
+<li><code>expr</code>，計算後之結果輸出於螢幕<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">expr  4  +  9  ;  echo  $?</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">13</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">0</span></span><br><span class="line"></span><br><span class="line">expr  9  \*  8  ;  echo  $?</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">0</span></span><br></pre></td></tr></table></figure></li>
+<li><code>let</code>，計算後僅回覆 EXIT Code，結果不輸出於螢幕<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">let  5432-1234  ;  echo  $?</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">0</span></span><br><span class="line"></span><br><span class="line">let  myCalc=12/4  ;  echo  $?</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">0</span></span><br><span class="line">echo  $myCalc</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">3</span></span><br></pre></td></tr></table></figure></li>
+</ul>
+<br>
+
+<h3 id="Shell的延遲"><a href="#Shell的延遲" class="headerlink" title="Shell的延遲"></a>Shell的延遲</h3><ul>
+<li><code>sleep</code>，將目前 shell 設暫停一段時間<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">Xs    延遲 X 秒 (default)</span><br><span class="line">Xm   延遲 X 分</span><br><span class="line">Xh    延遲 X 小時</span><br><span class="line">XD    延遲 X 天</span><br><span class="line"></span><br><span class="line">sleep  5s  ;  echo  &quot;Time&#x27;s  up.&quot;</span><br></pre></td></tr></table></figure></li>
+</ul>
+]]></content>
+      <tags>
+        <tag>Linux</tag>
+        <tag>Shell</tag>
+        <tag>Script</tag>
       </tags>
   </entry>
 </search>
