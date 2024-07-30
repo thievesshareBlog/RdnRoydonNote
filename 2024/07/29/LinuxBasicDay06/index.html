@@ -29,7 +29,7 @@
 <meta property="og:description" content="前言 在 Linux 系統中，條件計算和判斷式是腳本編程和系統管理中至關重要的部分。這些工具和技術允許用戶在腳本中根據不同的條件執行特定的操作，從而自動化任務和優化系統性能。理解這些基本的條件判斷和選擇判斷式的用法對於撰寫高效的 shell 腳本至關重要。   這些基礎知識和技能是編寫有效的 Linux 腳本和進行系統管理的基石。掌握條件計算、判斷式、選擇判斷式和路徑分析將使您能夠在 Linux">
 <meta property="og:locale" content="zh_TW">
 <meta property="article:published_time" content="2024-07-29T02:15:11.000Z">
-<meta property="article:modified_time" content="2024-07-29T08:20:30.323Z">
+<meta property="article:modified_time" content="2024-07-30T03:06:34.513Z">
 <meta property="article:author" content="Roydon">
 <meta property="article:tag" content="Linux">
 <meta property="article:tag" content="Shell">
@@ -218,10 +218,16 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">發表於</span>
-              
 
-              <time title="創建時間：2024-07-29 10:15:11 / 修改時間：16:20:30" itemprop="dateCreated datePublished" datetime="2024-07-29T10:15:11+08:00">2024-07-29</time>
+              <time title="創建時間：2024-07-29 10:15:11" itemprop="dateCreated datePublished" datetime="2024-07-29T10:15:11+08:00">2024-07-29</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新於</span>
+                <time title="修改時間：2024-07-30 11:06:34" itemprop="dateModified" datetime="2024-07-30T11:06:34+08:00">2024-07-30</time>
+              </span>
 
           
   
@@ -243,14 +249,14 @@
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">文章字數：</span>
-              <span>2.7k</span>
+              <span>3.6k</span>
             </span>
             <span class="post-meta-item" title="所需閱讀時間">
               <span class="post-meta-item-icon">
                 <i class="far fa-clock"></i>
               </span>
                 <span class="post-meta-item-text">所需閱讀時間 &asymp;</span>
-              <span>2 分鐘</span>
+              <span>3 分鐘</span>
             </span>
 
         </div>
@@ -325,6 +331,29 @@
 
 <h3 id="Shell的延遲"><a href="#Shell的延遲" class="headerlink" title="Shell的延遲"></a>Shell的延遲</h3><ul>
 <li><code>sleep</code>，將目前 shell 設暫停一段時間<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">Xs    延遲 X 秒 (default)</span><br><span class="line">Xm   延遲 X 分</span><br><span class="line">Xh    延遲 X 小時</span><br><span class="line">XD    延遲 X 天</span><br><span class="line"></span><br><span class="line">sleep  5s  ;  echo  &quot;Time&#x27;s  up.&quot;</span><br></pre></td></tr></table></figure></li>
+</ul>
+<p><br><br></p>
+<h3 id="題目"><a href="#題目" class="headerlink" title="題目"></a>題目</h3><ul>
+<li>請寫一條有 3 段以上的 test 計算式，並說明之。</li>
+<li>限以 read 輸入指令，test 辦別是否有輸入指令，然後執行，執行結果輸出於螢幕上，錯誤訊息則不出現，並將指令紀錄於 commRecoder.txt (累加)。</li>
+<li>限以 read 與 test 設計一個程式讓使用者輸入一個檔名或目錄 (均可含路徑) 後，判斷是否存在，並列判別是否有 RWX 屬性，並列出相關訊息。</li>
+<li>限以 read 與 test 設計一個程式執行任意三個指令或指令串執，每個指令實行時都要有提示聲響，執行結果都要輸出於螢幕上，如有錯誤要告知使用者，但不可輸出錯誤訊息於螢幕上。</li>
+<li>請說明 test 的 [  ]  與 [[  ]] 並舉例。</li>
+<li>使用 if 與 read 設計一個程式，讓使用者輸入一檔名或目錄，判別當下使用者是否有權使用。</li>
+<li>以 read 與 if 寫一個密碼設定程式，密碼輸入兩次相同，顯示設定完成；兩次不同，顯示密碼無法設定 (密碼應不顯示於螢幕上，提示: read 有此功能)。</li>
+<li>請設計一個目錄檢查程式，使用者輸入一個目錄後，辨識目錄內哪個是檔案(不需辨識連結檔或設備檔…)、目錄 (不需辨識到子目錄內)，需使用 read, if, for, test。</li>
+<li>限用 read, case, if, let 設計對話式面積計算程式，可計算四角面積、圓面積、正三角面積。</li>
+<li>以 echo, read, case 來設計一個選單程式。</li>
+<li>請以 for 寫印出一個九九成法表。</li>
+<li>請以 for 列印出如下格式。  <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">　　　　＊＊＊＊＊＊＊＊</span><br><span class="line">　　　　＊＊＊＊＊＊＊</span><br><span class="line">　　　　＊＊＊＊＊＊</span><br><span class="line">　　　　＊＊＊＊＊</span><br><span class="line">　　　　＊＊＊＊</span><br><span class="line">　　　　＊＊＊</span><br><span class="line">　　　　＊＊</span><br><span class="line">　　　　＊ </span><br></pre></td></tr></table></figure></li>
+<li>請以 for 列印出如下格式。  <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">　　　　　　　　　　　＊</span><br><span class="line">　　　　　　　　　　＊＊</span><br><span class="line">　　　　　　　　　＊＊＊</span><br><span class="line">　　　　　　　　＊＊＊＊</span><br><span class="line">　　　　　　　＊＊＊＊＊</span><br><span class="line">　　　　　　＊＊＊＊＊＊</span><br><span class="line">　　　　　＊＊＊＊＊＊＊</span><br><span class="line">　　　　＊＊＊＊＊＊＊＊</span><br></pre></td></tr></table></figure></li>
+<li>請以 for 列印出如下格式。  <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">　　　　＊＊＊＊＊＊＊＊</span><br><span class="line">　　　　＊　　　　　　＊</span><br><span class="line">　　　　＊　　　　　　＊</span><br><span class="line">　　　　＊　　　　　　＊</span><br><span class="line">　　　　＊　　　　　　＊</span><br><span class="line">　　　　＊　　　　　　＊</span><br><span class="line">　　　　＊　　　　　　＊</span><br><span class="line">　　　　＊＊＊＊＊＊＊＊ </span><br></pre></td></tr></table></figure></li>
+<li>請以 for 列印出如下格式。  <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">　　　　＊＊＊＊＊＊＊＊</span><br><span class="line">　　　　　＊＊＊＊＊＊</span><br><span class="line">　　　　　　＊＊＊＊＊＊</span><br><span class="line">　　　　　　　＊＊</span><br><span class="line">　　　　　　＊＊＊＊</span><br><span class="line">　　　　　＊＊＊＊＊＊</span><br><span class="line">　　　　＊＊＊＊＊＊＊＊</span><br></pre></td></tr></table></figure></li>
+<li>請以 for 列印出如下格式。  <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">　　　　　　　＊</span><br><span class="line">　　　　　　＊＊＊</span><br><span class="line">　　　　　＊＊＊＊＊</span><br><span class="line">　　　　＊＊＊＊＊＊＊</span><br><span class="line">　　　　　＊＊＊＊＊</span><br><span class="line">　　　　　　＊＊＊</span><br><span class="line">　　　　　　　＊</span><br></pre></td></tr></table></figure></li>
+<li>限用 case、read 設計星座查詢程式 ( 輸入出生生日查詢所屬星座 )。</li>
+<li>限用 case、read 設計生肖查詢程式 ( 輸入出生年份查詢所屬生肖 )。</li>
+<li>請說明並舉例 bc 的用法。</li>
+<li>請說明並舉例 wait 的用法。</li>
 </ul>
 
     </div>
@@ -419,7 +448,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%89%8D%E8%A8%80"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%A2%9D%E4%BB%B6%E8%A8%88%E7%AE%97"><span class="nav-number">2.</span> <span class="nav-text">條件計算</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%AA%94%E6%A1%88%E6%93%8D%E4%BD%9C%EF%BC%9A%E6%AA%94%E6%A1%88%E7%9B%AE%E9%8C%84%E5%AD%98%E5%9C%A8%E8%88%87%E5%B1%AC%E6%80%A7%E6%AA%A2%E6%9F%A5"><span class="nav-number">2.1.</span> <span class="nav-text">檔案操作：檔案目錄存在與屬性檢查</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%AD%97%E4%B8%B2%E6%93%8D%E4%BD%9C%EF%BC%9A%E7%A9%BA%E5%80%BC%E6%AA%A2%E6%9F%A5"><span class="nav-number">2.2.</span> <span class="nav-text">字串操作：空值檢查</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%AD%97%E4%B8%B2%E6%93%8D%E4%BD%9C%EF%BC%9A%E5%AD%97%E5%85%83%E6%AF%94%E8%BC%83"><span class="nav-number">2.3.</span> <span class="nav-text">字串操作：字元比較</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%AD%97%E4%B8%B2%E6%93%8D%E4%BD%9C%EF%BC%9A%E6%95%B8%E5%AD%97%E6%AF%94%E8%BC%83"><span class="nav-number">2.4.</span> <span class="nav-text">字串操作：數字比較</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%A4%E6%96%B7%E5%BC%8F"><span class="nav-number">3.</span> <span class="nav-text">判斷式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%81%B8%E6%93%87%E5%88%A4%E6%96%B7%E5%BC%8F"><span class="nav-number">4.</span> <span class="nav-text">選擇判斷式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%B7%AF%E5%BE%91%E5%88%86%E6%9E%90"><span class="nav-number">5.</span> <span class="nav-text">路徑分析</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%99%A4%E9%8C%AF%E8%BC%94%E5%8A%A9"><span class="nav-number">6.</span> <span class="nav-text">除錯輔助</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%BF%B4%E5%9C%88"><span class="nav-number">7.</span> <span class="nav-text">迴圈</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%80%BC%E7%9A%84%E8%A8%88%E7%AE%97"><span class="nav-number">8.</span> <span class="nav-text">值的計算</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Shell%E7%9A%84%E5%BB%B6%E9%81%B2"><span class="nav-number">9.</span> <span class="nav-text">Shell的延遲</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%89%8D%E8%A8%80"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%A2%9D%E4%BB%B6%E8%A8%88%E7%AE%97"><span class="nav-number">2.</span> <span class="nav-text">條件計算</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%AA%94%E6%A1%88%E6%93%8D%E4%BD%9C%EF%BC%9A%E6%AA%94%E6%A1%88%E7%9B%AE%E9%8C%84%E5%AD%98%E5%9C%A8%E8%88%87%E5%B1%AC%E6%80%A7%E6%AA%A2%E6%9F%A5"><span class="nav-number">2.1.</span> <span class="nav-text">檔案操作：檔案目錄存在與屬性檢查</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%AD%97%E4%B8%B2%E6%93%8D%E4%BD%9C%EF%BC%9A%E7%A9%BA%E5%80%BC%E6%AA%A2%E6%9F%A5"><span class="nav-number">2.2.</span> <span class="nav-text">字串操作：空值檢查</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%AD%97%E4%B8%B2%E6%93%8D%E4%BD%9C%EF%BC%9A%E5%AD%97%E5%85%83%E6%AF%94%E8%BC%83"><span class="nav-number">2.3.</span> <span class="nav-text">字串操作：字元比較</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%AD%97%E4%B8%B2%E6%93%8D%E4%BD%9C%EF%BC%9A%E6%95%B8%E5%AD%97%E6%AF%94%E8%BC%83"><span class="nav-number">2.4.</span> <span class="nav-text">字串操作：數字比較</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%A4%E6%96%B7%E5%BC%8F"><span class="nav-number">3.</span> <span class="nav-text">判斷式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%81%B8%E6%93%87%E5%88%A4%E6%96%B7%E5%BC%8F"><span class="nav-number">4.</span> <span class="nav-text">選擇判斷式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%B7%AF%E5%BE%91%E5%88%86%E6%9E%90"><span class="nav-number">5.</span> <span class="nav-text">路徑分析</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%99%A4%E9%8C%AF%E8%BC%94%E5%8A%A9"><span class="nav-number">6.</span> <span class="nav-text">除錯輔助</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%BF%B4%E5%9C%88"><span class="nav-number">7.</span> <span class="nav-text">迴圈</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%80%BC%E7%9A%84%E8%A8%88%E7%AE%97"><span class="nav-number">8.</span> <span class="nav-text">值的計算</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Shell%E7%9A%84%E5%BB%B6%E9%81%B2"><span class="nav-number">9.</span> <span class="nav-text">Shell的延遲</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%A1%8C%E7%9B%AE"><span class="nav-number">10.</span> <span class="nav-text">題目</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -496,12 +525,12 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-area"></i>
     </span>
-    <span title="總字數">14k</span>
+    <span title="總字數">16k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="所需總閱讀時間">12 分鐘</span>
+    <span title="所需總閱讀時間">14 分鐘</span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 強力驅動
   </div>
