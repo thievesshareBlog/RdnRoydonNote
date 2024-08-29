@@ -3,12 +3,12 @@
   <entry>
     <title>Cisco Packet Tracer Day01 - IP 基礎概念</title>
     <url>/RdnRoydonNote/2024/08/29/CiscoPacketTracerDay01/</url>
-    <content><![CDATA[<font size='3'>
-這篇文章將詳細介紹如何將 Cisco Packet Tracer 基礎操作及基本概念。
-</font>
-
-<p><br><br></p>
+    <content><![CDATA[<h3 id="本章"><a href="#本章" class="headerlink" title="本章"></a><font size='5'>本章</font></h3><blockquote>
+<p><font size='3'>這篇文章將詳細介紹如何將 Cisco Packet Tracer 基礎操作及基本概念。</font></p>
+</blockquote>
 <span id="more"></span>
+
+<br>
 
 <h3 id="IP-地址"><a href="#IP-地址" class="headerlink" title="IP 地址"></a>IP 地址</h3><ul>
 <li><font size='3'>IPv4：由 32 位元組成，通常表示為點分十進制形式，如 192.168.1.1。IPv4 地址總共能提供約 43 億個地址。</font></li>
@@ -43,13 +43,12 @@
   <entry>
     <title>Cisco Packet Tracer Day02 - 基礎指令</title>
     <url>/RdnRoydonNote/2024/08/29/CiscoPacketTracerDay02/</url>
-    <content><![CDATA[<font size='3'>
-這篇文章將詳細介紹如何將 Cisco Packet Tracer 基礎指令。
-</font>
+    <content><![CDATA[<h3 id="本章"><a href="#本章" class="headerlink" title="本章"></a><font size='5'>本章</font></h3><blockquote>
+<p><font size='3'>這篇文章將詳細介紹如何將 Cisco Packet Tracer 基礎指令。</font></p>
+</blockquote>
+<span id="more"></span>
 
 <br>
-
-<span id="more"></span>
 
 <h3 id="基礎指令"><a href="#基礎指令" class="headerlink" title="基礎指令"></a>基礎指令</h3><ul>
 <li><h4 id="進入特權模式"><a href="#進入特權模式" class="headerlink" title="進入特權模式"></a><font size='3'>進入特權模式</font></h4></li>
