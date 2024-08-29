@@ -215,7 +215,7 @@
               <span class="post-meta-item-text">發表於</span>
               
 
-              <time title="創建時間：2024-08-29 09:55:43 / 修改時間：11:36:30" itemprop="dateCreated datePublished" datetime="2024-08-29T09:55:43+08:00">2024-08-29</time>
+              <time title="創建時間：2024-08-29 09:55:43 / 修改時間：11:46:48" itemprop="dateCreated datePublished" datetime="2024-08-29T09:55:43+08:00">2024-08-29</time>
             </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -271,74 +271,14 @@
 </font>
 
 <br>
-
-<h3 id="基礎指令"><a href="#基礎指令" class="headerlink" title="基礎指令"></a>基礎指令</h3><ul>
-<li><h4 id="進入特權模式"><a href="#進入特權模式" class="headerlink" title="進入特權模式"></a><font size='3'>進入特權模式</font></h4></li>
-</ul>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">enable</span><br></pre></td></tr></table></figure>
-<ul>
-<li><h4 id="進入全局配置模式"><a href="#進入全局配置模式" class="headerlink" title="進入全局配置模式"></a><font size='3'>進入全局配置模式</font></h4></li>
-</ul>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">configure terminal</span><br><span class="line"></span><br><span class="line">or</span><br><span class="line"></span><br><span class="line">config t</span><br></pre></td></tr></table></figure>
-<ul>
-<li><h4 id="配置接口-IP-地址"><a href="#配置接口-IP-地址" class="headerlink" title="配置接口 IP 地址"></a><font size='3'>配置接口 IP 地址</font></h4></li>
-</ul>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">interface [interface_name]</span><br><span class="line">ip address [IP_address] [subnet_mask]</span><br><span class="line">no shutdown</span><br><span class="line"></span><br><span class="line">例子：</span><br><span class="line">interface gigabitethernet0/0</span><br><span class="line">ip address 192.168.1.1 255.255.255.0</span><br><span class="line">no shutdown</span><br></pre></td></tr></table></figure>
-<ul>
-<li><h4 id="查看接口狀態"><a href="#查看接口狀態" class="headerlink" title="查看接口狀態"></a><font size='3'>查看接口狀態</font></h4></li>
-</ul>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">顯示路由器或交換機上所有接口的狀態和 IP 配置。</span></span><br><span class="line">show ip interface brief</span><br></pre></td></tr></table></figure>
-<ul>
-<li><h4 id="查看運行配置"><a href="#查看運行配置" class="headerlink" title="查看運行配置"></a><font size='3'>查看運行配置</font></h4></li>
-</ul>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">查看當前設備的運行配置。</span></span><br><span class="line">show running-config</span><br></pre></td></tr></table></figure>
-<ul>
-<li><h4 id="保存配置"><a href="#保存配置" class="headerlink" title="保存配置"></a><font size='3'>保存配置</font></h4></li>
-</ul>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">將當前運行的配置保存到啟動配置，以便下次設備重啟時仍然有效。</span></span><br><span class="line">copy running-config startup-config</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li><h4 id="查看路由表"><a href="#查看路由表" class="headerlink" title=" 查看路由表"></a><font size='3'> 查看路由表</font></h4></li>
-</ul>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">顯示設備的路由表，檢查可達的網路和路由選擇。</span></span><br><span class="line">show ip route</span><br></pre></td></tr></table></figure>
-<ul>
-<li><h4 id="設置主機名"><a href="#設置主機名" class="headerlink" title=" 設置主機名"></a><font size='3'> 設置主機名</font></h4></li>
-</ul>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">設置路由器或交換機的主機名為 <span class="string">&quot;Router1&quot;</span>。</span></span><br><span class="line">hostname [name]</span><br><span class="line"></span><br><span class="line">hostname Router1</span><br></pre></td></tr></table></figure>
-<ul>
-<li><h4 id="配置密碼"><a href="#配置密碼" class="headerlink" title=" 配置密碼"></a><font size='3'> 配置密碼</font></h4></li>
-</ul>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">設置特權模式和控制台的訪問密碼。</span></span><br><span class="line">enable secret [password]</span><br><span class="line">line console 0</span><br><span class="line">password [password]</span><br><span class="line">login</span><br><span class="line"></span><br><span class="line">enable secret cisco123</span><br><span class="line">line console 0</span><br><span class="line">password cisco123</span><br><span class="line">login</span><br></pre></td></tr></table></figure>
-
-<h3 id="設定指令"><a href="#設定指令" class="headerlink" title="設定指令"></a>設定指令</h3><ul>
-<li><h4 id="設置-VLAN（針對交換機）"><a href="#設置-VLAN（針對交換機）" class="headerlink" title="設置 VLAN（針對交換機）"></a><font size='3'>設置 VLAN（針對交換機）</font></h4></li>
-</ul>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">創建 VLAN 10 並將其命名為 <span class="string">&quot;Sales&quot;</span>。</span></span><br><span class="line">vlan [VLAN_ID]</span><br><span class="line">name [VLAN_name]</span><br><span class="line"></span><br><span class="line">vlan 10</span><br><span class="line">name Sales</span><br></pre></td></tr></table></figure>
-<ul>
-<li><h4 id="配置端口加入-VLAN（針對交換機）"><a href="#配置端口加入-VLAN（針對交換機）" class="headerlink" title=" 配置端口加入 VLAN（針對交換機）"></a><font size='3'> 配置端口加入 VLAN（針對交換機）</font></h4></li>
-</ul>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">將 FastEthernet0/1 端口設置為 VLAN 10 的成員。</span></span><br><span class="line">interface [interface_name]</span><br><span class="line">switchport mode access</span><br><span class="line">switchport access vlan [VLAN_ID]</span><br><span class="line"></span><br><span class="line">interface fastethernet0/1</span><br><span class="line">switchport mode access</span><br><span class="line">switchport access vlan 10</span><br></pre></td></tr></table></figure>
-<ul>
-<li><h4 id="查看-VLAN-配置（針對交換機）"><a href="#查看-VLAN-配置（針對交換機）" class="headerlink" title=" 查看 VLAN 配置（針對交換機）"></a><font size='3'> 查看 VLAN 配置（針對交換機）</font></h4></li>
-</ul>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">顯示當前交換機上配置的 VLAN 和它們的成員端口。</span></span><br><span class="line">show vlan brief</span><br></pre></td></tr></table></figure>
-<ul>
-<li><h4 id="配置-OSPF（Open-Shortest-Path-First）"><a href="#配置-OSPF（Open-Shortest-Path-First）" class="headerlink" title="配置 OSPF（Open Shortest Path First）"></a><font size='3'>配置 OSPF（Open Shortest Path First）</font></h4></li>
-</ul>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">配置 OSPF 路由協議並將網段 192.168.1.0/24 添加到 OSPF 中。</span></span><br><span class="line">router ospf [process_id]</span><br><span class="line">network [network_address] [wildcard_mask] area [area_id]</span><br><span class="line"></span><br><span class="line">router ospf 1</span><br><span class="line">network 192.168.1.0 0.0.0.255 area 0</span><br></pre></td></tr></table></figure>
-<ul>
-<li><h4 id="設置路由"><a href="#設置路由" class="headerlink" title="設置路由"></a><font size='3'>設置路由</font></h4></li>
-</ul>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">配置靜態路由，將流量引導到指定的下一跳 IP 地址。</span></span><br><span class="line"></span><br><span class="line">ip route [destination_network] [subnet_mask] [next_hop_ip]</span><br><span class="line"></span><br><span class="line">ip route 10.1.1.0 255.255.255.0 192.168.1.2</span><br></pre></td></tr></table></figure>
-
-
-
-
-<ul>
-<li><h4 id="配置密碼-1"><a href="#配置密碼-1" class="headerlink" title=" 配置密碼"></a><font size='3'> 配置密碼</font></h4></li>
-</ul>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">設置特權模式和控制台的訪問密碼。</span></span><br><span class="line">enable secret [password]</span><br><span class="line">line console 0</span><br><span class="line">password [password]</span><br><span class="line">login</span><br><span class="line"></span><br><span class="line">enable secret cisco123</span><br><span class="line">line console 0</span><br><span class="line">password cisco123</span><br><span class="line">login</span><br></pre></td></tr></table></figure>
-
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/RdnRoydonNote/2024/08/29/CiscoPacketTracerDay02/#more" rel="contents">
+                閱讀全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 
