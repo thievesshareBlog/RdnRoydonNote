@@ -21,24 +21,22 @@
     var CONFIG = {"hostname":"thievesshareblog.github.io","root":"/RdnRoydonNote/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":false,"style":"mac"},"back2top":{"enable":true,"sidebar":true,"scrollpercent":true},"bookmark":{"enable":true,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":true,"lazyload":true,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
-  <meta name="description" content="本章 這篇文章將詳細介紹如何將 Cisco Packet Tracer 基礎操作及基本概念。">
+  <meta name="description" content="前言 Access Control Lists (ACLs) 是一組用於控制網路流量進出設備的規則集合。它們可以配置在路由器或交換機上，用來允許或拒絕數據包進入或離開網路接口。ACL 是網路安全管理的一個關鍵工具，可以防止未經授權的流量進入網路。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Cisco Packet Tracer Day01 - IP 基礎概念">
-<meta property="og:url" content="https://thievesshareblog.github.io/RdnRoydonNote/2024/08/29/CiscoPacketTracerDay01/index.html">
+<meta property="og:title" content="Cisco Packet Tracer Day03 - ACL">
+<meta property="og:url" content="https://thievesshareblog.github.io/RdnRoydonNote/2024/08/29/CiscoPacketTracerDay03/index.html">
 <meta property="og:site_name" content="Roydon&#39;s Note">
-<meta property="og:description" content="本章 這篇文章將詳細介紹如何將 Cisco Packet Tracer 基礎操作及基本概念。">
+<meta property="og:description" content="前言 Access Control Lists (ACLs) 是一組用於控制網路流量進出設備的規則集合。它們可以配置在路由器或交換機上，用來允許或拒絕數據包進入或離開網路接口。ACL 是網路安全管理的一個關鍵工具，可以防止未經授權的流量進入網路。">
 <meta property="og:locale" content="zh_TW">
-<meta property="og:image" content="https://thievesshareblog.github.io/RdnRoydonNote/2024/08/29/CiscoPacketTracerDay01/subnetMask.png">
-<meta property="article:published_time" content="2024-08-29T01:39:00.000Z">
-<meta property="article:modified_time" content="2024-08-29T03:59:04.301Z">
+<meta property="article:published_time" content="2024-08-29T11:11:47.000Z">
+<meta property="article:modified_time" content="2024-08-29T11:41:09.041Z">
 <meta property="article:author" content="Roydon">
 <meta property="article:tag" content="Cisco">
 <meta property="article:tag" content="Packet Tracer">
 <meta property="article:tag" content="Basic">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://thievesshareblog.github.io/RdnRoydonNote/2024/08/29/CiscoPacketTracerDay01/subnetMask.png">
 
-<link rel="canonical" href="https://thievesshareblog.github.io/RdnRoydonNote/2024/08/29/CiscoPacketTracerDay01/">
+<link rel="canonical" href="https://thievesshareblog.github.io/RdnRoydonNote/2024/08/29/CiscoPacketTracerDay03/">
 
 
 <script id="page-configurations">
@@ -51,7 +49,7 @@
   };
 </script>
 
-  <title>Cisco Packet Tracer Day01 - IP 基礎概念 | Roydon's Note</title>
+  <title>Cisco Packet Tracer Day03 - ACL | Roydon's Note</title>
   
 
 
@@ -198,7 +196,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-TW">
-    <link itemprop="mainEntityOfPage" href="https://thievesshareblog.github.io/RdnRoydonNote/2024/08/29/CiscoPacketTracerDay01/">
+    <link itemprop="mainEntityOfPage" href="https://thievesshareblog.github.io/RdnRoydonNote/2024/08/29/CiscoPacketTracerDay03/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/RdnRoydonNote/images/death.svg">
@@ -211,7 +209,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          Cisco Packet Tracer Day01 - IP 基礎概念
+          Cisco Packet Tracer Day03 - ACL
         </h1>
 
         <div class="post-meta">
@@ -222,7 +220,7 @@
               <span class="post-meta-item-text">發表於</span>
               
 
-              <time title="創建時間：2024-08-29 09:39:00 / 修改時間：11:59:04" itemprop="dateCreated datePublished" datetime="2024-08-29T09:39:00+08:00">2024-08-29</time>
+              <time title="創建時間：2024-08-29 19:11:47 / 修改時間：19:41:09" itemprop="dateCreated datePublished" datetime="2024-08-29T19:11:47+08:00">2024-08-29</time>
             </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -243,8 +241,8 @@
       </span>
       <span class="post-meta-item-text">Disqus：</span>
     
-    <a title="disqus" href="/RdnRoydonNote/2024/08/29/CiscoPacketTracerDay01/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2024/08/29/CiscoPacketTracerDay01/" itemprop="commentCount"></span>
+    <a title="disqus" href="/RdnRoydonNote/2024/08/29/CiscoPacketTracerDay03/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2024/08/29/CiscoPacketTracerDay03/" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -254,7 +252,7 @@
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">文章字數：</span>
-              <span>1.2k</span>
+              <span>1.1k</span>
             </span>
             <span class="post-meta-item" title="所需閱讀時間">
               <span class="post-meta-item-icon">
@@ -273,33 +271,51 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h3 id="本章"><a href="#本章" class="headerlink" title="本章"></a><font size='5'>本章</font></h3><blockquote>
-<p><font size='3'>這篇文章將詳細介紹如何將 Cisco Packet Tracer 基礎操作及基本概念。</font></p>
+        <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a><font size='5'>前言</font></h3><blockquote>
+<p><font size='3'>Access Control Lists (ACLs) 是一組用於控制網路流量進出設備的規則集合。它們可以配置在路由器或交換機上，用來允許或拒絕數據包進入或離開網路接口。ACL 是網路安全管理的一個關鍵工具，可以防止未經授權的流量進入網路。</font></p>
 </blockquote>
 <span id="more"></span>
 
 <br>
 
-<h3 id="IP-地址"><a href="#IP-地址" class="headerlink" title="IP 地址"></a>IP 地址</h3><ul>
-<li><font size='3'>IPv4：由 32 位元組成，通常表示為點分十進制形式，如 192.168.1.1。IPv4 地址總共能提供約 43 億個地址。</font></li>
-<li><font size='3'>IPv6：由 128 位元組成，通常表示為八組十六進制數字，如 2001:0db8:85a3:0000:0000:8a2e:0370:7334，可以提供極大量的地址，解決了 IPv4 地址耗盡的問題。</font></li>
-<li><font size='3'> IP 地址類型</font><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">私有 IP 地址：用於局域網（LAN）內部，不能直接在互聯網上路由。常見的私有 IP 範圍包括：</span><br><span class="line"></span><br><span class="line">10.0.0.0 - 10.255.255.255</span><br><span class="line">172.16.0.0 - 172.31.255.255</span><br><span class="line">192.168.0.0 - 192.168.255.255</span><br></pre></td></tr></table></figure></li>
-<li><font size='3'>NAT（Network Address Translation）</font><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">NAT 的作用：NAT 技術允許多台設備共用一個公有 IP 地址來訪問互聯網。NAT 將私有 IP 地址轉換為公有 IP 地址，並在返回時將公有 IP 地址轉換回私有 IP 地址。</span><br><span class="line">用途：NAT 通常用於家庭和公司網路，以節省公有 IP 地址。</span><br><span class="line"></span><br></pre></td></tr></table></figure></li>
+<h3 id="ACL-的基本概念"><a href="#ACL-的基本概念" class="headerlink" title="ACL 的基本概念"></a>ACL 的基本概念</h3><ul>
+<li><h4 id="ACL-是由一系列規則組成的列表，每個規則指定要允許或拒絕的條件（如源-IP-地址、目標-IP-地址、協議類型等）。"><a href="#ACL-是由一系列規則組成的列表，每個規則指定要允許或拒絕的條件（如源-IP-地址、目標-IP-地址、協議類型等）。" class="headerlink" title="ACL 是由一系列規則組成的列表，每個規則指定要允許或拒絕的條件（如源 IP 地址、目標 IP 地址、協議類型等）。"></a><font size='3'>ACL 是由一系列規則組成的列表，每個規則指定要允許或拒絕的條件（如源 IP 地址、目標 IP 地址、協議類型等）。</font></h4></li>
+<li><h4 id="每個進入或離開設備的數據包都會按照-ACL-中的規則進行匹配。匹配的第一條規則將決定這個數據包的命運（允許或拒絕），之後的規則將不再檢查。"><a href="#每個進入或離開設備的數據包都會按照-ACL-中的規則進行匹配。匹配的第一條規則將決定這個數據包的命運（允許或拒絕），之後的規則將不再檢查。" class="headerlink" title="每個進入或離開設備的數據包都會按照 ACL 中的規則進行匹配。匹配的第一條規則將決定這個數據包的命運（允許或拒絕），之後的規則將不再檢查。"></a><font size='3'>每個進入或離開設備的數據包都會按照 ACL 中的規則進行匹配。匹配的第一條規則將決定這個數據包的命運（允許或拒絕），之後的規則將不再檢查。</font></h4></li>
+<li><h4 id="控制流量的進出（可以應用在接口的“in”方向或“out”方向）。"><a href="#控制流量的進出（可以應用在接口的“in”方向或“out”方向）。" class="headerlink" title="控制流量的進出（可以應用在接口的“in”方向或“out”方向）。"></a><font size='3'>控制流量的進出（可以應用在接口的“in”方向或“out”方向）。</font></h4></li>
+<li><h4 id="限制特定用戶或設備的網路訪問，提高網路安全性，防止未經授權的訪問。"><a href="#限制特定用戶或設備的網路訪問，提高網路安全性，防止未經授權的訪問。" class="headerlink" title="限制特定用戶或設備的網路訪問，提高網路安全性，防止未經授權的訪問。"></a><font size='3'>限制特定用戶或設備的網路訪問，提高網路安全性，防止未經授權的訪問。</font></h4></li>
 </ul>
-<p><br><br></p>
-<h3 id="子網掩碼（Subnet-Mask）"><a href="#子網掩碼（Subnet-Mask）" class="headerlink" title="子網掩碼（Subnet Mask）"></a>子網掩碼（Subnet Mask）</h3><ul>
-<li><font size='3'>子網掩碼是 32 位元的二進位數，由連續的 1 和 0 組成，通常表示為點分十進制的格式，例如 255.255.255.0。</font></li>
-<li><font size='3'>路由器使用子網掩碼來確定目的地址屬於哪個子網，從而決定如何轉發數據包。</font></li>
-<li><font size='3'>實際應用</font><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">分離部門或區域：在企業網路中，不同部門可能使用不同的子網以隔離流量並提高安全性。</span><br><span class="line"></span><br><span class="line">提高安全性：通過子網劃分，可以限制子網之間的通信，從而提高網路的安全性和控制力。</span><br></pre></td></tr></table></figure></li>
-<li><font size='3'>子網掩碼範例：</font><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">/8（255.0.0.0）：網路位為前 8 位，適用於非常大的網路，如 A 類網路。</span><br><span class="line"></span><br><span class="line">/16（255.255.0.0）：網路位為前 16 位，適用於中型網路，如 B 類網路。</span><br><span class="line"></span><br><span class="line">/24（255.255.255.0）：網路位為前 24 位，適用於小型網路，如 C 類網路。</span><br></pre></td></tr></table></figure></li>
+<br>
+
+<h3 id="ACL-的類型"><a href="#ACL-的類型" class="headerlink" title="ACL 的類型"></a>ACL 的類型</h3><ul>
+<li><h4 id="標準-ACL（Standard-ACL）："><a href="#標準-ACL（Standard-ACL）：" class="headerlink" title="標準 ACL（Standard ACL）："></a><font size='3'>標準 ACL（Standard ACL）：</font></h4><ul>
+<li><font size='3'>只基於源 IP 地址進行過濾，標準 ACL 的編號範圍是 1-99 或 1300-1999。</font></li>
+<li><font size='3'>範例：</font>  <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">這條 ACL 規則允許來自 192.168.1.0/24 網段的所有流量。</span></span><br><span class="line">access-list 10 permit 192.168.1.0 0.0.0.255</span><br></pre></td></tr></table></figure></li>
 </ul>
-<p><br><br></p>
-<h3 id="計算"><a href="#計算" class="headerlink" title="計算"></a>計算</h3><p><img data-src="subnetMask.png" width='450'></img></p>
+</li>
+<li><h4 id="擴展-ACL（Extended-ACL）："><a href="#擴展-ACL（Extended-ACL）：" class="headerlink" title="擴展 ACL（Extended ACL）："></a><font size='3'>擴展 ACL（Extended ACL）：</font></h4><ul>
+<li><font size='3'>可以基於源 IP 地址、目標 IP 地址、協議類型（如 TCP、UDP、ICMP）、源端口和目標端口等進行過濾。</font></li>
+<li><font size='3'>擴展 ACL 的編號範圍是 100-199 或 2000-2699。</font></li>
+<li><font size='3'>範例：</font>  <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">這條 ACL 規則允許來自 192.168.1.0/24 網段的所有主機訪問任何目標的 80 端口。</span></span><br><span class="line">access-list 100 permit tcp 192.168.1.0 0.0.0.255 any eq 80</span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+</ul>
+<br>
+
+<h3 id="ACL-的配置"><a href="#ACL-的配置" class="headerlink" title="ACL 的配置"></a>ACL 的配置</h3><ul>
+<li><h4 id="標準-ACL-配置："><a href="#標準-ACL-配置：" class="headerlink" title="標準 ACL 配置："></a><font size='3'>標準 ACL 配置：</font></h4></li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">access-list [number] [permit|deny] [source] [wildcard_mask]</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">這會在 Giga0/0 接口上應用標準 ACL 10，允許來自 192.168.1.0/24 網段的流量進入。</span></span><br><span class="line">access-list 10 permit 192.168.1.0 0.0.0.255</span><br><span class="line">interface gigabitethernet0/0</span><br><span class="line">ip access-group 10 in</span><br></pre></td></tr></table></figure>
 <ul>
-<li><font size='3'>192.168.1.0&#x2F;24 &#x3D;&gt; 255.255.255.0</font></li>
-<li><font size='3'>192.168.1.0&#x2F;25</font><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">25 - 24 = 1，對照表 =&gt; 128</span><br><span class="line">255 - 128 = 127</span><br><span class="line">故，192.168.1.1 - 192.168.1.126 為可用 ip。</span><br><span class="line"></span><br><span class="line">如果 IP 地址超出了某個子網的範圍，那麼該 IP 地址屬於不同的網段（子網）。</span><br><span class="line"></span><br></pre></td></tr></table></figure></li>
-<li><font size='3'>10.1.16.9&#x2F;29</font><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">29 - 24 = 5，對照表 =&gt; 248</span><br><span class="line">255 - 248 = 7</span><br><span class="line"></span><br><span class="line">子網地址: 找出子網的起始地址，需要將 10.1.16.9 的主機部分歸零來確定子網地址。</span><br><span class="line"></span><br><span class="line">10.1.16.00001 | 001 =&gt; 10.1.16.8 / 29 </span><br><span class="line"></span><br><span class="line">故，192.168.1.9 - 192.168.1.14 為可用 ip。</span><br><span class="line"></span><br><span class="line">如果 IP 地址超出了某個子網的範圍，那麼該 IP 地址屬於不同的網段（子網）。</span><br><span class="line"></span><br></pre></td></tr></table></figure></li>
+<li><h4 id="查看-ACL、刪除-ACL"><a href="#查看-ACL、刪除-ACL" class="headerlink" title="查看 ACL、刪除 ACL"></a><font size='3'>查看 ACL、刪除 ACL</font></h4></li>
 </ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">show access-lists # 查看</span><br><span class="line"></span><br><span class="line">no access-list [number] # 刪除</span><br></pre></td></tr></table></figure>
+
+<br>
+
+<h3 id="補充"><a href="#補充" class="headerlink" title="補充"></a>補充</h3><ul>
+<li><h4 id="標準-ACL-配置：-1"><a href="#標準-ACL-配置：-1" class="headerlink" title="標準 ACL 配置："></a><font size='3'>標準 ACL 配置：</font></h4></li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">access-list [number] [permit|deny] [source] [wildcard_mask]</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">這會在 Giga0/0 接口上應用標準 ACL 10，允許來自 192.168.1.0/24 網段的流量進入。</span></span><br><span class="line">access-list 10 permit 192.168.1.0 0.0.0.255</span><br><span class="line">interface gigabitethernet0/0</span><br><span class="line">ip access-group 10 in</span><br></pre></td></tr></table></figure>
 
     </div>
 
@@ -321,13 +337,10 @@
         
     <div class="post-nav">
       <div class="post-nav-item">
-    <a href="/RdnRoydonNote/2024/07/30/LinuxBasicDay08/" rel="prev" title="Linux 入門 Day08 - Shell Script - 3">
-      <i class="fa fa-chevron-left"></i> Linux 入門 Day08 - Shell Script - 3
+    <a href="/RdnRoydonNote/2024/08/29/CiscoPacketTracerDay02/" rel="prev" title="Cisco Packet Tracer Day02 - 基礎指令">
+      <i class="fa fa-chevron-left"></i> Cisco Packet Tracer Day02 - 基礎指令
     </a></div>
-      <div class="post-nav-item">
-    <a href="/RdnRoydonNote/2024/08/29/CiscoPacketTracerDay02/" rel="next" title="Cisco Packet Tracer Day02 - 基礎指令">
-      Cisco Packet Tracer Day02 - 基礎指令 <i class="fa fa-chevron-right"></i>
-    </a></div>
+      <div class="post-nav-item"></div>
     </div>
       </footer>
     
@@ -393,7 +406,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9C%AC%E7%AB%A0"><span class="nav-number">1.</span> <span class="nav-text">本章</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#IP-%E5%9C%B0%E5%9D%80"><span class="nav-number">2.</span> <span class="nav-text">IP 地址</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AD%90%E7%B6%B2%E6%8E%A9%E7%A2%BC%EF%BC%88Subnet-Mask%EF%BC%89"><span class="nav-number">3.</span> <span class="nav-text">子網掩碼（Subnet Mask）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%A8%88%E7%AE%97"><span class="nav-number">4.</span> <span class="nav-text">計算</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%89%8D%E8%A8%80"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ACL-%E7%9A%84%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5"><span class="nav-number">2.</span> <span class="nav-text">ACL 的基本概念</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#ACL-%E6%98%AF%E7%94%B1%E4%B8%80%E7%B3%BB%E5%88%97%E8%A6%8F%E5%89%87%E7%B5%84%E6%88%90%E7%9A%84%E5%88%97%E8%A1%A8%EF%BC%8C%E6%AF%8F%E5%80%8B%E8%A6%8F%E5%89%87%E6%8C%87%E5%AE%9A%E8%A6%81%E5%85%81%E8%A8%B1%E6%88%96%E6%8B%92%E7%B5%95%E7%9A%84%E6%A2%9D%E4%BB%B6%EF%BC%88%E5%A6%82%E6%BA%90-IP-%E5%9C%B0%E5%9D%80%E3%80%81%E7%9B%AE%E6%A8%99-IP-%E5%9C%B0%E5%9D%80%E3%80%81%E5%8D%94%E8%AD%B0%E9%A1%9E%E5%9E%8B%E7%AD%89%EF%BC%89%E3%80%82"><span class="nav-number">2.1.</span> <span class="nav-text">ACL 是由一系列規則組成的列表，每個規則指定要允許或拒絕的條件（如源 IP 地址、目標 IP 地址、協議類型等）。</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%AF%8F%E5%80%8B%E9%80%B2%E5%85%A5%E6%88%96%E9%9B%A2%E9%96%8B%E8%A8%AD%E5%82%99%E7%9A%84%E6%95%B8%E6%93%9A%E5%8C%85%E9%83%BD%E6%9C%83%E6%8C%89%E7%85%A7-ACL-%E4%B8%AD%E7%9A%84%E8%A6%8F%E5%89%87%E9%80%B2%E8%A1%8C%E5%8C%B9%E9%85%8D%E3%80%82%E5%8C%B9%E9%85%8D%E7%9A%84%E7%AC%AC%E4%B8%80%E6%A2%9D%E8%A6%8F%E5%89%87%E5%B0%87%E6%B1%BA%E5%AE%9A%E9%80%99%E5%80%8B%E6%95%B8%E6%93%9A%E5%8C%85%E7%9A%84%E5%91%BD%E9%81%8B%EF%BC%88%E5%85%81%E8%A8%B1%E6%88%96%E6%8B%92%E7%B5%95%EF%BC%89%EF%BC%8C%E4%B9%8B%E5%BE%8C%E7%9A%84%E8%A6%8F%E5%89%87%E5%B0%87%E4%B8%8D%E5%86%8D%E6%AA%A2%E6%9F%A5%E3%80%82"><span class="nav-number">2.2.</span> <span class="nav-text">每個進入或離開設備的數據包都會按照 ACL 中的規則進行匹配。匹配的第一條規則將決定這個數據包的命運（允許或拒絕），之後的規則將不再檢查。</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%8E%A7%E5%88%B6%E6%B5%81%E9%87%8F%E7%9A%84%E9%80%B2%E5%87%BA%EF%BC%88%E5%8F%AF%E4%BB%A5%E6%87%89%E7%94%A8%E5%9C%A8%E6%8E%A5%E5%8F%A3%E7%9A%84%E2%80%9Cin%E2%80%9D%E6%96%B9%E5%90%91%E6%88%96%E2%80%9Cout%E2%80%9D%E6%96%B9%E5%90%91%EF%BC%89%E3%80%82"><span class="nav-number">2.3.</span> <span class="nav-text">控制流量的進出（可以應用在接口的“in”方向或“out”方向）。</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%99%90%E5%88%B6%E7%89%B9%E5%AE%9A%E7%94%A8%E6%88%B6%E6%88%96%E8%A8%AD%E5%82%99%E7%9A%84%E7%B6%B2%E8%B7%AF%E8%A8%AA%E5%95%8F%EF%BC%8C%E6%8F%90%E9%AB%98%E7%B6%B2%E8%B7%AF%E5%AE%89%E5%85%A8%E6%80%A7%EF%BC%8C%E9%98%B2%E6%AD%A2%E6%9C%AA%E7%B6%93%E6%8E%88%E6%AC%8A%E7%9A%84%E8%A8%AA%E5%95%8F%E3%80%82"><span class="nav-number">2.4.</span> <span class="nav-text">限制特定用戶或設備的網路訪問，提高網路安全性，防止未經授權的訪問。</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ACL-%E7%9A%84%E9%A1%9E%E5%9E%8B"><span class="nav-number">3.</span> <span class="nav-text">ACL 的類型</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%A8%99%E6%BA%96-ACL%EF%BC%88Standard-ACL%EF%BC%89%EF%BC%9A"><span class="nav-number">3.1.</span> <span class="nav-text">標準 ACL（Standard ACL）：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%93%B4%E5%B1%95-ACL%EF%BC%88Extended-ACL%EF%BC%89%EF%BC%9A"><span class="nav-number">3.2.</span> <span class="nav-text">擴展 ACL（Extended ACL）：</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ACL-%E7%9A%84%E9%85%8D%E7%BD%AE"><span class="nav-number">4.</span> <span class="nav-text">ACL 的配置</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%A8%99%E6%BA%96-ACL-%E9%85%8D%E7%BD%AE%EF%BC%9A"><span class="nav-number">4.1.</span> <span class="nav-text">標準 ACL 配置：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%9F%A5%E7%9C%8B-ACL%E3%80%81%E5%88%AA%E9%99%A4-ACL"><span class="nav-number">4.2.</span> <span class="nav-text">查看 ACL、刪除 ACL</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%A3%9C%E5%85%85"><span class="nav-number">5.</span> <span class="nav-text">補充</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%A8%99%E6%BA%96-ACL-%E9%85%8D%E7%BD%AE%EF%BC%9A-1"><span class="nav-number">5.1.</span> <span class="nav-text">標準 ACL 配置：</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -586,9 +599,9 @@ if (document.querySelectorAll('pre.mermaid').length) {
 </script>
 <script>
   var disqus_config = function() {
-    this.page.url = "https://thievesshareblog.github.io/RdnRoydonNote/2024/08/29/CiscoPacketTracerDay01/";
-    this.page.identifier = "2024/08/29/CiscoPacketTracerDay01/";
-    this.page.title = "Cisco Packet Tracer Day01 - IP 基礎概念";
+    this.page.url = "https://thievesshareblog.github.io/RdnRoydonNote/2024/08/29/CiscoPacketTracerDay03/";
+    this.page.identifier = "2024/08/29/CiscoPacketTracerDay03/";
+    this.page.title = "Cisco Packet Tracer Day03 - ACL";
     };
   NexT.utils.loadComments(document.querySelector('#disqus_thread'), () => {
     if (window.DISQUS) {
