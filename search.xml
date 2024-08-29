@@ -624,4 +624,232 @@
         <tag>Network</tag>
       </tags>
   </entry>
+  <entry>
+    <title>Linux 入門 Day06 - Shell Script - 1</title>
+    <url>/RdnRoydonNote/2024/07/29/LinuxBasicDay06/</url>
+    <content><![CDATA[<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a><font size='5'>前言</font></h3><blockquote>
+<p><font size='3'>在 Linux 系統中，條件計算和判斷式是腳本編程和系統管理中至關重要的部分。這些工具和技術允許用戶在腳本中根據不同的條件執行特定的操作，從而自動化任務和優化系統性能。理解這些基本的條件判斷和選擇判斷式的用法對於撰寫高效的 shell 腳本至關重要。</font></p>
+</blockquote>
+<font size='3'>
+這些基礎知識和技能是編寫有效的 Linux 腳本和進行系統管理的基石。掌握條件計算、判斷式、選擇判斷式和路徑分析將使您能夠在 Linux 環境中更加高效地完成各種任務。
+</font>
+
+<span id="more"></span>
+
+<br>
+
+<h3 id="條件計算"><a href="#條件計算" class="headerlink" title="條件計算"></a>條件計算</h3><ul>
+<li><code>test</code></li>
+<li>任何計算比較後都僅回覆 0 或 1</li>
+<li>也可用 [ ] 改寫</li>
+<li><h4 id="檔案操作：檔案目錄存在與屬性檢查"><a href="#檔案操作：檔案目錄存在與屬性檢查" class="headerlink" title="檔案操作：檔案目錄存在與屬性檢查"></a>檔案操作：檔案目錄存在與屬性檢查</h4>  <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">-f       檢查檔案存在(正規)</span><br><span class="line">-e       檢查檔案存在	         -r       檢查檔案讀取性</span><br><span class="line">-w       檢查檔案可寫性          </span><br><span class="line">-d       檢查目錄存在	         -x       檢查檔案執行性</span><br><span class="line"></span><br><span class="line">test  -e  /etc/passwd  </span><br><span class="line"></span><br><span class="line">-nt      檢查 檔案A 是否比 檔案B 新</span><br><span class="line">-ot      檢查 檔案A 是否比 檔案B 舊</span><br><span class="line">-ef      檢查 檔案A 是否與 檔案B 有鏈結關係</span><br><span class="line"></span><br><span class="line">test  ~/.profile  -nt  ~/.bashrc</span><br><span class="line">test  ~/.profile  -ot  ~/.bashrc</span><br><span class="line">test  /sbin/poweroff  -ef  /sbin/reboot</span><br></pre></td></tr></table></figure></li>
+<li><h4 id="字串操作：空值檢查"><a href="#字串操作：空值檢查" class="headerlink" title="字串操作：空值檢查"></a>字串操作：空值檢查</h4>  <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">-z      檢查值是否為空值    </span><br><span class="line">-n      檢查值是否非為空值</span><br><span class="line">	</span><br><span class="line">myValue=99</span><br><span class="line">test  -z  $myValue</span><br><span class="line">1</span><br><span class="line">test  -n  $myValue</span><br><span class="line">0</span><br></pre></td></tr></table></figure></li>
+<li><h4 id="字串操作：字元比較"><a href="#字串操作：字元比較" class="headerlink" title="字串操作：字元比較"></a>字串操作：字元比較</h4>  <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">!= (-ne)     # 檢查是否不相等字串     </span><br><span class="line">== (-eq)     # 檢查是否相等字串       </span><br><span class="line">&lt;            # 檢查是否小於某字串</span><br><span class="line"><span class="meta prompt_">&gt; </span><span class="language-bash">           <span class="comment"># 檢查是否大於某字串</span></span></span><br><span class="line"></span><br><span class="line">test  $myString1  ==  $myString2</span><br><span class="line">test  $myString1  \&lt;  $myString2</span><br><span class="line">test  $myString1  \&gt;  $myString2</span><br></pre></td></tr></table></figure></li>
+<li><h4 id="字串操作：數字比較"><a href="#字串操作：數字比較" class="headerlink" title="字串操作：數字比較"></a>字串操作：數字比較</h4>  <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">數字比較用英文比較為好</span></span><br><span class="line"></span><br><span class="line">!= (-ne)     # 檢查是否不相等某值 </span><br><span class="line">== (-eq)     # 檢查是否相等某值      </span><br><span class="line">&lt;  (-lt)     # 檢查是否小於某值</span><br><span class="line"><span class="meta prompt_">&gt; </span><span class="language-bash"> (-gt)     <span class="comment"># 檢查是否大於某值</span></span></span><br><span class="line">&lt;= (-le)     # 檢查是否小於等於某值</span><br><span class="line"><span class="meta prompt_">&gt;</span><span class="language-bash">= (-ge)     <span class="comment"># 檢查是否大於等於某值</span></span></span><br><span class="line"></span><br><span class="line">test  $myValue1  -eq  $myValue2</span><br><span class="line">test  $myValue1  -lt  $myValue2</span><br></pre></td></tr></table></figure>
+
+  <br></li>
+</ul>
+<h3 id="判斷式"><a href="#判斷式" class="headerlink" title="判斷式"></a>判斷式</h3><ul>
+<li><code>if</code><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">標準格式</span></span><br><span class="line">if  EXPRESSIONS</span><br><span class="line">then</span><br><span class="line">	COMMANDS</span><br><span class="line">elif EXPRESSIONS</span><br><span class="line">then</span><br><span class="line">	COMMANDS</span><br><span class="line">else</span><br><span class="line">	COMMANDS</span><br><span class="line">fi</span><br></pre></td></tr></table></figure></li>
+<li>範例<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">範例</span></span><br><span class="line">varName=&quot;&quot;</span><br><span class="line"></span><br><span class="line">echo  &quot;Please  enter  a  file  name,  directory  name(May  contain  path):  &quot;</span><br><span class="line">read  varName</span><br><span class="line"></span><br><span class="line">if  [  -e  $varName  ]</span><br><span class="line">then</span><br><span class="line">    echo  &quot;$varName  is  exists!&quot;</span><br><span class="line">else</span><br><span class="line">    echo  &quot;$varName  does  not  exist&quot;</span><br><span class="line">fi</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<br></li>
+</ul>
+<h3 id="選擇判斷式"><a href="#選擇判斷式" class="headerlink" title="選擇判斷式"></a>選擇判斷式</h3><ul>
+<li><code>case</code><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">標準格式</span></span><br><span class="line">case  WORD   in</span><br><span class="line">	PATTERN1  )</span><br><span class="line">	    COMMANDS </span><br><span class="line">	;;</span><br><span class="line">	PATTERN2  )</span><br><span class="line">		COMMANDS </span><br><span class="line">	;;</span><br><span class="line">	*  )</span><br><span class="line">		COMMANDS </span><br><span class="line">	;;</span><br><span class="line">esac</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">大小寫字母還是數字</span></span><br><span class="line">[[:upper:]]  )</span><br><span class="line">[[:lower:]]  )</span><br><span class="line">[[:digit:]]  )</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">範例</span></span><br><span class="line">varDay=`date  +%u`</span><br><span class="line"></span><br><span class="line">case  $varDay  in</span><br><span class="line">    [12345]  )</span><br><span class="line">        echo  &quot;Today  is  `date +%A`,  a  work  day.&quot;</span><br><span class="line">    ;;</span><br><span class="line">    [67]  )</span><br><span class="line">        echo  &quot;Today  is  `date +%A`,  a  holiday.&quot;</span><br><span class="line">    ;;</span><br><span class="line">esac</span><br></pre></td></tr></table></figure></li>
+</ul>
+<br>
+
+<h3 id="路徑分析"><a href="#路徑分析" class="headerlink" title="路徑分析"></a>路徑分析</h3><ul>
+<li><code>dirname</code>，將整個檔案路徑分析出路徑<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">參數</span></span><br><span class="line">-z      不輸出換行字元</span><br><span class="line"></span><br><span class="line">dirname  -z  /etc/network/interface     # /etc/networkroot</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">範例</span></span><br><span class="line">read  -p  &quot;Please  enter  a file-name  to  search:  &quot;  varFilename</span><br><span class="line"></span><br><span class="line">findit=`find  $varPath  -type  f   -name  $varFilename`</span><br><span class="line"></span><br><span class="line">echo  &quot;==  SEARCH  COMPLETE  ==&quot;</span><br><span class="line">dirname  $findit</span><br><span class="line"></span><br><span class="line">exit  0</span><br></pre></td></tr></table></figure></li>
+<li><code>basename</code></li>
+<li>將整個檔案路徑分析出檔名<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">參數</span></span><br><span class="line">-z      不輸出換行字元</span><br><span class="line"></span><br><span class="line">basename  -z  /etc/network/interface     # /etc/networkroot</span><br></pre></td></tr></table></figure></li>
+</ul>
+<br>
+
+<h3 id="除錯輔助"><a href="#除錯輔助" class="headerlink" title="除錯輔助"></a>除錯輔助</h3><ul>
+<li><code>bash</code>，指定執行為除錯模式<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">-v     執行，但顯示所讀之程式碼</span><br><span class="line">-x     執行，僅顯示所執行之程式碼</span><br><span class="line"></span><br><span class="line">bash  -x  ./debug.sh</span><br><span class="line"></span><br></pre></td></tr></table></figure></li>
+<li><code>set</code>，將目前 shell 設為除錯模式<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">-v     執行，但顯示所讀之程式碼</span><br><span class="line">-x     執行，僅顯示所執行之程式碼</span><br><span class="line"></span><br><span class="line">+v     執行，但不顯示所讀之程式碼</span><br><span class="line">+x     執行，但不顯示所執行之程式碼</span><br><span class="line"></span><br><span class="line">set  -x</span><br><span class="line">./debug.sh</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">取消</span></span><br><span class="line">set  +x</span><br></pre></td></tr></table></figure></li>
+</ul>
+<br>
+
+<h3 id="迴圈"><a href="#迴圈" class="headerlink" title="迴圈"></a>迴圈</h3><ul>
+<li><code>for</code></li>
+<li>$IFS，為空白、換行、制表 用以處理字段分割的法子，<code>IFS=$&#39; \t\n&#39;</code></li>
+<li>標準語法<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">for  NAME   in  WORD1  WORD2  WORD3…</span><br><span class="line">do</span><br><span class="line">	COMMANDS </span><br><span class="line">done</span><br></pre></td></tr></table></figure></li>
+<li>範例<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">for  x  in  Hubert  David  Albert  350  Travis  Guru</span><br><span class="line">do</span><br><span class="line">    echo  &quot;My  favorite  teacher:  $x&quot;</span><br><span class="line">done</span><br><span class="line"></span><br><span class="line">exit  0</span><br></pre></td></tr></table></figure></li>
+<li>寫法二<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">for  ((  INITIALIZATION  ;  CONDITION  ; INCREMENT or DECREMENT )) </span><br><span class="line">do</span><br><span class="line">	COMMANDS </span><br><span class="line">done</span><br></pre></td></tr></table></figure></li>
+<li>範例<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">for  ((  x=1  ;  x&lt;=100  ;  x=x+1  ))</span><br><span class="line">do</span><br><span class="line">    echo  -n  -e  &quot;$x\t&quot;</span><br><span class="line">    let  varNewline=$x%10</span><br><span class="line">    [  $varNewline  ==  &quot;0&quot;  ]   &amp;&amp;   echo  &quot;&quot;</span><br><span class="line">done</span><br><span class="line">exit  0</span><br></pre></td></tr></table></figure></li>
+</ul>
+<br>
+
+<h3 id="值的計算"><a href="#值的計算" class="headerlink" title="值的計算"></a>值的計算</h3><ul>
+<li><code>expr</code>，計算後之結果輸出於螢幕<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">expr  4  +  9  ;  echo  $?</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">13</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">0</span></span><br><span class="line"></span><br><span class="line">expr  9  \*  8  ;  echo  $?</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">0</span></span><br></pre></td></tr></table></figure></li>
+<li><code>let</code>，計算後僅回覆 EXIT Code，結果不輸出於螢幕<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">let  5432-1234  ;  echo  $?</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">0</span></span><br><span class="line"></span><br><span class="line">let  myCalc=12/4  ;  echo  $?</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">0</span></span><br><span class="line">echo  $myCalc</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">3</span></span><br></pre></td></tr></table></figure></li>
+</ul>
+<br>
+
+<h3 id="Shell的延遲"><a href="#Shell的延遲" class="headerlink" title="Shell的延遲"></a>Shell的延遲</h3><ul>
+<li><code>sleep</code>，將目前 shell 設暫停一段時間<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">Xs    延遲 X 秒 (default)</span><br><span class="line">Xm   延遲 X 分</span><br><span class="line">Xh    延遲 X 小時</span><br><span class="line">XD    延遲 X 天</span><br><span class="line"></span><br><span class="line">sleep  5s  ;  echo  &quot;Time&#x27;s  up.&quot;</span><br></pre></td></tr></table></figure></li>
+</ul>
+<p><br><br></p>
+<h3 id="題目"><a href="#題目" class="headerlink" title="題目"></a>題目</h3><ul>
+<li>請寫一條有 3 段以上的 test 計算式，並說明之。</li>
+<li>限以 read 輸入指令，test 辦別是否有輸入指令，然後執行，執行結果輸出於螢幕上，錯誤訊息則不出現，並將指令紀錄於 commRecoder.txt (累加)。</li>
+<li>限以 read 與 test 設計一個程式讓使用者輸入一個檔名或目錄 (均可含路徑) 後，判斷是否存在，並列判別是否有 RWX 屬性，並列出相關訊息。</li>
+<li>限以 read 與 test 設計一個程式執行任意三個指令或指令串執，每個指令實行時都要有提示聲響，執行結果都要輸出於螢幕上，如有錯誤要告知使用者，但不可輸出錯誤訊息於螢幕上。</li>
+<li>請說明 test 的 [  ]  與 [[  ]] 並舉例。</li>
+<li>使用 if 與 read 設計一個程式，讓使用者輸入一檔名或目錄，判別當下使用者是否有權使用。</li>
+<li>以 read 與 if 寫一個密碼設定程式，密碼輸入兩次相同，顯示設定完成；兩次不同，顯示密碼無法設定 (密碼應不顯示於螢幕上，提示: read 有此功能)。</li>
+<li>請設計一個目錄檢查程式，使用者輸入一個目錄後，辨識目錄內哪個是檔案(不需辨識連結檔或設備檔…)、目錄 (不需辨識到子目錄內)，需使用 read, if, for, test。</li>
+<li>限用 read, case, if, let 設計對話式面積計算程式，可計算四角面積、圓面積、正三角面積。</li>
+<li>以 echo, read, case 來設計一個選單程式。</li>
+<li>請以 for 寫印出一個九九成法表。</li>
+<li>請以 for 列印出如下格式。  <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">　　　　＊＊＊＊＊＊＊＊</span><br><span class="line">　　　　＊＊＊＊＊＊＊</span><br><span class="line">　　　　＊＊＊＊＊＊</span><br><span class="line">　　　　＊＊＊＊＊</span><br><span class="line">　　　　＊＊＊＊</span><br><span class="line">　　　　＊＊＊</span><br><span class="line">　　　　＊＊</span><br><span class="line">　　　　＊ </span><br></pre></td></tr></table></figure></li>
+<li>請以 for 列印出如下格式。  <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">　　　　　　　　　　　＊</span><br><span class="line">　　　　　　　　　　＊＊</span><br><span class="line">　　　　　　　　　＊＊＊</span><br><span class="line">　　　　　　　　＊＊＊＊</span><br><span class="line">　　　　　　　＊＊＊＊＊</span><br><span class="line">　　　　　　＊＊＊＊＊＊</span><br><span class="line">　　　　　＊＊＊＊＊＊＊</span><br><span class="line">　　　　＊＊＊＊＊＊＊＊</span><br></pre></td></tr></table></figure></li>
+<li>請以 for 列印出如下格式。  <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">　　　　＊＊＊＊＊＊＊＊</span><br><span class="line">　　　　＊　　　　　　＊</span><br><span class="line">　　　　＊　　　　　　＊</span><br><span class="line">　　　　＊　　　　　　＊</span><br><span class="line">　　　　＊　　　　　　＊</span><br><span class="line">　　　　＊　　　　　　＊</span><br><span class="line">　　　　＊　　　　　　＊</span><br><span class="line">　　　　＊＊＊＊＊＊＊＊ </span><br></pre></td></tr></table></figure></li>
+<li>請以 for 列印出如下格式。  <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">　　　　＊＊＊＊＊＊＊＊</span><br><span class="line">　　　　　＊＊＊＊＊＊</span><br><span class="line">　　　　　　＊＊＊＊＊＊</span><br><span class="line">　　　　　　　＊＊</span><br><span class="line">　　　　　　＊＊＊＊</span><br><span class="line">　　　　　＊＊＊＊＊＊</span><br><span class="line">　　　　＊＊＊＊＊＊＊＊</span><br></pre></td></tr></table></figure></li>
+<li>請以 for 列印出如下格式。  <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">　　　　　　　＊</span><br><span class="line">　　　　　　＊＊＊</span><br><span class="line">　　　　　＊＊＊＊＊</span><br><span class="line">　　　　＊＊＊＊＊＊＊</span><br><span class="line">　　　　　＊＊＊＊＊</span><br><span class="line">　　　　　　＊＊＊</span><br><span class="line">　　　　　　　＊</span><br></pre></td></tr></table></figure></li>
+<li>限用 case、read 設計星座查詢程式 ( 輸入出生生日查詢所屬星座 )。</li>
+<li>限用 case、read 設計生肖查詢程式 ( 輸入出生年份查詢所屬生肖 )。</li>
+<li>請說明並舉例 bc 的用法。</li>
+<li>請說明並舉例 wait 的用法。</li>
+</ul>
+]]></content>
+      <tags>
+        <tag>Linux</tag>
+        <tag>Shell</tag>
+        <tag>Script</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Linux 入門 Day07 - Shell Script - 2</title>
+    <url>/RdnRoydonNote/2024/07/29/LinuxBasicDay07/</url>
+    <content><![CDATA[<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a><font size='5'>前言</font></h3><blockquote>
+<p><font size='3'>在 Linux 的 Shell 編程中，變數處理、參數傳遞和陣列變數的使用是撰寫高效且靈活腳本的關鍵技能。這些概念不僅幫助自動化日常任務，還提升了腳本的可維護性和可讀性。理解如何操作和管理 Shell 中的變數以及參數傳遞的細節對於有效地進行腳本編程至關重要。</font></p>
+</blockquote>
+<font size='3'>
+通過這些基本概念的深入理解和應用，您將能夠撰寫更強大、可維護性更高的腳本。
+</font>
+
+<span id="more"></span>
+
+
+<br>
+
+<h3 id="變數的計數：計算字數"><a href="#變數的計數：計算字數" class="headerlink" title="變數的計數：計算字數"></a>變數的計數：計算字數</h3><ul>
+<li><code>$&#123;#VARIABLE&#125;</code>，計算變數內容字數</li>
+<li><code>echo $&#123;#varString&#125;</code></li>
+</ul>
+<br>
+
+<h3 id="變數的刪除與替換：替換、刪除"><a href="#變數的刪除與替換：替換、刪除" class="headerlink" title="變數的刪除與替換：替換、刪除"></a>變數的刪除與替換：替換、刪除</h3><ul>
+<li><code>/.../ </code>，從左替換到最近的關鍵字</li>
+<li><code>//.../</code>，從左替換到最遠的關鍵字</li>
+<li><code>#*…</code>，從左刪除到最近的關鍵字</li>
+<li><code>##*…</code>，從左刪除到最遠的關鍵字</li>
+<li><code>%…*</code>，從右刪除到最近的關鍵字</li>
+<li><code>%%…*</code>，從右刪除到最遠的關鍵字</li>
+<li><code>:</code>，從第X個字取到最後</li>
+<li><code> : … :</code>，從第X個字取到最後<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">varSyslog=&quot;/var/log/syslog&quot;</span><br><span class="line"></span><br><span class="line">echo  $&#123;varSyslog/log/LOG&#125;      # /var/LOG/syslog</span><br><span class="line">echo  $&#123;varSyslog//log/LOG&#125;     # /var/LOG/sysLOG</span><br><span class="line"></span><br><span class="line">echo  $&#123;varSyslog#*lo&#125;          # g/syslog</span><br><span class="line">echo  $&#123;varSyslog##*lo&#125;         # g</span><br><span class="line"></span><br><span class="line">echo  $&#123;varSyslog%lo*&#125;          # /var/log/sys</span><br><span class="line">echo  $&#123;varSyslog%%lo*&#125;         # /var/</span><br><span class="line"></span><br><span class="line">echo  $&#123;varSyslog:4&#125;            # /log/syslog</span><br><span class="line">echo  $&#123;varSyslog:5:3&#125;          # log</span><br><span class="line"></span><br></pre></td></tr></table></figure></li>
+</ul>
+<br>
+
+<h3 id="陣列變數-array"><a href="#陣列變數-array" class="headerlink" title="陣列變數 ( array )"></a>陣列變數 ( array )</h3><ul>
+<li>將同性質的資料存在同一個變數中</li>
+<li>建立<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">declare  -a  arrayName # 1</span><br><span class="line">declare  -a  arrayName=(Iris  Jean &quot;Kara  Zor-El&quot;)  # 2</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">3</span></span><br><span class="line">arrayName=&quot;Iris&quot;</span><br><span class="line">arrayName[1]=Jean</span><br><span class="line">arrayName[2]=&quot;Kara  Zor-El&quot;</span><br><span class="line"></span><br><span class="line">arrayName=(Iris  Jean &quot;Kara  Zor-El&quot;) # 4</span><br></pre></td></tr></table></figure></li>
+<li>取值<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">echo  $&#123;arrayName[2]&#125;</span><br><span class="line">echo  $&#123;arrayName[@]&#125;</span><br><span class="line">echo  $&#123;arrayName[*]&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure></li>
+</ul>
+<br>
+
+<h3 id="Shell的呼叫"><a href="#Shell的呼叫" class="headerlink" title="Shell的呼叫"></a>Shell的呼叫</h3><ul>
+<li>於 script 中呼叫 (執行) script</li>
+<li>參數傳遞的方式：指令列 → script<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">./demo.sh  18  a1  /etc/passwd  -a</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_">$</span><span class="language-bash">0, <span class="variable">$1</span>, <span class="variable">$2</span>, <span class="variable">$3</span>, <span class="variable">$4</span>, <span class="variable">$5</span>, <span class="variable">$6</span>, <span class="variable">$7</span>, <span class="variable">$8</span>, <span class="variable">$9</span></span></span><br></pre></td></tr></table></figure></li>
+<li><code>:-</code>， ${myName:-Visitors} 無值時 Visitors 為預設</li>
+<li><code>@</code>，$@  &#x3D;&gt;  $1  $2  $3  $4  $5…，依次</li>
+<li><code>*</code>，$@  &#x3D;&gt;  $1  $2  $3  $4  $5…，一次性</li>
+<li><code>＃</code>，列出所有參數數量，等同 len<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">if [ $# -eq 2 ] # 常見寫法，判斷參數是否為兩個</span><br></pre></td></tr></table></figure></li>
+</ul>
+<p><br><br></p>
+<h3 id="題目"><a href="#題目" class="headerlink" title="題目"></a>題目</h3><ul>
+<li>舉三個例子使用 &#x2F; 或 &#x2F;&#x2F; 於系統中的應用，並說明之。</li>
+<li>舉三個例子使用 #* 或 ##* 於系統中的應用，並說明之。</li>
+<li>舉三個例子使用 %* 或 %%* 於系統中的應用，並說明之。</li>
+<li>使用變數的檢查替換搭配陣列，設計一個通訊錄紀錄程式 ( 提示：輸出附加轉向 )。</li>
+<li>尋找系統中使用陣列的地方，並說明其內容或用途。</li>
+<li>說明什麼是關聯式陣列 (Associative arrays)，舉例並說明之。</li>
+<li>使用 shell 的呼叫並傳遞身高、體重參數計算身體質量指數 ( BMI ) 評估程式。</li>
+<li>使用 shell 的呼叫並傳遞參數設計男、女鞋碼對照程式 ( JP、US、UK、TW、KR、CN )。</li>
+<li>使用 shell 的呼叫並傳遞參數設計平方公尺與坪的雙向面積轉換程式。</li>
+<li>使用 shell 的呼叫並傳遞參數設計一個車貸計算程式 ( 貸款金額、利率、還款期數或年數、償還方式，列印出每月應付之本金與利息 )。</li>
+<li>使用 CLI 參數傳遞的方式設計一個房貸計算程式 ( 貸款金額、利率、還款期數或年數、償還方式，列印出每月應付之本金與利息 ) 。</li>
+<li>修改陣列變數範例 arrayTranscript.sh 增加有詢問科目數量的功能。</li>
+<li>修改兩數相加範例 paraScript.sh，增加確定為數字才可以加總運算的功能 。</li>
+</ul>
+]]></content>
+      <tags>
+        <tag>Linux</tag>
+        <tag>Shell</tag>
+        <tag>Script</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Linux 入門 Day08 - Shell Script - 3</title>
+    <url>/RdnRoydonNote/2024/07/30/LinuxBasicDay08/</url>
+    <content><![CDATA[<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a><font size='5'>前言</font></h3><blockquote>
+<p><font size='3'>在 Linux 系統管理和自動化腳本中，掌握迴圈、控制流、函式以及網路指令是必不可少的技能。這些基礎概念和命令可以幫助我們更高效地完成日常任務和處理複雜的系統操作。</font></p>
+</blockquote>
+<font size='3'>
+在本文中，我們將深入探討這些主題，了解如何在 Shell 腳本中有效地使用迴圈和控制結構，定義和調用函式，以及運用常用網路指令進行網路管理。掌握這些技巧將使您能夠編寫更高效、靈活的腳本，並在 Linux 環境中更好地管理和維護系統。
+</font>
+
+<span id="more"></span>
+
+
+<br>
+
+<h3 id="迴圈-while"><a href="#迴圈-while" class="headerlink" title="迴圈 - while"></a>迴圈 - while</h3><ul>
+<li>標準語法<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">while  TEST-EXPRESSIONS</span><br><span class="line">do</span><br><span class="line">	COMMANDS</span><br><span class="line">done</span><br></pre></td></tr></table></figure></li>
+<li>範例<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">varPosition=$varStart</span><br><span class="line"></span><br><span class="line">while  [ $varPosition  -le   $varEnd ]</span><br><span class="line">do</span><br><span class="line">    let  varSummary=$varSummary+$varPosition</span><br><span class="line">    let  varPosition=$varPosition+1</span><br><span class="line">done</span><br><span class="line">    echo  &quot;Number  $varStart  ~  $varEnd,  Summary  is  $varSummary&quot;</span><br><span class="line">exit  0</span><br></pre></td></tr></table></figure></li>
+</ul>
+<br>
+
+
+<h3 id="迴圈-until"><a href="#迴圈-until" class="headerlink" title="迴圈 - until"></a>迴圈 - until</h3><ul>
+<li>標準語法，與 while 判斷相反<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">until  TEST-EXPRESSIONS</span><br><span class="line">do</span><br><span class="line">	COMMANDS</span><br><span class="line">done</span><br></pre></td></tr></table></figure></li>
+<li>範例<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">watchAccount=&quot;USER&quot;</span><br><span class="line"></span><br><span class="line">until  who  |  grep  -w  $watchAccount  &amp;&gt;  /dev/null</span><br><span class="line">do</span><br><span class="line">        sleep  5</span><br><span class="line">done</span><br><span class="line"></span><br><span class="line">echo  &quot;WARNING : $watchAccount  is  Login.&quot;</span><br><span class="line"></span><br><span class="line">exit  0</span><br></pre></td></tr></table></figure></li>
+</ul>
+<br>
+
+
+<h3 id="Shell-的中斷"><a href="#Shell-的中斷" class="headerlink" title="Shell 的中斷"></a>Shell 的中斷</h3><ul>
+<li>[Ctrl] + [C]</li>
+<li>exit  [n]</li>
+<li>continue</li>
+<li>break<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">while  [  $varA  –le  10  ]</span><br><span class="line">do</span><br><span class="line">	let  varA=$varA+1</span><br><span class="line">	echo  –n  &quot;1&quot;</span><br><span class="line">	continue # continue、break</span><br><span class="line">	echo  –n  &quot;2&quot;</span><br><span class="line">done</span><br></pre></td></tr></table></figure></li>
+<li>return  [n]</li>
+</ul>
+<br>
+
+<h3 id="函式-function"><a href="#函式-function" class="headerlink" title="函式 function"></a>函式 function</h3><ul>
+<li>標準語法<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">function  FunctionName  ()</span><br><span class="line">&#123;</span><br><span class="line">	COMMANDS   or  EXPRESSIONS</span><br><span class="line">&#125;</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">呼叫方式</span></span><br><span class="line"></span><br><span class="line">FunctionName</span><br></pre></td></tr></table></figure></li>
+<li><code>Local</code>，本地變數 <code>local varName=123</code></li>
+</ul>
+<br>
+
+<h3 id="常用的網路指令"><a href="#常用的網路指令" class="headerlink" title="常用的網路指令"></a>常用的網路指令</h3><ul>
+<li><code>ping</code><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">參數</span></span><br><span class="line">-c      次數</span><br><span class="line">-D     回應加時間戳記</span><br><span class="line">-i      封包發送間隔 (default 1s)</span><br><span class="line">-s     封包發送大小 (default 64byte)</span><br><span class="line">-t      TTL 值</span><br><span class="line">-W    等待回應時間</span><br><span class="line"></span><br><span class="line">for  ip  in  192.168.0.&#123;1..20&#125;</span><br><span class="line">do</span><br><span class="line">    echo  -n  &quot;pinging  $ip...  &quot;</span><br><span class="line">    ping  -c  1  -i  0.2  -W 1   $ip  &amp;&gt;  /dev/null</span><br><span class="line">    if  [  $?  -eq  0  ]</span><br><span class="line">    then</span><br><span class="line">            echo  &quot;ONLINE.&quot;</span><br><span class="line">    else</span><br><span class="line">            echo &quot;&quot;</span><br><span class="line">    fi</span><br><span class="line">done</span><br></pre></td></tr></table></figure></li>
+<li><code>ip</code></li>
+</ul>
+<br>
+
+<h3 id="常用的變數"><a href="#常用的變數" class="headerlink" title="常用的變數"></a>常用的變數</h3><ul>
+<li><code>RANDOM</code><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">echo  $RANDOM</span><br></pre></td></tr></table></figure></li>
+</ul>
+]]></content>
+      <tags>
+        <tag>Linux</tag>
+        <tag>Shell</tag>
+        <tag>Script</tag>
+      </tags>
+  </entry>
 </search>

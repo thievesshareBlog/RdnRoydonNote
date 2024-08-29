@@ -21,24 +21,22 @@
     var CONFIG = {"hostname":"thievesshareblog.github.io","root":"/RdnRoydonNote/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":false,"style":"mac"},"back2top":{"enable":true,"sidebar":true,"scrollpercent":true},"bookmark":{"enable":true,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":true,"lazyload":true,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
-  <meta name="description" content="這篇文章將詳細介紹如何將 Cisco Packet Tracer 基礎操作及基本概念。">
+  <meta name="description" content="前言 在 Linux 的 Shell 編程中，變數處理、參數傳遞和陣列變數的使用是撰寫高效且靈活腳本的關鍵技能。這些概念不僅幫助自動化日常任務，還提升了腳本的可維護性和可讀性。理解如何操作和管理 Shell 中的變數以及參數傳遞的細節對於有效地進行腳本編程至關重要。   通過這些基本概念的深入理解和應用，您將能夠撰寫更強大、可維護性更高的腳本。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Cisco Packet Tracer Day01 - IP 基礎概念">
-<meta property="og:url" content="https://thievesshareblog.github.io/RdnRoydonNote/2024/08/29/CiscoPacketTracerDay01/index.html">
+<meta property="og:title" content="Linux 入門 Day07 - Shell Script - 2">
+<meta property="og:url" content="https://thievesshareblog.github.io/RdnRoydonNote/2024/07/29/LinuxBasicDay07/index.html">
 <meta property="og:site_name" content="Roydon&#39;s Note">
-<meta property="og:description" content="這篇文章將詳細介紹如何將 Cisco Packet Tracer 基礎操作及基本概念。">
+<meta property="og:description" content="前言 在 Linux 的 Shell 編程中，變數處理、參數傳遞和陣列變數的使用是撰寫高效且靈活腳本的關鍵技能。這些概念不僅幫助自動化日常任務，還提升了腳本的可維護性和可讀性。理解如何操作和管理 Shell 中的變數以及參數傳遞的細節對於有效地進行腳本編程至關重要。   通過這些基本概念的深入理解和應用，您將能夠撰寫更強大、可維護性更高的腳本。">
 <meta property="og:locale" content="zh_TW">
-<meta property="og:image" content="https://thievesshareblog.github.io/RdnRoydonNote/2024/08/29/CiscoPacketTracerDay01/subnetMask.png">
-<meta property="article:published_time" content="2024-08-29T01:39:00.000Z">
-<meta property="article:modified_time" content="2024-08-29T02:56:36.853Z">
+<meta property="article:published_time" content="2024-07-29T07:31:28.000Z">
+<meta property="article:modified_time" content="2024-08-29T03:50:46.609Z">
 <meta property="article:author" content="Roydon">
-<meta property="article:tag" content="Cisco">
-<meta property="article:tag" content="Packet Tracer">
-<meta property="article:tag" content="Basic">
+<meta property="article:tag" content="Linux">
+<meta property="article:tag" content="Shell">
+<meta property="article:tag" content="Script">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://thievesshareblog.github.io/RdnRoydonNote/2024/08/29/CiscoPacketTracerDay01/subnetMask.png">
 
-<link rel="canonical" href="https://thievesshareblog.github.io/RdnRoydonNote/2024/08/29/CiscoPacketTracerDay01/">
+<link rel="canonical" href="https://thievesshareblog.github.io/RdnRoydonNote/2024/07/29/LinuxBasicDay07/">
 
 
 <script id="page-configurations">
@@ -51,7 +49,7 @@
   };
 </script>
 
-  <title>Cisco Packet Tracer Day01 - IP 基礎概念 | Roydon's Note</title>
+  <title>Linux 入門 Day07 - Shell Script - 2 | Roydon's Note</title>
   
 
 
@@ -198,7 +196,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-TW">
-    <link itemprop="mainEntityOfPage" href="https://thievesshareblog.github.io/RdnRoydonNote/2024/08/29/CiscoPacketTracerDay01/">
+    <link itemprop="mainEntityOfPage" href="https://thievesshareblog.github.io/RdnRoydonNote/2024/07/29/LinuxBasicDay07/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/RdnRoydonNote/images/death.svg">
@@ -211,7 +209,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          Cisco Packet Tracer Day01 - IP 基礎概念
+          Linux 入門 Day07 - Shell Script - 2
         </h1>
 
         <div class="post-meta">
@@ -220,19 +218,16 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">發表於</span>
-              
 
-              <time title="創建時間：2024-08-29 09:39:00 / 修改時間：10:56:36" itemprop="dateCreated datePublished" datetime="2024-08-29T09:39:00+08:00">2024-08-29</time>
+              <time title="創建時間：2024-07-29 15:31:28" itemprop="dateCreated datePublished" datetime="2024-07-29T15:31:28+08:00">2024-07-29</time>
             </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分類於</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/RdnRoydonNote/categories/Cisco/" itemprop="url" rel="index"><span itemprop="name">Cisco</span></a>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
                 </span>
-            </span>
+                <span class="post-meta-item-text">更新於</span>
+                <time title="修改時間：2024-08-29 11:50:46" itemprop="dateModified" datetime="2024-08-29T11:50:46+08:00">2024-08-29</time>
+              </span>
 
           
   
@@ -243,8 +238,8 @@
       </span>
       <span class="post-meta-item-text">Disqus：</span>
     
-    <a title="disqus" href="/RdnRoydonNote/2024/08/29/CiscoPacketTracerDay01/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2024/08/29/CiscoPacketTracerDay01/" itemprop="commentCount"></span>
+    <a title="disqus" href="/RdnRoydonNote/2024/07/29/LinuxBasicDay07/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2024/07/29/LinuxBasicDay07/" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -254,14 +249,14 @@
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">文章字數：</span>
-              <span>1.2k</span>
+              <span>1.8k</span>
             </span>
             <span class="post-meta-item" title="所需閱讀時間">
               <span class="post-meta-item-icon">
                 <i class="far fa-clock"></i>
               </span>
                 <span class="post-meta-item-text">所需閱讀時間 &asymp;</span>
-              <span>1 分鐘</span>
+              <span>2 分鐘</span>
             </span>
 
         </div>
@@ -273,32 +268,66 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <font size='3'>
-這篇文章將詳細介紹如何將 Cisco Packet Tracer 基礎操作及基本概念。
+        <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a><font size='5'>前言</font></h3><blockquote>
+<p><font size='3'>在 Linux 的 Shell 編程中，變數處理、參數傳遞和陣列變數的使用是撰寫高效且靈活腳本的關鍵技能。這些概念不僅幫助自動化日常任務，還提升了腳本的可維護性和可讀性。理解如何操作和管理 Shell 中的變數以及參數傳遞的細節對於有效地進行腳本編程至關重要。</font></p>
+</blockquote>
+<font size='3'>
+通過這些基本概念的深入理解和應用，您將能夠撰寫更強大、可維護性更高的腳本。
 </font>
 
-<p><br><br></p>
 <span id="more"></span>
 
-<h3 id="IP-地址"><a href="#IP-地址" class="headerlink" title="IP 地址"></a>IP 地址</h3><ul>
-<li><font size='3'>IPv4：由 32 位元組成，通常表示為點分十進制形式，如 192.168.1.1。IPv4 地址總共能提供約 43 億個地址。</font></li>
-<li><font size='3'>IPv6：由 128 位元組成，通常表示為八組十六進制數字，如 2001:0db8:85a3:0000:0000:8a2e:0370:7334，可以提供極大量的地址，解決了 IPv4 地址耗盡的問題。</font></li>
-<li><font size='3'> IP 地址類型</font><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">私有 IP 地址：用於局域網（LAN）內部，不能直接在互聯網上路由。常見的私有 IP 範圍包括：</span><br><span class="line"></span><br><span class="line">10.0.0.0 - 10.255.255.255</span><br><span class="line">172.16.0.0 - 172.31.255.255</span><br><span class="line">192.168.0.0 - 192.168.255.255</span><br></pre></td></tr></table></figure></li>
-<li><font size='3'>NAT（Network Address Translation）</font><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">NAT 的作用：NAT 技術允許多台設備共用一個公有 IP 地址來訪問互聯網。NAT 將私有 IP 地址轉換為公有 IP 地址，並在返回時將公有 IP 地址轉換回私有 IP 地址。</span><br><span class="line">用途：NAT 通常用於家庭和公司網路，以節省公有 IP 地址。</span><br><span class="line"></span><br></pre></td></tr></table></figure></li>
+
+<br>
+
+<h3 id="變數的計數：計算字數"><a href="#變數的計數：計算字數" class="headerlink" title="變數的計數：計算字數"></a>變數的計數：計算字數</h3><ul>
+<li><code>$&#123;#VARIABLE&#125;</code>，計算變數內容字數</li>
+<li><code>echo $&#123;#varString&#125;</code></li>
+</ul>
+<br>
+
+<h3 id="變數的刪除與替換：替換、刪除"><a href="#變數的刪除與替換：替換、刪除" class="headerlink" title="變數的刪除與替換：替換、刪除"></a>變數的刪除與替換：替換、刪除</h3><ul>
+<li><code>/.../ </code>，從左替換到最近的關鍵字</li>
+<li><code>//.../</code>，從左替換到最遠的關鍵字</li>
+<li><code>#*…</code>，從左刪除到最近的關鍵字</li>
+<li><code>##*…</code>，從左刪除到最遠的關鍵字</li>
+<li><code>%…*</code>，從右刪除到最近的關鍵字</li>
+<li><code>%%…*</code>，從右刪除到最遠的關鍵字</li>
+<li><code>:</code>，從第X個字取到最後</li>
+<li><code> : … :</code>，從第X個字取到最後<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">varSyslog=&quot;/var/log/syslog&quot;</span><br><span class="line"></span><br><span class="line">echo  $&#123;varSyslog/log/LOG&#125;      # /var/LOG/syslog</span><br><span class="line">echo  $&#123;varSyslog//log/LOG&#125;     # /var/LOG/sysLOG</span><br><span class="line"></span><br><span class="line">echo  $&#123;varSyslog#*lo&#125;          # g/syslog</span><br><span class="line">echo  $&#123;varSyslog##*lo&#125;         # g</span><br><span class="line"></span><br><span class="line">echo  $&#123;varSyslog%lo*&#125;          # /var/log/sys</span><br><span class="line">echo  $&#123;varSyslog%%lo*&#125;         # /var/</span><br><span class="line"></span><br><span class="line">echo  $&#123;varSyslog:4&#125;            # /log/syslog</span><br><span class="line">echo  $&#123;varSyslog:5:3&#125;          # log</span><br><span class="line"></span><br></pre></td></tr></table></figure></li>
+</ul>
+<br>
+
+<h3 id="陣列變數-array"><a href="#陣列變數-array" class="headerlink" title="陣列變數 ( array )"></a>陣列變數 ( array )</h3><ul>
+<li>將同性質的資料存在同一個變數中</li>
+<li>建立<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">declare  -a  arrayName # 1</span><br><span class="line">declare  -a  arrayName=(Iris  Jean &quot;Kara  Zor-El&quot;)  # 2</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">3</span></span><br><span class="line">arrayName=&quot;Iris&quot;</span><br><span class="line">arrayName[1]=Jean</span><br><span class="line">arrayName[2]=&quot;Kara  Zor-El&quot;</span><br><span class="line"></span><br><span class="line">arrayName=(Iris  Jean &quot;Kara  Zor-El&quot;) # 4</span><br></pre></td></tr></table></figure></li>
+<li>取值<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">echo  $&#123;arrayName[2]&#125;</span><br><span class="line">echo  $&#123;arrayName[@]&#125;</span><br><span class="line">echo  $&#123;arrayName[*]&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure></li>
+</ul>
+<br>
+
+<h3 id="Shell的呼叫"><a href="#Shell的呼叫" class="headerlink" title="Shell的呼叫"></a>Shell的呼叫</h3><ul>
+<li>於 script 中呼叫 (執行) script</li>
+<li>參數傳遞的方式：指令列 → script<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">./demo.sh  18  a1  /etc/passwd  -a</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_">$</span><span class="language-bash">0, <span class="variable">$1</span>, <span class="variable">$2</span>, <span class="variable">$3</span>, <span class="variable">$4</span>, <span class="variable">$5</span>, <span class="variable">$6</span>, <span class="variable">$7</span>, <span class="variable">$8</span>, <span class="variable">$9</span></span></span><br></pre></td></tr></table></figure></li>
+<li><code>:-</code>， ${myName:-Visitors} 無值時 Visitors 為預設</li>
+<li><code>@</code>，$@  &#x3D;&gt;  $1  $2  $3  $4  $5…，依次</li>
+<li><code>*</code>，$@  &#x3D;&gt;  $1  $2  $3  $4  $5…，一次性</li>
+<li><code>＃</code>，列出所有參數數量，等同 len<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">if [ $# -eq 2 ] # 常見寫法，判斷參數是否為兩個</span><br></pre></td></tr></table></figure></li>
 </ul>
 <p><br><br></p>
-<h3 id="子網掩碼（Subnet-Mask）"><a href="#子網掩碼（Subnet-Mask）" class="headerlink" title="子網掩碼（Subnet Mask）"></a>子網掩碼（Subnet Mask）</h3><ul>
-<li><font size='3'>子網掩碼是 32 位元的二進位數，由連續的 1 和 0 組成，通常表示為點分十進制的格式，例如 255.255.255.0。</font></li>
-<li><font size='3'>路由器使用子網掩碼來確定目的地址屬於哪個子網，從而決定如何轉發數據包。</font></li>
-<li><font size='3'>實際應用</font><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">分離部門或區域：在企業網路中，不同部門可能使用不同的子網以隔離流量並提高安全性。</span><br><span class="line"></span><br><span class="line">提高安全性：通過子網劃分，可以限制子網之間的通信，從而提高網路的安全性和控制力。</span><br></pre></td></tr></table></figure></li>
-<li><font size='3'>子網掩碼範例：</font><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">/8（255.0.0.0）：網路位為前 8 位，適用於非常大的網路，如 A 類網路。</span><br><span class="line"></span><br><span class="line">/16（255.255.0.0）：網路位為前 16 位，適用於中型網路，如 B 類網路。</span><br><span class="line"></span><br><span class="line">/24（255.255.255.0）：網路位為前 24 位，適用於小型網路，如 C 類網路。</span><br></pre></td></tr></table></figure></li>
-</ul>
-<p><br><br></p>
-<h3 id="計算"><a href="#計算" class="headerlink" title="計算"></a>計算</h3><p><img data-src="subnetMask.png" width='450'></img></p>
-<ul>
-<li><font size='3'>192.168.1.0&#x2F;24 &#x3D;&gt; 255.255.255.0</font></li>
-<li><font size='3'>192.168.1.0&#x2F;25</font><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">25 - 24 = 1，對照表 =&gt; 128</span><br><span class="line">255 - 128 = 127</span><br><span class="line">故，192.168.1.1 - 192.168.1.126 為可用 ip。</span><br><span class="line"></span><br><span class="line">如果 IP 地址超出了某個子網的範圍，那麼該 IP 地址屬於不同的網段（子網）。</span><br><span class="line"></span><br></pre></td></tr></table></figure></li>
-<li><font size='3'>10.1.16.9&#x2F;29</font><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">29 - 24 = 5，對照表 =&gt; 248</span><br><span class="line">255 - 248 = 7</span><br><span class="line"></span><br><span class="line">子網地址: 找出子網的起始地址，需要將 10.1.16.9 的主機部分歸零來確定子網地址。</span><br><span class="line"></span><br><span class="line">10.1.16.00001 | 001 =&gt; 10.1.16.8 / 29 </span><br><span class="line"></span><br><span class="line">故，192.168.1.9 - 192.168.1.14 為可用 ip。</span><br><span class="line"></span><br><span class="line">如果 IP 地址超出了某個子網的範圍，那麼該 IP 地址屬於不同的網段（子網）。</span><br><span class="line"></span><br></pre></td></tr></table></figure></li>
+<h3 id="題目"><a href="#題目" class="headerlink" title="題目"></a>題目</h3><ul>
+<li>舉三個例子使用 &#x2F; 或 &#x2F;&#x2F; 於系統中的應用，並說明之。</li>
+<li>舉三個例子使用 #* 或 ##* 於系統中的應用，並說明之。</li>
+<li>舉三個例子使用 %* 或 %%* 於系統中的應用，並說明之。</li>
+<li>使用變數的檢查替換搭配陣列，設計一個通訊錄紀錄程式 ( 提示：輸出附加轉向 )。</li>
+<li>尋找系統中使用陣列的地方，並說明其內容或用途。</li>
+<li>說明什麼是關聯式陣列 (Associative arrays)，舉例並說明之。</li>
+<li>使用 shell 的呼叫並傳遞身高、體重參數計算身體質量指數 ( BMI ) 評估程式。</li>
+<li>使用 shell 的呼叫並傳遞參數設計男、女鞋碼對照程式 ( JP、US、UK、TW、KR、CN )。</li>
+<li>使用 shell 的呼叫並傳遞參數設計平方公尺與坪的雙向面積轉換程式。</li>
+<li>使用 shell 的呼叫並傳遞參數設計一個車貸計算程式 ( 貸款金額、利率、還款期數或年數、償還方式，列印出每月應付之本金與利息 )。</li>
+<li>使用 CLI 參數傳遞的方式設計一個房貸計算程式 ( 貸款金額、利率、還款期數或年數、償還方式，列印出每月應付之本金與利息 ) 。</li>
+<li>修改陣列變數範例 arrayTranscript.sh 增加有詢問科目數量的功能。</li>
+<li>修改兩數相加範例 paraScript.sh，增加確定為數字才可以加總運算的功能 。</li>
 </ul>
 
     </div>
@@ -310,9 +339,9 @@
       <footer class="post-footer">
           
           <div class="post-tags">
-              <a href="/RdnRoydonNote/tags/Cisco/" rel="tag"><i class="fa fa-tag"></i> Cisco</a>
-              <a href="/RdnRoydonNote/tags/Packet-Tracer/" rel="tag"><i class="fa fa-tag"></i> Packet Tracer</a>
-              <a href="/RdnRoydonNote/tags/Basic/" rel="tag"><i class="fa fa-tag"></i> Basic</a>
+              <a href="/RdnRoydonNote/tags/Linux/" rel="tag"><i class="fa fa-tag"></i> Linux</a>
+              <a href="/RdnRoydonNote/tags/Shell/" rel="tag"><i class="fa fa-tag"></i> Shell</a>
+              <a href="/RdnRoydonNote/tags/Script/" rel="tag"><i class="fa fa-tag"></i> Script</a>
           </div>
 
         
@@ -321,12 +350,12 @@
         
     <div class="post-nav">
       <div class="post-nav-item">
-    <a href="/RdnRoydonNote/2024/07/30/LinuxBasicDay08/" rel="prev" title="Linux 入門 Day08 - Shell Script - 3">
-      <i class="fa fa-chevron-left"></i> Linux 入門 Day08 - Shell Script - 3
+    <a href="/RdnRoydonNote/2024/07/29/LinuxBasicDay06/" rel="prev" title="Linux 入門 Day06 - Shell Script - 1">
+      <i class="fa fa-chevron-left"></i> Linux 入門 Day06 - Shell Script - 1
     </a></div>
       <div class="post-nav-item">
-    <a href="/RdnRoydonNote/2024/08/29/CiscoPacketTracerDay02/" rel="next" title="Cisco Packet Tracer Day02 - 基礎指令">
-      Cisco Packet Tracer Day02 - 基礎指令 <i class="fa fa-chevron-right"></i>
+    <a href="/RdnRoydonNote/2024/07/30/LinuxBasicDay08/" rel="next" title="Linux 入門 Day08 - Shell Script - 3">
+      Linux 入門 Day08 - Shell Script - 3 <i class="fa fa-chevron-right"></i>
     </a></div>
     </div>
       </footer>
@@ -393,7 +422,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#IP-%E5%9C%B0%E5%9D%80"><span class="nav-number">1.</span> <span class="nav-text">IP 地址</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AD%90%E7%B6%B2%E6%8E%A9%E7%A2%BC%EF%BC%88Subnet-Mask%EF%BC%89"><span class="nav-number">2.</span> <span class="nav-text">子網掩碼（Subnet Mask）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%A8%88%E7%AE%97"><span class="nav-number">3.</span> <span class="nav-text">計算</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%89%8D%E8%A8%80"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%AE%8A%E6%95%B8%E7%9A%84%E8%A8%88%E6%95%B8%EF%BC%9A%E8%A8%88%E7%AE%97%E5%AD%97%E6%95%B8"><span class="nav-number">2.</span> <span class="nav-text">變數的計數：計算字數</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%AE%8A%E6%95%B8%E7%9A%84%E5%88%AA%E9%99%A4%E8%88%87%E6%9B%BF%E6%8F%9B%EF%BC%9A%E6%9B%BF%E6%8F%9B%E3%80%81%E5%88%AA%E9%99%A4"><span class="nav-number">3.</span> <span class="nav-text">變數的刪除與替換：替換、刪除</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%99%A3%E5%88%97%E8%AE%8A%E6%95%B8-array"><span class="nav-number">4.</span> <span class="nav-text">陣列變數 ( array )</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Shell%E7%9A%84%E5%91%BC%E5%8F%AB"><span class="nav-number">5.</span> <span class="nav-text">Shell的呼叫</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%A1%8C%E7%9B%AE"><span class="nav-number">6.</span> <span class="nav-text">題目</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -586,9 +615,9 @@ if (document.querySelectorAll('pre.mermaid').length) {
 </script>
 <script>
   var disqus_config = function() {
-    this.page.url = "https://thievesshareblog.github.io/RdnRoydonNote/2024/08/29/CiscoPacketTracerDay01/";
-    this.page.identifier = "2024/08/29/CiscoPacketTracerDay01/";
-    this.page.title = "Cisco Packet Tracer Day01 - IP 基礎概念";
+    this.page.url = "https://thievesshareblog.github.io/RdnRoydonNote/2024/07/29/LinuxBasicDay07/";
+    this.page.identifier = "2024/07/29/LinuxBasicDay07/";
+    this.page.title = "Linux 入門 Day07 - Shell Script - 2";
     };
   NexT.utils.loadComments(document.querySelector('#disqus_thread'), () => {
     if (window.DISQUS) {
