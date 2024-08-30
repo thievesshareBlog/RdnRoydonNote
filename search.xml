@@ -185,6 +185,61 @@
       </tags>
   </entry>
   <entry>
+    <title>Cisco Packet Tracer Day04 - NAT &amp; PAT</title>
+    <url>/RdnRoydonNote/2024/08/30/CiscoPacketTracerDay04/</url>
+    <content><![CDATA[<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a><font size='5'>前言</font></h3><blockquote>
+<p><font size='3'>NAT</font></p>
+</blockquote>
+<span id="more"></span>
+
+<br>
+
+
+
+
+<h3 id="NAT-（Network-Address-Translation）"><a href="#NAT-（Network-Address-Translation）" class="headerlink" title="NAT （Network Address Translation）"></a>NAT （Network Address Translation）</h3><ul>
+<li><h4 id="主要是把內部的私有-IP-地址換成公共-IP-地址。端口號在這裡通常不變，所以-NAT-專注於-IP-地址的轉換。"><a href="#主要是把內部的私有-IP-地址換成公共-IP-地址。端口號在這裡通常不變，所以-NAT-專注於-IP-地址的轉換。" class="headerlink" title="主要是把內部的私有 IP 地址換成公共 IP 地址。端口號在這裡通常不變，所以 NAT 專注於 IP 地址的轉換。"></a><font size='3'>主要是把內部的私有 IP 地址換成公共 IP 地址。端口號在這裡通常不變，所以 NAT 專注於 IP 地址的轉換。</font></h4></li>
+<li><h4 id="把內部的-一個-私有-IP-地址對應到-一個-公有-IP-地址。"><a href="#把內部的-一個-私有-IP-地址對應到-一個-公有-IP-地址。" class="headerlink" title="把內部的 一個 私有 IP 地址對應到 一個 公有 IP 地址。"></a><font size='3'>把內部的 一個 私有 IP 地址對應到 一個 公有 IP 地址。</font></h4></li>
+<li><h4 id="這個對應是固定的（靜態-NAT）或者臨時分配的（動態-NAT）。"><a href="#這個對應是固定的（靜態-NAT）或者臨時分配的（動態-NAT）。" class="headerlink" title="這個對應是固定的（靜態 NAT）或者臨時分配的（動態 NAT）。"></a><font size='3'>這個對應是固定的（靜態 NAT）或者臨時分配的（動態 NAT）。</font></h4></li>
+<li><h4 id="每個內部設備需要一個公有-IP-地址。"><a href="#每個內部設備需要一個公有-IP-地址。" class="headerlink" title="每個內部設備需要一個公有 IP 地址。"></a><font size='3'>每個內部設備需要一個公有 IP 地址。</font></h4></li>
+<li><h4 id="動態-NAT："><a href="#動態-NAT：" class="headerlink" title="動態 NAT："></a><font size='3'>動態 NAT：</font></h4></li>
+</ul>
+<p><img data-src='dynamic-nat.png' width='600'></img></p>
+<ul>
+<li><h4 id="固定-NAT："><a href="#固定-NAT：" class="headerlink" title="固定 NAT："></a><font size='3'>固定 NAT：</font></h4></li>
+</ul>
+<p><img data-src='static-nat.png' width='600'></img></p>
+<ul>
+<li><font size='3'>公有 IP 需固定</font></li>
+<li><font size='3'>一般用於公司內部擁有假設 Server ，如：Web Server，利用 NAT 轉至內網的 Server</font></li>
+</ul>
+<br>
+
+
+
+<h3 id="PAT-（Port-Address-Translation）"><a href="#PAT-（Port-Address-Translation）" class="headerlink" title="PAT （Port Address Translation）"></a>PAT （Port Address Translation）</h3><ul>
+<li><h4 id="把很多內部的私有-IP-地址換成一個公共-IP-地址。這時，端口號就很重要了，因為-PAT-會改變端口號來區分不同的內部設備，讓它們都能通過同一個公共-IP-地址與外界通信"><a href="#把很多內部的私有-IP-地址換成一個公共-IP-地址。這時，端口號就很重要了，因為-PAT-會改變端口號來區分不同的內部設備，讓它們都能通過同一個公共-IP-地址與外界通信" class="headerlink" title="把很多內部的私有 IP 地址換成一個公共 IP 地址。這時，端口號就很重要了，因為 PAT 會改變端口號來區分不同的內部設備，讓它們都能通過同一個公共 IP 地址與外界通信"></a><font size='3'>把很多內部的私有 IP 地址換成一個公共 IP 地址。這時，端口號就很重要了，因為 PAT 會改變端口號來區分不同的內部設備，讓它們都能通過同一個公共 IP 地址與外界通信</font></h4></li>
+<li><h4 id="PAT："><a href="#PAT：" class="headerlink" title="PAT："></a><font size='3'>PAT：</font></h4></li>
+</ul>
+<p><img data-src='pat.png' width='600'></img></p>
+<br>
+
+<h3 id="總結"><a href="#總結" class="headerlink" title="總結"></a>總結</h3><ul>
+<li><h4 id="NAT：一對一的映射，每個設備都有自己的公有-IP。"><a href="#NAT：一對一的映射，每個設備都有自己的公有-IP。" class="headerlink" title="NAT：一對一的映射，每個設備都有自己的公有 IP。"></a><font size='3'>NAT：一對一的映射，每個設備都有自己的公有 IP。</font></h4></li>
+<li><h4 id="PAT：多對一的映射，很多設備共用一個公有-IP。"><a href="#PAT：多對一的映射，很多設備共用一個公有-IP。" class="headerlink" title="PAT：多對一的映射，很多設備共用一個公有 IP。"></a><font size='3'>PAT：多對一的映射，很多設備共用一個公有 IP。</font></h4></li>
+</ul>
+]]></content>
+      <categories>
+        <category>Cisco</category>
+      </categories>
+      <tags>
+        <tag>Cisco</tag>
+        <tag>Packet Tracer</tag>
+        <tag>Basic</tag>
+        <tag>NAT</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>ISO 映像檔燒錄 USB 隨身碟</title>
     <url>/RdnRoydonNote/2024/07/24/ISO-to-USB/</url>
     <content><![CDATA[<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a><font size='5'>前言</font></h3><blockquote>
