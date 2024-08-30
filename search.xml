@@ -188,7 +188,7 @@
     <title>Cisco Packet Tracer Day04 - NAT &amp; PAT</title>
     <url>/RdnRoydonNote/2024/08/30/CiscoPacketTracerDay04/</url>
     <content><![CDATA[<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a><font size='5'>前言</font></h3><blockquote>
-<p><font size='3'>NAT</font></p>
+<p><font size='3'>NAT（Network Address Translation）和 PAT（Port Address Translation）都是用來將私有網路中的 IP 地址轉換為公共網路 IP 地址的技術，但它們在具體的運作方式上有所不同</font></p>
 </blockquote>
 <span id="more"></span>
 
@@ -847,6 +847,66 @@
       </tags>
   </entry>
   <entry>
+    <title>Linux 入門 Day08 - Shell Script - 3</title>
+    <url>/RdnRoydonNote/2024/07/30/LinuxBasicDay08/</url>
+    <content><![CDATA[<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a><font size='5'>前言</font></h3><blockquote>
+<p><font size='3'>在 Linux 系統管理和自動化腳本中，掌握迴圈、控制流、函式以及網路指令是必不可少的技能。這些基礎概念和命令可以幫助我們更高效地完成日常任務和處理複雜的系統操作。</font></p>
+</blockquote>
+<font size='3'>
+在本文中，我們將深入探討這些主題，了解如何在 Shell 腳本中有效地使用迴圈和控制結構，定義和調用函式，以及運用常用網路指令進行網路管理。掌握這些技巧將使您能夠編寫更高效、靈活的腳本，並在 Linux 環境中更好地管理和維護系統。
+</font>
+
+<span id="more"></span>
+
+
+<br>
+
+<h3 id="迴圈-while"><a href="#迴圈-while" class="headerlink" title="迴圈 - while"></a>迴圈 - while</h3><ul>
+<li>標準語法<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">while  TEST-EXPRESSIONS</span><br><span class="line">do</span><br><span class="line">	COMMANDS</span><br><span class="line">done</span><br></pre></td></tr></table></figure></li>
+<li>範例<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">varPosition=$varStart</span><br><span class="line"></span><br><span class="line">while  [ $varPosition  -le   $varEnd ]</span><br><span class="line">do</span><br><span class="line">    let  varSummary=$varSummary+$varPosition</span><br><span class="line">    let  varPosition=$varPosition+1</span><br><span class="line">done</span><br><span class="line">    echo  &quot;Number  $varStart  ~  $varEnd,  Summary  is  $varSummary&quot;</span><br><span class="line">exit  0</span><br></pre></td></tr></table></figure></li>
+</ul>
+<br>
+
+
+<h3 id="迴圈-until"><a href="#迴圈-until" class="headerlink" title="迴圈 - until"></a>迴圈 - until</h3><ul>
+<li>標準語法，與 while 判斷相反<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">until  TEST-EXPRESSIONS</span><br><span class="line">do</span><br><span class="line">	COMMANDS</span><br><span class="line">done</span><br></pre></td></tr></table></figure></li>
+<li>範例<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">watchAccount=&quot;USER&quot;</span><br><span class="line"></span><br><span class="line">until  who  |  grep  -w  $watchAccount  &amp;&gt;  /dev/null</span><br><span class="line">do</span><br><span class="line">        sleep  5</span><br><span class="line">done</span><br><span class="line"></span><br><span class="line">echo  &quot;WARNING : $watchAccount  is  Login.&quot;</span><br><span class="line"></span><br><span class="line">exit  0</span><br></pre></td></tr></table></figure></li>
+</ul>
+<br>
+
+
+<h3 id="Shell-的中斷"><a href="#Shell-的中斷" class="headerlink" title="Shell 的中斷"></a>Shell 的中斷</h3><ul>
+<li>[Ctrl] + [C]</li>
+<li>exit  [n]</li>
+<li>continue</li>
+<li>break<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">while  [  $varA  –le  10  ]</span><br><span class="line">do</span><br><span class="line">	let  varA=$varA+1</span><br><span class="line">	echo  –n  &quot;1&quot;</span><br><span class="line">	continue # continue、break</span><br><span class="line">	echo  –n  &quot;2&quot;</span><br><span class="line">done</span><br></pre></td></tr></table></figure></li>
+<li>return  [n]</li>
+</ul>
+<br>
+
+<h3 id="函式-function"><a href="#函式-function" class="headerlink" title="函式 function"></a>函式 function</h3><ul>
+<li>標準語法<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">function  FunctionName  ()</span><br><span class="line">&#123;</span><br><span class="line">	COMMANDS   or  EXPRESSIONS</span><br><span class="line">&#125;</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">呼叫方式</span></span><br><span class="line"></span><br><span class="line">FunctionName</span><br></pre></td></tr></table></figure></li>
+<li><code>Local</code>，本地變數 <code>local varName=123</code></li>
+</ul>
+<br>
+
+<h3 id="常用的網路指令"><a href="#常用的網路指令" class="headerlink" title="常用的網路指令"></a>常用的網路指令</h3><ul>
+<li><code>ping</code><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">參數</span></span><br><span class="line">-c      次數</span><br><span class="line">-D     回應加時間戳記</span><br><span class="line">-i      封包發送間隔 (default 1s)</span><br><span class="line">-s     封包發送大小 (default 64byte)</span><br><span class="line">-t      TTL 值</span><br><span class="line">-W    等待回應時間</span><br><span class="line"></span><br><span class="line">for  ip  in  192.168.0.&#123;1..20&#125;</span><br><span class="line">do</span><br><span class="line">    echo  -n  &quot;pinging  $ip...  &quot;</span><br><span class="line">    ping  -c  1  -i  0.2  -W 1   $ip  &amp;&gt;  /dev/null</span><br><span class="line">    if  [  $?  -eq  0  ]</span><br><span class="line">    then</span><br><span class="line">            echo  &quot;ONLINE.&quot;</span><br><span class="line">    else</span><br><span class="line">            echo &quot;&quot;</span><br><span class="line">    fi</span><br><span class="line">done</span><br></pre></td></tr></table></figure></li>
+<li><code>ip</code></li>
+</ul>
+<br>
+
+<h3 id="常用的變數"><a href="#常用的變數" class="headerlink" title="常用的變數"></a>常用的變數</h3><ul>
+<li><code>RANDOM</code><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">echo  $RANDOM</span><br></pre></td></tr></table></figure></li>
+</ul>
+]]></content>
+      <tags>
+        <tag>Linux</tag>
+        <tag>Shell</tag>
+        <tag>Script</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Linux 入門 Day07 - Shell Script - 2</title>
     <url>/RdnRoydonNote/2024/07/29/LinuxBasicDay07/</url>
     <content><![CDATA[<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a><font size='5'>前言</font></h3><blockquote>
@@ -909,66 +969,6 @@
 <li>使用 CLI 參數傳遞的方式設計一個房貸計算程式 ( 貸款金額、利率、還款期數或年數、償還方式，列印出每月應付之本金與利息 ) 。</li>
 <li>修改陣列變數範例 arrayTranscript.sh 增加有詢問科目數量的功能。</li>
 <li>修改兩數相加範例 paraScript.sh，增加確定為數字才可以加總運算的功能 。</li>
-</ul>
-]]></content>
-      <tags>
-        <tag>Linux</tag>
-        <tag>Shell</tag>
-        <tag>Script</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Linux 入門 Day08 - Shell Script - 3</title>
-    <url>/RdnRoydonNote/2024/07/30/LinuxBasicDay08/</url>
-    <content><![CDATA[<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a><font size='5'>前言</font></h3><blockquote>
-<p><font size='3'>在 Linux 系統管理和自動化腳本中，掌握迴圈、控制流、函式以及網路指令是必不可少的技能。這些基礎概念和命令可以幫助我們更高效地完成日常任務和處理複雜的系統操作。</font></p>
-</blockquote>
-<font size='3'>
-在本文中，我們將深入探討這些主題，了解如何在 Shell 腳本中有效地使用迴圈和控制結構，定義和調用函式，以及運用常用網路指令進行網路管理。掌握這些技巧將使您能夠編寫更高效、靈活的腳本，並在 Linux 環境中更好地管理和維護系統。
-</font>
-
-<span id="more"></span>
-
-
-<br>
-
-<h3 id="迴圈-while"><a href="#迴圈-while" class="headerlink" title="迴圈 - while"></a>迴圈 - while</h3><ul>
-<li>標準語法<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">while  TEST-EXPRESSIONS</span><br><span class="line">do</span><br><span class="line">	COMMANDS</span><br><span class="line">done</span><br></pre></td></tr></table></figure></li>
-<li>範例<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">varPosition=$varStart</span><br><span class="line"></span><br><span class="line">while  [ $varPosition  -le   $varEnd ]</span><br><span class="line">do</span><br><span class="line">    let  varSummary=$varSummary+$varPosition</span><br><span class="line">    let  varPosition=$varPosition+1</span><br><span class="line">done</span><br><span class="line">    echo  &quot;Number  $varStart  ~  $varEnd,  Summary  is  $varSummary&quot;</span><br><span class="line">exit  0</span><br></pre></td></tr></table></figure></li>
-</ul>
-<br>
-
-
-<h3 id="迴圈-until"><a href="#迴圈-until" class="headerlink" title="迴圈 - until"></a>迴圈 - until</h3><ul>
-<li>標準語法，與 while 判斷相反<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">until  TEST-EXPRESSIONS</span><br><span class="line">do</span><br><span class="line">	COMMANDS</span><br><span class="line">done</span><br></pre></td></tr></table></figure></li>
-<li>範例<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">watchAccount=&quot;USER&quot;</span><br><span class="line"></span><br><span class="line">until  who  |  grep  -w  $watchAccount  &amp;&gt;  /dev/null</span><br><span class="line">do</span><br><span class="line">        sleep  5</span><br><span class="line">done</span><br><span class="line"></span><br><span class="line">echo  &quot;WARNING : $watchAccount  is  Login.&quot;</span><br><span class="line"></span><br><span class="line">exit  0</span><br></pre></td></tr></table></figure></li>
-</ul>
-<br>
-
-
-<h3 id="Shell-的中斷"><a href="#Shell-的中斷" class="headerlink" title="Shell 的中斷"></a>Shell 的中斷</h3><ul>
-<li>[Ctrl] + [C]</li>
-<li>exit  [n]</li>
-<li>continue</li>
-<li>break<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">while  [  $varA  –le  10  ]</span><br><span class="line">do</span><br><span class="line">	let  varA=$varA+1</span><br><span class="line">	echo  –n  &quot;1&quot;</span><br><span class="line">	continue # continue、break</span><br><span class="line">	echo  –n  &quot;2&quot;</span><br><span class="line">done</span><br></pre></td></tr></table></figure></li>
-<li>return  [n]</li>
-</ul>
-<br>
-
-<h3 id="函式-function"><a href="#函式-function" class="headerlink" title="函式 function"></a>函式 function</h3><ul>
-<li>標準語法<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">function  FunctionName  ()</span><br><span class="line">&#123;</span><br><span class="line">	COMMANDS   or  EXPRESSIONS</span><br><span class="line">&#125;</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">呼叫方式</span></span><br><span class="line"></span><br><span class="line">FunctionName</span><br></pre></td></tr></table></figure></li>
-<li><code>Local</code>，本地變數 <code>local varName=123</code></li>
-</ul>
-<br>
-
-<h3 id="常用的網路指令"><a href="#常用的網路指令" class="headerlink" title="常用的網路指令"></a>常用的網路指令</h3><ul>
-<li><code>ping</code><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">參數</span></span><br><span class="line">-c      次數</span><br><span class="line">-D     回應加時間戳記</span><br><span class="line">-i      封包發送間隔 (default 1s)</span><br><span class="line">-s     封包發送大小 (default 64byte)</span><br><span class="line">-t      TTL 值</span><br><span class="line">-W    等待回應時間</span><br><span class="line"></span><br><span class="line">for  ip  in  192.168.0.&#123;1..20&#125;</span><br><span class="line">do</span><br><span class="line">    echo  -n  &quot;pinging  $ip...  &quot;</span><br><span class="line">    ping  -c  1  -i  0.2  -W 1   $ip  &amp;&gt;  /dev/null</span><br><span class="line">    if  [  $?  -eq  0  ]</span><br><span class="line">    then</span><br><span class="line">            echo  &quot;ONLINE.&quot;</span><br><span class="line">    else</span><br><span class="line">            echo &quot;&quot;</span><br><span class="line">    fi</span><br><span class="line">done</span><br></pre></td></tr></table></figure></li>
-<li><code>ip</code></li>
-</ul>
-<br>
-
-<h3 id="常用的變數"><a href="#常用的變數" class="headerlink" title="常用的變數"></a>常用的變數</h3><ul>
-<li><code>RANDOM</code><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">echo  $RANDOM</span><br></pre></td></tr></table></figure></li>
 </ul>
 ]]></content>
       <tags>
