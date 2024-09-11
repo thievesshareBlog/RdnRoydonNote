@@ -313,6 +313,43 @@
       </tags>
   </entry>
   <entry>
+    <title>Docker 基礎理論 Day02 - 指令篇</title>
+    <url>/RdnRoydonNote/2024/09/11/Docker-Day02/</url>
+    <content><![CDATA[<h3 id="本文"><a href="#本文" class="headerlink" title="本文"></a><font size='5'>本文</font></h3><blockquote>
+<p><font size='3'>本章說明 Docker 常見的基本指令</font></p>
+</blockquote>
+<span id="more"></span>
+
+<br>
+
+
+<h3 id="Docker-基礎指令"><a href="#Docker-基礎指令" class="headerlink" title="Docker 基礎指令"></a>Docker 基礎指令</h3><ul>
+<li>Docker 執行<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">執行 image</span></span><br><span class="line">docker run --name container-name image:tag</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">進入容器</span></span><br><span class="line">docker exec -it container-name/id bash</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">製作 image</span></span><br><span class="line">docker build --no-cache -t tag-name .   </span><br></pre></td></tr></table></figure></li>
+<li>短參數<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">-v 映射空間</span><br><span class="line"></span><br><span class="line">-p 映射 Port號</span><br><span class="line"></span><br><span class="line">-e 環境參數</span><br><span class="line"></span><br><span class="line">-it 互動模式</span><br><span class="line"></span><br><span class="line">-d 背景執行</span><br><span class="line"></span><br><span class="line">本機:容器</span><br><span class="line"></span><br></pre></td></tr></table></figure></li>
+<li>版本差異<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">yml 內的 version 可以拿掉</span> </span><br><span class="line"></span><br><span class="line">docker-compose up -d # 舊版</span><br><span class="line">docker compose up -d # 新版</span><br></pre></td></tr></table></figure></li>
+<li>指令<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">查看 <span class="built_in">log</span></span></span><br><span class="line">docker logs container/id</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">查看容器資訊</span></span><br><span class="line">docker inspect container/id</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">docker cp ./some_file CONTAINER:/work</span><br><span class="line"></span><br><span class="line">docker cp CONTAINER:/var/logs/ /tmp/app_logs</span><br><span class="line"></span><br></pre></td></tr></table></figure></li>
+</ul>
+<h3 id="常用-Image"><a href="#常用-Image" class="headerlink" title="常用 Image"></a>常用 Image</h3><ul>
+<li>phpmyadmin<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">docker run --name phpmyadmin -itd -e PMA_ARBITRARY=1 -p 8080:80 phpmyadmin:latest</span><br></pre></td></tr></table></figure></li>
+<li>mysql<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">docker run --name mysql -e MYSQL_ROOT_PASSWORD=mysql -itd -p 3306:3306 mysql:latest</span><br></pre></td></tr></table></figure></li>
+<li>adminer<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">docker run --name adminer -itd -p 8080:8080 adminer:latest</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h3 id="Aws-EC2"><a href="#Aws-EC2" class="headerlink" title="Aws EC2"></a>Aws EC2</h3><ul>
+<li><p>EC2 - UserData for Docker</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_">#</span><span class="language-bash">!/bin/bash</span></span><br><span class="line"></span><br><span class="line">yum update -y</span><br><span class="line"></span><br><span class="line">yum install -y docker</span><br><span class="line">systemctl start docker</span><br><span class="line">systemctl enable docker</span><br><span class="line">usermod -a -G docker ec2-user</span><br><span class="line"></span><br><span class="line">mkdir -p /home/ec2-user/.docker/cli-plugins</span><br><span class="line">curl -SL https://github.com/docker/compose/releases/download/v2.26.1/docker-compose-linux-x86_64 -o /home/ec2-user/.docker/cli-plugins/docker-compose</span><br><span class="line">chmod +x /home/ec2-user/.docker/cli-plugins/docker-compose</span><br><span class="line"></span><br><span class="line">yum install -y git</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>Yaml 範例：</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">version: &#x27;3.8&#x27;</span><br><span class="line"></span><br><span class="line">services:</span><br><span class="line">  db:</span><br><span class="line">    image: mysql:8.0</span><br><span class="line">    restart: always</span><br><span class="line">    container_name: mysql-db</span><br><span class="line">    ports:</span><br><span class="line">      - 3306:3306</span><br><span class="line">    environment:</span><br><span class="line">      MYSQL_DATABASE: exampledb</span><br><span class="line">      MYSQL_USER: user</span><br><span class="line">      MYSQL_PASSWORD: 123456</span><br><span class="line">      MYSQL_ROOT_PASSWORD: 123456</span><br><span class="line"></span><br><span class="line">  phpmyadmin:</span><br><span class="line">    image: phpmyadmin</span><br><span class="line">    restart: always</span><br><span class="line">    container_name: phpmyadmin-db-console</span><br><span class="line">    ports:</span><br><span class="line">      - 8080:80</span><br><span class="line">    environment:</span><br><span class="line">      - PMA_ARBITRARY=1</span><br><span class="line"></span><br></pre></td></tr></table></figure></li>
+</ul>
+]]></content>
+      <tags>
+        <tag>Docker</tag>
+        <tag>Container</tag>
+        <tag>容器化</tag>
+        <tag>虛擬化</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Docker 基礎理論 Day01 - 理論篇</title>
     <url>/RdnRoydonNote/2024/09/11/Docker/</url>
     <content><![CDATA[<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a><font size='5'>前言</font></h3><blockquote>
