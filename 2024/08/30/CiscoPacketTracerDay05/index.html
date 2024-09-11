@@ -21,24 +21,25 @@
     var CONFIG = {"hostname":"thievesshareblog.github.io","root":"/RdnRoydonNote/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":false,"style":"mac"},"back2top":{"enable":true,"sidebar":true,"scrollpercent":true},"bookmark":{"enable":true,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":true,"lazyload":true,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
-  <meta name="description" content="本章 這篇文章將詳細介紹如何將 Cisco Packet Tracer 基礎操作及基本概念。">
+  <meta name="description" content="前言 VPN，是一種技術，用於在公共網路（如互聯網）上創建一個安全的、加密的連接，從而保護數據的隱私和完整性。VPN 通常用於保護在線活動、遠程訪問企業內部網路，或繞過地理限制。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Cisco Packet Tracer Day01 - IP 基礎概念">
-<meta property="og:url" content="https://thievesshareblog.github.io/RdnRoydonNote/2024/08/29/CiscoPacketTracerDay01/index.html">
+<meta property="og:title" content="Cisco Packet Tracer Day05 - VPN">
+<meta property="og:url" content="https://thievesshareblog.github.io/RdnRoydonNote/2024/08/30/CiscoPacketTracerDay05/index.html">
 <meta property="og:site_name" content="Roydon&#39;s Note">
-<meta property="og:description" content="本章 這篇文章將詳細介紹如何將 Cisco Packet Tracer 基礎操作及基本概念。">
+<meta property="og:description" content="前言 VPN，是一種技術，用於在公共網路（如互聯網）上創建一個安全的、加密的連接，從而保護數據的隱私和完整性。VPN 通常用於保護在線活動、遠程訪問企業內部網路，或繞過地理限制。">
 <meta property="og:locale" content="zh_TW">
-<meta property="og:image" content="https://thievesshareblog.github.io/RdnRoydonNote/2024/08/29/CiscoPacketTracerDay01/subnetMask.png">
-<meta property="article:published_time" content="2024-08-29T01:39:00.000Z">
-<meta property="article:modified_time" content="2024-08-29T03:59:04.301Z">
+<meta property="og:image" content="https://thievesshareblog.github.io/RdnRoydonNote/2024/08/30/CiscoPacketTracerDay05/pat.png">
+<meta property="article:published_time" content="2024-08-30T05:36:29.000Z">
+<meta property="article:modified_time" content="2024-08-30T05:55:36.646Z">
 <meta property="article:author" content="Roydon">
 <meta property="article:tag" content="Cisco">
 <meta property="article:tag" content="Packet Tracer">
 <meta property="article:tag" content="Basic">
+<meta property="article:tag" content="VPN">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://thievesshareblog.github.io/RdnRoydonNote/2024/08/29/CiscoPacketTracerDay01/subnetMask.png">
+<meta name="twitter:image" content="https://thievesshareblog.github.io/RdnRoydonNote/2024/08/30/CiscoPacketTracerDay05/pat.png">
 
-<link rel="canonical" href="https://thievesshareblog.github.io/RdnRoydonNote/2024/08/29/CiscoPacketTracerDay01/">
+<link rel="canonical" href="https://thievesshareblog.github.io/RdnRoydonNote/2024/08/30/CiscoPacketTracerDay05/">
 
 
 <script id="page-configurations">
@@ -51,7 +52,7 @@
   };
 </script>
 
-  <title>Cisco Packet Tracer Day01 - IP 基礎概念 | Roydon's Note</title>
+  <title>Cisco Packet Tracer Day05 - VPN | Roydon's Note</title>
   
 
 
@@ -198,7 +199,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-TW">
-    <link itemprop="mainEntityOfPage" href="https://thievesshareblog.github.io/RdnRoydonNote/2024/08/29/CiscoPacketTracerDay01/">
+    <link itemprop="mainEntityOfPage" href="https://thievesshareblog.github.io/RdnRoydonNote/2024/08/30/CiscoPacketTracerDay05/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/RdnRoydonNote/images/death.svg">
@@ -211,7 +212,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          Cisco Packet Tracer Day01 - IP 基礎概念
+          Cisco Packet Tracer Day05 - VPN
         </h1>
 
         <div class="post-meta">
@@ -222,7 +223,7 @@
               <span class="post-meta-item-text">發表於</span>
               
 
-              <time title="創建時間：2024-08-29 09:39:00 / 修改時間：11:59:04" itemprop="dateCreated datePublished" datetime="2024-08-29T09:39:00+08:00">2024-08-29</time>
+              <time title="創建時間：2024-08-30 13:36:29 / 修改時間：13:55:36" itemprop="dateCreated datePublished" datetime="2024-08-30T13:36:29+08:00">2024-08-30</time>
             </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -243,8 +244,8 @@
       </span>
       <span class="post-meta-item-text">Disqus：</span>
     
-    <a title="disqus" href="/RdnRoydonNote/2024/08/29/CiscoPacketTracerDay01/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2024/08/29/CiscoPacketTracerDay01/" itemprop="commentCount"></span>
+    <a title="disqus" href="/RdnRoydonNote/2024/08/30/CiscoPacketTracerDay05/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2024/08/30/CiscoPacketTracerDay05/" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -254,7 +255,7 @@
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">文章字數：</span>
-              <span>1.2k</span>
+              <span>118</span>
             </span>
             <span class="post-meta-item" title="所需閱讀時間">
               <span class="post-meta-item-icon">
@@ -273,32 +274,51 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h3 id="本章"><a href="#本章" class="headerlink" title="本章"></a><font size='5'>本章</font></h3><blockquote>
-<p><font size='3'>這篇文章將詳細介紹如何將 Cisco Packet Tracer 基礎操作及基本概念。</font></p>
+        <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a><font size='5'>前言</font></h3><blockquote>
+<p><font size='3'>VPN，是一種技術，用於在公共網路（如互聯網）上創建一個安全的、加密的連接，從而保護數據的隱私和完整性。VPN 通常用於保護在線活動、遠程訪問企業內部網路，或繞過地理限制。</font></p>
 </blockquote>
 <span id="more"></span>
 
 <br>
 
-<h3 id="IP-地址"><a href="#IP-地址" class="headerlink" title="IP 地址"></a>IP 地址</h3><ul>
-<li><font size='3'>IPv4：由 32 位元組成，通常表示為點分十進制形式，如 192.168.1.1。IPv4 地址總共能提供約 43 億個地址。</font></li>
-<li><font size='3'>IPv6：由 128 位元組成，通常表示為八組十六進制數字，如 2001:0db8:85a3:0000:0000:8a2e:0370:7334，可以提供極大量的地址，解決了 IPv4 地址耗盡的問題。</font></li>
-<li><font size='3'> IP 地址類型</font><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">私有 IP 地址：用於局域網（LAN）內部，不能直接在互聯網上路由。常見的私有 IP 範圍包括：</span><br><span class="line"></span><br><span class="line">10.0.0.0 - 10.255.255.255</span><br><span class="line">172.16.0.0 - 172.31.255.255</span><br><span class="line">192.168.0.0 - 192.168.255.255</span><br></pre></td></tr></table></figure></li>
-<li><font size='3'>NAT（Network Address Translation）</font><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">NAT 的作用：NAT 技術允許多台設備共用一個公有 IP 地址來訪問互聯網。NAT 將私有 IP 地址轉換為公有 IP 地址，並在返回時將公有 IP 地址轉換回私有 IP 地址。</span><br><span class="line">用途：NAT 通常用於家庭和公司網路，以節省公有 IP 地址。</span><br><span class="line"></span><br></pre></td></tr></table></figure></li>
+<h3 id="VPN-的基本概念-（Virtual-Private-Network）"><a href="#VPN-的基本概念-（Virtual-Private-Network）" class="headerlink" title="VPN 的基本概念 （Virtual Private Network）"></a>VPN 的基本概念 （Virtual Private Network）</h3><ul>
+<li><h4 id=""><a href="#" class="headerlink" title=""></a><font size='3'></font></h4></li>
+<li><h4 id="-1"><a href="#-1" class="headerlink" title=""></a><font size='3'></font></h4></li>
+<li><h4 id="-2"><a href="#-2" class="headerlink" title=""></a><font size='3'></font></h4></li>
+<li><h4 id="-3"><a href="#-3" class="headerlink" title=""></a><font size='3'></font></h4></li>
+<li><h4 id="-4"><a href="#-4" class="headerlink" title=""></a><font size='3'></font></h4></li>
 </ul>
-<p><br><br></p>
-<h3 id="子網掩碼（Subnet-Mask）"><a href="#子網掩碼（Subnet-Mask）" class="headerlink" title="子網掩碼（Subnet Mask）"></a>子網掩碼（Subnet Mask）</h3><ul>
-<li><font size='3'>子網掩碼是 32 位元的二進位數，由連續的 1 和 0 組成，通常表示為點分十進制的格式，例如 255.255.255.0。</font></li>
-<li><font size='3'>路由器使用子網掩碼來確定目的地址屬於哪個子網，從而決定如何轉發數據包。</font></li>
-<li><font size='3'>實際應用</font><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">分離部門或區域：在企業網路中，不同部門可能使用不同的子網以隔離流量並提高安全性。</span><br><span class="line"></span><br><span class="line">提高安全性：通過子網劃分，可以限制子網之間的通信，從而提高網路的安全性和控制力。</span><br></pre></td></tr></table></figure></li>
-<li><font size='3'>子網掩碼範例：</font><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">/8（255.0.0.0）：網路位為前 8 位，適用於非常大的網路，如 A 類網路。</span><br><span class="line"></span><br><span class="line">/16（255.255.0.0）：網路位為前 16 位，適用於中型網路，如 B 類網路。</span><br><span class="line"></span><br><span class="line">/24（255.255.255.0）：網路位為前 24 位，適用於小型網路，如 C 類網路。</span><br></pre></td></tr></table></figure></li>
+<br>
+
+<!-- ### 動態 NAT 實作
+- #### <font size='3'>設定 inside / outside 端口</font>
+- #### <font size='3'>使用 ACL 設定私有 IP 的範圍</font>
+    <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">int e0</span><br><span class="line">ip address 私有IP</span><br><span class="line">ip nat inside/outside</span><br><span class="line"></span><br><span class="line">ip nat pool Net209 209.165.200.225 209.165.200.238 netmask 255.255.255.240</span><br><span class="line"></span><br><span class="line">access-list 1 permit 192.168.3.0 0.0.0.255</span><br><span class="line"></span><br><span class="line">ip nat inside source list 1 pool Net209</span><br><span class="line"></span><br><span class="line">show ip nat translations</span><br></pre></td></tr></table></figure>
+
+<p><br> –&gt;</p>
+<!-- ### 固定 NAT 實作
+- #### <font size='3'>設定 inside / outside 端口</font>
+- #### <font size='3'>使用 ACL 設定私有 IP 的範圍</font>
+    <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">int e0</span><br><span class="line">ip address 私有IP</span><br><span class="line">ip nat inside/outside</span><br><span class="line"></span><br><span class="line">access-list 1 permit 192.168.3.0 0.0.0.255</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">overload 代表不只1個轉址參數</span></span><br><span class="line">ip nat inside source static 10.1.1.2 209.165.200.225</span><br><span class="line"></span><br><span class="line">show ip nat translations</span><br></pre></td></tr></table></figure>
+
+<br>
+
+<h3 id="PAT-（Port-Address-Translation）"><a href="#PAT-（Port-Address-Translation）" class="headerlink" title="PAT （Port Address Translation）"></a>PAT （Port Address Translation）</h3><ul>
+<li><h4 id="把很多內部的私有-IP-地址換成一個公共-IP-地址。這時，端口號就很重要了，因為-PAT-會改變端口號來區分不同的內部設備，讓它們都能通過同一個公共-IP-地址與外界通信"><a href="#把很多內部的私有-IP-地址換成一個公共-IP-地址。這時，端口號就很重要了，因為-PAT-會改變端口號來區分不同的內部設備，讓它們都能通過同一個公共-IP-地址與外界通信" class="headerlink" title="把很多內部的私有 IP 地址換成一個公共 IP 地址。這時，端口號就很重要了，因為 PAT 會改變端口號來區分不同的內部設備，讓它們都能通過同一個公共 IP 地址與外界通信"></a><font size='3'>把很多內部的私有 IP 地址換成一個公共 IP 地址。這時，端口號就很重要了，因為 PAT 會改變端口號來區分不同的內部設備，讓它們都能通過同一個公共 IP 地址與外界通信</font></h4></li>
+<li><h4 id="PAT："><a href="#PAT：" class="headerlink" title="PAT："></a><font size='3'>PAT：</font></h4></li>
 </ul>
-<p><br><br></p>
-<h3 id="計算"><a href="#計算" class="headerlink" title="計算"></a>計算</h3><p><img data-src="subnetMask.png" width='450'></img></p>
-<ul>
-<li><font size='3'>192.168.1.0&#x2F;24 &#x3D;&gt; 255.255.255.0</font></li>
-<li><font size='3'>192.168.1.0&#x2F;25</font><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">25 - 24 = 1，對照表 =&gt; 128</span><br><span class="line">255 - 128 = 127</span><br><span class="line">故，192.168.1.1 - 192.168.1.126 為可用 ip。</span><br><span class="line"></span><br><span class="line">如果 IP 地址超出了某個子網的範圍，那麼該 IP 地址屬於不同的網段（子網）。</span><br><span class="line"></span><br></pre></td></tr></table></figure></li>
-<li><font size='3'>10.1.16.9&#x2F;29</font><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">29 - 24 = 5，對照表 =&gt; 248</span><br><span class="line">255 - 248 = 7</span><br><span class="line"></span><br><span class="line">子網地址: 找出子網的起始地址，需要將 10.1.16.9 的主機部分歸零來確定子網地址。</span><br><span class="line"></span><br><span class="line">10.1.16.00001 | 001 =&gt; 10.1.16.8 / 29 </span><br><span class="line"></span><br><span class="line">故，192.168.1.9 - 192.168.1.14 為可用 ip。</span><br><span class="line"></span><br><span class="line">如果 IP 地址超出了某個子網的範圍，那麼該 IP 地址屬於不同的網段（子網）。</span><br><span class="line"></span><br></pre></td></tr></table></figure></li>
+<p><img data-src='pat.png' width='600'></img></p>
+<br>
+
+<h3 id="PAT-實作"><a href="#PAT-實作" class="headerlink" title="PAT 實作"></a>PAT 實作</h3><ul>
+<li><h4 id="設定-inside-outside-端口"><a href="#設定-inside-outside-端口" class="headerlink" title="設定 inside &#x2F; outside 端口"></a><font size='3'>設定 inside &#x2F; outside 端口</font></h4></li>
+<li><h4 id="使用-ACL-設定私有-IP-的範圍-只有一組公有-IP-，故不用設定-Pool"><a href="#使用-ACL-設定私有-IP-的範圍-只有一組公有-IP-，故不用設定-Pool" class="headerlink" title="使用 ACL 設定私有 IP 的範圍 ( 只有一組公有 IP ，故不用設定 Pool ) "></a><font size='3'>使用 ACL 設定私有 IP 的範圍 ( 只有一組公有 IP ，故不用設定 Pool ) </font></h4>  <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">int e0</span><br><span class="line">ip address 私有IP</span><br><span class="line">ip nat inside/outside</span><br><span class="line"></span><br><span class="line">access-list 1 permit 192.168.3.0 0.0.0.255</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">overload 代表不只1個轉址參數</span></span><br><span class="line">ip nat inside source list 1 interface Serial0 overload</span><br><span class="line"></span><br><span class="line">show ip nat translations</span><br></pre></td></tr></table></figure></li>
+</ul>
+<br>
+
+<h3 id="總結"><a href="#總結" class="headerlink" title="總結"></a>總結</h3><ul>
+<li><h4 id="NAT：一對一的映射，每個設備都有自己的公有-IP。"><a href="#NAT：一對一的映射，每個設備都有自己的公有-IP。" class="headerlink" title="NAT：一對一的映射，每個設備都有自己的公有 IP。"></a><font size='3'>NAT：一對一的映射，每個設備都有自己的公有 IP。</font></h4></li>
+<li><h4 id="PAT：多對一的映射，很多設備共用一個公有-IP。-–"><a href="#PAT：多對一的映射，很多設備共用一個公有-IP。-–" class="headerlink" title="PAT：多對一的映射，很多設備共用一個公有 IP。 –&gt;"></a><font size='3'>PAT：多對一的映射，很多設備共用一個公有 IP。</font> –&gt;</h4></li>
 </ul>
 
     </div>
@@ -313,6 +333,7 @@
               <a href="/RdnRoydonNote/tags/Cisco/" rel="tag"><i class="fa fa-tag"></i> Cisco</a>
               <a href="/RdnRoydonNote/tags/Packet-Tracer/" rel="tag"><i class="fa fa-tag"></i> Packet Tracer</a>
               <a href="/RdnRoydonNote/tags/Basic/" rel="tag"><i class="fa fa-tag"></i> Basic</a>
+              <a href="/RdnRoydonNote/tags/VPN/" rel="tag"><i class="fa fa-tag"></i> VPN</a>
           </div>
 
         
@@ -321,12 +342,12 @@
         
     <div class="post-nav">
       <div class="post-nav-item">
-    <a href="/RdnRoydonNote/2024/07/30/LinuxBasicDay08/" rel="prev" title="Linux 入門 Day08 - Shell Script - 3">
-      <i class="fa fa-chevron-left"></i> Linux 入門 Day08 - Shell Script - 3
+    <a href="/RdnRoydonNote/2024/08/30/CiscoPacketTracerDay04/" rel="prev" title="Cisco Packet Tracer Day04 - NAT & PAT">
+      <i class="fa fa-chevron-left"></i> Cisco Packet Tracer Day04 - NAT & PAT
     </a></div>
       <div class="post-nav-item">
-    <a href="/RdnRoydonNote/2024/08/29/CiscoPacketTracerDay02/" rel="next" title="Cisco Packet Tracer Day02 - 基礎指令">
-      Cisco Packet Tracer Day02 - 基礎指令 <i class="fa fa-chevron-right"></i>
+    <a href="/RdnRoydonNote/2024/09/11/Docker/" rel="next" title="Docker 基礎理論 Day01 - 理論篇">
+      Docker 基礎理論 Day01 - 理論篇 <i class="fa fa-chevron-right"></i>
     </a></div>
     </div>
       </footer>
@@ -393,7 +414,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9C%AC%E7%AB%A0"><span class="nav-number">1.</span> <span class="nav-text">本章</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#IP-%E5%9C%B0%E5%9D%80"><span class="nav-number">2.</span> <span class="nav-text">IP 地址</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AD%90%E7%B6%B2%E6%8E%A9%E7%A2%BC%EF%BC%88Subnet-Mask%EF%BC%89"><span class="nav-number">3.</span> <span class="nav-text">子網掩碼（Subnet Mask）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%A8%88%E7%AE%97"><span class="nav-number">4.</span> <span class="nav-text">計算</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%89%8D%E8%A8%80"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#VPN-%E7%9A%84%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5-%EF%BC%88Virtual-Private-Network%EF%BC%89"><span class="nav-number">2.</span> <span class="nav-text">VPN 的基本概念 （Virtual Private Network）</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link"><span class="nav-number">2.1.</span> <span class="nav-text"></span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#-1"><span class="nav-number">2.2.</span> <span class="nav-text"></span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#-2"><span class="nav-number">2.3.</span> <span class="nav-text"></span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#-3"><span class="nav-number">2.4.</span> <span class="nav-text"></span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#-4"><span class="nav-number">2.5.</span> <span class="nav-text"></span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -586,9 +607,9 @@ if (document.querySelectorAll('pre.mermaid').length) {
 </script>
 <script>
   var disqus_config = function() {
-    this.page.url = "https://thievesshareblog.github.io/RdnRoydonNote/2024/08/29/CiscoPacketTracerDay01/";
-    this.page.identifier = "2024/08/29/CiscoPacketTracerDay01/";
-    this.page.title = "Cisco Packet Tracer Day01 - IP 基礎概念";
+    this.page.url = "https://thievesshareblog.github.io/RdnRoydonNote/2024/08/30/CiscoPacketTracerDay05/";
+    this.page.identifier = "2024/08/30/CiscoPacketTracerDay05/";
+    this.page.title = "Cisco Packet Tracer Day05 - VPN";
     };
   NexT.utils.loadComments(document.querySelector('#disqus_thread'), () => {
     if (window.DISQUS) {
