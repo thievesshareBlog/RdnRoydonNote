@@ -1,6 +1,45 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>Aws 基礎理論 Day05 - Aws System Manager</title>
+    <url>/RdnRoydonNote/2024/09/12/AwsDay05/</url>
+    <content><![CDATA[<h3 id="本文"><a href="#本文" class="headerlink" title="本文"></a><font size='5'>本文</font></h3><blockquote>
+<p><font size='3'>本章說明 Aws System Manager</font></p>
+</blockquote>
+<span id="more"></span>
+
+<br>
+
+<h3 id="Aws-計費模式"><a href="#Aws-計費模式" class="headerlink" title="Aws 計費模式"></a>Aws 計費模式</h3><ul>
+<li><font size='3'>時間 &#x3D;&gt; 運算 （ EC2、RDS ）</font></li>
+<li><font size='3'>流量 &#x3D;&gt; 網路 （ VPC ）</font></li>
+<li><font size='3'>容量 &#x3D;&gt; 儲存 （ S3、EBS ）</font></li>
+<li><font size='3'>權量 &#x3D;&gt; 管理</font></li>
+<li><font size='3'>免費 &#x3D;&gt;（ IAM、Billing and Cost Management ）</font></li>
+</ul>
+<br>
+
+<h3 id="SSH"><a href="#SSH" class="headerlink" title="SSH"></a>SSH</h3><ul>
+<li><h4 id="實驗環境"><a href="#實驗環境" class="headerlink" title="實驗環境"></a>實驗環境</h4><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">EC2 開兩台 Linux ：一台公網、一台私網</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">公網有建立私鑰</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><h4 id="SSH-Agent"><a href="#SSH-Agent" class="headerlink" title="SSH Agent"></a>SSH Agent</h4><ul>
+<li><font size='3'>說明</font><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">Windows</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">啟用 SSH Agent (他是會產生一個臨時的代理程序)</span></span><br><span class="line">eval $(ssh-agent)</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">先查看我們是否有金鑰在代理程序上?</span></span><br><span class="line">ssh-add -l</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">將SSH的金鑰放入到 Agent 內</span></span><br><span class="line">ssh-add cic101-99-project.pem</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">調度 SSH-Agent 來進行 SSH 的連線登入作業</span></span><br><span class="line">ssh -A ec2-user@54.199.217.238</span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+<li><h4 id="SSH-Tunnel"><a href="#SSH-Tunnel" class="headerlink" title="SSH Tunnel"></a>SSH Tunnel</h4><ul>
+<li><font size='3'>建立一個 Tunnel 將對方的端口拉至本地端</font><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">SSH-Tunnel 的指令格式</span></span><br><span class="line">ssh -L &lt;localmachine port&gt;:&lt;targeip&gt;:&lt;target port&gt; &lt;remoteuser&gt;@&lt;remote ip&gt;</span><br><span class="line"></span><br><span class="line">ssh -i cic101-99-project.pem -L 8080:127.0.0.1:8080 ec2-user@54.199.217.238</span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+</ul>
+<br>
+
+
+]]></content>
+      <tags>
+        <tag>Aws</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Cisco Packet Tracer Day01 - IP 基礎概念</title>
     <url>/RdnRoydonNote/2024/08/29/CiscoPacketTracerDay01/</url>
     <content><![CDATA[<h3 id="本章"><a href="#本章" class="headerlink" title="本章"></a><font size='5'>本章</font></h3><blockquote>
@@ -817,83 +856,6 @@
       </tags>
   </entry>
   <entry>
-    <title>Linux 入門 Day03 - 文字編輯器 &amp; 網路管理</title>
-    <url>/RdnRoydonNote/2024/07/25/LinuxBasicDay03/</url>
-    <content><![CDATA[<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a><font size='5'>前言</font></h3><blockquote>
-<p><font size='3'>在現代的計算環境中，網路管理對於 Linux 系統的操作和維護至關重要。無論是個人使用的桌面系統還是企業級的伺服器環境，穩定且高效的網路連接都是確保系統正常運行的關鍵。Linux 以其強大的網路功能和靈活的配置選項，在各種網路環境中廣泛應用。</font></p>
-</blockquote>
-<font size='3'>
-接下來的內容將深入探討 Linux 網路管理的各個方面，並介紹具體的工具和技術。
-</font>
-
-<span id="more"></span>
-
-<br>
-
-<h3 id="常見的文字編輯器"><a href="#常見的文字編輯器" class="headerlink" title="常見的文字編輯器"></a>常見的文字編輯器</h3><ul>
-<li><a href="https://www.gnu.org/software/emacs">emacs ( GNU Emacs )</a></li>
-<li><a href="https://www.nano-editor.org/">nano ( GNU nano )</a></li>
-<li><a href="https://joe-editor.sourceforge.io/">joe ( Joe’s Own Editor )</a></li>
-<li><a href="https://www.vim.org/">Vim ( Vi IMproved )</a></li>
-</ul>
-<br>
-
-<h4 id="Vim-的常用設定"><a href="#Vim-的常用設定" class="headerlink" title="Vim 的常用設定"></a>Vim 的常用設定</h4><ul>
-<li>於編輯器中 命令模式 ( command mode ) 設定</li>
-<li>於個人家目錄建立 <code>.vimrc</code> 與內容設定 <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">vim  .vimrc</span><br><span class="line">set  nu</span><br><span class="line">set  ts=4</span><br><span class="line">set  hls</span><br></pre></td></tr></table></figure></li>
-<li>常用的輔助設定<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">:set  all		查閱所有設定組態</span><br><span class="line">:set  number  	顯示行號  ( :set  nu )</span><br><span class="line">:set  nonumber	不顯示行號 ( :set  nonu )</span><br><span class="line">:set  tabstop=4	設定 TAB 跳格為 4 個字元 ( :set  ts=4 ) ( 預設為 8 個字元 )</span><br><span class="line">:set  spell		拼字檢查</span><br><span class="line">:set  nospell	不使用拼字檢查</span><br><span class="line">:set  hlsearch	搜尋高亮度顯示 ( :set  hls )</span><br><span class="line">:set  nohlsearch	不使用搜尋高亮度顯示 ( :set  nohls )</span><br><span class="line">:set  cursorline	游標行標線</span><br></pre></td></tr></table></figure></li>
-</ul>
-<br>
-
-<h3 id="文字檔案內容的比較"><a href="#文字檔案內容的比較" class="headerlink" title="文字檔案內容的比較"></a>文字檔案內容的比較</h3><ul>
-<li><code>diff</code>，兩檔案內容比較 ( 行比較 )<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">-c  上下文比較</span><br><span class="line">-u  組合合併</span><br><span class="line"></span><br><span class="line">diff  -c  doc1.a  doc1.b</span><br><span class="line">diff  -u  doc2.a  doc2.b</span><br></pre></td></tr></table></figure></li>
-<li><code>diff3</code>，三檔案內容比較 ( 行比較 )<ul>
-<li>diff3  doc1.a  doc1.b  doc1.c</li>
-</ul>
-</li>
-<li><code>vimdiff</code>，使用 vim 對兩檔案內容比較 ( 行比較 )<ul>
-<li>vimdiff  doc1.a  doc1.b</li>
-</ul>
-</li>
-<li><code>tr</code>，轉換、刪除指定字符<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">-d  刪除符合 指定1 內容</span><br><span class="line">-s   刪除符合 指定1 內容，但保留一個 （ 表示將重複出現的字符簡化為一個 ）</span><br><span class="line"></span><br><span class="line">tr  -d  12345  &lt;  doc.tr</span><br><span class="line">tr  -s  1-5  &lt;  doc.tr</span><br><span class="line">tr  -d  &#x27;\n&#x27;  &lt;  doc.tr</span><br></pre></td></tr></table></figure></li>
-<li><code>dos2unix</code>、<code>unix2dos</code>，換行字元轉換<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">dos2unix  [選項]  檔案名稱</span><br><span class="line">unix2dos  [選項]  檔案名稱</span><br><span class="line"></span><br><span class="line">-u   轉為 unix 換行字元 LF ( \n )</span><br><span class="line">-d   轉為  dos 換行字元 CRLF ( \r\n )</span><br><span class="line"></span><br><span class="line">dos2unix  FILENAME</span><br><span class="line">unix2dos –u  FILENAME</span><br></pre></td></tr></table></figure></li>
-</ul>
-<br>
-
-<h3 id="常用網路工具"><a href="#常用網路工具" class="headerlink" title="常用網路工具"></a>常用網路工具</h3><ul>
-<li><code>ping</code>，遠端主機探測、查詢<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">-c   n   指定測試次數</span><br><span class="line">-i   n   封包發送間隔	-W  n   等待回覆封包時間</span><br><span class="line"></span><br><span class="line">ping 8.8.8.8</span><br></pre></td></tr></table></figure></li>
-<li><code>tracepath</code>，網路路由探測、查詢<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">-n     不查詢節點主機名稱 (預設會查詢 )</span><br><span class="line">-m  n  指定查詢節點數上限</span><br><span class="line"></span><br><span class="line">tracepath  -n  8.8.8.8</span><br><span class="line">tracepath  -n  -m  5  8.8.8.8</span><br></pre></td></tr></table></figure></li>
-<li><code>nslookup</code>，網域正解、反解查詢</li>
-<li><code>net-tools</code>，ifconfig、route<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">ifconfig  網路介面  up/down</span></span><br><span class="line">ifconfig  ens33  up     # 網路介面啟用</span><br><span class="line">ifconfig  ens33  down   # 網路介面停用</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">ifconfig  網路介面  IP位置/網路遮罩</span></span><br><span class="line">ifconfig  ens33  192.168.1.10/24 # 設定網路介面 IP 組態</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">設定網路路由</span></span><br><span class="line">route  del  default # 刪除預設路由</span><br><span class="line">route  add  -net  192.168.1.0/24  ens33</span><br><span class="line">route  add  default  gw  192.168.1.1</span><br><span class="line">route  -n</span><br></pre></td></tr></table></figure></li>
-<li><code>iproute</code><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">網路介面組態檢視</span> </span><br><span class="line">ip  address  show ens33</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">網卡介面檢視</span> </span><br><span class="line">ip  link  show ens33</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">網路路由查詢</span></span><br><span class="line">ip  route  show 192.168.1.1</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">網路介面 啟用/停用</span></span><br><span class="line">ip  link  set  ens33  up/down</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">設定網路介面 IP 組態</span></span><br><span class="line">ip  address  add  192.168.1.10/24  dev  ens33</span><br><span class="line">ip  address  del  192.168.1.110/24  dev  ens33</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">設定網路路由</span></span><br><span class="line"></span><br><span class="line">指令： ip  route  del   網段/網路遮罩</span><br><span class="line">指令： ip  route  del   default</span><br><span class="line">指令： ip  route  del   路由IP位置</span><br><span class="line">指令： ip  route  add  網段/網路遮罩  dev  網卡編號</span><br><span class="line">指令： ip  route  add  default  via  閘道IP位置  [ dev  網卡編號 ]</span><br><span class="line">指令： ip  route  add  路由IP位置  [ dev  網卡編號 ]</span><br><span class="line"></span><br><span class="line">ip  route  del  default</span><br><span class="line">ip  route  add  default  via 192.168.1.1</span><br></pre></td></tr></table></figure></li>
-</ul>
-<br>
-
-<h3 id="DNS-組態"><a href="#DNS-組態" class="headerlink" title="DNS 組態"></a>DNS 組態</h3><ul>
-<li>&#x2F;etc&#x2F;resolve.conf<ul>
-<li>管理服務：systemd-resolve.service</li>
-</ul>
-</li>
-</ul>
-<br>
-
-<h3 id="網路管理套件"><a href="#網路管理套件" class="headerlink" title="網路管理套件"></a>網路管理套件</h3><ul>
-<li><code>dhclient</code>、<code>dhcpcd</code><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">/etc/dhcpcd.conf # 相關組態檔</span><br><span class="line">/etc/dhcp/dhclient.conf</span><br><span class="line"></span><br><span class="line">Ubuntu： /var/lib/dhcpcd/ens33.lease</span><br><span class="line"></span><br><span class="line">Ubuntu：cat  /var/lib/dhcp/dhclient.lease</span><br><span class="line">CentOS：cat  /var/lib/dhclient/dhclient.leases</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">取得IP                                -x     只刪除 dhcpcd 程序</span><br><span class="line">-4     只要求 IPv4                    -6     只要求 IPv4</span><br><span class="line">-k     釋放IP並刪除 dhcpcd</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">dhclient，啟用或停用</span></span><br><span class="line"></span><br><span class="line">dhcpcd   ens33</span><br><span class="line">dhcpcd  -k  ens33</span><br></pre></td></tr></table></figure></li>
-<li><code>NetworkManager</code><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">/etc/sysconfig/network-scripts/ifcfg-網路介面 # 相關組態檔</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">使用動態 IP</span> </span><br><span class="line">vim  /etc/sysconfig/network-scripts/ifcfg-ens33</span><br><span class="line">TYPE=&quot;Ethernet&quot;</span><br><span class="line">BOOTPROTO=&quot;dhcp&quot;</span><br><span class="line">DEVICE=&quot;ens33&quot;</span><br><span class="line">ONBOOT=&quot;yes&quot;</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">使用靜態 IP</span> </span><br><span class="line">TYPE=&quot;Ethernet&quot;</span><br><span class="line">BOOTPROTO=&quot;static&quot;</span><br><span class="line">DEVICE=&quot;ens33&quot;</span><br><span class="line">ONBOOT=&quot;yes&quot;</span><br><span class="line">IPADDR=&quot;192.168.1.20&quot;</span><br><span class="line">GATEWAY=&quot;192.168.1.1&quot;</span><br><span class="line">NETMASK=&quot;255.255.255.0&quot;</span><br><span class="line">DNS1=&quot;8.8.8.8&quot;</span><br><span class="line">DNS2=&quot;168.95.1.1&quot;</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">重啟</span></span><br><span class="line">service  NetworkManager  restart</span><br><span class="line">nmcli  networking  off</span><br><span class="line">nmcli  networking  on</span><br></pre></td></tr></table></figure></li>
-<li><code>netplan</code><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">/etc/netplan/＊.yaml # 相關組態檔</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">使用動態 IP</span> </span><br><span class="line"></span><br><span class="line">vim  /etc/netplan/＊.yaml </span><br><span class="line">network:</span><br><span class="line">    version: 2</span><br><span class="line">    renderer: networkd</span><br><span class="line">    ethernets:</span><br><span class="line">        ens33:</span><br><span class="line">            dhcp4: yes</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">使用靜態 IP</span></span><br><span class="line"></span><br><span class="line">vim  /etc/netplan/＊.yaml</span><br><span class="line">network:</span><br><span class="line">    version: 2</span><br><span class="line">    ethernets:</span><br><span class="line">        ens33:</span><br><span class="line">           dhcp4: no</span><br><span class="line">           addresses: </span><br><span class="line">           -  192.168.1.10/24</span><br><span class="line">           routes:</span><br><span class="line">           -  to:  default</span><br><span class="line">               via:  192.168.1.1</span><br><span class="line">           nameservers:</span><br><span class="line">                addresses:</span><br><span class="line">                -  8.8.8.8</span><br><span class="line">                -  168.95.1.1</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">啟動或重新套用組態</span></span><br><span class="line">netplan  apply</span><br></pre></td></tr></table></figure></li>
-</ul>
-]]></content>
-      <categories>
-        <category>Linux</category>
-      </categories>
-      <tags>
-        <tag>Basic</tag>
-        <tag>Linux</tag>
-        <tag>Shell</tag>
-        <tag>Network</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>Linux 入門 Day06 - Shell Script - 1</title>
     <url>/RdnRoydonNote/2024/07/29/LinuxBasicDay06/</url>
     <content><![CDATA[<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a><font size='5'>前言</font></h3><blockquote>
@@ -1059,6 +1021,83 @@
         <tag>Linux</tag>
         <tag>Shell</tag>
         <tag>Script</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Linux 入門 Day03 - 文字編輯器 &amp; 網路管理</title>
+    <url>/RdnRoydonNote/2024/07/25/LinuxBasicDay03/</url>
+    <content><![CDATA[<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a><font size='5'>前言</font></h3><blockquote>
+<p><font size='3'>在現代的計算環境中，網路管理對於 Linux 系統的操作和維護至關重要。無論是個人使用的桌面系統還是企業級的伺服器環境，穩定且高效的網路連接都是確保系統正常運行的關鍵。Linux 以其強大的網路功能和靈活的配置選項，在各種網路環境中廣泛應用。</font></p>
+</blockquote>
+<font size='3'>
+接下來的內容將深入探討 Linux 網路管理的各個方面，並介紹具體的工具和技術。
+</font>
+
+<span id="more"></span>
+
+<br>
+
+<h3 id="常見的文字編輯器"><a href="#常見的文字編輯器" class="headerlink" title="常見的文字編輯器"></a>常見的文字編輯器</h3><ul>
+<li><a href="https://www.gnu.org/software/emacs">emacs ( GNU Emacs )</a></li>
+<li><a href="https://www.nano-editor.org/">nano ( GNU nano )</a></li>
+<li><a href="https://joe-editor.sourceforge.io/">joe ( Joe’s Own Editor )</a></li>
+<li><a href="https://www.vim.org/">Vim ( Vi IMproved )</a></li>
+</ul>
+<br>
+
+<h4 id="Vim-的常用設定"><a href="#Vim-的常用設定" class="headerlink" title="Vim 的常用設定"></a>Vim 的常用設定</h4><ul>
+<li>於編輯器中 命令模式 ( command mode ) 設定</li>
+<li>於個人家目錄建立 <code>.vimrc</code> 與內容設定 <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">vim  .vimrc</span><br><span class="line">set  nu</span><br><span class="line">set  ts=4</span><br><span class="line">set  hls</span><br></pre></td></tr></table></figure></li>
+<li>常用的輔助設定<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">:set  all		查閱所有設定組態</span><br><span class="line">:set  number  	顯示行號  ( :set  nu )</span><br><span class="line">:set  nonumber	不顯示行號 ( :set  nonu )</span><br><span class="line">:set  tabstop=4	設定 TAB 跳格為 4 個字元 ( :set  ts=4 ) ( 預設為 8 個字元 )</span><br><span class="line">:set  spell		拼字檢查</span><br><span class="line">:set  nospell	不使用拼字檢查</span><br><span class="line">:set  hlsearch	搜尋高亮度顯示 ( :set  hls )</span><br><span class="line">:set  nohlsearch	不使用搜尋高亮度顯示 ( :set  nohls )</span><br><span class="line">:set  cursorline	游標行標線</span><br></pre></td></tr></table></figure></li>
+</ul>
+<br>
+
+<h3 id="文字檔案內容的比較"><a href="#文字檔案內容的比較" class="headerlink" title="文字檔案內容的比較"></a>文字檔案內容的比較</h3><ul>
+<li><code>diff</code>，兩檔案內容比較 ( 行比較 )<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">-c  上下文比較</span><br><span class="line">-u  組合合併</span><br><span class="line"></span><br><span class="line">diff  -c  doc1.a  doc1.b</span><br><span class="line">diff  -u  doc2.a  doc2.b</span><br></pre></td></tr></table></figure></li>
+<li><code>diff3</code>，三檔案內容比較 ( 行比較 )<ul>
+<li>diff3  doc1.a  doc1.b  doc1.c</li>
+</ul>
+</li>
+<li><code>vimdiff</code>，使用 vim 對兩檔案內容比較 ( 行比較 )<ul>
+<li>vimdiff  doc1.a  doc1.b</li>
+</ul>
+</li>
+<li><code>tr</code>，轉換、刪除指定字符<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">-d  刪除符合 指定1 內容</span><br><span class="line">-s   刪除符合 指定1 內容，但保留一個 （ 表示將重複出現的字符簡化為一個 ）</span><br><span class="line"></span><br><span class="line">tr  -d  12345  &lt;  doc.tr</span><br><span class="line">tr  -s  1-5  &lt;  doc.tr</span><br><span class="line">tr  -d  &#x27;\n&#x27;  &lt;  doc.tr</span><br></pre></td></tr></table></figure></li>
+<li><code>dos2unix</code>、<code>unix2dos</code>，換行字元轉換<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">dos2unix  [選項]  檔案名稱</span><br><span class="line">unix2dos  [選項]  檔案名稱</span><br><span class="line"></span><br><span class="line">-u   轉為 unix 換行字元 LF ( \n )</span><br><span class="line">-d   轉為  dos 換行字元 CRLF ( \r\n )</span><br><span class="line"></span><br><span class="line">dos2unix  FILENAME</span><br><span class="line">unix2dos –u  FILENAME</span><br></pre></td></tr></table></figure></li>
+</ul>
+<br>
+
+<h3 id="常用網路工具"><a href="#常用網路工具" class="headerlink" title="常用網路工具"></a>常用網路工具</h3><ul>
+<li><code>ping</code>，遠端主機探測、查詢<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">-c   n   指定測試次數</span><br><span class="line">-i   n   封包發送間隔	-W  n   等待回覆封包時間</span><br><span class="line"></span><br><span class="line">ping 8.8.8.8</span><br></pre></td></tr></table></figure></li>
+<li><code>tracepath</code>，網路路由探測、查詢<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">-n     不查詢節點主機名稱 (預設會查詢 )</span><br><span class="line">-m  n  指定查詢節點數上限</span><br><span class="line"></span><br><span class="line">tracepath  -n  8.8.8.8</span><br><span class="line">tracepath  -n  -m  5  8.8.8.8</span><br></pre></td></tr></table></figure></li>
+<li><code>nslookup</code>，網域正解、反解查詢</li>
+<li><code>net-tools</code>，ifconfig、route<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">ifconfig  網路介面  up/down</span></span><br><span class="line">ifconfig  ens33  up     # 網路介面啟用</span><br><span class="line">ifconfig  ens33  down   # 網路介面停用</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">ifconfig  網路介面  IP位置/網路遮罩</span></span><br><span class="line">ifconfig  ens33  192.168.1.10/24 # 設定網路介面 IP 組態</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">設定網路路由</span></span><br><span class="line">route  del  default # 刪除預設路由</span><br><span class="line">route  add  -net  192.168.1.0/24  ens33</span><br><span class="line">route  add  default  gw  192.168.1.1</span><br><span class="line">route  -n</span><br></pre></td></tr></table></figure></li>
+<li><code>iproute</code><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">網路介面組態檢視</span> </span><br><span class="line">ip  address  show ens33</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">網卡介面檢視</span> </span><br><span class="line">ip  link  show ens33</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">網路路由查詢</span></span><br><span class="line">ip  route  show 192.168.1.1</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">網路介面 啟用/停用</span></span><br><span class="line">ip  link  set  ens33  up/down</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">設定網路介面 IP 組態</span></span><br><span class="line">ip  address  add  192.168.1.10/24  dev  ens33</span><br><span class="line">ip  address  del  192.168.1.110/24  dev  ens33</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">設定網路路由</span></span><br><span class="line"></span><br><span class="line">指令： ip  route  del   網段/網路遮罩</span><br><span class="line">指令： ip  route  del   default</span><br><span class="line">指令： ip  route  del   路由IP位置</span><br><span class="line">指令： ip  route  add  網段/網路遮罩  dev  網卡編號</span><br><span class="line">指令： ip  route  add  default  via  閘道IP位置  [ dev  網卡編號 ]</span><br><span class="line">指令： ip  route  add  路由IP位置  [ dev  網卡編號 ]</span><br><span class="line"></span><br><span class="line">ip  route  del  default</span><br><span class="line">ip  route  add  default  via 192.168.1.1</span><br></pre></td></tr></table></figure></li>
+</ul>
+<br>
+
+<h3 id="DNS-組態"><a href="#DNS-組態" class="headerlink" title="DNS 組態"></a>DNS 組態</h3><ul>
+<li>&#x2F;etc&#x2F;resolve.conf<ul>
+<li>管理服務：systemd-resolve.service</li>
+</ul>
+</li>
+</ul>
+<br>
+
+<h3 id="網路管理套件"><a href="#網路管理套件" class="headerlink" title="網路管理套件"></a>網路管理套件</h3><ul>
+<li><code>dhclient</code>、<code>dhcpcd</code><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">/etc/dhcpcd.conf # 相關組態檔</span><br><span class="line">/etc/dhcp/dhclient.conf</span><br><span class="line"></span><br><span class="line">Ubuntu： /var/lib/dhcpcd/ens33.lease</span><br><span class="line"></span><br><span class="line">Ubuntu：cat  /var/lib/dhcp/dhclient.lease</span><br><span class="line">CentOS：cat  /var/lib/dhclient/dhclient.leases</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">取得IP                                -x     只刪除 dhcpcd 程序</span><br><span class="line">-4     只要求 IPv4                    -6     只要求 IPv4</span><br><span class="line">-k     釋放IP並刪除 dhcpcd</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">dhclient，啟用或停用</span></span><br><span class="line"></span><br><span class="line">dhcpcd   ens33</span><br><span class="line">dhcpcd  -k  ens33</span><br></pre></td></tr></table></figure></li>
+<li><code>NetworkManager</code><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">/etc/sysconfig/network-scripts/ifcfg-網路介面 # 相關組態檔</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">使用動態 IP</span> </span><br><span class="line">vim  /etc/sysconfig/network-scripts/ifcfg-ens33</span><br><span class="line">TYPE=&quot;Ethernet&quot;</span><br><span class="line">BOOTPROTO=&quot;dhcp&quot;</span><br><span class="line">DEVICE=&quot;ens33&quot;</span><br><span class="line">ONBOOT=&quot;yes&quot;</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">使用靜態 IP</span> </span><br><span class="line">TYPE=&quot;Ethernet&quot;</span><br><span class="line">BOOTPROTO=&quot;static&quot;</span><br><span class="line">DEVICE=&quot;ens33&quot;</span><br><span class="line">ONBOOT=&quot;yes&quot;</span><br><span class="line">IPADDR=&quot;192.168.1.20&quot;</span><br><span class="line">GATEWAY=&quot;192.168.1.1&quot;</span><br><span class="line">NETMASK=&quot;255.255.255.0&quot;</span><br><span class="line">DNS1=&quot;8.8.8.8&quot;</span><br><span class="line">DNS2=&quot;168.95.1.1&quot;</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">重啟</span></span><br><span class="line">service  NetworkManager  restart</span><br><span class="line">nmcli  networking  off</span><br><span class="line">nmcli  networking  on</span><br></pre></td></tr></table></figure></li>
+<li><code>netplan</code><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">/etc/netplan/＊.yaml # 相關組態檔</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">使用動態 IP</span> </span><br><span class="line"></span><br><span class="line">vim  /etc/netplan/＊.yaml </span><br><span class="line">network:</span><br><span class="line">    version: 2</span><br><span class="line">    renderer: networkd</span><br><span class="line">    ethernets:</span><br><span class="line">        ens33:</span><br><span class="line">            dhcp4: yes</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">使用靜態 IP</span></span><br><span class="line"></span><br><span class="line">vim  /etc/netplan/＊.yaml</span><br><span class="line">network:</span><br><span class="line">    version: 2</span><br><span class="line">    ethernets:</span><br><span class="line">        ens33:</span><br><span class="line">           dhcp4: no</span><br><span class="line">           addresses: </span><br><span class="line">           -  192.168.1.10/24</span><br><span class="line">           routes:</span><br><span class="line">           -  to:  default</span><br><span class="line">               via:  192.168.1.1</span><br><span class="line">           nameservers:</span><br><span class="line">                addresses:</span><br><span class="line">                -  8.8.8.8</span><br><span class="line">                -  168.95.1.1</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">啟動或重新套用組態</span></span><br><span class="line">netplan  apply</span><br></pre></td></tr></table></figure></li>
+</ul>
+]]></content>
+      <categories>
+        <category>Linux</category>
+      </categories>
+      <tags>
+        <tag>Basic</tag>
+        <tag>Linux</tag>
+        <tag>Shell</tag>
+        <tag>Network</tag>
       </tags>
   </entry>
   <entry>
