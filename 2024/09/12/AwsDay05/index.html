@@ -29,7 +29,7 @@
 <meta property="og:description" content="本文 本章說明 Aws System Manager">
 <meta property="og:locale" content="zh_TW">
 <meta property="article:published_time" content="2024-09-12T01:10:41.000Z">
-<meta property="article:modified_time" content="2024-09-12T10:14:26.837Z">
+<meta property="article:modified_time" content="2024-09-12T14:14:24.214Z">
 <meta property="article:author" content="Roydon">
 <meta property="article:tag" content="Aws">
 <meta name="twitter:card" content="summary">
@@ -218,7 +218,7 @@
               <span class="post-meta-item-text">發表於</span>
               
 
-              <time title="創建時間：2024-09-12 09:10:41 / 修改時間：18:14:26" itemprop="dateCreated datePublished" datetime="2024-09-12T09:10:41+08:00">2024-09-12</time>
+              <time title="創建時間：2024-09-12 09:10:41 / 修改時間：22:14:24" itemprop="dateCreated datePublished" datetime="2024-09-12T09:10:41+08:00">2024-09-12</time>
             </span>
 
           
@@ -292,22 +292,22 @@
 
 <ul>
 <li><h3 id="Aws-端口轉發-SSM"><a href="#Aws-端口轉發-SSM" class="headerlink" title="Aws 端口轉發 SSM"></a>Aws 端口轉發 SSM</h3><ul>
-<li><font size='3'>Windows指令 - 轉發內部資料庫的端口</font><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">aws ssm start-session --profile alvis-admin --target i-04b6508876a1414d5 --document-name AWS-StartPortForwardingSessionToRemoteHost  --parameters host=&quot;db.wp.com&quot;,portNumber=&quot;3306&quot;,localPortNumber=&quot;3306&quot;</span><br></pre></td></tr></table></figure></li>
-</ul>
-<br>
-
+<li><p><font size='3'><a target="_blank" rel="noopener" href="https://docs.aws.amazon.com/zh_tw/systems-manager/latest/userguide/install-plugin-windows.html">Session Manager 外掛程式</a>(<a target="_blank" rel="noopener" href="https://docs.aws.amazon.com/zh_tw/systems-manager/latest/userguide/install-plugin-verify.html">驗證</a>)</font></p>
+</li>
+<li><p><font size='3'>轉發內部應用的端口</font></p>
 <ul>
-<li><font size='3'>MacOS指令 - 轉發內部資料庫的端口</font><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">aws ssm start-session --profile alvis-admin --target i-04b6508876a1414d5 --document-name AWS-StartPortForwardingSessionToRemoteHost --parameters &#x27;&#123;&quot;host&quot;:[&quot;db.wp.com&quot;],&quot;portNumber&quot;:[&quot;3306&quot;],&quot;localPortNumber&quot;:[&quot;3306&quot;]&#125;&#x27;</span><br></pre></td></tr></table></figure></li>
+<li><font size='3'>Windows指令</font><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">aws ssm start-session --profile alvis-admin --target i-0368e37045d057bc9 --document-name AWS-StartPortForwardingSessionToRemoteHost  --parameters portNumber=&quot;8080&quot;,localPortNumber=&quot;8080&quot;</span><br></pre></td></tr></table></figure></li>
+<li><font size='3'>MacOS指令</font><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">aws ssm start-session --profile alvis-admin --target i-0368e37045d057bc9 --document-name AWS-StartPortForwardingSessionToRemoteHost --parameters &#x27;&#123;&quot;portNumber&quot;:[&quot;8080&quot;],&quot;localPortNumber&quot;:[&quot;8080&quot;]&#125;&#x27;</span><br></pre></td></tr></table></figure></li>
 </ul>
-<br>
-
+</li>
+<li><p><font size='3'>轉發內部資料庫的端口 </font></p>
 <ul>
-<li><font size='3'>Windows指令 - 轉發內部應用的端口</font><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">aws ssm start-session --profile alvis-admin --target i-0368e37045d057bc9 --document-name AWS-StartPortForwardingSessionToRemoteHost  --parameters portNumber=&quot;8080&quot;,localPortNumber=&quot;8080&quot;</span><br></pre></td></tr></table></figure></li>
+<li><font size='3'>MacOS指令</font><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">aws ssm start-session --profile alvis-admin --target i-04b6508876a1414d5 --document-name AWS-StartPortForwardingSessionToRemoteHost --parameters &#x27;&#123;&quot;host&quot;:[&quot;db.wp.com&quot;],&quot;portNumber&quot;:[&quot;3306&quot;],&quot;localPortNumber&quot;:[&quot;3306&quot;]&#125;&#x27;</span><br></pre></td></tr></table></figure></li>
+<li><font size='3'>Windows指令</font><pre><code class="Shell">aws ssm start-session --profile alvis-admin --target i-04b6508876a1414d5 --document-name AWS-StartPortForwardingSessionToRemoteHost  --parameters host=&quot;db.wp.com&quot;,portNumber=&quot;3306&quot;,localPortNumber=&quot;3306&quot;
+</code></pre>
+</li>
 </ul>
-<br>
-
-<ul>
-<li><font size='3'>MacOS指令 - 轉發內部應用的端口</font><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">aws ssm start-session --profile alvis-admin --target i-0368e37045d057bc9 --document-name AWS-StartPortForwardingSessionToRemoteHost --parameters &#x27;&#123;&quot;portNumber&quot;:[&quot;8080&quot;],&quot;localPortNumber&quot;:[&quot;8080&quot;]&#125;&#x27;</span><br></pre></td></tr></table></figure></li>
+</li>
 </ul>
 </li>
 </ul>
