@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title>Aws 基礎理論 Day05 - Aws System Manager</title>
-    <url>/RdnRoydonNote/2024/09/12/AwsDay05/</url>
+    <title>Aws 基礎理論 Day01 - Aws 基礎概念</title>
+    <url>/RdnRoydonNote/2024/09/12/AwsDay01/</url>
     <content><![CDATA[<h3 id="本文"><a href="#本文" class="headerlink" title="本文"></a><font size='5'>本文</font></h3><blockquote>
-<p><font size='3'>本章說明 Aws System Manager</font></p>
+<p><font size='3'>本章說明 Aws 基礎概念</font></p>
 </blockquote>
 <span id="more"></span>
 
@@ -17,6 +17,19 @@
 <li><font size='3'>權量 &#x3D;&gt; 管理</font></li>
 <li><font size='3'>免費 &#x3D;&gt;（ IAM、Billing and Cost Management ）</font></li>
 </ul>
+]]></content>
+      <tags>
+        <tag>Aws</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Aws 基礎理論 Day05 - Aws System Manager</title>
+    <url>/RdnRoydonNote/2024/09/12/AwsDay05/</url>
+    <content><![CDATA[<h3 id="本文"><a href="#本文" class="headerlink" title="本文"></a><font size='5'>本文</font></h3><blockquote>
+<p><font size='3'>本章說明 Aws System Manager</font></p>
+</blockquote>
+<span id="more"></span>
+
 <br>
 
 <h3 id="SSH"><a href="#SSH" class="headerlink" title="SSH"></a>SSH</h3><ul>
@@ -89,64 +102,6 @@
 <li><font size='3'>192.168.1.0&#x2F;25</font><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">25 - 24 = 1，對照表 =&gt; 128</span><br><span class="line">255 - 128 = 127</span><br><span class="line">故，192.168.1.1 - 192.168.1.126 為可用 ip。</span><br><span class="line"></span><br><span class="line">如果 IP 地址超出了某個子網的範圍，那麼該 IP 地址屬於不同的網段（子網）。</span><br><span class="line"></span><br></pre></td></tr></table></figure></li>
 <li><font size='3'>10.1.16.9&#x2F;29</font><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">29 - 24 = 5，對照表 =&gt; 248</span><br><span class="line">255 - 248 = 7</span><br><span class="line"></span><br><span class="line">子網地址: 找出子網的起始地址，需要將 10.1.16.9 的主機部分歸零來確定子網地址。</span><br><span class="line"></span><br><span class="line">10.1.16.00001 | 001 =&gt; 10.1.16.8 / 29 </span><br><span class="line"></span><br><span class="line">故，192.168.1.9 - 192.168.1.14 為可用 ip。</span><br><span class="line"></span><br><span class="line">如果 IP 地址超出了某個子網的範圍，那麼該 IP 地址屬於不同的網段（子網）。</span><br><span class="line"></span><br></pre></td></tr></table></figure></li>
 </ul>
-]]></content>
-      <categories>
-        <category>Cisco</category>
-      </categories>
-      <tags>
-        <tag>Cisco</tag>
-        <tag>Packet Tracer</tag>
-        <tag>Basic</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Cisco Packet Tracer Day03 - ACL</title>
-    <url>/RdnRoydonNote/2024/08/29/CiscoPacketTracerDay03/</url>
-    <content><![CDATA[<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a><font size='5'>前言</font></h3><blockquote>
-<p><font size='3'>Access Control Lists (ACLs) 是一組用於控制網路流量進出設備的規則集合。它們可以配置在路由器或交換機上，用來允許或拒絕數據包進入或離開網路接口。ACL 是網路安全管理的一個關鍵工具，可以防止未經授權的流量進入網路。</font></p>
-</blockquote>
-<span id="more"></span>
-
-<br>
-
-<h3 id="ACL-的基本概念"><a href="#ACL-的基本概念" class="headerlink" title="ACL 的基本概念"></a>ACL 的基本概念</h3><ul>
-<li><h4 id="ACL-是由一系列規則組成的列表，每個規則指定要允許或拒絕的條件（如源-IP-地址、目標-IP-地址、協議類型等）。"><a href="#ACL-是由一系列規則組成的列表，每個規則指定要允許或拒絕的條件（如源-IP-地址、目標-IP-地址、協議類型等）。" class="headerlink" title="ACL 是由一系列規則組成的列表，每個規則指定要允許或拒絕的條件（如源 IP 地址、目標 IP 地址、協議類型等）。"></a><font size='3'>ACL 是由一系列規則組成的列表，每個規則指定要允許或拒絕的條件（如源 IP 地址、目標 IP 地址、協議類型等）。</font></h4></li>
-<li><h4 id="每個進入或離開設備的數據包都會按照-ACL-中的規則進行匹配。匹配的第一條規則將決定這個數據包的命運（允許或拒絕），之後的規則將不再檢查。"><a href="#每個進入或離開設備的數據包都會按照-ACL-中的規則進行匹配。匹配的第一條規則將決定這個數據包的命運（允許或拒絕），之後的規則將不再檢查。" class="headerlink" title="每個進入或離開設備的數據包都會按照 ACL 中的規則進行匹配。匹配的第一條規則將決定這個數據包的命運（允許或拒絕），之後的規則將不再檢查。"></a><font size='3'>每個進入或離開設備的數據包都會按照 ACL 中的規則進行匹配。匹配的第一條規則將決定這個數據包的命運（允許或拒絕），之後的規則將不再檢查。</font></h4></li>
-<li><h4 id="控制流量的進出（可以應用在接口的“in”方向或“out”方向）。"><a href="#控制流量的進出（可以應用在接口的“in”方向或“out”方向）。" class="headerlink" title="控制流量的進出（可以應用在接口的“in”方向或“out”方向）。"></a><font size='3'>控制流量的進出（可以應用在接口的“in”方向或“out”方向）。</font></h4></li>
-<li><h4 id="限制特定用戶或設備的網路訪問，提高網路安全性，防止未經授權的訪問。"><a href="#限制特定用戶或設備的網路訪問，提高網路安全性，防止未經授權的訪問。" class="headerlink" title="限制特定用戶或設備的網路訪問，提高網路安全性，防止未經授權的訪問。"></a><font size='3'>限制特定用戶或設備的網路訪問，提高網路安全性，防止未經授權的訪問。</font></h4></li>
-</ul>
-<br>
-
-<h3 id="ACL-的類型"><a href="#ACL-的類型" class="headerlink" title="ACL 的類型"></a>ACL 的類型</h3><ul>
-<li><h4 id="標準-ACL（Standard-ACL）："><a href="#標準-ACL（Standard-ACL）：" class="headerlink" title="標準 ACL（Standard ACL）："></a><font size='3'>標準 ACL（Standard ACL）：</font></h4><ul>
-<li><font size='3'>只基於源 IP 地址進行過濾，標準 ACL 的編號範圍是 1-99 或 1300-1999。</font></li>
-<li><font size='3'>範例：</font>  <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">這條 ACL 規則允許來自 192.168.1.0/24 網段的所有流量。</span></span><br><span class="line">access-list 10 permit 192.168.1.0 0.0.0.255</span><br></pre></td></tr></table></figure></li>
-</ul>
-</li>
-<li><h4 id="擴展-ACL（Extended-ACL）："><a href="#擴展-ACL（Extended-ACL）：" class="headerlink" title="擴展 ACL（Extended ACL）："></a><font size='3'>擴展 ACL（Extended ACL）：</font></h4><ul>
-<li><font size='3'>可以基於源 IP 地址、目標 IP 地址、協議類型（如 TCP、UDP、ICMP）、源端口和目標端口等進行過濾。</font></li>
-<li><font size='3'>擴展 ACL 的編號範圍是 100-199 或 2000-2699。</font></li>
-<li><font size='3'>範例：</font>  <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">這條 ACL 規則允許來自 192.168.1.0/24 網段的所有主機訪問任何目標的 80 端口。</span></span><br><span class="line">access-list 100 permit tcp 192.168.1.0 0.0.0.255 any eq 80</span><br></pre></td></tr></table></figure></li>
-</ul>
-</li>
-</ul>
-<br>
-
-<h3 id="ACL-的配置"><a href="#ACL-的配置" class="headerlink" title="ACL 的配置"></a>ACL 的配置</h3><ul>
-<li><h4 id="標準-ACL-配置："><a href="#標準-ACL-配置：" class="headerlink" title="標準 ACL 配置："></a><font size='3'>標準 ACL 配置：</font></h4></li>
-</ul>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">access-list [number] [permit|deny] [source] [wildcard_mask]</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">這會在 Giga0/0 接口上應用標準 ACL 10，允許來自 192.168.1.0/24 網段的流量進入。</span></span><br><span class="line">access-list 10 permit 192.168.1.0 0.0.0.255</span><br><span class="line">interface gigabitethernet0/0</span><br><span class="line">ip access-group 10 in</span><br></pre></td></tr></table></figure>
-<ul>
-<li><h4 id="查看-ACL、刪除-ACL"><a href="#查看-ACL、刪除-ACL" class="headerlink" title="查看 ACL、刪除 ACL"></a><font size='3'>查看 ACL、刪除 ACL</font></h4></li>
-</ul>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">show access-lists # 查看</span><br><span class="line"></span><br><span class="line">no access-list [number] # 刪除</span><br></pre></td></tr></table></figure>
-
-<br>
-
-<h3 id="補充"><a href="#補充" class="headerlink" title="補充"></a>補充</h3><ul>
-<li><h4 id="標準-ACL-配置：-1"><a href="#標準-ACL-配置：-1" class="headerlink" title="標準 ACL 配置："></a><font size='3'>標準 ACL 配置：</font></h4></li>
-</ul>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">access-list [number] [permit|deny] [source] [wildcard_mask]</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">這會在 Giga0/0 接口上應用標準 ACL 10，允許來自 192.168.1.0/24 網段的流量進入。</span></span><br><span class="line">access-list 10 permit 192.168.1.0 0.0.0.255</span><br><span class="line">interface gigabitethernet0/0</span><br><span class="line">ip access-group 10 in</span><br></pre></td></tr></table></figure>
 ]]></content>
       <categories>
         <category>Cisco</category>
@@ -233,6 +188,64 @@
 <li><h4 id="配置密碼-1"><a href="#配置密碼-1" class="headerlink" title=" 配置密碼"></a><font size='3'> 配置密碼</font></h4></li>
 </ul>
 <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">設置特權模式和控制台的訪問密碼。</span></span><br><span class="line">enable secret [password]</span><br><span class="line">line console 0</span><br><span class="line">password [password]</span><br><span class="line">login</span><br><span class="line"></span><br><span class="line">enable secret cisco123</span><br><span class="line">line console 0</span><br><span class="line">password cisco123</span><br><span class="line">login</span><br></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>Cisco</category>
+      </categories>
+      <tags>
+        <tag>Cisco</tag>
+        <tag>Packet Tracer</tag>
+        <tag>Basic</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Cisco Packet Tracer Day03 - ACL</title>
+    <url>/RdnRoydonNote/2024/08/29/CiscoPacketTracerDay03/</url>
+    <content><![CDATA[<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a><font size='5'>前言</font></h3><blockquote>
+<p><font size='3'>Access Control Lists (ACLs) 是一組用於控制網路流量進出設備的規則集合。它們可以配置在路由器或交換機上，用來允許或拒絕數據包進入或離開網路接口。ACL 是網路安全管理的一個關鍵工具，可以防止未經授權的流量進入網路。</font></p>
+</blockquote>
+<span id="more"></span>
+
+<br>
+
+<h3 id="ACL-的基本概念"><a href="#ACL-的基本概念" class="headerlink" title="ACL 的基本概念"></a>ACL 的基本概念</h3><ul>
+<li><h4 id="ACL-是由一系列規則組成的列表，每個規則指定要允許或拒絕的條件（如源-IP-地址、目標-IP-地址、協議類型等）。"><a href="#ACL-是由一系列規則組成的列表，每個規則指定要允許或拒絕的條件（如源-IP-地址、目標-IP-地址、協議類型等）。" class="headerlink" title="ACL 是由一系列規則組成的列表，每個規則指定要允許或拒絕的條件（如源 IP 地址、目標 IP 地址、協議類型等）。"></a><font size='3'>ACL 是由一系列規則組成的列表，每個規則指定要允許或拒絕的條件（如源 IP 地址、目標 IP 地址、協議類型等）。</font></h4></li>
+<li><h4 id="每個進入或離開設備的數據包都會按照-ACL-中的規則進行匹配。匹配的第一條規則將決定這個數據包的命運（允許或拒絕），之後的規則將不再檢查。"><a href="#每個進入或離開設備的數據包都會按照-ACL-中的規則進行匹配。匹配的第一條規則將決定這個數據包的命運（允許或拒絕），之後的規則將不再檢查。" class="headerlink" title="每個進入或離開設備的數據包都會按照 ACL 中的規則進行匹配。匹配的第一條規則將決定這個數據包的命運（允許或拒絕），之後的規則將不再檢查。"></a><font size='3'>每個進入或離開設備的數據包都會按照 ACL 中的規則進行匹配。匹配的第一條規則將決定這個數據包的命運（允許或拒絕），之後的規則將不再檢查。</font></h4></li>
+<li><h4 id="控制流量的進出（可以應用在接口的“in”方向或“out”方向）。"><a href="#控制流量的進出（可以應用在接口的“in”方向或“out”方向）。" class="headerlink" title="控制流量的進出（可以應用在接口的“in”方向或“out”方向）。"></a><font size='3'>控制流量的進出（可以應用在接口的“in”方向或“out”方向）。</font></h4></li>
+<li><h4 id="限制特定用戶或設備的網路訪問，提高網路安全性，防止未經授權的訪問。"><a href="#限制特定用戶或設備的網路訪問，提高網路安全性，防止未經授權的訪問。" class="headerlink" title="限制特定用戶或設備的網路訪問，提高網路安全性，防止未經授權的訪問。"></a><font size='3'>限制特定用戶或設備的網路訪問，提高網路安全性，防止未經授權的訪問。</font></h4></li>
+</ul>
+<br>
+
+<h3 id="ACL-的類型"><a href="#ACL-的類型" class="headerlink" title="ACL 的類型"></a>ACL 的類型</h3><ul>
+<li><h4 id="標準-ACL（Standard-ACL）："><a href="#標準-ACL（Standard-ACL）：" class="headerlink" title="標準 ACL（Standard ACL）："></a><font size='3'>標準 ACL（Standard ACL）：</font></h4><ul>
+<li><font size='3'>只基於源 IP 地址進行過濾，標準 ACL 的編號範圍是 1-99 或 1300-1999。</font></li>
+<li><font size='3'>範例：</font>  <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">這條 ACL 規則允許來自 192.168.1.0/24 網段的所有流量。</span></span><br><span class="line">access-list 10 permit 192.168.1.0 0.0.0.255</span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+<li><h4 id="擴展-ACL（Extended-ACL）："><a href="#擴展-ACL（Extended-ACL）：" class="headerlink" title="擴展 ACL（Extended ACL）："></a><font size='3'>擴展 ACL（Extended ACL）：</font></h4><ul>
+<li><font size='3'>可以基於源 IP 地址、目標 IP 地址、協議類型（如 TCP、UDP、ICMP）、源端口和目標端口等進行過濾。</font></li>
+<li><font size='3'>擴展 ACL 的編號範圍是 100-199 或 2000-2699。</font></li>
+<li><font size='3'>範例：</font>  <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">這條 ACL 規則允許來自 192.168.1.0/24 網段的所有主機訪問任何目標的 80 端口。</span></span><br><span class="line">access-list 100 permit tcp 192.168.1.0 0.0.0.255 any eq 80</span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+</ul>
+<br>
+
+<h3 id="ACL-的配置"><a href="#ACL-的配置" class="headerlink" title="ACL 的配置"></a>ACL 的配置</h3><ul>
+<li><h4 id="標準-ACL-配置："><a href="#標準-ACL-配置：" class="headerlink" title="標準 ACL 配置："></a><font size='3'>標準 ACL 配置：</font></h4></li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">access-list [number] [permit|deny] [source] [wildcard_mask]</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">這會在 Giga0/0 接口上應用標準 ACL 10，允許來自 192.168.1.0/24 網段的流量進入。</span></span><br><span class="line">access-list 10 permit 192.168.1.0 0.0.0.255</span><br><span class="line">interface gigabitethernet0/0</span><br><span class="line">ip access-group 10 in</span><br></pre></td></tr></table></figure>
+<ul>
+<li><h4 id="查看-ACL、刪除-ACL"><a href="#查看-ACL、刪除-ACL" class="headerlink" title="查看 ACL、刪除 ACL"></a><font size='3'>查看 ACL、刪除 ACL</font></h4></li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">show access-lists # 查看</span><br><span class="line"></span><br><span class="line">no access-list [number] # 刪除</span><br></pre></td></tr></table></figure>
+
+<br>
+
+<h3 id="補充"><a href="#補充" class="headerlink" title="補充"></a>補充</h3><ul>
+<li><h4 id="標準-ACL-配置：-1"><a href="#標準-ACL-配置：-1" class="headerlink" title="標準 ACL 配置："></a><font size='3'>標準 ACL 配置：</font></h4></li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">access-list [number] [permit|deny] [source] [wildcard_mask]</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">這會在 Giga0/0 接口上應用標準 ACL 10，允許來自 192.168.1.0/24 網段的流量進入。</span></span><br><span class="line">access-list 10 permit 192.168.1.0 0.0.0.255</span><br><span class="line">interface gigabitethernet0/0</span><br><span class="line">ip access-group 10 in</span><br></pre></td></tr></table></figure>
 ]]></content>
       <categories>
         <category>Cisco</category>
@@ -372,45 +385,8 @@
       </tags>
   </entry>
   <entry>
-    <title>Docker 基礎理論 Day02 - 指令篇</title>
-    <url>/RdnRoydonNote/2024/09/11/Docker-Day02/</url>
-    <content><![CDATA[<h3 id="本文"><a href="#本文" class="headerlink" title="本文"></a><font size='5'>本文</font></h3><blockquote>
-<p><font size='3'>本章說明 Docker 常見的基本指令</font></p>
-</blockquote>
-<span id="more"></span>
-
-<br>
-
-
-<h3 id="Docker-基礎指令"><a href="#Docker-基礎指令" class="headerlink" title="Docker 基礎指令"></a>Docker 基礎指令</h3><ul>
-<li>Docker 執行<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">執行 image</span></span><br><span class="line">docker run --name container-name image:tag</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">進入容器</span></span><br><span class="line">docker exec -it container-name/id bash</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">製作 image</span></span><br><span class="line">docker build --no-cache -t tag-name .   </span><br></pre></td></tr></table></figure></li>
-<li>短參數<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">-v 映射空間</span><br><span class="line"></span><br><span class="line">-p 映射 Port號</span><br><span class="line"></span><br><span class="line">-e 環境參數</span><br><span class="line"></span><br><span class="line">-it 互動模式</span><br><span class="line"></span><br><span class="line">-d 背景執行</span><br><span class="line"></span><br><span class="line">本機:容器</span><br><span class="line"></span><br></pre></td></tr></table></figure></li>
-<li>版本差異<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">yml 內的 version 可以拿掉</span> </span><br><span class="line"></span><br><span class="line">docker-compose up -d # 舊版</span><br><span class="line">docker compose up -d # 新版</span><br></pre></td></tr></table></figure></li>
-<li>指令<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">查看 <span class="built_in">log</span></span></span><br><span class="line">docker logs container/id</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">查看容器資訊</span></span><br><span class="line">docker inspect container/id</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">docker cp ./some_file CONTAINER:/work</span><br><span class="line"></span><br><span class="line">docker cp CONTAINER:/var/logs/ /tmp/app_logs</span><br><span class="line"></span><br></pre></td></tr></table></figure></li>
-</ul>
-<h3 id="常用-Image"><a href="#常用-Image" class="headerlink" title="常用 Image"></a>常用 Image</h3><ul>
-<li>phpmyadmin<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">docker run --name phpmyadmin -itd -e PMA_ARBITRARY=1 -p 8080:80 phpmyadmin:latest</span><br></pre></td></tr></table></figure></li>
-<li>mysql<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">docker run --name mysql -e MYSQL_ROOT_PASSWORD=mysql -itd -p 3306:3306 mysql:latest</span><br></pre></td></tr></table></figure></li>
-<li>adminer<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">docker run --name adminer -itd -p 8080:8080 adminer:latest</span><br></pre></td></tr></table></figure></li>
-</ul>
-<h3 id="Aws-EC2"><a href="#Aws-EC2" class="headerlink" title="Aws EC2"></a>Aws EC2</h3><ul>
-<li><p>EC2 - UserData for Docker</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_">#</span><span class="language-bash">!/bin/bash</span></span><br><span class="line"></span><br><span class="line">yum update -y</span><br><span class="line"></span><br><span class="line">yum install -y docker</span><br><span class="line">systemctl start docker</span><br><span class="line">systemctl enable docker</span><br><span class="line">usermod -a -G docker ec2-user</span><br><span class="line"></span><br><span class="line">mkdir -p /home/ec2-user/.docker/cli-plugins</span><br><span class="line">curl -SL https://github.com/docker/compose/releases/download/v2.26.1/docker-compose-linux-x86_64 -o /home/ec2-user/.docker/cli-plugins/docker-compose</span><br><span class="line">chmod +x /home/ec2-user/.docker/cli-plugins/docker-compose</span><br><span class="line"></span><br><span class="line">yum install -y git</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-</li>
-<li><p>Yaml 範例：</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">version: &#x27;3.8&#x27;</span><br><span class="line"></span><br><span class="line">services:</span><br><span class="line">  db:</span><br><span class="line">    image: mysql:8.0</span><br><span class="line">    restart: always</span><br><span class="line">    container_name: mysql-db</span><br><span class="line">    ports:</span><br><span class="line">      - 3306:3306</span><br><span class="line">    environment:</span><br><span class="line">      MYSQL_DATABASE: exampledb</span><br><span class="line">      MYSQL_USER: user</span><br><span class="line">      MYSQL_PASSWORD: 123456</span><br><span class="line">      MYSQL_ROOT_PASSWORD: 123456</span><br><span class="line"></span><br><span class="line">  phpmyadmin:</span><br><span class="line">    image: phpmyadmin</span><br><span class="line">    restart: always</span><br><span class="line">    container_name: phpmyadmin-db-console</span><br><span class="line">    ports:</span><br><span class="line">      - 8080:80</span><br><span class="line">    environment:</span><br><span class="line">      - PMA_ARBITRARY=1</span><br><span class="line"></span><br></pre></td></tr></table></figure></li>
-</ul>
-]]></content>
-      <tags>
-        <tag>Docker</tag>
-        <tag>Container</tag>
-        <tag>容器化</tag>
-        <tag>虛擬化</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Docker 基礎理論 Day01 - 理論篇</title>
-    <url>/RdnRoydonNote/2024/09/11/Docker/</url>
+    <title>容器化 基礎理論 Day01 - 理論篇</title>
+    <url>/RdnRoydonNote/2024/09/11/Docker-Day01/</url>
     <content><![CDATA[<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a><font size='5'>前言</font></h3><blockquote>
 <p><font size='3'>隨著軟體開發流程的演變和雲端運算的普及，應用程序的部署和管理變得越來越複雜。開發者和運維人員需要確保應用在不同的環境下保持一致，無論是開發、測試還是生產環境。為了應對這種挑戰，容器技術應運而生，而 Docker 作為一種主流的容器技術，已成為現代 DevOps 流程中的重要組成部分。</font></p>
 </blockquote>
@@ -448,6 +424,84 @@
 <li><font size='3'>Docker 通過容器化技術，解決了應用程序在不同環境中的一致性問題，並且相比傳統虛擬機，提供了更高的資源利用效率和更快的啟動速度。Docker 的核心概念包括容器、映像和 Dockerfile，這些概念構成了現代化應用開發和部署的基礎。隨著 Docker 的廣泛應用，它已經成為 DevOps 工作流中不可或缺的一部分。</font></li>
 </ul>
 <br>]]></content>
+      <tags>
+        <tag>Docker</tag>
+        <tag>Container</tag>
+        <tag>容器化</tag>
+        <tag>虛擬化</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>容器化 基礎理論 Day02 - 指令篇</title>
+    <url>/RdnRoydonNote/2024/09/11/Docker-Day02/</url>
+    <content><![CDATA[<h3 id="本文"><a href="#本文" class="headerlink" title="本文"></a><font size='5'>本文</font></h3><blockquote>
+<p><font size='3'>本章說明 Docker 基本指令、Dockerfile、docker-compose 檔案編寫</font></p>
+</blockquote>
+<span id="more"></span>
+
+<br>
+
+
+<h3 id="Docker-基礎指令"><a href="#Docker-基礎指令" class="headerlink" title="Docker 基礎指令"></a>Docker 基礎指令</h3><ul>
+<li>Docker 執行<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">執行 image</span></span><br><span class="line">docker run --name container-name image:tag</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">進入容器</span></span><br><span class="line">docker exec -it container-name/id bash</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">製作 image</span></span><br><span class="line">docker build --no-cache -t tag-name .   </span><br></pre></td></tr></table></figure></li>
+<li>短參數<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">-v 映射空間</span><br><span class="line"></span><br><span class="line">-p 映射 Port號</span><br><span class="line"></span><br><span class="line">-e 環境參數</span><br><span class="line"></span><br><span class="line">-it 互動模式</span><br><span class="line"></span><br><span class="line">-d 背景執行</span><br><span class="line"></span><br><span class="line">本機:容器</span><br><span class="line"></span><br></pre></td></tr></table></figure></li>
+<li>版本差異<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">yml 內的 version 可以拿掉</span> </span><br><span class="line"></span><br><span class="line">docker-compose up -d # 舊版</span><br><span class="line">docker compose up -d # 新版</span><br></pre></td></tr></table></figure></li>
+<li>指令<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">查看 <span class="built_in">log</span></span></span><br><span class="line">docker logs container/id</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">查看容器資訊</span></span><br><span class="line">docker inspect container/id</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">docker cp ./some_file CONTAINER:/work</span><br><span class="line"></span><br><span class="line">docker cp CONTAINER:/var/logs/ /tmp/app_logs</span><br><span class="line"></span><br></pre></td></tr></table></figure></li>
+</ul>
+<h3 id="常用-Image"><a href="#常用-Image" class="headerlink" title="常用 Image"></a>常用 Image</h3><ul>
+<li>phpmyadmin<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">docker run --name phpmyadmin -itd -e PMA_ARBITRARY=1 -p 8080:80 phpmyadmin:latest</span><br></pre></td></tr></table></figure></li>
+</ul>
+<br>
+
+<ul>
+<li>mysql<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">docker run --name mysql -e MYSQL_ROOT_PASSWORD=mysql -itd -p 3306:3306 mysql:latest</span><br></pre></td></tr></table></figure></li>
+</ul>
+<br>
+
+<ul>
+<li>adminer<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">docker run --name adminer -itd -p 8080:8080 adminer:latest</span><br></pre></td></tr></table></figure></li>
+</ul>
+<br>
+
+<h3 id="Dockerfile-檔案"><a href="#Dockerfile-檔案" class="headerlink" title="Dockerfile 檔案"></a>Dockerfile 檔案</h3><ul>
+<li><p><font size='3'><code>FROM</code>：基礎映像</font></p>
+</li>
+<li><p><font size='3'><code>RUN</code>：執行命令</font></p>
+</li>
+<li><p><font size='3'><code>COPY / ADD</code>：將文件添加到映像</font></p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">基於官方的 Ubuntu 映像</span></span><br><span class="line">FROM ubuntu:latest</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">將本地文件 <span class="string">&#x27;myapp&#x27;</span> 複製到容器內的 <span class="string">&#x27;/app/&#x27;</span> 目錄</span></span><br><span class="line">ADD ./myapp /app/</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">將壓縮包 <span class="string">&#x27;app.tar&#x27;</span> 解壓並放置到 <span class="string">&#x27;/app&#x27;</span> 目錄中</span></span><br><span class="line">ADD app.tar /app/</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">從指定的 URL 下載文件並放置到 <span class="string">&#x27;/app&#x27;</span> 目錄中</span></span><br><span class="line">ADD https://example.com/file.zip /app/file.zip</span><br></pre></td></tr></table></figure></li>
+<li><p><font size='3'><code>CMD</code>：設置容器啟動時執行的命令</font></p>
+</li>
+<li><p><font size='3'><code>ENTRYPOINT</code>：設置容器的入口點</font></p>
+</li>
+<li><p><font size='3'><code>WORKDIR</code>：設置工作目錄</font></p>
+</li>
+<li><p><font size='3'><code>ENV</code>：設置環境變數</font></p>
+</li>
+<li><p><font size='3'><code>EXPOSE</code>：暴露端口</font></p>
+</li>
+<li><p><font size='3'><code>VOLUME</code>：定義卷</font></p>
+</li>
+<li><p><font size='3'><code>USER</code>：設置用戶</font></p>
+</li>
+<li><p><font size='3'>Dockerfile 範例</font></p>
+</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">基於官方的 Ubuntu 映像</span></span><br><span class="line">FROM ubuntu:20.04</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">更新 apt 並安裝 Nginx</span></span><br><span class="line">RUN apt-get update &amp;&amp; apt-get install -y nginx</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">設置工作目錄</span></span><br><span class="line">WORKDIR /usr/share/nginx/html</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">複製當前目錄下的網站文件到映像內的 Nginx 網頁目錄</span></span><br><span class="line">COPY ./website /usr/share/nginx/html</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">暴露 80 端口</span></span><br><span class="line">EXPOSE 80</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">啟動 Nginx 並保持前台運行</span></span><br><span class="line">CMD [&quot;nginx&quot;, &quot;-g&quot;, &quot;daemon off;&quot;]</span><br></pre></td></tr></table></figure>
+
+<br>
+
+<h3 id="Docker-Compose-檔案"><a href="#Docker-Compose-檔案" class="headerlink" title="Docker-Compose 檔案"></a>Docker-Compose 檔案</h3><ul>
+<li><font size='3'>docker-compose.yaml 範例</font></li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">version: &#x27;3.8&#x27;</span><br><span class="line"></span><br><span class="line">services:</span><br><span class="line">  db:</span><br><span class="line">    image: mysql:8.0</span><br><span class="line">    restart: always</span><br><span class="line">    container_name: mysql-db</span><br><span class="line">    ports:</span><br><span class="line">      - 3306:3306</span><br><span class="line">    environment:</span><br><span class="line">      MYSQL_DATABASE: exampledb</span><br><span class="line">      MYSQL_USER: user</span><br><span class="line">      MYSQL_PASSWORD: 123456</span><br><span class="line">      MYSQL_ROOT_PASSWORD: 123456</span><br><span class="line"></span><br><span class="line">  phpmyadmin:</span><br><span class="line">    image: phpmyadmin</span><br><span class="line">    restart: always</span><br><span class="line">    container_name: phpmyadmin-db-console</span><br><span class="line">    ports:</span><br><span class="line">      - 8080:80</span><br><span class="line">    environment:</span><br><span class="line">      - PMA_ARBITRARY=1</span><br></pre></td></tr></table></figure>
+
+<br>
+
+<h3 id="Docker-安裝"><a href="#Docker-安裝" class="headerlink" title="Docker 安裝"></a>Docker 安裝</h3><ul>
+<li><font size='3'>安裝 Docker ( EC2 - 可使用 UserData )</font></li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_">#</span><span class="language-bash">!/bin/bash</span></span><br><span class="line"></span><br><span class="line">yum update -y</span><br><span class="line"></span><br><span class="line">yum install -y docker</span><br><span class="line">systemctl start docker</span><br><span class="line">systemctl enable docker</span><br><span class="line">usermod -a -G docker ec2-user</span><br><span class="line"></span><br><span class="line">mkdir -p /home/ec2-user/.docker/cli-plugins</span><br><span class="line">curl -SL https://github.com/docker/compose/releases/download/v2.26.1/docker-compose-linux-x86_64 -o /home/ec2-user/.docker/cli-plugins/docker-compose</span><br><span class="line">chmod +x /home/ec2-user/.docker/cli-plugins/docker-compose</span><br><span class="line"></span><br><span class="line">yum install -y git</span><br></pre></td></tr></table></figure>]]></content>
       <tags>
         <tag>Docker</tag>
         <tag>Container</tag>

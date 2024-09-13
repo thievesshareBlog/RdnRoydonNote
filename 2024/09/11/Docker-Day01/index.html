@@ -21,17 +21,23 @@
     var CONFIG = {"hostname":"thievesshareblog.github.io","root":"/RdnRoydonNote/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":false,"style":"mac"},"back2top":{"enable":true,"sidebar":true,"scrollpercent":true},"bookmark":{"enable":true,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":true,"lazyload":true,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
-  <meta name="description" content="少說一句話，少出一趟門，偷得半日閒，自在如我。">
-<meta property="og:type" content="website">
-<meta property="og:title" content="Roydon&#39;s Note">
-<meta property="og:url" content="https://thievesshareblog.github.io/RdnRoydonNote/archives/index.html">
+  <meta name="description" content="前言 隨著軟體開發流程的演變和雲端運算的普及，應用程序的部署和管理變得越來越複雜。開發者和運維人員需要確保應用在不同的環境下保持一致，無論是開發、測試還是生產環境。為了應對這種挑戰，容器技術應運而生，而 Docker 作為一種主流的容器技術，已成為現代 DevOps 流程中的重要組成部分。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="容器化 基礎理論 Day01 - 理論篇">
+<meta property="og:url" content="https://thievesshareblog.github.io/RdnRoydonNote/2024/09/11/Docker-Day01/index.html">
 <meta property="og:site_name" content="Roydon&#39;s Note">
-<meta property="og:description" content="少說一句話，少出一趟門，偷得半日閒，自在如我。">
+<meta property="og:description" content="前言 隨著軟體開發流程的演變和雲端運算的普及，應用程序的部署和管理變得越來越複雜。開發者和運維人員需要確保應用在不同的環境下保持一致，無論是開發、測試還是生產環境。為了應對這種挑戰，容器技術應運而生，而 Docker 作為一種主流的容器技術，已成為現代 DevOps 流程中的重要組成部分。">
 <meta property="og:locale" content="zh_TW">
+<meta property="article:published_time" content="2024-09-11T07:50:22.000Z">
+<meta property="article:modified_time" content="2024-09-13T09:18:19.621Z">
 <meta property="article:author" content="Roydon">
+<meta property="article:tag" content="Docker">
+<meta property="article:tag" content="Container">
+<meta property="article:tag" content="容器化">
+<meta property="article:tag" content="虛擬化">
 <meta name="twitter:card" content="summary">
 
-<link rel="canonical" href="https://thievesshareblog.github.io/RdnRoydonNote/archives/">
+<link rel="canonical" href="https://thievesshareblog.github.io/RdnRoydonNote/2024/09/11/Docker-Day01/">
 
 
 <script id="page-configurations">
@@ -39,12 +45,12 @@
   CONFIG.page = {
     sidebar: "",
     isHome : false,
-    isPost : false,
+    isPost : true,
     lang   : 'zh-TW'
   };
 </script>
 
-  <title>歸檔 | Roydon's Note</title>
+  <title>容器化 基礎理論 Day01 - 理論篇 | Roydon's Note</title>
   
 
 
@@ -184,239 +190,169 @@
         <div class="content-wrap">
           
 
-          <div class="content archive">
+          <div class="content post posts-expand">
             
 
+    
   
   
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-TW">
+    <link itemprop="mainEntityOfPage" href="https://thievesshareblog.github.io/RdnRoydonNote/2024/09/11/Docker-Day01/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/RdnRoydonNote/images/death.svg">
+      <meta itemprop="name" content="Roydon">
+      <meta itemprop="description" content="少說一句話，少出一趟門，偷得半日閒，自在如我。">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Roydon's Note">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          容器化 基礎理論 Day01 - 理論篇
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">發表於</span>
+
+              <time title="創建時間：2024-09-11 15:50:22" itemprop="dateCreated datePublished" datetime="2024-09-11T15:50:22+08:00">2024-09-11</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新於</span>
+                <time title="修改時間：2024-09-13 17:18:19" itemprop="dateModified" datetime="2024-09-13T17:18:19+08:00">2024-09-13</time>
+              </span>
+
+          
   
-  <div class="post-block">
-    <div class="posts-collapse">
-      <div class="collection-title">
-        <span class="collection-header">嗯..! 目前共有 17 篇文章。 繼續努力。</span>
-      </div>
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus：</span>
+    
+    <a title="disqus" href="/RdnRoydonNote/2024/09/11/Docker-Day01/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2024/09/11/Docker-Day01/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  <br>
+            <span class="post-meta-item" title="文章字數">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">文章字數：</span>
+              <span>1.1k</span>
+            </span>
+            <span class="post-meta-item" title="所需閱讀時間">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">所需閱讀時間 &asymp;</span>
+              <span>1 分鐘</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
 
       
-    <div class="collection-year">
-      <span class="collection-header">2024</span>
+        <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a><font size='5'>前言</font></h3><blockquote>
+<p><font size='3'>隨著軟體開發流程的演變和雲端運算的普及，應用程序的部署和管理變得越來越複雜。開發者和運維人員需要確保應用在不同的環境下保持一致，無論是開發、測試還是生產環境。為了應對這種挑戰，容器技術應運而生，而 Docker 作為一種主流的容器技術，已成為現代 DevOps 流程中的重要組成部分。</font></p>
+</blockquote>
+<span id="more"></span>
+
+<br>
+
+<h3 id="Docker-的核心概念"><a href="#Docker-的核心概念" class="headerlink" title="Docker 的核心概念"></a>Docker 的核心概念</h3><ul>
+<li><font size='3'>容器（Container）：容器是一個運行中的實例，它是應用及其運行時所需的所有依賴的打包單元。每個容器都運行在自己的隔離環境中，但它共享宿主操作系統的內核，因此容器比虛擬機更輕量。容器啟動和停止速度極快，資源占用小，是應用程序的便攜運行單位。</font></li>
+<li><font size='3'>映像（Image）：映像是容器的靜態模板，包含了應用程序及其所需的所有依賴項。映像是只讀的，從一個映像可以創建多個容器。映像由多層文件系統構成，每一層代表 Dockerfile 中的一個命令執行結果，這使得映像的重用變得非常高效。</font></li>
+<li><font size='3'>Dockerfile：Dockerfile 是用來構建 Docker 映像的腳本文件，定義了應用程序的基礎環境、依賴項和啟動命令等。通過撰寫 Dockerfile，開發者可以指定如何構建應用的映像，並確保應用的可重現性。</font></li>
+</ul>
+<br>
+
+<h3 id="容器與虛擬機的區別"><a href="#容器與虛擬機的區別" class="headerlink" title="容器與虛擬機的區別"></a>容器與虛擬機的區別</h3><ul>
+<li><font size='3'>架構上的不同：</font><ul>
+<li><font size='3'>虛擬機（VM）模擬的是完整的硬體層，運行一個完整的操作系統（Guest OS），每個虛擬機都需要一個完整的操作系統來支撐應用的運行。</font></li>
+<li><font size='3'>Docker 容器則是共享宿主機的操作系統內核，僅在容器內部包含應用程序及其依賴項，這使得 Docker 容器非常輕量且啟動迅速。</font></li>
+</ul>
+</li>
+<li><font size='3'>資源利用效率：</font><ul>
+<li><font size='3'>由於虛擬機需要運行完整的操作系統，它們的啟動時間較長，資源占用大。通常，虛擬機適合需要高隔離度的多租戶場景，但不適合資源緊張的環境。</font></li>
+<li><font size='3'>Docker 容器共享主機的內核，並且只包含應用和相關依賴，無需完整的操作系統，因此更加節省資源，啟動速度也更快，通常只需要幾秒鐘。</font></li>
+</ul>
+</li>
+<li><font size='3'>應用場景的不同：</font><ul>
+<li><font size='3'>虛擬機適合運行多個操作系統或需要高安全隔離的場景，例如在雲端服務提供商中，虛擬機常用於多租戶環境。</font></li>
+<li><font size='3'>Docker 容器更適合現代化的應用程序開發、持續集成&#x2F;持續部署場景，特別是在需要快速部署、彈性擴展以及跨平台運行的環境中，Docker 容器提供了更高的靈活性。</font></li>
+</ul>
+</li>
+</ul>
+<br>
+
+<h3 id="總結"><a href="#總結" class="headerlink" title="總結"></a>總結</h3><ul>
+<li><font size='3'>Docker 通過容器化技術，解決了應用程序在不同環境中的一致性問題，並且相比傳統虛擬機，提供了更高的資源利用效率和更快的啟動速度。Docker 的核心概念包括容器、映像和 Dockerfile，這些概念構成了現代化應用開發和部署的基礎。隨著 Docker 的廣泛應用，它已經成為 DevOps 工作流中不可或缺的一部分。</font></li>
+</ul>
+<br>
     </div>
 
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
+    
+    
+    
 
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2024-09-12T22:18:27+08:00"
-              content="2024-09-12">
-          09-12
-        </time>
-      </div>
+      <footer class="post-footer">
+          
+          <div class="post-tags">
+              <a href="/RdnRoydonNote/tags/Docker/" rel="tag"><i class="fa fa-tag"></i> Docker</a>
+              <a href="/RdnRoydonNote/tags/Container/" rel="tag"><i class="fa fa-tag"></i> Container</a>
+              <a href="/RdnRoydonNote/tags/%E5%AE%B9%E5%99%A8%E5%8C%96/" rel="tag"><i class="fa fa-tag"></i> 容器化</a>
+              <a href="/RdnRoydonNote/tags/%E8%99%9B%E6%93%AC%E5%8C%96/" rel="tag"><i class="fa fa-tag"></i> 虛擬化</a>
+          </div>
 
-      <div class="post-title">
-          <a class="post-title-link" href="/RdnRoydonNote/2024/09/12/AwsDay05/" itemprop="url">
-            <span itemprop="name">Aws 基礎理論 Day05 - Aws System Manager</span>
-          </a>
-      </div>
-
-    </header>
-  </article>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2024-09-12T09:10:41+08:00"
-              content="2024-09-12">
-          09-12
-        </time>
-      </div>
-
-      <div class="post-title">
-          <a class="post-title-link" href="/RdnRoydonNote/2024/09/12/AwsDay01/" itemprop="url">
-            <span itemprop="name">Aws 基礎理論 Day01 - Aws 基礎概念</span>
-          </a>
-      </div>
-
-    </header>
-  </article>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2024-09-11T16:01:43+08:00"
-              content="2024-09-11">
-          09-11
-        </time>
-      </div>
-
-      <div class="post-title">
-          <a class="post-title-link" href="/RdnRoydonNote/2024/09/11/Docker-Day02/" itemprop="url">
-            <span itemprop="name">容器化 基礎理論 Day02 - 指令篇</span>
-          </a>
-      </div>
-
-    </header>
-  </article>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2024-09-11T15:50:22+08:00"
-              content="2024-09-11">
-          09-11
-        </time>
-      </div>
-
-      <div class="post-title">
-          <a class="post-title-link" href="/RdnRoydonNote/2024/09/11/Docker-Day01/" itemprop="url">
-            <span itemprop="name">容器化 基礎理論 Day01 - 理論篇</span>
-          </a>
-      </div>
-
-    </header>
-  </article>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2024-08-30T13:36:29+08:00"
-              content="2024-08-30">
-          08-30
-        </time>
-      </div>
-
-      <div class="post-title">
-          <a class="post-title-link" href="/RdnRoydonNote/2024/08/30/CiscoPacketTracerDay05/" itemprop="url">
-            <span itemprop="name">Cisco Packet Tracer Day05 - VPN</span>
-          </a>
-      </div>
-
-    </header>
-  </article>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2024-08-30T09:20:16+08:00"
-              content="2024-08-30">
-          08-30
-        </time>
-      </div>
-
-      <div class="post-title">
-          <a class="post-title-link" href="/RdnRoydonNote/2024/08/30/CiscoPacketTracerDay04/" itemprop="url">
-            <span itemprop="name">Cisco Packet Tracer Day04 - NAT & PAT</span>
-          </a>
-      </div>
-
-    </header>
-  </article>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2024-08-29T19:11:47+08:00"
-              content="2024-08-29">
-          08-29
-        </time>
-      </div>
-
-      <div class="post-title">
-          <a class="post-title-link" href="/RdnRoydonNote/2024/08/29/CiscoPacketTracerDay03/" itemprop="url">
-            <span itemprop="name">Cisco Packet Tracer Day03 - ACL</span>
-          </a>
-      </div>
-
-    </header>
-  </article>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2024-08-29T09:55:43+08:00"
-              content="2024-08-29">
-          08-29
-        </time>
-      </div>
-
-      <div class="post-title">
-          <a class="post-title-link" href="/RdnRoydonNote/2024/08/29/CiscoPacketTracerDay02/" itemprop="url">
-            <span itemprop="name">Cisco Packet Tracer Day02 - 基礎指令</span>
-          </a>
-      </div>
-
-    </header>
-  </article>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2024-08-29T09:39:00+08:00"
-              content="2024-08-29">
-          08-29
-        </time>
-      </div>
-
-      <div class="post-title">
-          <a class="post-title-link" href="/RdnRoydonNote/2024/08/29/CiscoPacketTracerDay01/" itemprop="url">
-            <span itemprop="name">Cisco Packet Tracer Day01 - IP 基礎概念</span>
-          </a>
-      </div>
-
-    </header>
-  </article>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2024-07-30T11:31:11+08:00"
-              content="2024-07-30">
-          07-30
-        </time>
-      </div>
-
-      <div class="post-title">
-          <a class="post-title-link" href="/RdnRoydonNote/2024/07/30/LinuxBasicDay08/" itemprop="url">
-            <span itemprop="name">Linux 入門 Day08 - Shell Script - 3</span>
-          </a>
-      </div>
-
-    </header>
-  </article>
+        
 
 
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/RdnRoydonNote/2024/08/30/CiscoPacketTracerDay05/" rel="prev" title="Cisco Packet Tracer Day05 - VPN">
+      <i class="fa fa-chevron-left"></i> Cisco Packet Tracer Day05 - VPN
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/RdnRoydonNote/2024/09/11/Docker-Day02/" rel="next" title="容器化 基礎理論 Day02 - 指令篇">
+      容器化 基礎理論 Day02 - 指令篇 <i class="fa fa-chevron-right"></i>
+    </a></div>
     </div>
-  </div>
+      </footer>
+    
+  </article>
   
   
   
-
-  
-  <nav class="pagination">
-    <span class="page-number current">1</span><a class="page-number" href="/RdnRoydonNote/archives/page/2/">2</a><a class="extend next" rel="next" href="/RdnRoydonNote/archives/page/2/"><i class="fa fa-angle-right" aria-label="下一頁"></i></a>
-  </nav>
 
 
 
           </div>
           
+    
+  <div class="comments">
+    <div id="disqus_thread">
+      <noscript>Please enable JavaScript to view the comments powered by Disqus.</noscript>
+    </div>
+  </div>
+  
 
 <script>
   window.addEventListener('tabs:register', () => {
@@ -463,6 +399,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%89%8D%E8%A8%80"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Docker-%E7%9A%84%E6%A0%B8%E5%BF%83%E6%A6%82%E5%BF%B5"><span class="nav-number">2.</span> <span class="nav-text">Docker 的核心概念</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%B9%E5%99%A8%E8%88%87%E8%99%9B%E6%93%AC%E6%A9%9F%E7%9A%84%E5%8D%80%E5%88%A5"><span class="nav-number">3.</span> <span class="nav-text">容器與虛擬機的區別</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%B8%BD%E7%B5%90"><span class="nav-number">4.</span> <span class="nav-text">總結</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -652,6 +589,26 @@ if (document.querySelectorAll('pre.mermaid').length) {
   }
   // defer loading until the whole page loading is completed
   window.addEventListener('load', loadCount, false);
+</script>
+<script>
+  var disqus_config = function() {
+    this.page.url = "https://thievesshareblog.github.io/RdnRoydonNote/2024/09/11/Docker-Day01/";
+    this.page.identifier = "2024/09/11/Docker-Day01/";
+    this.page.title = "容器化 基礎理論 Day01 - 理論篇";
+    };
+  NexT.utils.loadComments(document.querySelector('#disqus_thread'), () => {
+    if (window.DISQUS) {
+      DISQUS.reset({
+        reload: true,
+        config: disqus_config
+      });
+    } else {
+      var d = document, s = d.createElement('script');
+      s.src = 'https://cloud-blog.disqus.com/embed.js';
+      s.setAttribute('data-timestamp', '' + +new Date());
+      (d.head || d.body).appendChild(s);
+    }
+  });
 </script>
 
 </body>
