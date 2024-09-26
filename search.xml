@@ -26,7 +26,7 @@
     <title>Aws 基礎理論 Day05 - Aws System Manager</title>
     <url>/RdnRoydonNote/2024/09/12/AwsDay05/</url>
     <content><![CDATA[<h3 id="本文"><a href="#本文" class="headerlink" title="本文"></a><font size='5'>本文</font></h3><blockquote>
-<p><font size='3'>本章說明 Aws System Manager</font></p>
+<p><font size='3'>本章說明 Aws System Manager Test</font></p>
 </blockquote>
 <span id="more"></span>
 
@@ -426,7 +426,7 @@
 <h3 id="ACL"><a href="#ACL" class="headerlink" title="ACL"></a>ACL</h3><ul>
 <li><h4 id="Static-1"><a href="#Static-1" class="headerlink" title="Static"></a><font size='3'>Static</font></h4></li>
 </ul>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">建立一個 ACL</span></span><br><span class="line">access-list 1 permit 172.16.0.0 0.0.255.255</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">進入端口，套用</span></span><br><span class="line">int 0</span><br><span class="line">ip access-group 1 in/out </span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">建立一個 ACL</span></span><br><span class="line">access-list 1 permit 172.16.0.0 0.0.255.255</span><br><span class="line">access-list 1 deny 172.16.0.0 0.0.255.255</span><br><span class="line">access-list 1 permit any</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">進入端口，套用</span></span><br><span class="line">int 0</span><br><span class="line">ip access-group 1 in/out </span><br></pre></td></tr></table></figure>
 <ul>
 <li><h4 id=""><a href="#" class="headerlink" title=""></a><font size='3'></font></h4></li>
 </ul>
@@ -629,6 +629,104 @@
       </tags>
   </entry>
   <entry>
+    <title>Linux 入門 Day00 - Linux 基礎理論</title>
+    <url>/RdnRoydonNote/2024/07/25/LinuxBasicDay00/</url>
+    <content><![CDATA[<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a><font size='5'>前言</font></h3><blockquote>
+<p><font size='3'>Linux，自誕生以來，經歷了從科研領域到廣泛應用的演變，已成為現代計算機系統的核心之一。無論是桌面環境還是伺服器環境，Linux 都以其穩定性、靈活性和安全性受到廣泛歡迎。本指南旨在帶你深入了解 Linux 系統，從歷史背景到實際操作，全面掌握這一強大系統的各個方面。</font></p>
+</blockquote>
+<p><font size='3'>以下數據皆由 AI 生成，若有問題請及時聯絡以利修正</font></p>
+<span id="more"></span>
+
+<br>
+
+<h3 id="作業系統的分類"><a href="#作業系統的分類" class="headerlink" title="作業系統的分類"></a>作業系統的分類</h3><ul>
+<li>Windows</li>
+<li>Unix</li>
+<li>BSD</li>
+<li>Linux</li>
+</ul>
+<h3 id="Linux-作業系統的比對"><a href="#Linux-作業系統的比對" class="headerlink" title="Linux 作業系統的比對"></a>Linux 作業系統的比對</h3><table>
+<thead>
+<tr>
+<th>發行版</th>
+<th>基於</th>
+<th>優點</th>
+<th>缺點</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>Ubuntu</strong></td>
+<td>Debian</td>
+<td>- 簡單、易用，適合初學者<br>- 大社群支援<br>- 提供 Server、Desktop、Core 版等多種版本<br>- 每年四月和十月推出新版本，LTS 版本每兩年推出一次<br>- LTS 版本技術支援長達 5 年</td>
+<td>- 一些高級用戶可能認為過於簡化<br>- 默認包含許多預裝軟體，對於需要輕量級系統的用戶可能不適合</td>
+</tr>
+<tr>
+<td><strong>Debian</strong></td>
+<td>N&#x2F;A</td>
+<td>- 穩定、安全<br>- 擁有非常大的軟體庫<br>- 社群活躍且支援度高<br>- 適合伺服器和桌面環境<br>- 注重自由軟體</td>
+<td>- 軟體版本更新速度較慢，不適合需要最新軟體的用戶<br>- 安裝和配置過程對於初學者可能有些複雜</td>
+</tr>
+<tr>
+<td><strong>CentOS</strong></td>
+<td>Red Hat</td>
+<td>- 社群支援的 Red Hat Enterprise Linux (RHEL) 的免費版本<br>- 穩定性高，適合伺服器環境<br>- 長期支援</td>
+<td>- 軟體版本更新速度慢<br>- Red Hat 宣布不再提供 CentOS 版本更新，改為 CentOS Stream，可能導致一些用戶轉向其他發行版</td>
+</tr>
+<tr>
+<td><strong>Fedora</strong></td>
+<td>Red Hat</td>
+<td>- 最新技術的試驗場<br>- 社群活躍，支援度高<br>- 提供 Workstation、Server 和 CoreOS 版<br>- 提供快速更新和新技術的早期體驗</td>
+<td>- 生命週期短（大約 13 個月），需要頻繁升級<br>- 穩定性可能不如其他長期支援的發行版</td>
+</tr>
+<tr>
+<td><strong>Arch Linux</strong></td>
+<td>N&#x2F;A</td>
+<td>- 滾動更新模型，始終擁有最新的軟體<br>- 高度可配置，適合進階用戶<br>- 社群活躍且有大量的文檔支援（Arch Wiki）</td>
+<td>- 安裝和配置過程對於初學者來說較為困難<br>- 滾動更新模型可能會導致系統不穩定</td>
+</tr>
+<tr>
+<td><strong>openSUSE</strong></td>
+<td>N&#x2F;A</td>
+<td>- 提供 Tumbleweed（滾動更新）和 Leap（穩定版）兩種版本<br>- Yast 工具簡化系統管理<br>- 社群支援和文檔豐富</td>
+<td>- 滾動更新模型可能會導致系統不穩定（針對 Tumbleweed）<br>- 軟體庫相對較小，與其他發行版相比某些軟體可能不夠齊全</td>
+</tr>
+<tr>
+<td><strong>Linux Mint</strong></td>
+<td>Ubuntu</td>
+<td>- 基於 Ubuntu，保持簡單易用<br>- 適合初學者和桌面用戶<br>- 預裝多種常用軟體，減少初始配置工作<br>- Cinnamon 桌面環境美觀且易用</td>
+<td>- 新技術和軟體的更新速度相對較慢<br>- 主要依賴 Ubuntu 的更新和支援</td>
+</tr>
+<tr>
+<td><strong>Manjaro</strong></td>
+<td>Arch Linux</td>
+<td>- 基於 Arch Linux，但提供更簡單的安裝和配置<br>- 滾動更新模型，但經過更多測試，穩定性較高<br>- 適合桌面和伺服器環境</td>
+<td>- 社群相對較小，某些問題的支援可能不如其他大發行版<br>- 滾動更新模型仍然有潛在的系統不穩定風險</td>
+</tr>
+<tr>
+<td><strong>Red Hat Enterprise Linux (RHEL)</strong></td>
+<td>N&#x2F;A</td>
+<td>- 高穩定性和安全性<br>- 商業技術支援<br>- 適合企業級應用和伺服器環境<br>- 長期支援</td>
+<td>- 收費模式，對於個人用戶和小企業可能成本較高<br>- 不開源，某些用戶可能更偏好開源的替代品</td>
+</tr>
+<tr>
+<td><strong>Kali Linux</strong></td>
+<td>Debian</td>
+<td>- 專為資訊安全和滲透測試設計<br>- 內建大量安全工具和軟體<br>- 社群支援和文檔豐富</td>
+<td>- 不適合作為日常桌面系統使用<br>- 需要一定的安全知識和經驗</td>
+</tr>
+</tbody></table>
+<hr>
+<h4 id="待補充"><a href="#待補充" class="headerlink" title="待補充~"></a><font size='8' align='center'>待補充~</font></h4>]]></content>
+      <categories>
+        <category>Linux</category>
+      </categories>
+      <tags>
+        <tag>Basic</tag>
+        <tag>Linux</tag>
+        <tag>Shell</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Linux 入門 Day01 - 基本檔案、目錄操作指令</title>
     <url>/RdnRoydonNote/2024/07/25/LinuxBasicDay01/</url>
     <content><![CDATA[<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a><font size='5'>前言</font></h3><blockquote>
@@ -795,104 +893,6 @@
 <br>
 
 <h3 id="萬用字元"><a href="#萬用字元" class="headerlink" title="萬用字元"></a>萬用字元</h3><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">* # 任意字元、任意長度</span><br><span class="line"></span><br><span class="line">ls  /bin/z*</span><br><span class="line">ls  /bin/*a*</span><br><span class="line"></span><br><span class="line">? # 任意字元、指定長度</span><br><span class="line"></span><br><span class="line">ls  /bin/??</span><br><span class="line">ls  /bin/?a??</span><br></pre></td></tr></table></figure>]]></content>
-      <categories>
-        <category>Linux</category>
-      </categories>
-      <tags>
-        <tag>Basic</tag>
-        <tag>Linux</tag>
-        <tag>Shell</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Linux 入門 Day00 - Linux 基礎理論</title>
-    <url>/RdnRoydonNote/2024/07/25/LinuxBasicDay00/</url>
-    <content><![CDATA[<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a><font size='5'>前言</font></h3><blockquote>
-<p><font size='3'>Linux，自誕生以來，經歷了從科研領域到廣泛應用的演變，已成為現代計算機系統的核心之一。無論是桌面環境還是伺服器環境，Linux 都以其穩定性、靈活性和安全性受到廣泛歡迎。本指南旨在帶你深入了解 Linux 系統，從歷史背景到實際操作，全面掌握這一強大系統的各個方面。</font></p>
-</blockquote>
-<p><font size='3'>以下數據皆由 AI 生成，若有問題請及時聯絡以利修正</font></p>
-<span id="more"></span>
-
-<br>
-
-<h3 id="作業系統的分類"><a href="#作業系統的分類" class="headerlink" title="作業系統的分類"></a>作業系統的分類</h3><ul>
-<li>Windows</li>
-<li>Unix</li>
-<li>BSD</li>
-<li>Linux</li>
-</ul>
-<h3 id="Linux-作業系統的比對"><a href="#Linux-作業系統的比對" class="headerlink" title="Linux 作業系統的比對"></a>Linux 作業系統的比對</h3><table>
-<thead>
-<tr>
-<th>發行版</th>
-<th>基於</th>
-<th>優點</th>
-<th>缺點</th>
-</tr>
-</thead>
-<tbody><tr>
-<td><strong>Ubuntu</strong></td>
-<td>Debian</td>
-<td>- 簡單、易用，適合初學者<br>- 大社群支援<br>- 提供 Server、Desktop、Core 版等多種版本<br>- 每年四月和十月推出新版本，LTS 版本每兩年推出一次<br>- LTS 版本技術支援長達 5 年</td>
-<td>- 一些高級用戶可能認為過於簡化<br>- 默認包含許多預裝軟體，對於需要輕量級系統的用戶可能不適合</td>
-</tr>
-<tr>
-<td><strong>Debian</strong></td>
-<td>N&#x2F;A</td>
-<td>- 穩定、安全<br>- 擁有非常大的軟體庫<br>- 社群活躍且支援度高<br>- 適合伺服器和桌面環境<br>- 注重自由軟體</td>
-<td>- 軟體版本更新速度較慢，不適合需要最新軟體的用戶<br>- 安裝和配置過程對於初學者可能有些複雜</td>
-</tr>
-<tr>
-<td><strong>CentOS</strong></td>
-<td>Red Hat</td>
-<td>- 社群支援的 Red Hat Enterprise Linux (RHEL) 的免費版本<br>- 穩定性高，適合伺服器環境<br>- 長期支援</td>
-<td>- 軟體版本更新速度慢<br>- Red Hat 宣布不再提供 CentOS 版本更新，改為 CentOS Stream，可能導致一些用戶轉向其他發行版</td>
-</tr>
-<tr>
-<td><strong>Fedora</strong></td>
-<td>Red Hat</td>
-<td>- 最新技術的試驗場<br>- 社群活躍，支援度高<br>- 提供 Workstation、Server 和 CoreOS 版<br>- 提供快速更新和新技術的早期體驗</td>
-<td>- 生命週期短（大約 13 個月），需要頻繁升級<br>- 穩定性可能不如其他長期支援的發行版</td>
-</tr>
-<tr>
-<td><strong>Arch Linux</strong></td>
-<td>N&#x2F;A</td>
-<td>- 滾動更新模型，始終擁有最新的軟體<br>- 高度可配置，適合進階用戶<br>- 社群活躍且有大量的文檔支援（Arch Wiki）</td>
-<td>- 安裝和配置過程對於初學者來說較為困難<br>- 滾動更新模型可能會導致系統不穩定</td>
-</tr>
-<tr>
-<td><strong>openSUSE</strong></td>
-<td>N&#x2F;A</td>
-<td>- 提供 Tumbleweed（滾動更新）和 Leap（穩定版）兩種版本<br>- Yast 工具簡化系統管理<br>- 社群支援和文檔豐富</td>
-<td>- 滾動更新模型可能會導致系統不穩定（針對 Tumbleweed）<br>- 軟體庫相對較小，與其他發行版相比某些軟體可能不夠齊全</td>
-</tr>
-<tr>
-<td><strong>Linux Mint</strong></td>
-<td>Ubuntu</td>
-<td>- 基於 Ubuntu，保持簡單易用<br>- 適合初學者和桌面用戶<br>- 預裝多種常用軟體，減少初始配置工作<br>- Cinnamon 桌面環境美觀且易用</td>
-<td>- 新技術和軟體的更新速度相對較慢<br>- 主要依賴 Ubuntu 的更新和支援</td>
-</tr>
-<tr>
-<td><strong>Manjaro</strong></td>
-<td>Arch Linux</td>
-<td>- 基於 Arch Linux，但提供更簡單的安裝和配置<br>- 滾動更新模型，但經過更多測試，穩定性較高<br>- 適合桌面和伺服器環境</td>
-<td>- 社群相對較小，某些問題的支援可能不如其他大發行版<br>- 滾動更新模型仍然有潛在的系統不穩定風險</td>
-</tr>
-<tr>
-<td><strong>Red Hat Enterprise Linux (RHEL)</strong></td>
-<td>N&#x2F;A</td>
-<td>- 高穩定性和安全性<br>- 商業技術支援<br>- 適合企業級應用和伺服器環境<br>- 長期支援</td>
-<td>- 收費模式，對於個人用戶和小企業可能成本較高<br>- 不開源，某些用戶可能更偏好開源的替代品</td>
-</tr>
-<tr>
-<td><strong>Kali Linux</strong></td>
-<td>Debian</td>
-<td>- 專為資訊安全和滲透測試設計<br>- 內建大量安全工具和軟體<br>- 社群支援和文檔豐富</td>
-<td>- 不適合作為日常桌面系統使用<br>- 需要一定的安全知識和經驗</td>
-</tr>
-</tbody></table>
-<hr>
-<h4 id="待補充"><a href="#待補充" class="headerlink" title="待補充~"></a><font size='8' align='center'>待補充~</font></h4>]]></content>
       <categories>
         <category>Linux</category>
       </categories>

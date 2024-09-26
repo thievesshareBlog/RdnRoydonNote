@@ -29,7 +29,7 @@
 <meta property="og:description" content="本篇 該篇為應用篇，應付考試用的">
 <meta property="og:locale" content="zh_TW">
 <meta property="article:published_time" content="2024-09-02T05:36:29.000Z">
-<meta property="article:modified_time" content="2024-09-16T17:33:18.270Z">
+<meta property="article:modified_time" content="2024-09-26T01:43:35.562Z">
 <meta property="article:author" content="Roydon">
 <meta property="article:tag" content="Cisco">
 <meta property="article:tag" content="Packet Tracer">
@@ -226,7 +226,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新於</span>
-                <time title="修改時間：2024-09-17 01:33:18" itemprop="dateModified" datetime="2024-09-17T01:33:18+08:00">2024-09-17</time>
+                <time title="修改時間：2024-09-26 09:43:35" itemprop="dateModified" datetime="2024-09-26T09:43:35+08:00">2024-09-26</time>
               </span>
 
           
@@ -249,7 +249,7 @@
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">文章字數：</span>
-              <span>984</span>
+              <span>1k</span>
             </span>
             <span class="post-meta-item" title="所需閱讀時間">
               <span class="post-meta-item-icon">
@@ -307,7 +307,7 @@
 <h3 id="ACL"><a href="#ACL" class="headerlink" title="ACL"></a>ACL</h3><ul>
 <li><h4 id="Static-1"><a href="#Static-1" class="headerlink" title="Static"></a><font size='3'>Static</font></h4></li>
 </ul>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">建立一個 ACL</span></span><br><span class="line">access-list 1 permit 172.16.0.0 0.0.255.255</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">進入端口，套用</span></span><br><span class="line">int 0</span><br><span class="line">ip access-group 1 in/out </span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">建立一個 ACL</span></span><br><span class="line">access-list 1 permit 172.16.0.0 0.0.255.255</span><br><span class="line">access-list 1 deny 172.16.0.0 0.0.255.255</span><br><span class="line">access-list 1 permit any</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">進入端口，套用</span></span><br><span class="line">int 0</span><br><span class="line">ip access-group 1 in/out </span><br></pre></td></tr></table></figure>
 <ul>
 <li><h4 id=""><a href="#" class="headerlink" title=""></a><font size='3'></font></h4></li>
 </ul>
@@ -486,7 +486,7 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="所需總閱讀時間">25 分鐘</span>
+    <span title="所需總閱讀時間">26 分鐘</span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 強力驅動
   </div>
