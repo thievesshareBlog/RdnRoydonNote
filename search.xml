@@ -1,0 +1,1293 @@
+<?xml version="1.0" encoding="utf-8"?>
+<search>
+  <entry>
+    <title>Aws 基礎理論 Day05 - Aws System Manager</title>
+    <url>/2024/09/12/AwsDay05/</url>
+    <content><![CDATA[<h3 id="本文"><a href="#本文" class="headerlink" title="本文"></a><font size='5'>本文</font></h3><blockquote>
+<p><font size='3'>本章說明 Aws System Manager Test</font></p>
+</blockquote>
+<span id="more"></span>
+
+<br>
+
+<h3 id="SSH"><a href="#SSH" class="headerlink" title="SSH"></a>SSH</h3><ul>
+<li><h4 id="實驗環境"><a href="#實驗環境" class="headerlink" title="實驗環境"></a>實驗環境</h4><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">EC2 開兩台 Linux ：一台公網、一台私網</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">公網有建立私鑰</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><h4 id="SSH-Agent"><a href="#SSH-Agent" class="headerlink" title="SSH Agent"></a>SSH Agent</h4><ul>
+<li><font size='3'>將 key 加到 agent 後，往後 ssh 時會自動把 key 轉發比對</font><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">Windows</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">啟用 SSH Agent (他是會產生一個臨時的代理程序)</span></span><br><span class="line">eval $(ssh-agent)</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">先查看我們是否有金鑰在代理程序上?</span></span><br><span class="line">ssh-add -l</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">將SSH的金鑰放入到 Agent 內</span></span><br><span class="line">ssh-add cic101-99-project.pem</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">調度 SSH-Agent 來進行 SSH 的連線登入作業</span></span><br><span class="line">ssh -A ec2-user@54.199.217.238</span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+<li><h4 id="SSH-Tunnel"><a href="#SSH-Tunnel" class="headerlink" title="SSH Tunnel"></a>SSH Tunnel</h4><ul>
+<li><font size='3'>建立一個 Tunnel 將對方的端口拉至本地端</font><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">SSH-Tunnel 的指令格式</span></span><br><span class="line">ssh -L &lt;localmachine port&gt;:&lt;targeip&gt;:&lt;target port&gt; &lt;remoteuser&gt;@&lt;remote ip&gt;</span><br><span class="line"></span><br><span class="line">ssh -i cic101-99-project.pem -L 8080:127.0.0.1:8080 ec2-user@54.199.217.238</span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+</ul>
+<br>
+
+<ul>
+<li><h3 id="Aws-端口轉發-SSM"><a href="#Aws-端口轉發-SSM" class="headerlink" title="Aws 端口轉發 SSM"></a>Aws 端口轉發 SSM</h3><ul>
+<li><p><font size='3'><a href="https://docs.aws.amazon.com/zh_tw/systems-manager/latest/userguide/install-plugin-windows.html">Session Manager 外掛程式</a>(<a href="https://docs.aws.amazon.com/zh_tw/systems-manager/latest/userguide/install-plugin-verify.html">驗證</a>)</font></p>
+</li>
+<li><p><font size='3'>轉發內部應用的端口</font></p>
+<ul>
+<li><font size='3'>Windows指令</font><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">aws ssm start-session --profile alvis-admin --target i-0368e37045d057bc9 --document-name AWS-StartPortForwardingSessionToRemoteHost  --parameters portNumber=&quot;8080&quot;,localPortNumber=&quot;8080&quot;</span><br></pre></td></tr></table></figure></li>
+<li><font size='3'>MacOS指令</font><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">aws ssm start-session --profile alvis-admin --target i-0368e37045d057bc9 --document-name AWS-StartPortForwardingSessionToRemoteHost --parameters &#x27;&#123;&quot;portNumber&quot;:[&quot;8080&quot;],&quot;localPortNumber&quot;:[&quot;8080&quot;]&#125;&#x27;</span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+<li><p><font size='3'>轉發內部資料庫的端口 </font></p>
+<ul>
+<li><font size='3'>MacOS指令</font><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">aws ssm start-session --profile alvis-admin --target i-04b6508876a1414d5 --document-name AWS-StartPortForwardingSessionToRemoteHost --parameters &#x27;&#123;&quot;host&quot;:[&quot;db.wp.com&quot;],&quot;portNumber&quot;:[&quot;3306&quot;],&quot;localPortNumber&quot;:[&quot;3306&quot;]&#125;&#x27;</span><br></pre></td></tr></table></figure></li>
+<li><font size='3'>Windows指令</font><pre><code class="Shell">aws ssm start-session --profile alvis-admin --target i-04b6508876a1414d5 --document-name AWS-StartPortForwardingSessionToRemoteHost  --parameters host=&quot;db.wp.com&quot;,portNumber=&quot;3306&quot;,localPortNumber=&quot;3306&quot;
+</code></pre>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+]]></content>
+      <tags>
+        <tag>Aws</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Aws 基礎理論 Day01 - Aws 基礎概念</title>
+    <url>/2024/09/12/AwsDay01/</url>
+    <content><![CDATA[<h3 id="本文"><a href="#本文" class="headerlink" title="本文"></a><font size='5'>本文</font></h3><blockquote>
+<p><font size='3'>本章說明 Aws 基礎概念</font></p>
+</blockquote>
+<span id="more"></span>
+
+<br>
+
+<h3 id="Aws-計費模式"><a href="#Aws-計費模式" class="headerlink" title="Aws 計費模式"></a>Aws 計費模式</h3><ul>
+<li><font size='3'>時間 &#x3D;&gt; 運算 （ EC2、RDS ）</font></li>
+<li><font size='3'>流量 &#x3D;&gt; 網路 （ VPC ）</font></li>
+<li><font size='3'>容量 &#x3D;&gt; 儲存 （ S3、EBS ）</font></li>
+<li><font size='3'>權量 &#x3D;&gt; 管理</font></li>
+<li><font size='3'>免費 &#x3D;&gt;（ IAM、Billing and Cost Management ）</font></li>
+</ul>
+]]></content>
+      <tags>
+        <tag>Aws</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Cisco Packet Tracer Day02 - 基礎指令</title>
+    <url>/2024/08/29/CiscoPacketTracerDay02/</url>
+    <content><![CDATA[<h3 id="本章"><a href="#本章" class="headerlink" title="本章"></a><font size='5'>本章</font></h3><blockquote>
+<p><font size='3'>這篇文章將詳細介紹如何將 Cisco Packet Tracer 基礎指令。</font></p>
+</blockquote>
+<span id="more"></span>
+
+<br>
+
+<h3 id="基礎指令"><a href="#基礎指令" class="headerlink" title="基礎指令"></a>基礎指令</h3><ul>
+<li><h4 id="進入特權模式"><a href="#進入特權模式" class="headerlink" title="進入特權模式"></a><font size='3'>進入特權模式</font></h4></li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">enable</span><br></pre></td></tr></table></figure>
+<ul>
+<li><h4 id="進入全局配置模式"><a href="#進入全局配置模式" class="headerlink" title="進入全局配置模式"></a><font size='3'>進入全局配置模式</font></h4></li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">configure terminal</span><br><span class="line"></span><br><span class="line">or</span><br><span class="line"></span><br><span class="line">config t</span><br></pre></td></tr></table></figure>
+<ul>
+<li><h4 id="配置接口-IP-地址"><a href="#配置接口-IP-地址" class="headerlink" title="配置接口 IP 地址"></a><font size='3'>配置接口 IP 地址</font></h4></li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">interface [interface_name]</span><br><span class="line">ip address [IP_address] [subnet_mask]</span><br><span class="line">no shutdown</span><br><span class="line"></span><br><span class="line">例子：</span><br><span class="line">interface gigabitethernet0/0</span><br><span class="line">ip address 192.168.1.1 255.255.255.0</span><br><span class="line">no shutdown</span><br></pre></td></tr></table></figure>
+<ul>
+<li><h4 id="查看接口狀態"><a href="#查看接口狀態" class="headerlink" title="查看接口狀態"></a><font size='3'>查看接口狀態</font></h4></li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">顯示路由器或交換機上所有接口的狀態和 IP 配置。</span></span><br><span class="line">show ip interface brief</span><br></pre></td></tr></table></figure>
+<ul>
+<li><h4 id="查看運行配置"><a href="#查看運行配置" class="headerlink" title="查看運行配置"></a><font size='3'>查看運行配置</font></h4></li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">查看當前設備的運行配置。</span></span><br><span class="line">show running-config</span><br></pre></td></tr></table></figure>
+<ul>
+<li><h4 id="保存配置"><a href="#保存配置" class="headerlink" title="保存配置"></a><font size='3'>保存配置</font></h4></li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">將當前運行的配置保存到啟動配置，以便下次設備重啟時仍然有效。</span></span><br><span class="line">copy running-config startup-config</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><h4 id="查看路由表"><a href="#查看路由表" class="headerlink" title=" 查看路由表"></a><font size='3'> 查看路由表</font></h4></li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">顯示設備的路由表，檢查可達的網路和路由選擇。</span></span><br><span class="line">show ip route</span><br></pre></td></tr></table></figure>
+<ul>
+<li><h4 id="設置主機名"><a href="#設置主機名" class="headerlink" title=" 設置主機名"></a><font size='3'> 設置主機名</font></h4></li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">設置路由器或交換機的主機名為 <span class="string">&quot;Router1&quot;</span>。</span></span><br><span class="line">hostname [name]</span><br><span class="line"></span><br><span class="line">hostname Router1</span><br></pre></td></tr></table></figure>
+<ul>
+<li><h4 id="配置密碼"><a href="#配置密碼" class="headerlink" title=" 配置密碼"></a><font size='3'> 配置密碼</font></h4></li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">設置特權模式和控制台的訪問密碼。</span></span><br><span class="line">enable secret [password]</span><br><span class="line">line console 0</span><br><span class="line">password [password]</span><br><span class="line">login</span><br><span class="line"></span><br><span class="line">enable secret cisco123</span><br><span class="line">line console 0</span><br><span class="line">password cisco123</span><br><span class="line">login</span><br></pre></td></tr></table></figure>
+
+<h3 id="設定指令"><a href="#設定指令" class="headerlink" title="設定指令"></a>設定指令</h3><ul>
+<li><h4 id="設置-VLAN（針對交換機）"><a href="#設置-VLAN（針對交換機）" class="headerlink" title="設置 VLAN（針對交換機）"></a><font size='3'>設置 VLAN（針對交換機）</font></h4></li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">創建 VLAN 10 並將其命名為 <span class="string">&quot;Sales&quot;</span>。</span></span><br><span class="line">vlan [VLAN_ID]</span><br><span class="line">name [VLAN_name]</span><br><span class="line"></span><br><span class="line">vlan 10</span><br><span class="line">name Sales</span><br></pre></td></tr></table></figure>
+<ul>
+<li><h4 id="配置端口加入-VLAN（針對交換機）"><a href="#配置端口加入-VLAN（針對交換機）" class="headerlink" title=" 配置端口加入 VLAN（針對交換機）"></a><font size='3'> 配置端口加入 VLAN（針對交換機）</font></h4></li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">將 FastEthernet0/1 端口設置為 VLAN 10 的成員。</span></span><br><span class="line">interface [interface_name]</span><br><span class="line">switchport mode access</span><br><span class="line">switchport access vlan [VLAN_ID]</span><br><span class="line"></span><br><span class="line">interface fastethernet0/1</span><br><span class="line">switchport mode access</span><br><span class="line">switchport access vlan 10</span><br></pre></td></tr></table></figure>
+<ul>
+<li><h4 id="查看-VLAN-配置（針對交換機）"><a href="#查看-VLAN-配置（針對交換機）" class="headerlink" title=" 查看 VLAN 配置（針對交換機）"></a><font size='3'> 查看 VLAN 配置（針對交換機）</font></h4></li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">顯示當前交換機上配置的 VLAN 和它們的成員端口。</span></span><br><span class="line">show vlan brief</span><br></pre></td></tr></table></figure>
+<ul>
+<li><h4 id="配置-OSPF（Open-Shortest-Path-First）"><a href="#配置-OSPF（Open-Shortest-Path-First）" class="headerlink" title="配置 OSPF（Open Shortest Path First）"></a><font size='3'>配置 OSPF（Open Shortest Path First）</font></h4></li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">配置 OSPF 路由協議並將網段 192.168.1.0/24 添加到 OSPF 中。</span></span><br><span class="line">router ospf [process_id]</span><br><span class="line">network [network_address] [wildcard_mask] area [area_id]</span><br><span class="line"></span><br><span class="line">router ospf 1</span><br><span class="line">network 192.168.1.0 0.0.0.255 area 0</span><br></pre></td></tr></table></figure>
+<ul>
+<li><h4 id="設置路由"><a href="#設置路由" class="headerlink" title="設置路由"></a><font size='3'>設置路由</font></h4></li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">配置靜態路由，將流量引導到指定的下一跳 IP 地址。</span></span><br><span class="line"></span><br><span class="line">ip route [destination_network] [subnet_mask] [next_hop_ip]</span><br><span class="line"></span><br><span class="line">ip route 10.1.1.0 255.255.255.0 192.168.1.2</span><br></pre></td></tr></table></figure>
+
+
+
+
+<ul>
+<li><h4 id="配置密碼-1"><a href="#配置密碼-1" class="headerlink" title=" 配置密碼"></a><font size='3'> 配置密碼</font></h4></li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">設置特權模式和控制台的訪問密碼。</span></span><br><span class="line">enable secret [password]</span><br><span class="line">line console 0</span><br><span class="line">password [password]</span><br><span class="line">login</span><br><span class="line"></span><br><span class="line">enable secret cisco123</span><br><span class="line">line console 0</span><br><span class="line">password cisco123</span><br><span class="line">login</span><br></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>Cisco</category>
+      </categories>
+      <tags>
+        <tag>Cisco</tag>
+        <tag>Packet Tracer</tag>
+        <tag>Basic</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Cisco Packet Tracer Day03 - ACL</title>
+    <url>/2024/08/29/CiscoPacketTracerDay03/</url>
+    <content><![CDATA[<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a><font size='5'>前言</font></h3><blockquote>
+<p><font size='3'>Access Control Lists (ACLs) 是一組用於控制網路流量進出設備的規則集合。它們可以配置在路由器或交換機上，用來允許或拒絕數據包進入或離開網路接口。ACL 是網路安全管理的一個關鍵工具，可以防止未經授權的流量進入網路。</font></p>
+</blockquote>
+<span id="more"></span>
+
+<br>
+
+<h3 id="ACL-的基本概念"><a href="#ACL-的基本概念" class="headerlink" title="ACL 的基本概念"></a>ACL 的基本概念</h3><ul>
+<li><h4 id="ACL-是由一系列規則組成的列表，每個規則指定要允許或拒絕的條件（如源-IP-地址、目標-IP-地址、協議類型等）。"><a href="#ACL-是由一系列規則組成的列表，每個規則指定要允許或拒絕的條件（如源-IP-地址、目標-IP-地址、協議類型等）。" class="headerlink" title="ACL 是由一系列規則組成的列表，每個規則指定要允許或拒絕的條件（如源 IP 地址、目標 IP 地址、協議類型等）。"></a><font size='3'>ACL 是由一系列規則組成的列表，每個規則指定要允許或拒絕的條件（如源 IP 地址、目標 IP 地址、協議類型等）。</font></h4></li>
+<li><h4 id="每個進入或離開設備的數據包都會按照-ACL-中的規則進行匹配。匹配的第一條規則將決定這個數據包的命運（允許或拒絕），之後的規則將不再檢查。"><a href="#每個進入或離開設備的數據包都會按照-ACL-中的規則進行匹配。匹配的第一條規則將決定這個數據包的命運（允許或拒絕），之後的規則將不再檢查。" class="headerlink" title="每個進入或離開設備的數據包都會按照 ACL 中的規則進行匹配。匹配的第一條規則將決定這個數據包的命運（允許或拒絕），之後的規則將不再檢查。"></a><font size='3'>每個進入或離開設備的數據包都會按照 ACL 中的規則進行匹配。匹配的第一條規則將決定這個數據包的命運（允許或拒絕），之後的規則將不再檢查。</font></h4></li>
+<li><h4 id="控制流量的進出（可以應用在接口的“in”方向或“out”方向）。"><a href="#控制流量的進出（可以應用在接口的“in”方向或“out”方向）。" class="headerlink" title="控制流量的進出（可以應用在接口的“in”方向或“out”方向）。"></a><font size='3'>控制流量的進出（可以應用在接口的“in”方向或“out”方向）。</font></h4></li>
+<li><h4 id="限制特定用戶或設備的網路訪問，提高網路安全性，防止未經授權的訪問。"><a href="#限制特定用戶或設備的網路訪問，提高網路安全性，防止未經授權的訪問。" class="headerlink" title="限制特定用戶或設備的網路訪問，提高網路安全性，防止未經授權的訪問。"></a><font size='3'>限制特定用戶或設備的網路訪問，提高網路安全性，防止未經授權的訪問。</font></h4></li>
+</ul>
+<br>
+
+<h3 id="ACL-的類型"><a href="#ACL-的類型" class="headerlink" title="ACL 的類型"></a>ACL 的類型</h3><ul>
+<li><h4 id="標準-ACL（Standard-ACL）："><a href="#標準-ACL（Standard-ACL）：" class="headerlink" title="標準 ACL（Standard ACL）："></a><font size='3'>標準 ACL（Standard ACL）：</font></h4><ul>
+<li><font size='3'>只基於源 IP 地址進行過濾，標準 ACL 的編號範圍是 1-99 或 1300-1999。</font></li>
+<li><font size='3'>範例：</font>  <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">這條 ACL 規則允許來自 192.168.1.0/24 網段的所有流量。</span></span><br><span class="line">access-list 10 permit 192.168.1.0 0.0.0.255</span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+<li><h4 id="擴展-ACL（Extended-ACL）："><a href="#擴展-ACL（Extended-ACL）：" class="headerlink" title="擴展 ACL（Extended ACL）："></a><font size='3'>擴展 ACL（Extended ACL）：</font></h4><ul>
+<li><font size='3'>可以基於源 IP 地址、目標 IP 地址、協議類型（如 TCP、UDP、ICMP）、源端口和目標端口等進行過濾。</font></li>
+<li><font size='3'>擴展 ACL 的編號範圍是 100-199 或 2000-2699。</font></li>
+<li><font size='3'>範例：</font>  <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">這條 ACL 規則允許來自 192.168.1.0/24 網段的所有主機訪問任何目標的 80 端口。</span></span><br><span class="line">access-list 100 permit tcp 192.168.1.0 0.0.0.255 any eq 80</span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+</ul>
+<br>
+
+<h3 id="ACL-的配置"><a href="#ACL-的配置" class="headerlink" title="ACL 的配置"></a>ACL 的配置</h3><ul>
+<li><h4 id="標準-ACL-配置："><a href="#標準-ACL-配置：" class="headerlink" title="標準 ACL 配置："></a><font size='3'>標準 ACL 配置：</font></h4></li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">access-list [number] [permit|deny] [source] [wildcard_mask]</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">這會在 Giga0/0 接口上應用標準 ACL 10，允許來自 192.168.1.0/24 網段的流量進入。</span></span><br><span class="line">access-list 10 permit 192.168.1.0 0.0.0.255</span><br><span class="line">interface gigabitethernet0/0</span><br><span class="line">ip access-group 10 in</span><br></pre></td></tr></table></figure>
+<ul>
+<li><h4 id="查看-ACL、刪除-ACL"><a href="#查看-ACL、刪除-ACL" class="headerlink" title="查看 ACL、刪除 ACL"></a><font size='3'>查看 ACL、刪除 ACL</font></h4></li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">show access-lists # 查看</span><br><span class="line"></span><br><span class="line">no access-list [number] # 刪除</span><br></pre></td></tr></table></figure>
+
+<br>
+
+<h3 id="補充"><a href="#補充" class="headerlink" title="補充"></a>補充</h3><ul>
+<li><h4 id="標準-ACL-配置：-1"><a href="#標準-ACL-配置：-1" class="headerlink" title="標準 ACL 配置："></a><font size='3'>標準 ACL 配置：</font></h4></li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">access-list [number] [permit|deny] [source] [wildcard_mask]</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">這會在 Giga0/0 接口上應用標準 ACL 10，允許來自 192.168.1.0/24 網段的流量進入。</span></span><br><span class="line">access-list 10 permit 192.168.1.0 0.0.0.255</span><br><span class="line">interface gigabitethernet0/0</span><br><span class="line">ip access-group 10 in</span><br></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>Cisco</category>
+      </categories>
+      <tags>
+        <tag>Cisco</tag>
+        <tag>Packet Tracer</tag>
+        <tag>Basic</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Cisco Packet Tracer Day01 - IP 基礎概念</title>
+    <url>/2024/08/29/CiscoPacketTracerDay01/</url>
+    <content><![CDATA[<h3 id="本章"><a href="#本章" class="headerlink" title="本章"></a><font size='5'>本章</font></h3><blockquote>
+<p><font size='3'>這篇文章將詳細介紹如何將 Cisco Packet Tracer 基礎操作及基本概念。</font></p>
+</blockquote>
+<span id="more"></span>
+
+<br>
+
+<h3 id="IP-地址"><a href="#IP-地址" class="headerlink" title="IP 地址"></a>IP 地址</h3><ul>
+<li><font size='3'>IPv4：由 32 位元組成，通常表示為點分十進制形式，如 192.168.1.1。IPv4 地址總共能提供約 43 億個地址。</font></li>
+<li><font size='3'>IPv6：由 128 位元組成，通常表示為八組十六進制數字，如 2001:0db8:85a3:0000:0000:8a2e:0370:7334，可以提供極大量的地址，解決了 IPv4 地址耗盡的問題。</font></li>
+<li><font size='3'> IP 地址類型</font><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">私有 IP 地址：用於局域網（LAN）內部，不能直接在互聯網上路由。常見的私有 IP 範圍包括：</span><br><span class="line"></span><br><span class="line">10.0.0.0 - 10.255.255.255</span><br><span class="line">172.16.0.0 - 172.31.255.255</span><br><span class="line">192.168.0.0 - 192.168.255.255</span><br></pre></td></tr></table></figure></li>
+<li><font size='3'>NAT（Network Address Translation）</font><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">NAT 的作用：NAT 技術允許多台設備共用一個公有 IP 地址來訪問互聯網。NAT 將私有 IP 地址轉換為公有 IP 地址，並在返回時將公有 IP 地址轉換回私有 IP 地址。</span><br><span class="line">用途：NAT 通常用於家庭和公司網路，以節省公有 IP 地址。</span><br><span class="line"></span><br></pre></td></tr></table></figure></li>
+</ul>
+<p><br><br></p>
+<h3 id="子網掩碼（Subnet-Mask）"><a href="#子網掩碼（Subnet-Mask）" class="headerlink" title="子網掩碼（Subnet Mask）"></a>子網掩碼（Subnet Mask）</h3><ul>
+<li><font size='3'>子網掩碼是 32 位元的二進位數，由連續的 1 和 0 組成，通常表示為點分十進制的格式，例如 255.255.255.0。</font></li>
+<li><font size='3'>路由器使用子網掩碼來確定目的地址屬於哪個子網，從而決定如何轉發數據包。</font></li>
+<li><font size='3'>實際應用</font><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">分離部門或區域：在企業網路中，不同部門可能使用不同的子網以隔離流量並提高安全性。</span><br><span class="line"></span><br><span class="line">提高安全性：通過子網劃分，可以限制子網之間的通信，從而提高網路的安全性和控制力。</span><br></pre></td></tr></table></figure></li>
+<li><font size='3'>子網掩碼範例：</font><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">/8（255.0.0.0）：網路位為前 8 位，適用於非常大的網路，如 A 類網路。</span><br><span class="line"></span><br><span class="line">/16（255.255.0.0）：網路位為前 16 位，適用於中型網路，如 B 類網路。</span><br><span class="line"></span><br><span class="line">/24（255.255.255.0）：網路位為前 24 位，適用於小型網路，如 C 類網路。</span><br></pre></td></tr></table></figure></li>
+</ul>
+<p><br><br></p>
+<h3 id="計算"><a href="#計算" class="headerlink" title="計算"></a>計算</h3><p><img data-src="subnetMask.png" width='450'></img></p>
+<ul>
+<li><font size='3'>192.168.1.0&#x2F;24 &#x3D;&gt; 255.255.255.0</font></li>
+<li><font size='3'>192.168.1.0&#x2F;25</font><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">25 - 24 = 1，對照表 =&gt; 128</span><br><span class="line">255 - 128 = 127</span><br><span class="line">故，192.168.1.1 - 192.168.1.126 為可用 ip。</span><br><span class="line"></span><br><span class="line">如果 IP 地址超出了某個子網的範圍，那麼該 IP 地址屬於不同的網段（子網）。</span><br><span class="line"></span><br></pre></td></tr></table></figure></li>
+<li><font size='3'>10.1.16.9&#x2F;29</font><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">29 - 24 = 5，對照表 =&gt; 248</span><br><span class="line">255 - 248 = 7</span><br><span class="line"></span><br><span class="line">子網地址: 找出子網的起始地址，需要將 10.1.16.9 的主機部分歸零來確定子網地址。</span><br><span class="line"></span><br><span class="line">10.1.16.00001 | 001 =&gt; 10.1.16.8 / 29 </span><br><span class="line"></span><br><span class="line">故，192.168.1.9 - 192.168.1.14 為可用 ip。</span><br><span class="line"></span><br><span class="line">如果 IP 地址超出了某個子網的範圍，那麼該 IP 地址屬於不同的網段（子網）。</span><br><span class="line"></span><br></pre></td></tr></table></figure></li>
+</ul>
+]]></content>
+      <categories>
+        <category>Cisco</category>
+      </categories>
+      <tags>
+        <tag>Cisco</tag>
+        <tag>Packet Tracer</tag>
+        <tag>Basic</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Cisco Packet Tracer Day05 - VPN</title>
+    <url>/2024/08/30/CiscoPacketTracerDay05/</url>
+    <content><![CDATA[<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a><font size='5'>前言</font></h3><blockquote>
+<p><font size='3'>VPN，是一種技術，用於在公共網路（如互聯網）上創建一個安全的、加密的連接，從而保護數據的隱私和完整性。VPN 通常用於保護在線活動、遠程訪問企業內部網路，或繞過地理限制。</font></p>
+</blockquote>
+<span id="more"></span>
+
+<br>
+
+<h3 id="VPN-的基本概念-（Virtual-Private-Network）"><a href="#VPN-的基本概念-（Virtual-Private-Network）" class="headerlink" title="VPN 的基本概念 （Virtual Private Network）"></a>VPN 的基本概念 （Virtual Private Network）</h3><ul>
+<li><h4 id=""><a href="#" class="headerlink" title=""></a><font size='3'></font></h4></li>
+<li><h4 id="-1"><a href="#-1" class="headerlink" title=""></a><font size='3'></font></h4></li>
+<li><h4 id="-2"><a href="#-2" class="headerlink" title=""></a><font size='3'></font></h4></li>
+<li><h4 id="-3"><a href="#-3" class="headerlink" title=""></a><font size='3'></font></h4></li>
+<li><h4 id="-4"><a href="#-4" class="headerlink" title=""></a><font size='3'></font></h4></li>
+</ul>
+<br>
+
+<!-- ### 動態 NAT 實作
+- #### <font size='3'>設定 inside / outside 端口</font>
+- #### <font size='3'>使用 ACL 設定私有 IP 的範圍</font>
+    <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">int e0</span><br><span class="line">ip address 私有IP</span><br><span class="line">ip nat inside/outside</span><br><span class="line"></span><br><span class="line">ip nat pool Net209 209.165.200.225 209.165.200.238 netmask 255.255.255.240</span><br><span class="line"></span><br><span class="line">access-list 1 permit 192.168.3.0 0.0.0.255</span><br><span class="line"></span><br><span class="line">ip nat inside source list 1 pool Net209</span><br><span class="line"></span><br><span class="line">show ip nat translations</span><br></pre></td></tr></table></figure>
+
+<p><br> –&gt;</p>
+<!-- ### 固定 NAT 實作
+- #### <font size='3'>設定 inside / outside 端口</font>
+- #### <font size='3'>使用 ACL 設定私有 IP 的範圍</font>
+    <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">int e0</span><br><span class="line">ip address 私有IP</span><br><span class="line">ip nat inside/outside</span><br><span class="line"></span><br><span class="line">access-list 1 permit 192.168.3.0 0.0.0.255</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">overload 代表不只1個轉址參數</span></span><br><span class="line">ip nat inside source static 10.1.1.2 209.165.200.225</span><br><span class="line"></span><br><span class="line">show ip nat translations</span><br></pre></td></tr></table></figure>
+
+<br>
+
+<h3 id="PAT-（Port-Address-Translation）"><a href="#PAT-（Port-Address-Translation）" class="headerlink" title="PAT （Port Address Translation）"></a>PAT （Port Address Translation）</h3><ul>
+<li><h4 id="把很多內部的私有-IP-地址換成一個公共-IP-地址。這時，端口號就很重要了，因為-PAT-會改變端口號來區分不同的內部設備，讓它們都能通過同一個公共-IP-地址與外界通信"><a href="#把很多內部的私有-IP-地址換成一個公共-IP-地址。這時，端口號就很重要了，因為-PAT-會改變端口號來區分不同的內部設備，讓它們都能通過同一個公共-IP-地址與外界通信" class="headerlink" title="把很多內部的私有 IP 地址換成一個公共 IP 地址。這時，端口號就很重要了，因為 PAT 會改變端口號來區分不同的內部設備，讓它們都能通過同一個公共 IP 地址與外界通信"></a><font size='3'>把很多內部的私有 IP 地址換成一個公共 IP 地址。這時，端口號就很重要了，因為 PAT 會改變端口號來區分不同的內部設備，讓它們都能通過同一個公共 IP 地址與外界通信</font></h4></li>
+<li><h4 id="PAT："><a href="#PAT：" class="headerlink" title="PAT："></a><font size='3'>PAT：</font></h4></li>
+</ul>
+<p><img data-src='pat.png' width='600'></img></p>
+<br>
+
+<h3 id="PAT-實作"><a href="#PAT-實作" class="headerlink" title="PAT 實作"></a>PAT 實作</h3><ul>
+<li><h4 id="設定-inside-outside-端口"><a href="#設定-inside-outside-端口" class="headerlink" title="設定 inside &#x2F; outside 端口"></a><font size='3'>設定 inside &#x2F; outside 端口</font></h4></li>
+<li><h4 id="使用-ACL-設定私有-IP-的範圍-只有一組公有-IP-，故不用設定-Pool"><a href="#使用-ACL-設定私有-IP-的範圍-只有一組公有-IP-，故不用設定-Pool" class="headerlink" title="使用 ACL 設定私有 IP 的範圍 ( 只有一組公有 IP ，故不用設定 Pool ) "></a><font size='3'>使用 ACL 設定私有 IP 的範圍 ( 只有一組公有 IP ，故不用設定 Pool ) </font></h4>  <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">int e0</span><br><span class="line">ip address 私有IP</span><br><span class="line">ip nat inside/outside</span><br><span class="line"></span><br><span class="line">access-list 1 permit 192.168.3.0 0.0.0.255</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">overload 代表不只1個轉址參數</span></span><br><span class="line">ip nat inside source list 1 interface Serial0 overload</span><br><span class="line"></span><br><span class="line">show ip nat translations</span><br></pre></td></tr></table></figure></li>
+</ul>
+<br>
+
+<h3 id="總結"><a href="#總結" class="headerlink" title="總結"></a>總結</h3><ul>
+<li><h4 id="NAT：一對一的映射，每個設備都有自己的公有-IP。"><a href="#NAT：一對一的映射，每個設備都有自己的公有-IP。" class="headerlink" title="NAT：一對一的映射，每個設備都有自己的公有 IP。"></a><font size='3'>NAT：一對一的映射，每個設備都有自己的公有 IP。</font></h4></li>
+<li><h4 id="PAT：多對一的映射，很多設備共用一個公有-IP。-–"><a href="#PAT：多對一的映射，很多設備共用一個公有-IP。-–" class="headerlink" title="PAT：多對一的映射，很多設備共用一個公有 IP。 –&gt;"></a><font size='3'>PAT：多對一的映射，很多設備共用一個公有 IP。</font> –&gt;</h4></li>
+</ul>
+]]></content>
+      <categories>
+        <category>Cisco</category>
+      </categories>
+      <tags>
+        <tag>Cisco</tag>
+        <tag>Packet Tracer</tag>
+        <tag>Basic</tag>
+        <tag>VPN</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Cisco Packet Tracer Day06 - 應用篇</title>
+    <url>/2024/09/02/CiscoPacketTracerDay06/</url>
+    <content><![CDATA[<h3 id="本篇"><a href="#本篇" class="headerlink" title="本篇"></a><font size='5'>本篇</font></h3><blockquote>
+<p><font size='3'>該篇為應用篇，應付考試用的</font></p>
+</blockquote>
+<span id="more"></span>
+
+<br>
+
+<h3 id="Vlan-的應用"><a href="#Vlan-的應用" class="headerlink" title="Vlan 的應用"></a>Vlan 的應用</h3><ul>
+<li><h4 id="交換機若是沒有-Vlan-功能，則需要兩台交換機來進行網段的分割"><a href="#交換機若是沒有-Vlan-功能，則需要兩台交換機來進行網段的分割" class="headerlink" title="交換機若是沒有 Vlan 功能，則需要兩台交換機來進行網段的分割"></a><font size='3'>交換機若是沒有 Vlan 功能，則需要兩台交換機來進行網段的分割</font></h4></li>
+<li><h4 id="建立-Vlan"><a href="#建立-Vlan" class="headerlink" title="建立 Vlan"></a><font size='3'>建立 Vlan</font></h4></li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">建立 vlan</span> </span><br><span class="line">vlan [11]</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">設置名稱</span></span><br><span class="line">name [IT]</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">查看 Vlan</span></span><br><span class="line">show vlan brief</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">設置預設網關</span></span><br><span class="line">ip default-gateway 10.1.99.254</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<ul>
+<li><h4 id="設定實體端口-與-Vlan"><a href="#設定實體端口-與-Vlan" class="headerlink" title="設定實體端口 與 Vlan"></a><font size='3'>設定實體端口 與 Vlan</font></h4></li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">進入實體端口，設定</span></span><br><span class="line">int fa0/1</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">進入多個端口，同時設定</span></span><br><span class="line">int range fa0/23-24</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">設定端口型態為 trunk</span></span><br><span class="line">switchport mode trunk</span><br><span class="line">switchport mode access</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">設定實體端口綁定的 Vlan</span></span><br><span class="line">switchport trunk allowed vlan 12,13,99</span><br><span class="line">switchport access vlan 99</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">設定 vlan 99 為預設的標籤</span></span><br><span class="line">switchport trunk native vlan 99</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">查看 trunk</span></span><br><span class="line">show int trunk</span><br></pre></td></tr></table></figure>
+<br>
+
+<h3 id="Router-Subinterfaces"><a href="#Router-Subinterfaces" class="headerlink" title="Router Subinterfaces"></a>Router Subinterfaces</h3><ul>
+<li><h4 id="設置子端口"><a href="#設置子端口" class="headerlink" title="設置子端口"></a><font size='3'>設置子端口</font></h4></li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">設置子端口名稱並進入</span></span><br><span class="line">int fa0/0.2</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">貼上要處理的標籤</span></span><br><span class="line">encapsulation dot1q 12</span><br><span class="line">encapsulation dot1q 99 native</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">設置 IP 遮罩</span></span><br><span class="line">ip address 10.1.12.30 255.255.255.240</span><br></pre></td></tr></table></figure>
+
+<br>
+
+<h3 id="Router-Table"><a href="#Router-Table" class="headerlink" title="Router Table"></a>Router Table</h3><ul>
+<li><h4 id="Static"><a href="#Static" class="headerlink" title="Static"></a><font size='3'>Static</font></h4></li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">設置時脈</span></span><br><span class="line">clock eate 128000</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">設置靜態路由</span></span><br><span class="line">ip route 比對的IP 遮罩 下一跳</span><br><span class="line">ip route 0.0.0.0 0.0.0.0 193.16.1.253</span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<ul>
+<li><h4 id="Dynamic"><a href="#Dynamic" class="headerlink" title="Dynamic"></a><font size='3'>Dynamic</font></h4></li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">顯示 ospf</span> </span><br><span class="line">show ip ospf int</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">設定 ospf</span></span><br><span class="line">router ospf [process-id]</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">啟動 ospf</span></span><br><span class="line">network net-address wildcard-mask area [area-id]</span><br><span class="line">network 10.1.16.92 0.0.0.255 area 0</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">需要先設好 0.0.0.0 ，才能讓其他路由學會這筆</span></span><br><span class="line">default-information originate</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<br>
+
+<h3 id="ACL"><a href="#ACL" class="headerlink" title="ACL"></a>ACL</h3><ul>
+<li><h4 id="Static-1"><a href="#Static-1" class="headerlink" title="Static"></a><font size='3'>Static</font></h4></li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">建立一個 ACL</span></span><br><span class="line">access-list 1 permit 172.16.0.0 0.0.255.255</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">進入端口，套用</span></span><br><span class="line">int 0</span><br><span class="line">ip access-group 1 in/out </span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<ul>
+<li><h4 id=""><a href="#" class="headerlink" title=""></a><font size='3'></font></h4></li>
+</ul>
+]]></content>
+      <tags>
+        <tag>Cisco</tag>
+        <tag>Packet Tracer</tag>
+        <tag>Basic</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Cisco Packet Tracer Day04 - NAT &amp; PAT</title>
+    <url>/2024/08/30/CiscoPacketTracerDay04/</url>
+    <content><![CDATA[<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a><font size='5'>前言</font></h3><blockquote>
+<p><font size='3'>NAT（Network Address Translation）和 PAT（Port Address Translation）都是用來將私有網路中的 IP 地址轉換為公共網路 IP 地址的技術，但它們在具體的運作方式上有所不同</font></p>
+</blockquote>
+<span id="more"></span>
+
+<br>
+
+<h3 id="NAT-（Network-Address-Translation）"><a href="#NAT-（Network-Address-Translation）" class="headerlink" title="NAT （Network Address Translation）"></a>NAT （Network Address Translation）</h3><ul>
+<li><h4 id="主要是把內部的私有-IP-地址換成公共-IP-地址。端口號在這裡通常不變，所以-NAT-專注於-IP-地址的轉換。"><a href="#主要是把內部的私有-IP-地址換成公共-IP-地址。端口號在這裡通常不變，所以-NAT-專注於-IP-地址的轉換。" class="headerlink" title="主要是把內部的私有 IP 地址換成公共 IP 地址。端口號在這裡通常不變，所以 NAT 專注於 IP 地址的轉換。"></a><font size='3'>主要是把內部的私有 IP 地址換成公共 IP 地址。端口號在這裡通常不變，所以 NAT 專注於 IP 地址的轉換。</font></h4></li>
+<li><h4 id="把內部的-一個-私有-IP-地址對應到-一個-公有-IP-地址。"><a href="#把內部的-一個-私有-IP-地址對應到-一個-公有-IP-地址。" class="headerlink" title="把內部的 一個 私有 IP 地址對應到 一個 公有 IP 地址。"></a><font size='3'>把內部的 一個 私有 IP 地址對應到 一個 公有 IP 地址。</font></h4></li>
+<li><h4 id="這個對應是固定的（靜態-NAT）或者臨時分配的（動態-NAT）。"><a href="#這個對應是固定的（靜態-NAT）或者臨時分配的（動態-NAT）。" class="headerlink" title="這個對應是固定的（靜態 NAT）或者臨時分配的（動態 NAT）。"></a><font size='3'>這個對應是固定的（靜態 NAT）或者臨時分配的（動態 NAT）。</font></h4></li>
+<li><h4 id="每個內部設備需要一個公有-IP-地址。"><a href="#每個內部設備需要一個公有-IP-地址。" class="headerlink" title="每個內部設備需要一個公有 IP 地址。"></a><font size='3'>每個內部設備需要一個公有 IP 地址。</font></h4></li>
+<li><h4 id="動態-NAT："><a href="#動態-NAT：" class="headerlink" title="動態 NAT："></a><font size='3'>動態 NAT：</font></h4></li>
+</ul>
+<p><img data-src='dynamic-nat.png' width='600'></img></p>
+<ul>
+<li><h4 id="固定-NAT："><a href="#固定-NAT：" class="headerlink" title="固定 NAT："></a><font size='3'>固定 NAT：</font></h4></li>
+</ul>
+<p><img data-src='static-nat.png' width='600'></img></p>
+<ul>
+<li><font size='3'>公有 IP 需固定</font></li>
+<li><font size='3'>一般用於公司內部擁有假設 Server ，如：Web Server，利用 NAT 轉至內網的 Server</font></li>
+</ul>
+<br>
+
+<h3 id="動態-NAT-實作"><a href="#動態-NAT-實作" class="headerlink" title="動態 NAT 實作"></a>動態 NAT 實作</h3><ul>
+<li><h4 id="設定-inside-outside-端口"><a href="#設定-inside-outside-端口" class="headerlink" title="設定 inside &#x2F; outside 端口"></a><font size='3'>設定 inside &#x2F; outside 端口</font></h4></li>
+<li><h4 id="使用-ACL-設定私有-IP-的範圍"><a href="#使用-ACL-設定私有-IP-的範圍" class="headerlink" title="使用 ACL 設定私有 IP 的範圍"></a><font size='3'>使用 ACL 設定私有 IP 的範圍</font></h4>  <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">int e0</span><br><span class="line">ip address 私有IP</span><br><span class="line">ip nat inside/outside</span><br><span class="line"></span><br><span class="line">ip nat pool Net209 209.165.200.225 209.165.200.238 netmask 255.255.255.240</span><br><span class="line"></span><br><span class="line">access-list 1 permit 192.168.3.0 0.0.0.255</span><br><span class="line"></span><br><span class="line">ip nat inside source list 1 pool Net209</span><br><span class="line"></span><br><span class="line">show ip nat translations</span><br></pre></td></tr></table></figure></li>
+</ul>
+<br>
+
+<h3 id="固定-NAT-實作"><a href="#固定-NAT-實作" class="headerlink" title="固定 NAT 實作"></a>固定 NAT 實作</h3><ul>
+<li><h4 id="設定-inside-outside-端口-1"><a href="#設定-inside-outside-端口-1" class="headerlink" title="設定 inside &#x2F; outside 端口"></a><font size='3'>設定 inside &#x2F; outside 端口</font></h4></li>
+<li><h4 id="使用-ACL-設定私有-IP-的範圍-1"><a href="#使用-ACL-設定私有-IP-的範圍-1" class="headerlink" title="使用 ACL 設定私有 IP 的範圍"></a><font size='3'>使用 ACL 設定私有 IP 的範圍</font></h4>  <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">int e0</span><br><span class="line">ip address 私有IP</span><br><span class="line">ip nat inside/outside</span><br><span class="line"></span><br><span class="line">access-list 1 permit 192.168.3.0 0.0.0.255</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">overload 代表不只1個轉址參數</span></span><br><span class="line">ip nat inside source static 10.1.1.2 209.165.200.225</span><br><span class="line"></span><br><span class="line">show ip nat translations</span><br></pre></td></tr></table></figure></li>
+</ul>
+<br>
+
+<h3 id="PAT-（Port-Address-Translation）"><a href="#PAT-（Port-Address-Translation）" class="headerlink" title="PAT （Port Address Translation）"></a>PAT （Port Address Translation）</h3><ul>
+<li><h4 id="把很多內部的私有-IP-地址換成一個公共-IP-地址。這時，端口號就很重要了，因為-PAT-會改變端口號來區分不同的內部設備，讓它們都能通過同一個公共-IP-地址與外界通信"><a href="#把很多內部的私有-IP-地址換成一個公共-IP-地址。這時，端口號就很重要了，因為-PAT-會改變端口號來區分不同的內部設備，讓它們都能通過同一個公共-IP-地址與外界通信" class="headerlink" title="把很多內部的私有 IP 地址換成一個公共 IP 地址。這時，端口號就很重要了，因為 PAT 會改變端口號來區分不同的內部設備，讓它們都能通過同一個公共 IP 地址與外界通信"></a><font size='3'>把很多內部的私有 IP 地址換成一個公共 IP 地址。這時，端口號就很重要了，因為 PAT 會改變端口號來區分不同的內部設備，讓它們都能通過同一個公共 IP 地址與外界通信</font></h4></li>
+<li><h4 id="PAT："><a href="#PAT：" class="headerlink" title="PAT："></a><font size='3'>PAT：</font></h4></li>
+</ul>
+<p><img data-src='pat.png' width='600'></img></p>
+<br>
+
+<h3 id="PAT-實作"><a href="#PAT-實作" class="headerlink" title="PAT 實作"></a>PAT 實作</h3><ul>
+<li><h4 id="設定-inside-outside-端口-2"><a href="#設定-inside-outside-端口-2" class="headerlink" title="設定 inside &#x2F; outside 端口"></a><font size='3'>設定 inside &#x2F; outside 端口</font></h4></li>
+<li><h4 id="使用-ACL-設定私有-IP-的範圍-只有一組公有-IP-，故不用設定-Pool"><a href="#使用-ACL-設定私有-IP-的範圍-只有一組公有-IP-，故不用設定-Pool" class="headerlink" title="使用 ACL 設定私有 IP 的範圍 ( 只有一組公有 IP ，故不用設定 Pool ) "></a><font size='3'>使用 ACL 設定私有 IP 的範圍 ( 只有一組公有 IP ，故不用設定 Pool ) </font></h4>  <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">int e0</span><br><span class="line">ip address 私有IP</span><br><span class="line">ip nat inside/outside</span><br><span class="line"></span><br><span class="line">access-list 1 permit 192.168.3.0 0.0.0.255</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">overload 代表不只1個轉址參數</span></span><br><span class="line">ip nat inside source list 1 interface Serial0 overload</span><br><span class="line"></span><br><span class="line">show ip nat translations</span><br></pre></td></tr></table></figure></li>
+</ul>
+<br>
+
+<h3 id="總結"><a href="#總結" class="headerlink" title="總結"></a>總結</h3><ul>
+<li><h4 id="NAT：一對一的映射，每個設備都有自己的公有-IP。"><a href="#NAT：一對一的映射，每個設備都有自己的公有-IP。" class="headerlink" title="NAT：一對一的映射，每個設備都有自己的公有 IP。"></a><font size='3'>NAT：一對一的映射，每個設備都有自己的公有 IP。</font></h4></li>
+<li><h4 id="PAT：多對一的映射，很多設備共用一個公有-IP。"><a href="#PAT：多對一的映射，很多設備共用一個公有-IP。" class="headerlink" title="PAT：多對一的映射，很多設備共用一個公有 IP。"></a><font size='3'>PAT：多對一的映射，很多設備共用一個公有 IP。</font></h4></li>
+</ul>
+]]></content>
+      <categories>
+        <category>Cisco</category>
+      </categories>
+      <tags>
+        <tag>Cisco</tag>
+        <tag>Packet Tracer</tag>
+        <tag>Basic</tag>
+        <tag>NAT</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>容器化 基礎理論 Day01 - 理論篇</title>
+    <url>/2024/09/11/Docker-Day01/</url>
+    <content><![CDATA[<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a><font size='5'>前言</font></h3><blockquote>
+<p><font size='3'>隨著軟體開發流程的演變和雲端運算的普及，應用程序的部署和管理變得越來越複雜。開發者和運維人員需要確保應用在不同的環境下保持一致，無論是開發、測試還是生產環境。為了應對這種挑戰，容器技術應運而生，而 Docker 作為一種主流的容器技術，已成為現代 DevOps 流程中的重要組成部分。</font></p>
+</blockquote>
+<span id="more"></span>
+
+<br>
+
+<h3 id="Docker-的核心概念"><a href="#Docker-的核心概念" class="headerlink" title="Docker 的核心概念"></a>Docker 的核心概念</h3><ul>
+<li><font size='3'>容器（Container）：容器是一個運行中的實例，它是應用及其運行時所需的所有依賴的打包單元。每個容器都運行在自己的隔離環境中，但它共享宿主操作系統的內核，因此容器比虛擬機更輕量。容器啟動和停止速度極快，資源占用小，是應用程序的便攜運行單位。</font></li>
+<li><font size='3'>映像（Image）：映像是容器的靜態模板，包含了應用程序及其所需的所有依賴項。映像是只讀的，從一個映像可以創建多個容器。映像由多層文件系統構成，每一層代表 Dockerfile 中的一個命令執行結果，這使得映像的重用變得非常高效。</font></li>
+<li><font size='3'>Dockerfile：Dockerfile 是用來構建 Docker 映像的腳本文件，定義了應用程序的基礎環境、依賴項和啟動命令等。通過撰寫 Dockerfile，開發者可以指定如何構建應用的映像，並確保應用的可重現性。</font></li>
+</ul>
+<br>
+
+<h3 id="容器與虛擬機的區別"><a href="#容器與虛擬機的區別" class="headerlink" title="容器與虛擬機的區別"></a>容器與虛擬機的區別</h3><ul>
+<li><font size='3'>架構上的不同：</font><ul>
+<li><font size='3'>虛擬機（VM）模擬的是完整的硬體層，運行一個完整的操作系統（Guest OS），每個虛擬機都需要一個完整的操作系統來支撐應用的運行。</font></li>
+<li><font size='3'>Docker 容器則是共享宿主機的操作系統內核，僅在容器內部包含應用程序及其依賴項，這使得 Docker 容器非常輕量且啟動迅速。</font></li>
+</ul>
+</li>
+<li><font size='3'>資源利用效率：</font><ul>
+<li><font size='3'>由於虛擬機需要運行完整的操作系統，它們的啟動時間較長，資源占用大。通常，虛擬機適合需要高隔離度的多租戶場景，但不適合資源緊張的環境。</font></li>
+<li><font size='3'>Docker 容器共享主機的內核，並且只包含應用和相關依賴，無需完整的操作系統，因此更加節省資源，啟動速度也更快，通常只需要幾秒鐘。</font></li>
+</ul>
+</li>
+<li><font size='3'>應用場景的不同：</font><ul>
+<li><font size='3'>虛擬機適合運行多個操作系統或需要高安全隔離的場景，例如在雲端服務提供商中，虛擬機常用於多租戶環境。</font></li>
+<li><font size='3'>Docker 容器更適合現代化的應用程序開發、持續集成&#x2F;持續部署場景，特別是在需要快速部署、彈性擴展以及跨平台運行的環境中，Docker 容器提供了更高的靈活性。</font></li>
+</ul>
+</li>
+</ul>
+<br>
+
+<h3 id="總結"><a href="#總結" class="headerlink" title="總結"></a>總結</h3><ul>
+<li><font size='3'>Docker 通過容器化技術，解決了應用程序在不同環境中的一致性問題，並且相比傳統虛擬機，提供了更高的資源利用效率和更快的啟動速度。Docker 的核心概念包括容器、映像和 Dockerfile，這些概念構成了現代化應用開發和部署的基礎。隨著 Docker 的廣泛應用，它已經成為 DevOps 工作流中不可或缺的一部分。</font></li>
+</ul>
+<br>]]></content>
+      <tags>
+        <tag>Docker</tag>
+        <tag>Container</tag>
+        <tag>容器化</tag>
+        <tag>虛擬化</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>容器化 基礎理論 Day02 - 指令篇</title>
+    <url>/2024/09/11/Docker-Day02/</url>
+    <content><![CDATA[<h3 id="本文"><a href="#本文" class="headerlink" title="本文"></a><font size='5'>本文</font></h3><blockquote>
+<p><font size='3'>本章說明 Docker 基本指令、Dockerfile、docker-compose 檔案編寫</font></p>
+</blockquote>
+<span id="more"></span>
+
+<br>
+
+
+<h3 id="Docker-基礎指令"><a href="#Docker-基礎指令" class="headerlink" title="Docker 基礎指令"></a>Docker 基礎指令</h3><ul>
+<li>Docker 執行<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">執行 image</span></span><br><span class="line">docker run --name container-name image:tag</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">進入容器</span></span><br><span class="line">docker exec -it container-name/id bash</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">製作 image</span></span><br><span class="line">docker build --no-cache -t tag-name .   </span><br></pre></td></tr></table></figure></li>
+<li>短參數<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">-v 映射空間</span><br><span class="line"></span><br><span class="line">-p 映射 Port號</span><br><span class="line"></span><br><span class="line">-e 環境參數</span><br><span class="line"></span><br><span class="line">-it 互動模式</span><br><span class="line"></span><br><span class="line">-d 背景執行</span><br><span class="line"></span><br><span class="line">本機:容器</span><br><span class="line"></span><br></pre></td></tr></table></figure></li>
+<li>版本差異<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">yml 內的 version 可以拿掉</span> </span><br><span class="line"></span><br><span class="line">docker-compose up -d # 舊版</span><br><span class="line">docker compose up -d # 新版</span><br></pre></td></tr></table></figure></li>
+<li>指令<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">查看 <span class="built_in">log</span></span></span><br><span class="line">docker logs container/id</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">查看容器資訊</span></span><br><span class="line">docker inspect container/id</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">docker cp ./some_file CONTAINER:/work</span><br><span class="line"></span><br><span class="line">docker cp CONTAINER:/var/logs/ /tmp/app_logs</span><br><span class="line"></span><br></pre></td></tr></table></figure></li>
+</ul>
+<h3 id="常用-Image"><a href="#常用-Image" class="headerlink" title="常用 Image"></a>常用 Image</h3><ul>
+<li>phpmyadmin<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">docker run --name phpmyadmin -itd -e PMA_ARBITRARY=1 -p 8080:80 phpmyadmin:latest</span><br></pre></td></tr></table></figure></li>
+</ul>
+<br>
+
+<ul>
+<li>mysql<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">docker run --name mysql -e MYSQL_ROOT_PASSWORD=mysql -itd -p 3306:3306 mysql:latest</span><br></pre></td></tr></table></figure></li>
+</ul>
+<br>
+
+<ul>
+<li>adminer<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">docker run --name adminer -itd -p 8080:8080 adminer:latest</span><br></pre></td></tr></table></figure></li>
+</ul>
+<br>
+
+<h3 id="Dockerfile-檔案"><a href="#Dockerfile-檔案" class="headerlink" title="Dockerfile 檔案"></a>Dockerfile 檔案</h3><ul>
+<li><p><font size='3'><code>FROM</code>：基礎映像</font></p>
+</li>
+<li><p><font size='3'><code>RUN</code>：執行命令</font></p>
+</li>
+<li><p><font size='3'><code>COPY / ADD</code>：將文件添加到映像</font></p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">基於官方的 Ubuntu 映像</span></span><br><span class="line">FROM ubuntu:latest</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">將本地文件 <span class="string">&#x27;myapp&#x27;</span> 複製到容器內的 <span class="string">&#x27;/app/&#x27;</span> 目錄</span></span><br><span class="line">ADD ./myapp /app/</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">將壓縮包 <span class="string">&#x27;app.tar&#x27;</span> 解壓並放置到 <span class="string">&#x27;/app&#x27;</span> 目錄中</span></span><br><span class="line">ADD app.tar /app/</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">從指定的 URL 下載文件並放置到 <span class="string">&#x27;/app&#x27;</span> 目錄中</span></span><br><span class="line">ADD https://example.com/file.zip /app/file.zip</span><br></pre></td></tr></table></figure></li>
+<li><p><font size='3'><code>CMD</code>：設置容器啟動時執行的命令</font></p>
+</li>
+<li><p><font size='3'><code>ENTRYPOINT</code>：設置容器的入口點</font></p>
+</li>
+<li><p><font size='3'><code>WORKDIR</code>：設置工作目錄</font></p>
+</li>
+<li><p><font size='3'><code>ENV</code>：設置環境變數</font></p>
+</li>
+<li><p><font size='3'><code>EXPOSE</code>：暴露端口</font></p>
+</li>
+<li><p><font size='3'><code>VOLUME</code>：定義卷</font></p>
+</li>
+<li><p><font size='3'><code>USER</code>：設置用戶</font></p>
+</li>
+<li><p><font size='3'>Dockerfile 範例</font></p>
+</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">基於官方的 Ubuntu 映像</span></span><br><span class="line">FROM ubuntu:20.04</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">更新 apt 並安裝 Nginx</span></span><br><span class="line">RUN apt-get update &amp;&amp; apt-get install -y nginx</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">設置工作目錄</span></span><br><span class="line">WORKDIR /usr/share/nginx/html</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">複製當前目錄下的網站文件到映像內的 Nginx 網頁目錄</span></span><br><span class="line">COPY ./website /usr/share/nginx/html</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">暴露 80 端口</span></span><br><span class="line">EXPOSE 80</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">啟動 Nginx 並保持前台運行</span></span><br><span class="line">CMD [&quot;nginx&quot;, &quot;-g&quot;, &quot;daemon off;&quot;]</span><br></pre></td></tr></table></figure>
+<ul>
+<li><font size='3'><code>補充</code></font></li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">一般的 build 會有架構問題 ARM AMD64，下方指令為解（ 未嘗試 ）</span></span><br><span class="line"></span><br><span class="line">docker buildx create --use</span><br><span class="line">docker buildx build --platform linux/amd64,linux/arm64 -t myimage:latest --push .</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<br>
+
+<h3 id="Docker-Compose-檔案"><a href="#Docker-Compose-檔案" class="headerlink" title="Docker-Compose 檔案"></a>Docker-Compose 檔案</h3><ul>
+<li><font size='3'>docker-compose.yaml 範例</font></li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">version: &#x27;3.8&#x27;</span><br><span class="line"></span><br><span class="line">services:</span><br><span class="line">  db:</span><br><span class="line">    image: mysql:8.0</span><br><span class="line">    restart: always</span><br><span class="line">    container_name: mysql-db</span><br><span class="line">    ports:</span><br><span class="line">      - 3306:3306</span><br><span class="line">    environment:</span><br><span class="line">      MYSQL_DATABASE: exampledb</span><br><span class="line">      MYSQL_USER: user</span><br><span class="line">      MYSQL_PASSWORD: 123456</span><br><span class="line">      MYSQL_ROOT_PASSWORD: 123456</span><br><span class="line"></span><br><span class="line">  phpmyadmin:</span><br><span class="line">    image: phpmyadmin</span><br><span class="line">    restart: always</span><br><span class="line">    container_name: phpmyadmin-db-console</span><br><span class="line">    ports:</span><br><span class="line">      - 8080:80</span><br><span class="line">    environment:</span><br><span class="line">      - PMA_ARBITRARY=1</span><br></pre></td></tr></table></figure>
+
+<br>
+
+<h3 id="Docker-安裝"><a href="#Docker-安裝" class="headerlink" title="Docker 安裝"></a>Docker 安裝</h3><ul>
+<li><font size='3'>安裝 Docker ( EC2 - 可使用 UserData )</font></li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_">#</span><span class="language-bash">!/bin/bash</span></span><br><span class="line"></span><br><span class="line">yum update -y</span><br><span class="line"></span><br><span class="line">yum install -y docker</span><br><span class="line">systemctl start docker</span><br><span class="line">systemctl enable docker</span><br><span class="line">usermod -a -G docker ec2-user</span><br><span class="line"></span><br><span class="line">mkdir -p /home/ec2-user/.docker/cli-plugins</span><br><span class="line">curl -SL https://github.com/docker/compose/releases/download/v2.26.1/docker-compose-linux-x86_64 -o /home/ec2-user/.docker/cli-plugins/docker-compose</span><br><span class="line">chmod +x /home/ec2-user/.docker/cli-plugins/docker-compose</span><br><span class="line"></span><br><span class="line">yum install -y git</span><br></pre></td></tr></table></figure>]]></content>
+      <tags>
+        <tag>Docker</tag>
+        <tag>Container</tag>
+        <tag>容器化</tag>
+        <tag>虛擬化</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>ISO 映像檔燒錄 USB 隨身碟</title>
+    <url>/2024/07/24/ISO-to-USB/</url>
+    <content><![CDATA[<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a><font size='5'>前言</font></h3><blockquote>
+<p><font size='3'>在當今數位化的世界裡，ISO 映像檔成為了一種非常普遍的文件格式，用於分發操作系統、軟體安裝包以及其他需要保留原始文件結構的資料。ISO 映像檔的優勢在於它能夠將整個光碟的內容完整地保存下來，並且可以輕鬆地分發和複製。然而，隨著光碟驅動器的逐漸淘汰和 USB 隨身碟的普及，越來越多的人選擇將 ISO 映像檔燒錄到 USB 隨身碟上，以便更方便地安裝操作系統或運行應用程式。</font></p>
+</blockquote>
+<font size='3'>
+這篇文章將詳細介紹如何將 ISO 映像檔燒錄到 USB 隨身碟，幫助你輕鬆完成這一過程。無論你是要安裝新的操作系統、進行系統修復，還是需要創建可啟動的 USB 隨身碟，這篇指南都將提供你所需的步驟和工具。讓我們開始吧！
+</font>
+
+<span id="more"></span>
+
+<h3 id="解決方法"><a href="#解決方法" class="headerlink" title="解決方法"></a>解決方法</h3><ol>
+<li><h4 id="Rufus"><a href="#Rufus" class="headerlink" title="Rufus"></a><a href="https://rufus.ie/zh_TW/">Rufus</a></h4><p> <img data-src='rufus.png' width='300'></img></p>
+<ul>
+<li><font size='3'>步驟 1：下載安裝 Rufus</font></li>
+<li><font size='3'>步驟 2：準備 USB 隨身碟</font></li>
+<li><font size='3'>步驟 3：選擇 ISO檔來源、確認隨身碟位置（ 基本預設即可 ）</font></li>
+<li><font size='3'>步驟 4：開始燒錄等待完成</font></li>
+</ul>
+</li>
+<li><h4 id="Etcher"><a href="#Etcher" class="headerlink" title="Etcher"></a><a href="https://etcher.balena.io/">Etcher</a></h4><p> <img data-src='etcher.png' width='500'></img></p>
+<ul>
+<li><font size='3'>步驟 1：下載安裝 Etcher</font></li>
+<li><font size='3'>步驟 2：準備 USB 隨身碟</font></li>
+<li><font size='3'>步驟 3：選擇 ISO檔來源</font></li>
+<li><font size='3'>步驟 4：確認隨身碟位置</font></li>
+<li><font size='3'>步驟 5：開始燒錄等待完成</font></li>
+</ul>
+</li>
+<li><h4 id="Ventoy"><a href="#Ventoy" class="headerlink" title="Ventoy"></a><a href="https://www.ventoy.net/en/download.html">Ventoy</a></h4><p> <img data-src='ventoy.png' width='300'></img></p>
+<ul>
+<li><font size='3'>步驟 1：下載安裝 Ventoy</font></li>
+<li><font size='3'>步驟 2：準備 USB 隨身碟</font></li>
+<li><font size='3'>步驟 3：打開 Ventoy2Disk.exe</font></li>
+<li><font size='3'>步驟 4：確認隨身碟位置</font></li>
+<li><font size='3'>步驟 5：選擇 Install</font></li>
+<li><font size='3'>步驟 6：等待完成後，可直接將 ISO 直接丟到隨身碟中 （ Window 與 Linux 都可 ）</font></li>
+</ul>
+ <br>
+
+ <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line"># 解壓縮後，執行</span><br><span class="line">bash VentoyWeb.sh</span><br><span class="line"></span><br><span class="line"># 打開網頁 24680 Port，接下來與 Windows 相同操作</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+</li>
+<li><h4 id="UNetbootin"><a href="#UNetbootin" class="headerlink" title="UNetbootin"></a><a href="https://unetbootin.github.io/">UNetbootin</a></h4><p> <img data-src='UNetbootin.png' width='500'></img></p>
+<ul>
+<li><font size='3'>步驟 1：下載安裝 UNetbootin</font></li>
+<li><font size='3'>步驟 2：準備 USB 隨身碟</font></li>
+<li><font size='3'>步驟 3：可選擇版本，軟體會自動幫忙下載，也可手動</font></li>
+<li><font size='3'>步驟 4：確認隨身碟位置</font></li>
+<li><font size='3'>步驟 5：開始燒錄等待完成</font></li>
+</ul>
+</li>
+</ol>
+]]></content>
+      <categories>
+        <category>工具</category>
+      </categories>
+      <tags>
+        <tag>USB</tag>
+        <tag>ISO</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Linux 入門 Day00 - Linux 基礎理論</title>
+    <url>/2024/07/25/LinuxBasicDay00/</url>
+    <content><![CDATA[<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a><font size='5'>前言</font></h3><blockquote>
+<p><font size='3'>Linux，自誕生以來，經歷了從科研領域到廣泛應用的演變，已成為現代計算機系統的核心之一。無論是桌面環境還是伺服器環境，Linux 都以其穩定性、靈活性和安全性受到廣泛歡迎。本指南旨在帶你深入了解 Linux 系統，從歷史背景到實際操作，全面掌握這一強大系統的各個方面。</font></p>
+</blockquote>
+<p><font size='3'>以下數據皆由 AI 生成，若有問題請及時聯絡以利修正</font></p>
+<span id="more"></span>
+
+<br>
+
+<h3 id="作業系統的分類"><a href="#作業系統的分類" class="headerlink" title="作業系統的分類"></a>作業系統的分類</h3><ul>
+<li>Windows</li>
+<li>Unix</li>
+<li>BSD</li>
+<li>Linux</li>
+</ul>
+<h3 id="Linux-作業系統的比對"><a href="#Linux-作業系統的比對" class="headerlink" title="Linux 作業系統的比對"></a>Linux 作業系統的比對</h3><table>
+<thead>
+<tr>
+<th>發行版</th>
+<th>基於</th>
+<th>優點</th>
+<th>缺點</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>Ubuntu</strong></td>
+<td>Debian</td>
+<td>- 簡單、易用，適合初學者<br>- 大社群支援<br>- 提供 Server、Desktop、Core 版等多種版本<br>- 每年四月和十月推出新版本，LTS 版本每兩年推出一次<br>- LTS 版本技術支援長達 5 年</td>
+<td>- 一些高級用戶可能認為過於簡化<br>- 默認包含許多預裝軟體，對於需要輕量級系統的用戶可能不適合</td>
+</tr>
+<tr>
+<td><strong>Debian</strong></td>
+<td>N&#x2F;A</td>
+<td>- 穩定、安全<br>- 擁有非常大的軟體庫<br>- 社群活躍且支援度高<br>- 適合伺服器和桌面環境<br>- 注重自由軟體</td>
+<td>- 軟體版本更新速度較慢，不適合需要最新軟體的用戶<br>- 安裝和配置過程對於初學者可能有些複雜</td>
+</tr>
+<tr>
+<td><strong>CentOS</strong></td>
+<td>Red Hat</td>
+<td>- 社群支援的 Red Hat Enterprise Linux (RHEL) 的免費版本<br>- 穩定性高，適合伺服器環境<br>- 長期支援</td>
+<td>- 軟體版本更新速度慢<br>- Red Hat 宣布不再提供 CentOS 版本更新，改為 CentOS Stream，可能導致一些用戶轉向其他發行版</td>
+</tr>
+<tr>
+<td><strong>Fedora</strong></td>
+<td>Red Hat</td>
+<td>- 最新技術的試驗場<br>- 社群活躍，支援度高<br>- 提供 Workstation、Server 和 CoreOS 版<br>- 提供快速更新和新技術的早期體驗</td>
+<td>- 生命週期短（大約 13 個月），需要頻繁升級<br>- 穩定性可能不如其他長期支援的發行版</td>
+</tr>
+<tr>
+<td><strong>Arch Linux</strong></td>
+<td>N&#x2F;A</td>
+<td>- 滾動更新模型，始終擁有最新的軟體<br>- 高度可配置，適合進階用戶<br>- 社群活躍且有大量的文檔支援（Arch Wiki）</td>
+<td>- 安裝和配置過程對於初學者來說較為困難<br>- 滾動更新模型可能會導致系統不穩定</td>
+</tr>
+<tr>
+<td><strong>openSUSE</strong></td>
+<td>N&#x2F;A</td>
+<td>- 提供 Tumbleweed（滾動更新）和 Leap（穩定版）兩種版本<br>- Yast 工具簡化系統管理<br>- 社群支援和文檔豐富</td>
+<td>- 滾動更新模型可能會導致系統不穩定（針對 Tumbleweed）<br>- 軟體庫相對較小，與其他發行版相比某些軟體可能不夠齊全</td>
+</tr>
+<tr>
+<td><strong>Linux Mint</strong></td>
+<td>Ubuntu</td>
+<td>- 基於 Ubuntu，保持簡單易用<br>- 適合初學者和桌面用戶<br>- 預裝多種常用軟體，減少初始配置工作<br>- Cinnamon 桌面環境美觀且易用</td>
+<td>- 新技術和軟體的更新速度相對較慢<br>- 主要依賴 Ubuntu 的更新和支援</td>
+</tr>
+<tr>
+<td><strong>Manjaro</strong></td>
+<td>Arch Linux</td>
+<td>- 基於 Arch Linux，但提供更簡單的安裝和配置<br>- 滾動更新模型，但經過更多測試，穩定性較高<br>- 適合桌面和伺服器環境</td>
+<td>- 社群相對較小，某些問題的支援可能不如其他大發行版<br>- 滾動更新模型仍然有潛在的系統不穩定風險</td>
+</tr>
+<tr>
+<td><strong>Red Hat Enterprise Linux (RHEL)</strong></td>
+<td>N&#x2F;A</td>
+<td>- 高穩定性和安全性<br>- 商業技術支援<br>- 適合企業級應用和伺服器環境<br>- 長期支援</td>
+<td>- 收費模式，對於個人用戶和小企業可能成本較高<br>- 不開源，某些用戶可能更偏好開源的替代品</td>
+</tr>
+<tr>
+<td><strong>Kali Linux</strong></td>
+<td>Debian</td>
+<td>- 專為資訊安全和滲透測試設計<br>- 內建大量安全工具和軟體<br>- 社群支援和文檔豐富</td>
+<td>- 不適合作為日常桌面系統使用<br>- 需要一定的安全知識和經驗</td>
+</tr>
+</tbody></table>
+<hr>
+<h4 id="待補充"><a href="#待補充" class="headerlink" title="待補充~"></a><font size='8' align='center'>待補充~</font></h4>]]></content>
+      <categories>
+        <category>Linux</category>
+      </categories>
+      <tags>
+        <tag>Basic</tag>
+        <tag>Linux</tag>
+        <tag>Shell</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Linux 入門 Day02 - 基本文件檔案操作</title>
+    <url>/2024/07/25/LinuxBasicDay02/</url>
+    <content><![CDATA[<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a><font size='5'>前言</font></h3><blockquote>
+<p><font size='3'>在 Linux 和 Unix 系統中，掌握 Shell 指令是提高工作效率和系統管理能力的重要技能之一。Shell 提供了一個強大且靈活的命令行界面，允許使用者執行各種操作，包括文件和目錄的管理。對於初學者來說，學會如何使用 Shell 指令來操作文件和目錄是入門的第一步。<br></font></p>
+</blockquote>
+<font size='3'>
+讓我們繼續這段探索 Shell 指令的旅程，揭開命令行世界的神秘面紗！
+</font>
+
+<span id="more"></span>
+
+<br>
+
+<h3 id="文件內容輸出"><a href="#文件內容輸出" class="headerlink" title="文件內容輸出"></a>文件內容輸出</h3><ul>
+<li><code>cat</code>，將內容輸出於標準輸出 ( standard output，螢幕 )</li>
+<li><code>tac</code>，如同 cat 但為反向輸出</li>
+<li><code>nl</code>，將內容一行一行輸出於螢幕上，並標註行號</li>
+</ul>
+<br>
+
+<h3 id="文件瀏覽工具"><a href="#文件瀏覽工具" class="headerlink" title="文件瀏覽工具"></a>文件瀏覽工具</h3><ul>
+<li><code>more</code>，全螢幕瀏覽</li>
+<li><code>less</code>，全螢幕瀏覽<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">[ SPACE ] 	   : 向下翻頁	</span><br><span class="line">[ Page Down ]  : 向下翻頁		[g]	: 最前頁</span><br><span class="line">[ Page Up ]    : 向上翻頁		[G]	: 最後頁</span><br><span class="line"></span><br><span class="line">/字串           : 向下搜尋		[N]	: 上一個搜尋</span><br><span class="line">?字串           : 向上搜尋		[ n]	: 下一個搜尋</span><br><span class="line">[ q]           : 離開</span><br><span class="line"></span><br></pre></td></tr></table></figure></li>
+</ul>
+<br>
+
+<h3 id="文件內容擷取"><a href="#文件內容擷取" class="headerlink" title="文件內容擷取"></a>文件內容擷取</h3><ul>
+<li><code>head</code>，擷取檔案內容前面內容<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">head  [選項]  檔案名稱</span><br><span class="line">-c  n  前多少字元	 -c  -n 全部字元，最尾 n 字元不擷取</span><br><span class="line">-n  n  前多少行		 -n  -n 全部行數，最尾 n 行不擷取</span><br><span class="line"></span><br><span class="line">head  content.txt</span><br><span class="line">head  -n  3  content.txt</span><br><span class="line"></span><br><span class="line">head  -c  10  content.txt</span><br><span class="line">head  -c  -10  content.txt</span><br></pre></td></tr></table></figure></li>
+<li><code>tail</code>，擷取檔案內容後面內容<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">tail  [選項]  檔案名稱</span><br><span class="line">-c  n  前多少字元	 -c  +n 全部字元，最頭 n 字元不擷取</span><br><span class="line">-n  n  前多少行		 -n  +n 全部行數，最頭 n 行不擷取</span><br><span class="line"></span><br><span class="line">tail  content.txt</span><br><span class="line">tail  -n  3  content.txt</span><br><span class="line"></span><br><span class="line">tail  -c  10  content.txt</span><br><span class="line">tail  -c  -10  content.txt</span><br></pre></td></tr></table></figure></li>
+</ul>
+<br>
+
+<h3 id="資料排序與統計"><a href="#資料排序與統計" class="headerlink" title="資料排序與統計"></a>資料排序與統計</h3><ul>
+<li><code>sort</code>，資料排序<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">sort  [選項]  檔案名稱</span><br><span class="line">-b  忽略空白字元	-f  忽略大小寫</span><br><span class="line">-t   以 &quot;符號&quot; 做分隔	-k  n  分隔區間指定 ( 通常與 -t 合併使用 )</span><br><span class="line">-r   反向排序		-u  列出所有資料並去除重複 ( 等同 uniq -u )</span><br><span class="line">-n  以數字排序 ( 非ASCII )</span><br><span class="line"></span><br><span class="line">sort  -r  namelist.txt</span><br><span class="line">sort  -t  &quot;  &quot;  -k  2  namelist.txt</span><br><span class="line">sort  -u  namelist.txt</span><br></pre></td></tr></table></figure></li>
+<li><code>wc</code>，資料統計<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">wc  [選項]  檔案名稱</span><br><span class="line">-l  行數總計		-L  最長行數的字數</span><br><span class="line">-w  字數統計</span><br><span class="line">-m 字元統計		-c  位元組統計 ( byte，容量 )</span><br><span class="line"></span><br><span class="line">wc  -L  namelist.txt</span><br><span class="line">wc  -m  -c  namelist.txt</span><br></pre></td></tr></table></figure></li>
+</ul>
+<br>
+
+<h3 id="打包備份與解包"><a href="#打包備份與解包" class="headerlink" title="打包備份與解包"></a>打包備份與解包</h3><ul>
+<li><code>tar</code>，檔案或資料的封裝，可選擇壓縮功能<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">tar  [選項]  壓縮檔名  來源檔案或目錄  [來源檔案或目錄 n]</span><br><span class="line">-c  建立打包檔		   -v  列出詳盡過程	-f  指定打包檔名</span><br><span class="line">-j   bzip2壓縮格式 ( .bz2 )   -z  gzip壓縮格式 ( .gz )</span><br><span class="line">-t  檢視打包檔內容</span><br><span class="line">-x  解壓縮		   -C  指定解壓縮位置</span><br><span class="line"></span><br><span class="line">tar  -zcv  -f  userdata.tar.gz   /root   /home</span><br><span class="line">tar  -t  -f  userdata.tar.gz</span><br><span class="line">tar  -xv  -f  userdata.tar.gz   -C   /tmp</span><br></pre></td></tr></table></figure></li>
+</ul>
+<br>
+
+<h3 id="內容分割與合併"><a href="#內容分割與合併" class="headerlink" title="內容分割與合併"></a>內容分割與合併</h3><ul>
+<li><code>split</code>，內容分割；適用於文字檔、執行檔、壓縮檔<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">split  [選項]  來源檔案名稱  目的檔案名稱</span><br><span class="line"></span><br><span class="line">-a  n  檔名後綴多少字元	     -d  使用數字後綴 ( 預設為英文 )</span><br><span class="line">-b  n  大小分割  K,M,G,T… ( powers of 1024 ) / KB,MB,GB… ( powers of 1000 ) 	</span><br><span class="line">-l  n  行數分割</span><br><span class="line"></span><br><span class="line">split  -l  5  content.txt  content.txt.split</span><br><span class="line">split  -d  -b  1M  GMJLive.mp3  GMJLive.mp3.split</span><br><span class="line">ls  GMJLive.mp3.split*</span><br></pre></td></tr></table></figure></li>
+<li><code>cat</code>，內容合併；適用於文字檔、執行檔、壓縮檔<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">cat  來源檔案名稱1  [來源檔案名稱n]  &gt;  目的檔案名稱</span><br><span class="line"></span><br><span class="line">cat  content.txt.splitaa  content.txt.splitab   \</span><br><span class="line">content.txt.splitac   &gt;   content.merge</span><br><span class="line"></span><br><span class="line">cat  GMJLive.mp3.split*  &gt;  GMJLive.mp3.merge</span><br></pre></td></tr></table></figure></li>
+</ul>
+<br>
+
+<h3 id="輸出轉向"><a href="#輸出轉向" class="headerlink" title="輸出轉向"></a>輸出轉向</h3><ul>
+<li><code>&gt;</code> 輸出轉向<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">cat  ~/.bashrc  &gt;  .bashrc.backup</span><br><span class="line">cat  .bashrc.backup</span><br></pre></td></tr></table></figure></li>
+<li><code>&gt;&gt;</code> 輸出附加轉向<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">date  &gt;&gt;  dateLogs.txt</span><br></pre></td></tr></table></figure></li>
+<li><code>2&gt;</code> 錯誤輸出轉向<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">cd  /cat  2&gt;  errorLog.txt</span><br></pre></td></tr></table></figure>
+<br></li>
+</ul>
+<h3 id="輸入轉向"><a href="#輸入轉向" class="headerlink" title="輸入轉向"></a>輸入轉向</h3><ul>
+<li><code>&lt;</code> 輸入轉向<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">head  -n  3  &lt;  namelist.txt</span><br></pre></td></tr></table></figure></li>
+<li><code>&lt;&lt;</code> 輸入附加轉向<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">cat  &gt;  stdIO.txt  &lt;&lt;  &quot;END&quot;</span><br><span class="line"><span class="meta prompt_">&gt; </span><span class="language-bash">HAHA!</span> </span><br><span class="line"><span class="meta prompt_">&gt;</span><span class="language-bash"></span></span><br><span class="line"><span class="language-bash">&gt; This  is  not  the  use  of  vi/vim.</span></span><br><span class="line"><span class="meta prompt_">&gt;</span><span class="language-bash"></span></span><br><span class="line"><span class="language-bash">&gt; END</span></span><br></pre></td></tr></table></figure></li>
+<li><code>2&gt;&gt;</code> 錯誤輸出附加轉向<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">date  -qq  2&gt;&gt;  errorLogs.txt</span><br><span class="line">date  -ww  2&gt;&gt;  errorLogs.txt</span><br></pre></td></tr></table></figure></li>
+</ul>
+<br>
+
+<h3 id="全部轉向"><a href="#全部轉向" class="headerlink" title="全部轉向"></a>全部轉向</h3><ul>
+<li><code>&amp;&gt;</code>  輸出與錯誤輸出轉向<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">head  -n  1  /etc/host  /etc/hosts   &amp;&gt;  allTurn.txt</span><br></pre></td></tr></table></figure></li>
+<li><code>&amp;&gt;&gt;</code> 輸出與錯誤輸出附加轉向<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">head  -n  1  ~/.bashrc   ~/.bash   &amp;&gt;&gt;  allTurns.txt</span><br><span class="line">ls  /unix   /linux   &amp;&gt;&gt;  allTurns.txt</span><br></pre></td></tr></table></figure></li>
+</ul>
+<br>
+
+<h3 id="管線"><a href="#管線" class="headerlink" title="管線"></a>管線</h3><ul>
+<li><code>grep</code>，列出符合指定關鍵字的行數<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">grep  [選項]  關鍵字  檔案名稱</span><br><span class="line">-i  忽略大小寫		-w  完整符合 ( 以字為單位 )</span><br><span class="line">-c  符合關鍵字的數量     -n  輸出行數加上行號 ( 等同 nl、cat -n 效果 )</span><br><span class="line">-v  相反輸出 ( 輸出不符合關鍵字資料 )</span><br><span class="line"></span><br><span class="line">grep  &quot;Peter  Parker&quot;  namelist.txt</span><br><span class="line">grep  -in  b  namelist.txt</span><br><span class="line">cat  namelist.txt  |  grep  -iw  wanda</span><br><span class="line">cat  namelist.txt  |  grep  -ic  loki</span><br></pre></td></tr></table></figure></li>
+<li><code>uniq</code>，統計已排序資料之獨特性 ( 以行為處理單位，比較鄰近行 )<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">uniq  [選項]  檔案名稱        </span><br><span class="line">-c   標出每個資料的統計</span><br><span class="line">-d  只列出有重複的資料</span><br><span class="line">-u  只列出沒有重復的資料</span><br><span class="line"></span><br><span class="line">uniq  namelist.txt</span><br><span class="line">sort  namelist.txt  |  uniq  -c</span><br><span class="line">sort  namelist.txt  |  uniq  -d</span><br><span class="line">sort  namelist.txt  |  uniq  -dc</span><br></pre></td></tr></table></figure></li>
+</ul>
+]]></content>
+      <categories>
+        <category>Linux</category>
+      </categories>
+      <tags>
+        <tag>Basic</tag>
+        <tag>Linux</tag>
+        <tag>Shell</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Linux 入門 Day01 - 基本檔案、目錄操作指令</title>
+    <url>/2024/07/25/LinuxBasicDay01/</url>
+    <content><![CDATA[<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a><font size='5'>前言</font></h3><blockquote>
+<p><font size='3'>在現代的計算機操作中，命令行界面（Command Line Interface，簡稱 CLI）依然扮演著不可或缺的角色。無論是系統管理員、開發者，還是一般使用者，都能從中受益，提升工作效率。Shell 是一種命令行解釋器，它提供了與操作系統進行交互的強大工具。學習和掌握 Shell 指令，不僅能讓你更有效地管理系統資源，還能自動化重複性任務，簡化工作流程。</font></p>
+</blockquote>
+<font size='3'>
+讓我們開始這段探索 Shell 指令的旅程，揭開命令行世界的神秘面紗，並充分利用這一強大的工具來提升你的生產力和技能！
+</font>
+
+<span id="more"></span>
+
+<br>
+
+<h3 id="系統登錄"><a href="#系統登錄" class="headerlink" title="系統登錄"></a>系統登錄</h3><ul>
+<li>登出<ul>
+<li><code>exit</code></li>
+<li><code>logout</code></li>
+<li>快速鍵： [ Ctrl ] + [ D ]</li>
+</ul>
+</li>
+<li>關機<ul>
+<li><code>poweroff</code></li>
+<li><code>halt  --poweroff</code></li>
+<li><code>shutdown  -h  0</code></li>
+<li><code>shutdown  -h  now</code></li>
+</ul>
+</li>
+<li>重開機<ul>
+<li><code>reboot</code></li>
+<li><code>halt  --reboot</code></li>
+<li><code>shutdown  -r  0</code></li>
+</ul>
+</li>
+</ul>
+<br>
+
+<h3 id="基礎指令"><a href="#基礎指令" class="headerlink" title="基礎指令"></a>基礎指令</h3><ul>
+<li><code>cal</code>，列印日曆</li>
+<li><code>echo</code>，回覆列印</li>
+<li><code>date</code>，時間相關<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">date  +%x</span><br><span class="line">date  &quot;+%A,%B %u,%Y&quot;</span><br></pre></td></tr></table></figure></li>
+<li><code>reset</code>、<code>tset</code>，重設螢幕 </li>
+<li><code>clear</code>，清除螢幕、快速鍵： [ Ctrl ] + [ l ]</li>
+<li><code>pwd</code>，查詢所在目錄位置</li>
+<li><code>touch</code>，建立檔案</li>
+<li><code>mkdir</code>，建立目錄</li>
+<li><code>cp</code>，複製檔案</li>
+<li><code>cd</code>，切換目錄</li>
+<li><code>mv</code>，搬移檔案、改名檔案</li>
+<li><code>rm</code>，刪除檔案</li>
+<li><code>rmdir</code>，刪除目錄，只能刪除空目錄 （ -p ）</li>
+<li><code>ls</code>，列出檔案或目錄<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">-a     列出隱藏目錄或檔案	        -d    列出目錄</span><br><span class="line">-l     條列式顯示 ( 含細節 )</span><br><span class="line">-F     檔案類型</span><br><span class="line">-u     排序：存取時間 ( Access )   -t     排序：異動時間 ( Modify )</span><br><span class="line">-S     排序：檔案大小              -r     排序：反向排序</span><br><span class="line"></span><br><span class="line">ls  -lh  /etc</span><br></pre></td></tr></table></figure></li>
+</ul>
+<br>
+
+<h3 id="常用的查詢"><a href="#常用的查詢" class="headerlink" title="常用的查詢"></a>常用的查詢</h3><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">[ SPACE ] 	  : 向下翻頁	    [ Page Down ]   : 向下翻頁</span><br><span class="line">[ TAB ]       : 下一個節點</span><br><span class="line">[ Page Up ]   : 向上翻頁		[ ENTER ]       : 進入節點</span><br><span class="line">[ U ]	      : 上一層章節</span><br><span class="line">[ q ]         : 離開		    </span><br><span class="line">[ N ]	      : 下一個章節     </span><br><span class="line">[ P ]         : 前一個章節</span><br><span class="line">[ / ]         : 向下搜尋</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p><code>help</code></p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">cal  --help</span><br><span class="line">date  --help</span><br><span class="line">date  --help  |  less</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><code>man</code></p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">/usr/share/man/</span><br><span class="line">1  一般指令</span><br><span class="line">2  系統呼叫</span><br><span class="line">3  函式呼叫</span><br><span class="line">4  特殊檔案</span><br><span class="line">5  檔案格式</span><br><span class="line">6  遊戲相關</span><br><span class="line">7  其他說明文件</span><br><span class="line">8  系統管理員指令</span><br><span class="line">9  核心相關</span><br><span class="line"></span><br><span class="line">man  cal</span><br><span class="line">man  5  passwd</span><br><span class="line"></span><br></pre></td></tr></table></figure></li>
+<li><p><code>info</code></p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">info  echo</span><br><span class="line">info  date</span><br><span class="line">info  -a  cat</span><br></pre></td></tr></table></figure></li>
+</ul>
+<br>
+
+<h3 id="搜尋檔案"><a href="#搜尋檔案" class="headerlink" title="搜尋檔案"></a>搜尋檔案</h3><ul>
+<li><code>which</code>，搜尋系統路徑 ( PATH )<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">僅列執行檔，且須寫完整檔名</span></span><br><span class="line"></span><br><span class="line">-a  列出 PATH 中所有符合的執行檔</span><br><span class="line"></span><br><span class="line">which  rm</span><br><span class="line">which  -a  ip</span><br></pre></td></tr></table></figure></li>
+<li><code>whereis</code>，搜尋特定路徑 ( &#x2F;bin&#x2F;、&#x2F;sbin&#x2F;、&#x2F;usr&#x2F;bin&#x2F;、&#x2F;usr&#x2F;sbin&#x2F;… )<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">須寫完整名稱</span></span><br><span class="line"></span><br><span class="line">-b  執行檔        </span><br><span class="line">-m  找 man 或 info檔        </span><br><span class="line">-s  僅找source檔</span><br><span class="line"></span><br><span class="line">whereis  date</span><br><span class="line">whereis  -b  find</span><br><span class="line">whereis  -m  find</span><br></pre></td></tr></table></figure></li>
+<li><code>locate</code>，搜尋資料庫，可模糊搜尋 (  關鍵字 )<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">有變動時，需更新資料庫</span></span><br><span class="line"></span><br><span class="line">Ubuntu 20.4 起未裝 # mlocate、plocate</span><br><span class="line">updatedb，建立本機檔案資料庫 ( /var/lib/mlocate/mlocate.db )</span><br><span class="line"></span><br><span class="line">-i  忽略大小寫		 </span><br><span class="line">-c 計算總共有幾個</span><br><span class="line">-S 計算資料庫檔案與目錄數量</span><br><span class="line"></span><br><span class="line">locate  -c   kernel</span><br><span class="line">locate  -S</span><br><span class="line"></span><br><span class="line">updatedb</span><br></pre></td></tr></table></figure></li>
+<li><code>find</code>，搜尋特定位置、狀態的檔案<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">-amin  n	 -name  PATTERN</span><br><span class="line">-cmin  n	 -type  [bdfl]</span><br><span class="line">-empty		 -size  n[cwbkMG]</span><br><span class="line"></span><br><span class="line">find  .bash*</span><br><span class="line">find  /  -name  mv</span><br></pre></td></tr></table></figure></li>
+</ul>
+<br>
+
+<h3 id="系統目錄與架構"><a href="#系統目錄與架構" class="headerlink" title="系統目錄與架構"></a>系統目錄與架構</h3><table>
+<thead>
+<tr>
+<th>目錄</th>
+<th>功能描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>/</code></td>
+<td>根目錄，所有文件和目錄的起點。</td>
+</tr>
+<tr>
+<td><code>/bin</code></td>
+<td>基本二進位執行檔，包含系統啟動和單人模式下使用的基本指令，例如 <code>ls</code>、<code>cp</code>、<code>mv</code>。</td>
+</tr>
+<tr>
+<td><code>/boot</code></td>
+<td>启动相關文件，包括內核映像和啟動加載器配置文件。</td>
+</tr>
+<tr>
+<td><code>/dev</code></td>
+<td>設備文件，包含系統中所有硬體設備的接口，如硬碟、鍵盤、終端等。例如：<code>/dev/sda1</code>（第一個硬碟的第一個分區）。</td>
+</tr>
+<tr>
+<td><code>/etc</code></td>
+<td>系統配置文件，包含各種服務和應用程序的配置文件，例如網絡設置、用戶帳號信息等。</td>
+</tr>
+<tr>
+<td><code>/home</code></td>
+<td>用戶主目錄，包含所有普通用戶的個人文件和設置。例如：<code>/home/user</code> 是用戶 <code>user</code> 的主目錄。</td>
+</tr>
+<tr>
+<td><code>/lib</code></td>
+<td>系統庫文件，包含系統啟動和基本命令所需的共享庫。</td>
+</tr>
+<tr>
+<td><code>/media</code></td>
+<td>可移動媒體掛載點，如 CD&#x2F;DVD、USB 設備。通常系統會自動在此處掛載移動存儲設備。</td>
+</tr>
+<tr>
+<td><code>/mnt</code></td>
+<td>暫時掛載文件系統的掛載點，用於手動掛載的文件系統。</td>
+</tr>
+<tr>
+<td><code>/opt</code></td>
+<td>可選軟體包，通常用於安裝附加軟件或第三方軟件包。</td>
+</tr>
+<tr>
+<td><code>/proc</code></td>
+<td>虚拟文件系统，提供系統進程和系統信息的接口。文件內容由系統動態生成，例如：<code>/proc/cpuinfo</code> 提供 CPU 信息。</td>
+</tr>
+<tr>
+<td><code>/root</code></td>
+<td>超級使用者（root）的主目錄。</td>
+</tr>
+<tr>
+<td><code>/run</code></td>
+<td>進程相關信息的運行時數據，通常在系統啟動後動態創建並在系統重啟後清空。</td>
+</tr>
+<tr>
+<td><code>/sbin</code></td>
+<td>系統二進位文件，包含系統管理和維護所需的命令，如 <code>fdisk</code>、<code>ifconfig</code>。</td>
+</tr>
+<tr>
+<td><code>/srv</code></td>
+<td>服務數據，包含系統啟動後提供的各種服務相關的數據，如網站數據。</td>
+</tr>
+<tr>
+<td><code>/sys</code></td>
+<td>系統文件，提供系統硬件信息和系統設置的接口。</td>
+</tr>
+<tr>
+<td><code>/tmp</code></td>
+<td>臨時文件，系統和應用程序在運行時產生的臨時文件。該目錄中的文件通常會在系統重啟時刪除。</td>
+</tr>
+<tr>
+<td><code>/usr</code></td>
+<td>用戶相關的應用程序和文件，包含二進位文件、庫文件、文檔等。類似於 <code>/bin</code> 和 <code>/lib</code> 但主要用于存放第三方軟件和系統應用程序。</td>
+</tr>
+<tr>
+<td><code>/var</code></td>
+<td>可變數據文件，包含系統運行時產生的數據，如日誌文件、郵件存儲、臨時文件和鎖文件。</td>
+</tr>
+<tr>
+<td><code>/lost+found</code></td>
+<td>遺失檔案存放區</td>
+</tr>
+</tbody></table>
+<br>
+
+<h3 id="萬用字元"><a href="#萬用字元" class="headerlink" title="萬用字元"></a>萬用字元</h3><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">* # 任意字元、任意長度</span><br><span class="line"></span><br><span class="line">ls  /bin/z*</span><br><span class="line">ls  /bin/*a*</span><br><span class="line"></span><br><span class="line">? # 任意字元、指定長度</span><br><span class="line"></span><br><span class="line">ls  /bin/??</span><br><span class="line">ls  /bin/?a??</span><br></pre></td></tr></table></figure>]]></content>
+      <categories>
+        <category>Linux</category>
+      </categories>
+      <tags>
+        <tag>Basic</tag>
+        <tag>Linux</tag>
+        <tag>Shell</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Linux 入門 Day03 - 文字編輯器 &amp; 網路管理</title>
+    <url>/2024/07/25/LinuxBasicDay03/</url>
+    <content><![CDATA[<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a><font size='5'>前言</font></h3><blockquote>
+<p><font size='3'>在現代的計算環境中，網路管理對於 Linux 系統的操作和維護至關重要。無論是個人使用的桌面系統還是企業級的伺服器環境，穩定且高效的網路連接都是確保系統正常運行的關鍵。Linux 以其強大的網路功能和靈活的配置選項，在各種網路環境中廣泛應用。</font></p>
+</blockquote>
+<font size='3'>
+接下來的內容將深入探討 Linux 網路管理的各個方面，並介紹具體的工具和技術。
+</font>
+
+<span id="more"></span>
+
+<br>
+
+<h3 id="常見的文字編輯器"><a href="#常見的文字編輯器" class="headerlink" title="常見的文字編輯器"></a>常見的文字編輯器</h3><ul>
+<li><a href="https://www.gnu.org/software/emacs">emacs ( GNU Emacs )</a></li>
+<li><a href="https://www.nano-editor.org/">nano ( GNU nano )</a></li>
+<li><a href="https://joe-editor.sourceforge.io/">joe ( Joe’s Own Editor )</a></li>
+<li><a href="https://www.vim.org/">Vim ( Vi IMproved )</a></li>
+</ul>
+<br>
+
+<h4 id="Vim-的常用設定"><a href="#Vim-的常用設定" class="headerlink" title="Vim 的常用設定"></a>Vim 的常用設定</h4><ul>
+<li>於編輯器中 命令模式 ( command mode ) 設定</li>
+<li>於個人家目錄建立 <code>.vimrc</code> 與內容設定 <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">vim  .vimrc</span><br><span class="line">set  nu</span><br><span class="line">set  ts=4</span><br><span class="line">set  hls</span><br></pre></td></tr></table></figure></li>
+<li>常用的輔助設定<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">:set  all		查閱所有設定組態</span><br><span class="line">:set  number  	顯示行號  ( :set  nu )</span><br><span class="line">:set  nonumber	不顯示行號 ( :set  nonu )</span><br><span class="line">:set  tabstop=4	設定 TAB 跳格為 4 個字元 ( :set  ts=4 ) ( 預設為 8 個字元 )</span><br><span class="line">:set  spell		拼字檢查</span><br><span class="line">:set  nospell	不使用拼字檢查</span><br><span class="line">:set  hlsearch	搜尋高亮度顯示 ( :set  hls )</span><br><span class="line">:set  nohlsearch	不使用搜尋高亮度顯示 ( :set  nohls )</span><br><span class="line">:set  cursorline	游標行標線</span><br></pre></td></tr></table></figure></li>
+</ul>
+<br>
+
+<h3 id="文字檔案內容的比較"><a href="#文字檔案內容的比較" class="headerlink" title="文字檔案內容的比較"></a>文字檔案內容的比較</h3><ul>
+<li><code>diff</code>，兩檔案內容比較 ( 行比較 )<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">-c  上下文比較</span><br><span class="line">-u  組合合併</span><br><span class="line"></span><br><span class="line">diff  -c  doc1.a  doc1.b</span><br><span class="line">diff  -u  doc2.a  doc2.b</span><br></pre></td></tr></table></figure></li>
+<li><code>diff3</code>，三檔案內容比較 ( 行比較 )<ul>
+<li>diff3  doc1.a  doc1.b  doc1.c</li>
+</ul>
+</li>
+<li><code>vimdiff</code>，使用 vim 對兩檔案內容比較 ( 行比較 )<ul>
+<li>vimdiff  doc1.a  doc1.b</li>
+</ul>
+</li>
+<li><code>tr</code>，轉換、刪除指定字符<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">-d  刪除符合 指定1 內容</span><br><span class="line">-s   刪除符合 指定1 內容，但保留一個 （ 表示將重複出現的字符簡化為一個 ）</span><br><span class="line"></span><br><span class="line">tr  -d  12345  &lt;  doc.tr</span><br><span class="line">tr  -s  1-5  &lt;  doc.tr</span><br><span class="line">tr  -d  &#x27;\n&#x27;  &lt;  doc.tr</span><br></pre></td></tr></table></figure></li>
+<li><code>dos2unix</code>、<code>unix2dos</code>，換行字元轉換<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">dos2unix  [選項]  檔案名稱</span><br><span class="line">unix2dos  [選項]  檔案名稱</span><br><span class="line"></span><br><span class="line">-u   轉為 unix 換行字元 LF ( \n )</span><br><span class="line">-d   轉為  dos 換行字元 CRLF ( \r\n )</span><br><span class="line"></span><br><span class="line">dos2unix  FILENAME</span><br><span class="line">unix2dos –u  FILENAME</span><br></pre></td></tr></table></figure></li>
+</ul>
+<br>
+
+<h3 id="常用網路工具"><a href="#常用網路工具" class="headerlink" title="常用網路工具"></a>常用網路工具</h3><ul>
+<li><code>ping</code>，遠端主機探測、查詢<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">-c   n   指定測試次數</span><br><span class="line">-i   n   封包發送間隔	-W  n   等待回覆封包時間</span><br><span class="line"></span><br><span class="line">ping 8.8.8.8</span><br></pre></td></tr></table></figure></li>
+<li><code>tracepath</code>，網路路由探測、查詢<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">-n     不查詢節點主機名稱 (預設會查詢 )</span><br><span class="line">-m  n  指定查詢節點數上限</span><br><span class="line"></span><br><span class="line">tracepath  -n  8.8.8.8</span><br><span class="line">tracepath  -n  -m  5  8.8.8.8</span><br></pre></td></tr></table></figure></li>
+<li><code>nslookup</code>，網域正解、反解查詢</li>
+<li><code>net-tools</code>，ifconfig、route<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">ifconfig  網路介面  up/down</span></span><br><span class="line">ifconfig  ens33  up     # 網路介面啟用</span><br><span class="line">ifconfig  ens33  down   # 網路介面停用</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">ifconfig  網路介面  IP位置/網路遮罩</span></span><br><span class="line">ifconfig  ens33  192.168.1.10/24 # 設定網路介面 IP 組態</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">設定網路路由</span></span><br><span class="line">route  del  default # 刪除預設路由</span><br><span class="line">route  add  -net  192.168.1.0/24  ens33</span><br><span class="line">route  add  default  gw  192.168.1.1</span><br><span class="line">route  -n</span><br></pre></td></tr></table></figure></li>
+<li><code>iproute</code><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">網路介面組態檢視</span> </span><br><span class="line">ip  address  show ens33</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">網卡介面檢視</span> </span><br><span class="line">ip  link  show ens33</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">網路路由查詢</span></span><br><span class="line">ip  route  show 192.168.1.1</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">網路介面 啟用/停用</span></span><br><span class="line">ip  link  set  ens33  up/down</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">設定網路介面 IP 組態</span></span><br><span class="line">ip  address  add  192.168.1.10/24  dev  ens33</span><br><span class="line">ip  address  del  192.168.1.110/24  dev  ens33</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">設定網路路由</span></span><br><span class="line"></span><br><span class="line">指令： ip  route  del   網段/網路遮罩</span><br><span class="line">指令： ip  route  del   default</span><br><span class="line">指令： ip  route  del   路由IP位置</span><br><span class="line">指令： ip  route  add  網段/網路遮罩  dev  網卡編號</span><br><span class="line">指令： ip  route  add  default  via  閘道IP位置  [ dev  網卡編號 ]</span><br><span class="line">指令： ip  route  add  路由IP位置  [ dev  網卡編號 ]</span><br><span class="line"></span><br><span class="line">ip  route  del  default</span><br><span class="line">ip  route  add  default  via 192.168.1.1</span><br></pre></td></tr></table></figure></li>
+</ul>
+<br>
+
+<h3 id="DNS-組態"><a href="#DNS-組態" class="headerlink" title="DNS 組態"></a>DNS 組態</h3><ul>
+<li>&#x2F;etc&#x2F;resolve.conf<ul>
+<li>管理服務：systemd-resolve.service</li>
+</ul>
+</li>
+</ul>
+<br>
+
+<h3 id="網路管理套件"><a href="#網路管理套件" class="headerlink" title="網路管理套件"></a>網路管理套件</h3><ul>
+<li><code>dhclient</code>、<code>dhcpcd</code><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">/etc/dhcpcd.conf # 相關組態檔</span><br><span class="line">/etc/dhcp/dhclient.conf</span><br><span class="line"></span><br><span class="line">Ubuntu： /var/lib/dhcpcd/ens33.lease</span><br><span class="line"></span><br><span class="line">Ubuntu：cat  /var/lib/dhcp/dhclient.lease</span><br><span class="line">CentOS：cat  /var/lib/dhclient/dhclient.leases</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">取得IP                                -x     只刪除 dhcpcd 程序</span><br><span class="line">-4     只要求 IPv4                    -6     只要求 IPv4</span><br><span class="line">-k     釋放IP並刪除 dhcpcd</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">dhclient，啟用或停用</span></span><br><span class="line"></span><br><span class="line">dhcpcd   ens33</span><br><span class="line">dhcpcd  -k  ens33</span><br></pre></td></tr></table></figure></li>
+<li><code>NetworkManager</code><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">/etc/sysconfig/network-scripts/ifcfg-網路介面 # 相關組態檔</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">使用動態 IP</span> </span><br><span class="line">vim  /etc/sysconfig/network-scripts/ifcfg-ens33</span><br><span class="line">TYPE=&quot;Ethernet&quot;</span><br><span class="line">BOOTPROTO=&quot;dhcp&quot;</span><br><span class="line">DEVICE=&quot;ens33&quot;</span><br><span class="line">ONBOOT=&quot;yes&quot;</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">使用靜態 IP</span> </span><br><span class="line">TYPE=&quot;Ethernet&quot;</span><br><span class="line">BOOTPROTO=&quot;static&quot;</span><br><span class="line">DEVICE=&quot;ens33&quot;</span><br><span class="line">ONBOOT=&quot;yes&quot;</span><br><span class="line">IPADDR=&quot;192.168.1.20&quot;</span><br><span class="line">GATEWAY=&quot;192.168.1.1&quot;</span><br><span class="line">NETMASK=&quot;255.255.255.0&quot;</span><br><span class="line">DNS1=&quot;8.8.8.8&quot;</span><br><span class="line">DNS2=&quot;168.95.1.1&quot;</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">重啟</span></span><br><span class="line">service  NetworkManager  restart</span><br><span class="line">nmcli  networking  off</span><br><span class="line">nmcli  networking  on</span><br></pre></td></tr></table></figure></li>
+<li><code>netplan</code><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">/etc/netplan/＊.yaml # 相關組態檔</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">使用動態 IP</span> </span><br><span class="line"></span><br><span class="line">vim  /etc/netplan/＊.yaml </span><br><span class="line">network:</span><br><span class="line">    version: 2</span><br><span class="line">    renderer: networkd</span><br><span class="line">    ethernets:</span><br><span class="line">        ens33:</span><br><span class="line">            dhcp4: yes</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">使用靜態 IP</span></span><br><span class="line"></span><br><span class="line">vim  /etc/netplan/＊.yaml</span><br><span class="line">network:</span><br><span class="line">    version: 2</span><br><span class="line">    ethernets:</span><br><span class="line">        ens33:</span><br><span class="line">           dhcp4: no</span><br><span class="line">           addresses: </span><br><span class="line">           -  192.168.1.10/24</span><br><span class="line">           routes:</span><br><span class="line">           -  to:  default</span><br><span class="line">               via:  192.168.1.1</span><br><span class="line">           nameservers:</span><br><span class="line">                addresses:</span><br><span class="line">                -  8.8.8.8</span><br><span class="line">                -  168.95.1.1</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">啟動或重新套用組態</span></span><br><span class="line">netplan  apply</span><br></pre></td></tr></table></figure></li>
+</ul>
+]]></content>
+      <categories>
+        <category>Linux</category>
+      </categories>
+      <tags>
+        <tag>Basic</tag>
+        <tag>Linux</tag>
+        <tag>Shell</tag>
+        <tag>Network</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Linux 入門 Day06 - Shell Script - 1</title>
+    <url>/2024/07/29/LinuxBasicDay06/</url>
+    <content><![CDATA[<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a><font size='5'>前言</font></h3><blockquote>
+<p><font size='3'>在 Linux 系統中，條件計算和判斷式是腳本編程和系統管理中至關重要的部分。這些工具和技術允許用戶在腳本中根據不同的條件執行特定的操作，從而自動化任務和優化系統性能。理解這些基本的條件判斷和選擇判斷式的用法對於撰寫高效的 shell 腳本至關重要。</font></p>
+</blockquote>
+<font size='3'>
+這些基礎知識和技能是編寫有效的 Linux 腳本和進行系統管理的基石。掌握條件計算、判斷式、選擇判斷式和路徑分析將使您能夠在 Linux 環境中更加高效地完成各種任務。
+</font>
+
+<span id="more"></span>
+
+<br>
+
+<h3 id="條件計算"><a href="#條件計算" class="headerlink" title="條件計算"></a>條件計算</h3><ul>
+<li><code>test</code></li>
+<li>任何計算比較後都僅回覆 0 或 1</li>
+<li>也可用 [ ] 改寫</li>
+<li><h4 id="檔案操作：檔案目錄存在與屬性檢查"><a href="#檔案操作：檔案目錄存在與屬性檢查" class="headerlink" title="檔案操作：檔案目錄存在與屬性檢查"></a>檔案操作：檔案目錄存在與屬性檢查</h4>  <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">-f       檢查檔案存在(正規)</span><br><span class="line">-e       檢查檔案存在	         -r       檢查檔案讀取性</span><br><span class="line">-w       檢查檔案可寫性          </span><br><span class="line">-d       檢查目錄存在	         -x       檢查檔案執行性</span><br><span class="line"></span><br><span class="line">test  -e  /etc/passwd  </span><br><span class="line"></span><br><span class="line">-nt      檢查 檔案A 是否比 檔案B 新</span><br><span class="line">-ot      檢查 檔案A 是否比 檔案B 舊</span><br><span class="line">-ef      檢查 檔案A 是否與 檔案B 有鏈結關係</span><br><span class="line"></span><br><span class="line">test  ~/.profile  -nt  ~/.bashrc</span><br><span class="line">test  ~/.profile  -ot  ~/.bashrc</span><br><span class="line">test  /sbin/poweroff  -ef  /sbin/reboot</span><br></pre></td></tr></table></figure></li>
+<li><h4 id="字串操作：空值檢查"><a href="#字串操作：空值檢查" class="headerlink" title="字串操作：空值檢查"></a>字串操作：空值檢查</h4>  <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">-z      檢查值是否為空值    </span><br><span class="line">-n      檢查值是否非為空值</span><br><span class="line">	</span><br><span class="line">myValue=99</span><br><span class="line">test  -z  $myValue</span><br><span class="line">1</span><br><span class="line">test  -n  $myValue</span><br><span class="line">0</span><br></pre></td></tr></table></figure></li>
+<li><h4 id="字串操作：字元比較"><a href="#字串操作：字元比較" class="headerlink" title="字串操作：字元比較"></a>字串操作：字元比較</h4>  <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">!= (-ne)     # 檢查是否不相等字串     </span><br><span class="line">== (-eq)     # 檢查是否相等字串       </span><br><span class="line">&lt;            # 檢查是否小於某字串</span><br><span class="line"><span class="meta prompt_">&gt; </span><span class="language-bash">           <span class="comment"># 檢查是否大於某字串</span></span></span><br><span class="line"></span><br><span class="line">test  $myString1  ==  $myString2</span><br><span class="line">test  $myString1  \&lt;  $myString2</span><br><span class="line">test  $myString1  \&gt;  $myString2</span><br></pre></td></tr></table></figure></li>
+<li><h4 id="字串操作：數字比較"><a href="#字串操作：數字比較" class="headerlink" title="字串操作：數字比較"></a>字串操作：數字比較</h4>  <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">數字比較用英文比較為好</span></span><br><span class="line"></span><br><span class="line">!= (-ne)     # 檢查是否不相等某值 </span><br><span class="line">== (-eq)     # 檢查是否相等某值      </span><br><span class="line">&lt;  (-lt)     # 檢查是否小於某值</span><br><span class="line"><span class="meta prompt_">&gt; </span><span class="language-bash"> (-gt)     <span class="comment"># 檢查是否大於某值</span></span></span><br><span class="line">&lt;= (-le)     # 檢查是否小於等於某值</span><br><span class="line"><span class="meta prompt_">&gt;</span><span class="language-bash">= (-ge)     <span class="comment"># 檢查是否大於等於某值</span></span></span><br><span class="line"></span><br><span class="line">test  $myValue1  -eq  $myValue2</span><br><span class="line">test  $myValue1  -lt  $myValue2</span><br></pre></td></tr></table></figure>
+
+  <br></li>
+</ul>
+<h3 id="判斷式"><a href="#判斷式" class="headerlink" title="判斷式"></a>判斷式</h3><ul>
+<li><code>if</code><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">標準格式</span></span><br><span class="line">if  EXPRESSIONS</span><br><span class="line">then</span><br><span class="line">	COMMANDS</span><br><span class="line">elif EXPRESSIONS</span><br><span class="line">then</span><br><span class="line">	COMMANDS</span><br><span class="line">else</span><br><span class="line">	COMMANDS</span><br><span class="line">fi</span><br></pre></td></tr></table></figure></li>
+<li>範例<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">範例</span></span><br><span class="line">varName=&quot;&quot;</span><br><span class="line"></span><br><span class="line">echo  &quot;Please  enter  a  file  name,  directory  name(May  contain  path):  &quot;</span><br><span class="line">read  varName</span><br><span class="line"></span><br><span class="line">if  [  -e  $varName  ]</span><br><span class="line">then</span><br><span class="line">    echo  &quot;$varName  is  exists!&quot;</span><br><span class="line">else</span><br><span class="line">    echo  &quot;$varName  does  not  exist&quot;</span><br><span class="line">fi</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<br></li>
+</ul>
+<h3 id="選擇判斷式"><a href="#選擇判斷式" class="headerlink" title="選擇判斷式"></a>選擇判斷式</h3><ul>
+<li><code>case</code><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">標準格式</span></span><br><span class="line">case  WORD   in</span><br><span class="line">	PATTERN1  )</span><br><span class="line">	    COMMANDS </span><br><span class="line">	;;</span><br><span class="line">	PATTERN2  )</span><br><span class="line">		COMMANDS </span><br><span class="line">	;;</span><br><span class="line">	*  )</span><br><span class="line">		COMMANDS </span><br><span class="line">	;;</span><br><span class="line">esac</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">大小寫字母還是數字</span></span><br><span class="line">[[:upper:]]  )</span><br><span class="line">[[:lower:]]  )</span><br><span class="line">[[:digit:]]  )</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">範例</span></span><br><span class="line">varDay=`date  +%u`</span><br><span class="line"></span><br><span class="line">case  $varDay  in</span><br><span class="line">    [12345]  )</span><br><span class="line">        echo  &quot;Today  is  `date +%A`,  a  work  day.&quot;</span><br><span class="line">    ;;</span><br><span class="line">    [67]  )</span><br><span class="line">        echo  &quot;Today  is  `date +%A`,  a  holiday.&quot;</span><br><span class="line">    ;;</span><br><span class="line">esac</span><br></pre></td></tr></table></figure></li>
+</ul>
+<br>
+
+<h3 id="路徑分析"><a href="#路徑分析" class="headerlink" title="路徑分析"></a>路徑分析</h3><ul>
+<li><code>dirname</code>，將整個檔案路徑分析出路徑<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">參數</span></span><br><span class="line">-z      不輸出換行字元</span><br><span class="line"></span><br><span class="line">dirname  -z  /etc/network/interface     # /etc/networkroot</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">範例</span></span><br><span class="line">read  -p  &quot;Please  enter  a file-name  to  search:  &quot;  varFilename</span><br><span class="line"></span><br><span class="line">findit=`find  $varPath  -type  f   -name  $varFilename`</span><br><span class="line"></span><br><span class="line">echo  &quot;==  SEARCH  COMPLETE  ==&quot;</span><br><span class="line">dirname  $findit</span><br><span class="line"></span><br><span class="line">exit  0</span><br></pre></td></tr></table></figure></li>
+<li><code>basename</code></li>
+<li>將整個檔案路徑分析出檔名<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">參數</span></span><br><span class="line">-z      不輸出換行字元</span><br><span class="line"></span><br><span class="line">basename  -z  /etc/network/interface     # /etc/networkroot</span><br></pre></td></tr></table></figure></li>
+</ul>
+<br>
+
+<h3 id="除錯輔助"><a href="#除錯輔助" class="headerlink" title="除錯輔助"></a>除錯輔助</h3><ul>
+<li><code>bash</code>，指定執行為除錯模式<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">-v     執行，但顯示所讀之程式碼</span><br><span class="line">-x     執行，僅顯示所執行之程式碼</span><br><span class="line"></span><br><span class="line">bash  -x  ./debug.sh</span><br><span class="line"></span><br></pre></td></tr></table></figure></li>
+<li><code>set</code>，將目前 shell 設為除錯模式<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">-v     執行，但顯示所讀之程式碼</span><br><span class="line">-x     執行，僅顯示所執行之程式碼</span><br><span class="line"></span><br><span class="line">+v     執行，但不顯示所讀之程式碼</span><br><span class="line">+x     執行，但不顯示所執行之程式碼</span><br><span class="line"></span><br><span class="line">set  -x</span><br><span class="line">./debug.sh</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">取消</span></span><br><span class="line">set  +x</span><br></pre></td></tr></table></figure></li>
+</ul>
+<br>
+
+<h3 id="迴圈"><a href="#迴圈" class="headerlink" title="迴圈"></a>迴圈</h3><ul>
+<li><code>for</code></li>
+<li>$IFS，為空白、換行、制表 用以處理字段分割的法子，<code>IFS=$&#39; \t\n&#39;</code></li>
+<li>標準語法<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">for  NAME   in  WORD1  WORD2  WORD3…</span><br><span class="line">do</span><br><span class="line">	COMMANDS </span><br><span class="line">done</span><br></pre></td></tr></table></figure></li>
+<li>範例<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">for  x  in  Hubert  David  Albert  350  Travis  Guru</span><br><span class="line">do</span><br><span class="line">    echo  &quot;My  favorite  teacher:  $x&quot;</span><br><span class="line">done</span><br><span class="line"></span><br><span class="line">exit  0</span><br></pre></td></tr></table></figure></li>
+<li>寫法二<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">for  ((  INITIALIZATION  ;  CONDITION  ; INCREMENT or DECREMENT )) </span><br><span class="line">do</span><br><span class="line">	COMMANDS </span><br><span class="line">done</span><br></pre></td></tr></table></figure></li>
+<li>範例<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">for  ((  x=1  ;  x&lt;=100  ;  x=x+1  ))</span><br><span class="line">do</span><br><span class="line">    echo  -n  -e  &quot;$x\t&quot;</span><br><span class="line">    let  varNewline=$x%10</span><br><span class="line">    [  $varNewline  ==  &quot;0&quot;  ]   &amp;&amp;   echo  &quot;&quot;</span><br><span class="line">done</span><br><span class="line">exit  0</span><br></pre></td></tr></table></figure></li>
+</ul>
+<br>
+
+<h3 id="值的計算"><a href="#值的計算" class="headerlink" title="值的計算"></a>值的計算</h3><ul>
+<li><code>expr</code>，計算後之結果輸出於螢幕<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">expr  4  +  9  ;  echo  $?</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">13</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">0</span></span><br><span class="line"></span><br><span class="line">expr  9  \*  8  ;  echo  $?</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">0</span></span><br></pre></td></tr></table></figure></li>
+<li><code>let</code>，計算後僅回覆 EXIT Code，結果不輸出於螢幕<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">let  5432-1234  ;  echo  $?</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">0</span></span><br><span class="line"></span><br><span class="line">let  myCalc=12/4  ;  echo  $?</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">0</span></span><br><span class="line">echo  $myCalc</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">3</span></span><br></pre></td></tr></table></figure></li>
+</ul>
+<br>
+
+<h3 id="Shell的延遲"><a href="#Shell的延遲" class="headerlink" title="Shell的延遲"></a>Shell的延遲</h3><ul>
+<li><code>sleep</code>，將目前 shell 設暫停一段時間<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">Xs    延遲 X 秒 (default)</span><br><span class="line">Xm   延遲 X 分</span><br><span class="line">Xh    延遲 X 小時</span><br><span class="line">XD    延遲 X 天</span><br><span class="line"></span><br><span class="line">sleep  5s  ;  echo  &quot;Time&#x27;s  up.&quot;</span><br></pre></td></tr></table></figure></li>
+</ul>
+<p><br><br></p>
+<h3 id="題目"><a href="#題目" class="headerlink" title="題目"></a>題目</h3><ul>
+<li>請寫一條有 3 段以上的 test 計算式，並說明之。</li>
+<li>限以 read 輸入指令，test 辦別是否有輸入指令，然後執行，執行結果輸出於螢幕上，錯誤訊息則不出現，並將指令紀錄於 commRecoder.txt (累加)。</li>
+<li>限以 read 與 test 設計一個程式讓使用者輸入一個檔名或目錄 (均可含路徑) 後，判斷是否存在，並列判別是否有 RWX 屬性，並列出相關訊息。</li>
+<li>限以 read 與 test 設計一個程式執行任意三個指令或指令串執，每個指令實行時都要有提示聲響，執行結果都要輸出於螢幕上，如有錯誤要告知使用者，但不可輸出錯誤訊息於螢幕上。</li>
+<li>請說明 test 的 [  ]  與 [[  ]] 並舉例。</li>
+<li>使用 if 與 read 設計一個程式，讓使用者輸入一檔名或目錄，判別當下使用者是否有權使用。</li>
+<li>以 read 與 if 寫一個密碼設定程式，密碼輸入兩次相同，顯示設定完成；兩次不同，顯示密碼無法設定 (密碼應不顯示於螢幕上，提示: read 有此功能)。</li>
+<li>請設計一個目錄檢查程式，使用者輸入一個目錄後，辨識目錄內哪個是檔案(不需辨識連結檔或設備檔…)、目錄 (不需辨識到子目錄內)，需使用 read, if, for, test。</li>
+<li>限用 read, case, if, let 設計對話式面積計算程式，可計算四角面積、圓面積、正三角面積。</li>
+<li>以 echo, read, case 來設計一個選單程式。</li>
+<li>請以 for 寫印出一個九九成法表。</li>
+<li>請以 for 列印出如下格式。  <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">　　　　＊＊＊＊＊＊＊＊</span><br><span class="line">　　　　＊＊＊＊＊＊＊</span><br><span class="line">　　　　＊＊＊＊＊＊</span><br><span class="line">　　　　＊＊＊＊＊</span><br><span class="line">　　　　＊＊＊＊</span><br><span class="line">　　　　＊＊＊</span><br><span class="line">　　　　＊＊</span><br><span class="line">　　　　＊ </span><br></pre></td></tr></table></figure></li>
+<li>請以 for 列印出如下格式。  <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">　　　　　　　　　　　＊</span><br><span class="line">　　　　　　　　　　＊＊</span><br><span class="line">　　　　　　　　　＊＊＊</span><br><span class="line">　　　　　　　　＊＊＊＊</span><br><span class="line">　　　　　　　＊＊＊＊＊</span><br><span class="line">　　　　　　＊＊＊＊＊＊</span><br><span class="line">　　　　　＊＊＊＊＊＊＊</span><br><span class="line">　　　　＊＊＊＊＊＊＊＊</span><br></pre></td></tr></table></figure></li>
+<li>請以 for 列印出如下格式。  <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">　　　　＊＊＊＊＊＊＊＊</span><br><span class="line">　　　　＊　　　　　　＊</span><br><span class="line">　　　　＊　　　　　　＊</span><br><span class="line">　　　　＊　　　　　　＊</span><br><span class="line">　　　　＊　　　　　　＊</span><br><span class="line">　　　　＊　　　　　　＊</span><br><span class="line">　　　　＊　　　　　　＊</span><br><span class="line">　　　　＊＊＊＊＊＊＊＊ </span><br></pre></td></tr></table></figure></li>
+<li>請以 for 列印出如下格式。  <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">　　　　＊＊＊＊＊＊＊＊</span><br><span class="line">　　　　　＊＊＊＊＊＊</span><br><span class="line">　　　　　　＊＊＊＊＊＊</span><br><span class="line">　　　　　　　＊＊</span><br><span class="line">　　　　　　＊＊＊＊</span><br><span class="line">　　　　　＊＊＊＊＊＊</span><br><span class="line">　　　　＊＊＊＊＊＊＊＊</span><br></pre></td></tr></table></figure></li>
+<li>請以 for 列印出如下格式。  <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">　　　　　　　＊</span><br><span class="line">　　　　　　＊＊＊</span><br><span class="line">　　　　　＊＊＊＊＊</span><br><span class="line">　　　　＊＊＊＊＊＊＊</span><br><span class="line">　　　　　＊＊＊＊＊</span><br><span class="line">　　　　　　＊＊＊</span><br><span class="line">　　　　　　　＊</span><br></pre></td></tr></table></figure></li>
+<li>限用 case、read 設計星座查詢程式 ( 輸入出生生日查詢所屬星座 )。</li>
+<li>限用 case、read 設計生肖查詢程式 ( 輸入出生年份查詢所屬生肖 )。</li>
+<li>請說明並舉例 bc 的用法。</li>
+<li>請說明並舉例 wait 的用法。</li>
+</ul>
+]]></content>
+      <tags>
+        <tag>Linux</tag>
+        <tag>Shell</tag>
+        <tag>Script</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Linux 入門 Day07 - Shell Script - 2</title>
+    <url>/2024/07/29/LinuxBasicDay07/</url>
+    <content><![CDATA[<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a><font size='5'>前言</font></h3><blockquote>
+<p><font size='3'>在 Linux 的 Shell 編程中，變數處理、參數傳遞和陣列變數的使用是撰寫高效且靈活腳本的關鍵技能。這些概念不僅幫助自動化日常任務，還提升了腳本的可維護性和可讀性。理解如何操作和管理 Shell 中的變數以及參數傳遞的細節對於有效地進行腳本編程至關重要。</font></p>
+</blockquote>
+<font size='3'>
+通過這些基本概念的深入理解和應用，您將能夠撰寫更強大、可維護性更高的腳本。
+</font>
+
+<span id="more"></span>
+
+
+<br>
+
+<h3 id="變數的計數：計算字數"><a href="#變數的計數：計算字數" class="headerlink" title="變數的計數：計算字數"></a>變數的計數：計算字數</h3><ul>
+<li><code>$&#123;#VARIABLE&#125;</code>，計算變數內容字數</li>
+<li><code>echo $&#123;#varString&#125;</code></li>
+</ul>
+<br>
+
+<h3 id="變數的刪除與替換：替換、刪除"><a href="#變數的刪除與替換：替換、刪除" class="headerlink" title="變數的刪除與替換：替換、刪除"></a>變數的刪除與替換：替換、刪除</h3><ul>
+<li><code>/.../ </code>，從左替換到最近的關鍵字</li>
+<li><code>//.../</code>，從左替換到最遠的關鍵字</li>
+<li><code>#*…</code>，從左刪除到最近的關鍵字</li>
+<li><code>##*…</code>，從左刪除到最遠的關鍵字</li>
+<li><code>%…*</code>，從右刪除到最近的關鍵字</li>
+<li><code>%%…*</code>，從右刪除到最遠的關鍵字</li>
+<li><code>:</code>，從第X個字取到最後</li>
+<li><code> : … :</code>，從第X個字取到最後<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">varSyslog=&quot;/var/log/syslog&quot;</span><br><span class="line"></span><br><span class="line">echo  $&#123;varSyslog/log/LOG&#125;      # /var/LOG/syslog</span><br><span class="line">echo  $&#123;varSyslog//log/LOG&#125;     # /var/LOG/sysLOG</span><br><span class="line"></span><br><span class="line">echo  $&#123;varSyslog#*lo&#125;          # g/syslog</span><br><span class="line">echo  $&#123;varSyslog##*lo&#125;         # g</span><br><span class="line"></span><br><span class="line">echo  $&#123;varSyslog%lo*&#125;          # /var/log/sys</span><br><span class="line">echo  $&#123;varSyslog%%lo*&#125;         # /var/</span><br><span class="line"></span><br><span class="line">echo  $&#123;varSyslog:4&#125;            # /log/syslog</span><br><span class="line">echo  $&#123;varSyslog:5:3&#125;          # log</span><br><span class="line"></span><br></pre></td></tr></table></figure></li>
+</ul>
+<br>
+
+<h3 id="陣列變數-array"><a href="#陣列變數-array" class="headerlink" title="陣列變數 ( array )"></a>陣列變數 ( array )</h3><ul>
+<li>將同性質的資料存在同一個變數中</li>
+<li>建立<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">declare  -a  arrayName # 1</span><br><span class="line">declare  -a  arrayName=(Iris  Jean &quot;Kara  Zor-El&quot;)  # 2</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">3</span></span><br><span class="line">arrayName=&quot;Iris&quot;</span><br><span class="line">arrayName[1]=Jean</span><br><span class="line">arrayName[2]=&quot;Kara  Zor-El&quot;</span><br><span class="line"></span><br><span class="line">arrayName=(Iris  Jean &quot;Kara  Zor-El&quot;) # 4</span><br></pre></td></tr></table></figure></li>
+<li>取值<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">echo  $&#123;arrayName[2]&#125;</span><br><span class="line">echo  $&#123;arrayName[@]&#125;</span><br><span class="line">echo  $&#123;arrayName[*]&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure></li>
+</ul>
+<br>
+
+<h3 id="Shell的呼叫"><a href="#Shell的呼叫" class="headerlink" title="Shell的呼叫"></a>Shell的呼叫</h3><ul>
+<li>於 script 中呼叫 (執行) script</li>
+<li>參數傳遞的方式：指令列 → script<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">./demo.sh  18  a1  /etc/passwd  -a</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_">$</span><span class="language-bash">0, <span class="variable">$1</span>, <span class="variable">$2</span>, <span class="variable">$3</span>, <span class="variable">$4</span>, <span class="variable">$5</span>, <span class="variable">$6</span>, <span class="variable">$7</span>, <span class="variable">$8</span>, <span class="variable">$9</span></span></span><br></pre></td></tr></table></figure></li>
+<li><code>:-</code>， ${myName:-Visitors} 無值時 Visitors 為預設</li>
+<li><code>@</code>，$@  &#x3D;&gt;  $1  $2  $3  $4  $5…，依次</li>
+<li><code>*</code>，$@  &#x3D;&gt;  $1  $2  $3  $4  $5…，一次性</li>
+<li><code>＃</code>，列出所有參數數量，等同 len<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">if [ $# -eq 2 ] # 常見寫法，判斷參數是否為兩個</span><br></pre></td></tr></table></figure></li>
+</ul>
+<p><br><br></p>
+<h3 id="題目"><a href="#題目" class="headerlink" title="題目"></a>題目</h3><ul>
+<li>舉三個例子使用 &#x2F; 或 &#x2F;&#x2F; 於系統中的應用，並說明之。</li>
+<li>舉三個例子使用 #* 或 ##* 於系統中的應用，並說明之。</li>
+<li>舉三個例子使用 %* 或 %%* 於系統中的應用，並說明之。</li>
+<li>使用變數的檢查替換搭配陣列，設計一個通訊錄紀錄程式 ( 提示：輸出附加轉向 )。</li>
+<li>尋找系統中使用陣列的地方，並說明其內容或用途。</li>
+<li>說明什麼是關聯式陣列 (Associative arrays)，舉例並說明之。</li>
+<li>使用 shell 的呼叫並傳遞身高、體重參數計算身體質量指數 ( BMI ) 評估程式。</li>
+<li>使用 shell 的呼叫並傳遞參數設計男、女鞋碼對照程式 ( JP、US、UK、TW、KR、CN )。</li>
+<li>使用 shell 的呼叫並傳遞參數設計平方公尺與坪的雙向面積轉換程式。</li>
+<li>使用 shell 的呼叫並傳遞參數設計一個車貸計算程式 ( 貸款金額、利率、還款期數或年數、償還方式，列印出每月應付之本金與利息 )。</li>
+<li>使用 CLI 參數傳遞的方式設計一個房貸計算程式 ( 貸款金額、利率、還款期數或年數、償還方式，列印出每月應付之本金與利息 ) 。</li>
+<li>修改陣列變數範例 arrayTranscript.sh 增加有詢問科目數量的功能。</li>
+<li>修改兩數相加範例 paraScript.sh，增加確定為數字才可以加總運算的功能 。</li>
+</ul>
+]]></content>
+      <tags>
+        <tag>Linux</tag>
+        <tag>Shell</tag>
+        <tag>Script</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Linux 入門 Day08 - Shell Script - 3</title>
+    <url>/2024/07/30/LinuxBasicDay08/</url>
+    <content><![CDATA[<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a><font size='5'>前言</font></h3><blockquote>
+<p><font size='3'>在 Linux 系統管理和自動化腳本中，掌握迴圈、控制流、函式以及網路指令是必不可少的技能。這些基礎概念和命令可以幫助我們更高效地完成日常任務和處理複雜的系統操作。</font></p>
+</blockquote>
+<font size='3'>
+在本文中，我們將深入探討這些主題，了解如何在 Shell 腳本中有效地使用迴圈和控制結構，定義和調用函式，以及運用常用網路指令進行網路管理。掌握這些技巧將使您能夠編寫更高效、靈活的腳本，並在 Linux 環境中更好地管理和維護系統。
+</font>
+
+<span id="more"></span>
+
+
+<br>
+
+<h3 id="迴圈-while"><a href="#迴圈-while" class="headerlink" title="迴圈 - while"></a>迴圈 - while</h3><ul>
+<li>標準語法<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">while  TEST-EXPRESSIONS</span><br><span class="line">do</span><br><span class="line">	COMMANDS</span><br><span class="line">done</span><br></pre></td></tr></table></figure></li>
+<li>範例<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">varPosition=$varStart</span><br><span class="line"></span><br><span class="line">while  [ $varPosition  -le   $varEnd ]</span><br><span class="line">do</span><br><span class="line">    let  varSummary=$varSummary+$varPosition</span><br><span class="line">    let  varPosition=$varPosition+1</span><br><span class="line">done</span><br><span class="line">    echo  &quot;Number  $varStart  ~  $varEnd,  Summary  is  $varSummary&quot;</span><br><span class="line">exit  0</span><br></pre></td></tr></table></figure></li>
+</ul>
+<br>
+
+
+<h3 id="迴圈-until"><a href="#迴圈-until" class="headerlink" title="迴圈 - until"></a>迴圈 - until</h3><ul>
+<li>標準語法，與 while 判斷相反<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">until  TEST-EXPRESSIONS</span><br><span class="line">do</span><br><span class="line">	COMMANDS</span><br><span class="line">done</span><br></pre></td></tr></table></figure></li>
+<li>範例<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">watchAccount=&quot;USER&quot;</span><br><span class="line"></span><br><span class="line">until  who  |  grep  -w  $watchAccount  &amp;&gt;  /dev/null</span><br><span class="line">do</span><br><span class="line">        sleep  5</span><br><span class="line">done</span><br><span class="line"></span><br><span class="line">echo  &quot;WARNING : $watchAccount  is  Login.&quot;</span><br><span class="line"></span><br><span class="line">exit  0</span><br></pre></td></tr></table></figure></li>
+</ul>
+<br>
+
+
+<h3 id="Shell-的中斷"><a href="#Shell-的中斷" class="headerlink" title="Shell 的中斷"></a>Shell 的中斷</h3><ul>
+<li>[Ctrl] + [C]</li>
+<li>exit  [n]</li>
+<li>continue</li>
+<li>break<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">while  [  $varA  –le  10  ]</span><br><span class="line">do</span><br><span class="line">	let  varA=$varA+1</span><br><span class="line">	echo  –n  &quot;1&quot;</span><br><span class="line">	continue # continue、break</span><br><span class="line">	echo  –n  &quot;2&quot;</span><br><span class="line">done</span><br></pre></td></tr></table></figure></li>
+<li>return  [n]</li>
+</ul>
+<br>
+
+<h3 id="函式-function"><a href="#函式-function" class="headerlink" title="函式 function"></a>函式 function</h3><ul>
+<li>標準語法<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">function  FunctionName  ()</span><br><span class="line">&#123;</span><br><span class="line">	COMMANDS   or  EXPRESSIONS</span><br><span class="line">&#125;</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">呼叫方式</span></span><br><span class="line"></span><br><span class="line">FunctionName</span><br></pre></td></tr></table></figure></li>
+<li><code>Local</code>，本地變數 <code>local varName=123</code></li>
+</ul>
+<br>
+
+<h3 id="常用的網路指令"><a href="#常用的網路指令" class="headerlink" title="常用的網路指令"></a>常用的網路指令</h3><ul>
+<li><code>ping</code><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">參數</span></span><br><span class="line">-c      次數</span><br><span class="line">-D     回應加時間戳記</span><br><span class="line">-i      封包發送間隔 (default 1s)</span><br><span class="line">-s     封包發送大小 (default 64byte)</span><br><span class="line">-t      TTL 值</span><br><span class="line">-W    等待回應時間</span><br><span class="line"></span><br><span class="line">for  ip  in  192.168.0.&#123;1..20&#125;</span><br><span class="line">do</span><br><span class="line">    echo  -n  &quot;pinging  $ip...  &quot;</span><br><span class="line">    ping  -c  1  -i  0.2  -W 1   $ip  &amp;&gt;  /dev/null</span><br><span class="line">    if  [  $?  -eq  0  ]</span><br><span class="line">    then</span><br><span class="line">            echo  &quot;ONLINE.&quot;</span><br><span class="line">    else</span><br><span class="line">            echo &quot;&quot;</span><br><span class="line">    fi</span><br><span class="line">done</span><br></pre></td></tr></table></figure></li>
+<li><code>ip</code></li>
+</ul>
+<br>
+
+<h3 id="常用的變數"><a href="#常用的變數" class="headerlink" title="常用的變數"></a>常用的變數</h3><ul>
+<li><code>RANDOM</code><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">echo  $RANDOM</span><br></pre></td></tr></table></figure></li>
+</ul>
+]]></content>
+      <tags>
+        <tag>Linux</tag>
+        <tag>Shell</tag>
+        <tag>Script</tag>
+      </tags>
+  </entry>
+</search>
