@@ -941,6 +941,7 @@ pre .javascript .function {
   }
 }
 .pagination {
+  padding-top: 10px;
   border-top: 1px solid #eee;
   margin: 120px 0 0;
   text-align: center;
@@ -949,7 +950,6 @@ pre .javascript .function {
 .pagination .next,
 .pagination .page-number {
   border-bottom: 0;
-  border-top: 1px solid #eee;
   transition-property: border-color;
   transition-delay: 0s;
   transition-duration: 0.2s;
@@ -959,6 +959,7 @@ pre .javascript .function {
 .pagination .next:hover,
 .pagination .page-number:hover {
   border-top-color: #222;
+  background: rgba(11,11,11,0.5);
 }
 .pagination .space {
   margin: 0;
@@ -1217,31 +1218,6 @@ pre .javascript .function {
 .use-motion .menu-item {
   opacity: 0;
 }
-.book-mark-link {
-  border-bottom: none;
-  display: inline-block;
-  position: fixed;
-  right: 30px;
-  top: -10px;
-  transition: 0.3s;
-}
-@media (max-width: 991px) {
-  .book-mark-link {
-    display: none;
-  }
-}
-.book-mark-link::before {
-  color: #222;
-  content: '\f02e';
-  font-size: 32px;
-  line-height: 1;
-  font-family: 'Font Awesome 5 Free';
-  font-weight: 900;
-}
-.book-mark-link:hover,
-.book-mark-link-fixed {
-  top: -2px;
-}
 .sidebar {
   background: #222;
   bottom: 0;
@@ -1306,7 +1282,7 @@ pre .javascript .function {
 }
 .links-of-author a::before,
 .links-of-author span.exturl::before {
-  background: #8fff6c;
+  background: #ffffde;
   border-radius: 50%;
   content: ' ';
   display: inline-block;
@@ -1416,7 +1392,8 @@ pre .javascript .function {
   cursor: pointer;
   height: 14px;
   left: 30px;
-  padding: 5px;
+  padding: 10px;
+  border-radius: 5px;
   position: fixed;
   width: 14px;
   z-index: 1300;
@@ -2399,7 +2376,7 @@ hr {
   }
 }
 .pagination {
-  margin: 120px 0 0;
+  margin: 60px 0 0;
   text-align: left;
 }
 @media (max-width: 767px) {
@@ -2535,7 +2512,7 @@ hr {
   display: none;
 }
 .posts-expand .post-block:not(:first-child) {
-  margin-top: 120px;
+  margin-top: 60px;
 }
 .posts-expand .post-title,
 .posts-expand .post-meta {
@@ -2560,7 +2537,7 @@ hr {
 }
 .post-button {
   margin-top: 20px;
-  text-align: left;
+  text-align: right;
 }
 .post-button .btn {
   background: none;
@@ -2620,4 +2597,15 @@ hr {
   background: rgba(23,23,23,0.5);
   padding: 20px;
   border-radius: 10px;
+}
+.pagination .page-number.current {
+  background: #3cf;
+  border-radius: 3px;
+}
+.post-title-link:hover {
+  color: #3cf;
+  border-radius: 3px;
+}
+.posts-expand .post-title-link::before {
+  background: #3cf;
 }
