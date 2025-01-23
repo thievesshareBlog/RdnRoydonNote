@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title>ISO 映像檔燒錄 USB 隨身碟</title>
+    <title>【工具介紹】ISO 映像檔燒錄 USB 隨身碟</title>
     <url>/2024/07/24/ISO-to-USB/</url>
     <content><![CDATA[<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a><font size='5'>前言</font></h3><blockquote>
-<p><font size='3'>在當今數位化的世界裡，ISO 映像檔成為了一種非常普遍的文件格式，用於分發操作系統、軟體安裝包以及其他需要保留原始文件結構的資料。ISO 映像檔的優勢在於它能夠將整個光碟的內容完整地保存下來，並且可以輕鬆地分發和複製。然而，隨著光碟驅動器的逐漸淘汰和 USB 隨身碟的普及，越來越多的人選擇將 ISO 映像檔燒錄到 USB 隨身碟上，以便更方便地安裝操作系統或運行應用程式。</font></p>
+<p><font size='3'>這篇文章將詳細介紹如何將 ISO 映像檔燒錄到 USB 隨身碟。</font></p>
 </blockquote>
 <font size='3'>
-這篇文章將詳細介紹如何將 ISO 映像檔燒錄到 USB 隨身碟，幫助你輕鬆完成這一過程。無論你是要安裝新的操作系統、進行系統修復，還是需要創建可啟動的 USB 隨身碟，這篇指南都將提供你所需的步驟和工具。讓我們開始吧！
+無論你是要安裝新的操作系統、進行系統修復，還是需要創建可啟動的 USB 隨身碟，這篇指南都將提供你所需的步驟和工具。讓我們開始吧！這篇指南都將提供你所需的步驟和工具。讓我們開始吧！
 </font>
 
 <span id="more"></span>
 
-<h3 id="解決方法"><a href="#解決方法" class="headerlink" title="解決方法"></a>解決方法</h3><ol>
+<h3 id="常用工具"><a href="#常用工具" class="headerlink" title="常用工具"></a>常用工具</h3><ol>
 <li><h4 id="Rufus"><a href="#Rufus" class="headerlink" title="Rufus"></a><a href="https://rufus.ie/zh_TW/">Rufus</a></h4><p> <img data-src='rufus.png' width='300'></img></p>
 <ul>
 <li><font size='3'>步驟 1：下載安裝 Rufus</font></li>
@@ -61,6 +61,7 @@
       <tags>
         <tag>USB</tag>
         <tag>ISO</tag>
+        <tag>Tool</tag>
       </tags>
   </entry>
 </search>
