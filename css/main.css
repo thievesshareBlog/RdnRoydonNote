@@ -1282,7 +1282,7 @@ pre .javascript .function {
 }
 .links-of-author a::before,
 .links-of-author span.exturl::before {
-  background: #ff22a3;
+  background: #ff7c82;
   border-radius: 50%;
   content: ' ';
   display: inline-block;
@@ -1639,7 +1639,7 @@ pre .javascript .function {
   font-size: 0.875em;
   font-weight: bold;
   line-height: 1;
-  margin: -20px auto 15px;
+  margin: -10px auto 15px;
   text-align: center;
 }
 .post-sticky-flag {
@@ -2608,4 +2608,7 @@ hr {
 }
 .posts-expand .post-title-link::before {
   background: #3cf;
+}
+.posts-expand .post-body img[align='center'] {
+  margin-left: auto;
 }
