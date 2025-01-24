@@ -1282,7 +1282,7 @@ pre .javascript .function {
 }
 .links-of-author a::before,
 .links-of-author span.exturl::before {
-  background: #ff7c82;
+  background: #ff00d0;
   border-radius: 50%;
   content: ' ';
   display: inline-block;
@@ -2611,4 +2611,11 @@ hr {
 }
 .posts-expand .post-body img[align='center'] {
   margin-left: auto;
+}
+h1:has(font[align='center']),
+h2:has(font[align='center']),
+h3:has(font[align='center']),
+h4:has(font[align='center']),
+h5:has(font[align='center']) {
+  text-align: center;
 }
