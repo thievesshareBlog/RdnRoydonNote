@@ -193,9 +193,16 @@
 <br>
 
 <h4 id="💡-結論"><a href="#💡-結論" class="headerlink" title="💡 結論"></a>💡 結論</h4><ul>
-<li><font size='3'>該程序的流程會修改 AutoRun 位置，並且複製、新建檔案至 C:\Users\roydo\AppData\Roaming。</font></li>
-<li><font size='3'>通過 DNS 通訊獲取 IP (C2)，並向 &#x2F;ads.php 位置傳送出 IP 、主機名稱 等資訊。 </font></li>
+<li><font size='3'>感染系統時生成一個編碼的 brbconfig.tmp 文件，並在創建後立即讀取該文件。</font></li>
+<li><font size='3'>惡意程式還會在 <code>C:\Users\roydo\AppData\Roaming</code> 註冊表鍵中創建名為 <code>brbbot</code> 的項目，以保持系統持久存在。</font></li>
+<li><font size='3'>透過DNS成功解析主機名後，試圖透過HTTP連接到 <code>brb.3dtuts.by</code></font></li>
+<li><font size='3'>HTTP 請求中，樣本向 <code>/ads.php</code> 發送GET請求，包含數個參數，其中兩個參數反映受感染系統的相關數據，這些數據被外傳給攻擊者。</font></li>
 </ul>
+  <!-- - <font size='3'>該程序的流程會修改 AutoRun 位置，並且複製、新建檔案至 C:\Users\roydo\AppData\Roaming。</font>
+  - <font size='3'>通過 DNS 通訊獲取 IP (C2)，並向 /ads.php 位置傳送出 IP 、主機名稱 等資訊。 </font>
+  - <font size='3'>嘗試解碼 P 的參數 ( xxd -r -p encoded.hex ) </font> -->
+
+
 <br>
 
 <hr>
