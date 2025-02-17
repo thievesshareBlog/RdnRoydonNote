@@ -29,10 +29,7 @@
 <meta property="og:description" content="前言 這篇文章將說明分析惡意軟體。   在本練習中，我們將對 RemcosRAT.vbs 惡意檔案進行靜態和動態分析，透過分析其樣本來了解其行為。">
 <meta property="og:locale" content="zh_TW">
 <meta property="og:image" content="https://blog.thieves.site/posts/32167/pe-studio-1.png">
-<meta property="og:image" content="https://blog.thieves.site/posts/32167/md5.png">
 <meta property="og:image" content="https://blog.thieves.site/posts/32167/virustotal.png">
-<meta property="og:image" content="https://blog.thieves.site/posts/32167/floss.png">
-<meta property="og:image" content="https://blog.thieves.site/posts/32167/pe-studio-1.png">
 <meta property="og:image" content="https://blog.thieves.site/posts/32167/procmon-1.png">
 <meta property="og:image" content="https://blog.thieves.site/posts/32167/autoruns-1.png">
 <meta property="og:image" content="https://blog.thieves.site/posts/32167/wireshark.png">
@@ -50,7 +47,7 @@
 <meta property="og:image" content="https://blog.thieves.site/posts/32167/remnux-3.png">
 <meta property="og:image" content="https://blog.thieves.site/posts/32167/remnux-4.png">
 <meta property="article:published_time" content="2025-02-14T09:43:55.000Z">
-<meta property="article:modified_time" content="2025-02-14T09:58:34.215Z">
+<meta property="article:modified_time" content="2025-02-17T03:36:25.220Z">
 <meta property="article:author" content="Roydon">
 <meta property="article:tag" content="analysis">
 <meta property="article:tag" content="malware">
@@ -234,10 +231,16 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">發表於</span>
-              
 
-              <time title="創建時間：2025-02-14 17:43:55 / 修改時間：17:58:34" itemprop="dateCreated datePublished" datetime="2025-02-14T17:43:55+08:00">2025-02-14</time>
+              <time title="創建時間：2025-02-14 17:43:55" itemprop="dateCreated datePublished" datetime="2025-02-14T17:43:55+08:00">2025-02-14</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新於</span>
+                <time title="修改時間：2025-02-17 11:36:25" itemprop="dateModified" datetime="2025-02-17T11:36:25+08:00">2025-02-17</time>
+              </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="far fa-folder"></i>
@@ -268,7 +271,7 @@
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">文章字數：</span>
-              <span>878</span>
+              <span>930</span>
             </span>
             <span class="post-meta-item" title="所需閱讀時間">
               <span class="post-meta-item-icon">
@@ -319,7 +322,6 @@
 <h4 id="🛠️-Static-Analysis-Tools"><a href="#🛠️-Static-Analysis-Tools" class="headerlink" title="🛠️ Static Analysis Tools"></a>🛠️ Static Analysis Tools</h4><ul>
 <li><font size='3'>PEStudio → 提取多種關鍵資訊</font></li>
 <li><font size='3'>Virustotal   → 檢查 hash</font></li>
-<li><font size='3'>floss → 提取字串</font></li>
 </ul>
 <br>
 
@@ -328,21 +330,18 @@
 
 <h4 id="1️⃣-PEStudio"><a href="#1️⃣-PEStudio" class="headerlink" title="1️⃣ PEStudio"></a>1️⃣ PEStudio</h4><ul>
 <li><font size='3'>檔案的名稱、副檔名皆可以更改，所以需要檢查檔案類型。</font></li>
+<li><font size='3'>查看檔案資訊是否有可疑地方</font><ul>
+<li><font size='3'><code>CreateObject(&quot;Scripting.FileSystemObject&quot;)</code> ： 建立&#x2F;修改&#x2F;刪除檔案、寫入執行指令。</font></li>
+<li><font size='3'><code>Set kSPdG = YIEhr.CreateTextFile(YoSeb &amp; &quot;\&quot; &amp; randomVBSBatName, True)&quot;</code> ： 建立一個 bat 檔案。</font></li>
+</ul>
+</li>
 </ul>
 <br>
 
-<p><img data-src='pe-studio-1.png' width='500' alt='知道該檔案確定是 PE32 格式'></img></p>
+<p><img data-src='pe-studio-1.png' align='center' width='600' alt='知道該檔案確定是 PE32 格式'></img></p>
 <br>
 
-<h4 id="2️⃣-Fingerprinting"><a href="#2️⃣-Fingerprinting" class="headerlink" title="2️⃣ Fingerprinting"></a>2️⃣ Fingerprinting</h4><ul>
-<li><font size='3'>Hash 基本上是唯一值，故可以拿來檢驗該檔案是否遭受變更 或者 該檔案為惡意軟體。</font></li>
-</ul>
-<br>
-
-<p><img data-src='md5.png' width='100%' alt='查看 HASH 值'></img></p>
-<br>
-
-<h4 id="3️⃣-Virustotal"><a href="#3️⃣-Virustotal" class="headerlink" title="3️⃣ Virustotal"></a>3️⃣ Virustotal</h4><ul>
+<h4 id="2️⃣-Virustotal"><a href="#2️⃣-Virustotal" class="headerlink" title="2️⃣ Virustotal"></a>2️⃣ Virustotal</h4><ul>
 <li><font size='3'>將提取到的 Hash 值，提交到 <a target="_blank" rel="noopener" href="https://www.virustotal.com/gui/home/upload">Virustotal</a> 查看是否已經有紀錄。</font></li>
 </ul>
 <br>
@@ -350,22 +349,11 @@
 <p><img data-src='virustotal.png' width='600' align='center' alt='確定該檔案確實為惡意程式'></img></p>
 <br>
 
-<h4 id="4️⃣-Floss"><a href="#4️⃣-Floss" class="headerlink" title="4️⃣ Floss"></a>4️⃣ Floss</h4><ul>
-<li><font size='3'>字串的提取可以從樣本中獲取一些有用的字串 ( 命令指令、控制 (C2) IP 、惡意 URL )。</font></li>
-<li><font size='3'>❗可能無法完全解碼某些高度混淆的字符串❗</font></li>
+<h4 id="3️⃣-Virustotal"><a href="#3️⃣-Virustotal" class="headerlink" title="3️⃣ Virustotal"></a>3️⃣ Virustotal</h4><ul>
+<li><font size='3'>將提取到的 Hash 值，提交到 <a target="_blank" rel="noopener" href="https://www.virustotal.com/gui/home/upload">Virustotal</a> 查看是否已經有紀錄。</font></li>
 </ul>
 <br>
 
-<p><img data-src='floss.png' width='500' align='center' alt='Floss'></img></p>
-<br>
-
-<h4 id="5️⃣-PEStudio"><a href="#5️⃣-PEStudio" class="headerlink" title="5️⃣ PEStudio"></a>5️⃣ PEStudio</h4><ul>
-<li><font size='3'>mscoree.dll 主要用於啟動 .NET 應用程式，負責將 .NET 代碼轉換為機器碼執行。</font></li>
-</ul>
-<br>
-
-<p><img data-src='pe-studio-1.png' width='600' align='center' alt='PE-Studio Library'></img></p>
-<br>
 
 <hr>
 <h3 id="🔥-Dynamic-Analysis-🔥"><a href="#🔥-Dynamic-Analysis-🔥" class="headerlink" title="🔥 Dynamic Analysis 🔥"></a><font size='5' align='center'>🔥 Dynamic Analysis 🔥</font></h3><hr>
@@ -395,7 +383,7 @@
 </ul>
 </li>
 </ul>
-<p><img data-src='autoruns-1.png' width='700' align='center' alt='AutoRuns'></img></p>
+<p><img data-src='autoruns-1.png' width='700' align='center' alt='AutoRuns'></img>&#96;</p>
 <br>
 
 <hr>
@@ -592,7 +580,7 @@ vssadmin -->
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%89%8D%E8%A8%80"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E2%9A%99%EF%B8%8F-Lab-Environment%EF%BC%9A"><span class="nav-number">1.1.</span> <span class="nav-text">⚙️ Lab Environment：</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%F0%9F%94%A5-Static-Analysis-%F0%9F%94%A5"><span class="nav-number"></span> <span class="nav-text">🔥 Static Analysis 🔥</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%F0%9F%9B%A0%EF%B8%8F-Static-Analysis-Tools"><span class="nav-number">1.</span> <span class="nav-text">🛠️ Static Analysis Tools</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1%EF%B8%8F%E2%83%A3-PEStudio"><span class="nav-number">2.</span> <span class="nav-text">1️⃣ PEStudio</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2%EF%B8%8F%E2%83%A3-Fingerprinting"><span class="nav-number">3.</span> <span class="nav-text">2️⃣ Fingerprinting</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3%EF%B8%8F%E2%83%A3-Virustotal"><span class="nav-number">4.</span> <span class="nav-text">3️⃣ Virustotal</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4%EF%B8%8F%E2%83%A3-Floss"><span class="nav-number">5.</span> <span class="nav-text">4️⃣ Floss</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5%EF%B8%8F%E2%83%A3-PEStudio"><span class="nav-number">6.</span> <span class="nav-text">5️⃣ PEStudio</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%F0%9F%94%A5-Dynamic-Analysis-%F0%9F%94%A5"><span class="nav-number"></span> <span class="nav-text">🔥 Dynamic Analysis 🔥</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%F0%9F%9B%A0%EF%B8%8F-Dynamic-Analysis-Tools"><span class="nav-number">1.</span> <span class="nav-text">🛠️ Dynamic Analysis Tools</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1%EF%B8%8F%E2%83%A3-Procmon"><span class="nav-number">2.</span> <span class="nav-text">1️⃣ Procmon</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2%EF%B8%8F%E2%83%A3-AutoRuns"><span class="nav-number">3.</span> <span class="nav-text">2️⃣ AutoRuns</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%F0%9F%92%A1-%E7%B5%90%E8%AB%96"><span class="nav-number">4.</span> <span class="nav-text">💡 結論</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%F0%9F%94%97-%E5%8F%83%E8%80%83%E4%BE%86%E6%BA%90"><span class="nav-number">5.</span> <span class="nav-text">🔗 參考來源</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%89%8D%E8%A8%80"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E2%9A%99%EF%B8%8F-Lab-Environment%EF%BC%9A"><span class="nav-number">1.1.</span> <span class="nav-text">⚙️ Lab Environment：</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%F0%9F%94%A5-Static-Analysis-%F0%9F%94%A5"><span class="nav-number"></span> <span class="nav-text">🔥 Static Analysis 🔥</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%F0%9F%9B%A0%EF%B8%8F-Static-Analysis-Tools"><span class="nav-number">1.</span> <span class="nav-text">🛠️ Static Analysis Tools</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1%EF%B8%8F%E2%83%A3-PEStudio"><span class="nav-number">2.</span> <span class="nav-text">1️⃣ PEStudio</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2%EF%B8%8F%E2%83%A3-Virustotal"><span class="nav-number">3.</span> <span class="nav-text">2️⃣ Virustotal</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3%EF%B8%8F%E2%83%A3-Virustotal"><span class="nav-number">4.</span> <span class="nav-text">3️⃣ Virustotal</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%F0%9F%94%A5-Dynamic-Analysis-%F0%9F%94%A5"><span class="nav-number"></span> <span class="nav-text">🔥 Dynamic Analysis 🔥</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%F0%9F%9B%A0%EF%B8%8F-Dynamic-Analysis-Tools"><span class="nav-number">1.</span> <span class="nav-text">🛠️ Dynamic Analysis Tools</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1%EF%B8%8F%E2%83%A3-Procmon"><span class="nav-number">2.</span> <span class="nav-text">1️⃣ Procmon</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2%EF%B8%8F%E2%83%A3-AutoRuns"><span class="nav-number">3.</span> <span class="nav-text">2️⃣ AutoRuns</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%F0%9F%92%A1-%E7%B5%90%E8%AB%96"><span class="nav-number">4.</span> <span class="nav-text">💡 結論</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%F0%9F%94%97-%E5%8F%83%E8%80%83%E4%BE%86%E6%BA%90"><span class="nav-number">5.</span> <span class="nav-text">🔗 參考來源</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 

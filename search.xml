@@ -1,70 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title>【工具介紹】ISO 映像檔燒錄 USB 隨身碟</title>
-    <url>/posts/5670/</url>
-    <content><![CDATA[<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a><font size='5'>前言</font></h3><blockquote>
-<p><font size='3'>這篇文章將詳細介紹如何將 ISO 映像檔燒錄到 USB 隨身碟。</font></p>
-</blockquote>
-<font size='3'>
-無論你是要安裝新的操作系統、進行系統修復，還是需要創建可啟動的 USB 隨身碟，這篇指南都將提供你所需的步驟和工具。讓我們開始吧！
-</font>
-
-<span id="more"></span>
-
-<h3 id="常用工具"><a href="#常用工具" class="headerlink" title="常用工具"></a>常用工具</h3><ol>
-<li><h4 id="Rufus"><a href="#Rufus" class="headerlink" title="Rufus"></a><a href="https://rufus.ie/zh_TW/">Rufus</a></h4><p> <img data-src='rufus.png' width='300'></img></p>
-<ul>
-<li><font size='3'>步驟 1：下載安裝 Rufus</font></li>
-<li><font size='3'>步驟 2：準備 USB 隨身碟</font></li>
-<li><font size='3'>步驟 3：選擇 ISO檔來源、確認隨身碟位置（ 基本預設即可 ）</font></li>
-<li><font size='3'>步驟 4：開始燒錄等待完成</font></li>
-</ul>
-</li>
-<li><h4 id="Etcher"><a href="#Etcher" class="headerlink" title="Etcher"></a><a href="https://etcher.balena.io/">Etcher</a></h4><p> <img data-src='etcher.png' width='500'></img></p>
-<ul>
-<li><font size='3'>步驟 1：下載安裝 Etcher</font></li>
-<li><font size='3'>步驟 2：準備 USB 隨身碟</font></li>
-<li><font size='3'>步驟 3：選擇 ISO檔來源</font></li>
-<li><font size='3'>步驟 4：確認隨身碟位置</font></li>
-<li><font size='3'>步驟 5：開始燒錄等待完成</font></li>
-</ul>
-</li>
-<li><h4 id="Ventoy"><a href="#Ventoy" class="headerlink" title="Ventoy"></a><a href="https://www.ventoy.net/en/download.html">Ventoy</a></h4><p> <img data-src='ventoy.png' width='300'></img></p>
-<ul>
-<li><font size='3'>步驟 1：下載安裝 Ventoy</font></li>
-<li><font size='3'>步驟 2：準備 USB 隨身碟</font></li>
-<li><font size='3'>步驟 3：打開 Ventoy2Disk.exe</font></li>
-<li><font size='3'>步驟 4：確認隨身碟位置</font></li>
-<li><font size='3'>步驟 5：選擇 Install</font></li>
-<li><font size='3'>步驟 6：等待完成後，可直接將 ISO 直接丟到隨身碟中 （ Window 與 Linux 都可 ）</font></li>
-</ul>
- <br>
-
- <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line"># 解壓縮後，執行</span><br><span class="line">bash VentoyWeb.sh</span><br><span class="line"></span><br><span class="line"># 打開網頁 24680 Port，接下來與 Windows 相同操作</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-</li>
-<li><h4 id="UNetbootin"><a href="#UNetbootin" class="headerlink" title="UNetbootin"></a><a href="https://unetbootin.github.io/">UNetbootin</a></h4><p> <img data-src='UNetbootin.png' width='500'></img></p>
-<ul>
-<li><font size='3'>步驟 1：下載安裝 UNetbootin</font></li>
-<li><font size='3'>步驟 2：準備 USB 隨身碟</font></li>
-<li><font size='3'>步驟 3：可選擇版本，軟體會自動幫忙下載，也可手動</font></li>
-<li><font size='3'>步驟 4：確認隨身碟位置</font></li>
-<li><font size='3'>步驟 5：開始燒錄等待完成</font></li>
-</ul>
-</li>
-</ol>
-]]></content>
-      <categories>
-        <category>工具</category>
-      </categories>
-      <tags>
-        <tag>USB</tag>
-        <tag>ISO</tag>
-        <tag>Tool</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>【惡意軟體分析】RemcosRAT Malware - 02</title>
     <url>/posts/17031/</url>
     <content><![CDATA[<hr>
@@ -305,214 +241,67 @@ vssadmin -->]]></content>
       </tags>
   </entry>
   <entry>
-    <title>【惡意軟體分析】brbbot.exe - 01</title>
-    <url>/posts/10046/</url>
-    <content><![CDATA[<hr>
-<h4 id="前言"><a href="#前言" class="headerlink" title="前言"></a><font size='5'>前言</font></h4><blockquote>
-<p><font size='3'>這篇文章將說明分析惡意軟體。</font></p>
+    <title>【工具介紹】ISO 映像檔燒錄 USB 隨身碟</title>
+    <url>/posts/5670/</url>
+    <content><![CDATA[<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a><font size='5'>前言</font></h3><blockquote>
+<p><font size='3'>這篇文章將詳細介紹如何將 ISO 映像檔燒錄到 USB 隨身碟。</font></p>
 </blockquote>
 <font size='3'>
-在本練習中，我們將對 brbbot.exe 惡意軟體進行靜態和動態分析，透過分析其樣本來了解其行為。
+無論你是要安裝新的操作系統、進行系統修復，還是需要創建可啟動的 USB 隨身碟，這篇指南都將提供你所需的步驟和工具。讓我們開始吧！
 </font>
 
-<br>
-
-<hr>
 <span id="more"></span>
 
-<h5 id="⚙️-Lab-Environment："><a href="#⚙️-Lab-Environment：" class="headerlink" title="⚙️ Lab Environment："></a>⚙️ Lab Environment：</h5><ul>
-<li><p><font size='3'>Linux Remnux ( Static Analysis )</font></p>
-</li>
-<li><p><font size='3'>Windows 11 ( Dynamic Analysis )</font></p>
-</li>
-<li><p><a href='https://bazaar.abuse.ch/sample/f47060d0f7de5ee651878eb18dd2d24b5003bdb03ef4f49879f448f05034a21e' target='_blank'><font size='3' color='#33ccff'>Brbbot.exe</font></a></p>
-</li>
-<li><p><font size='3'>HASH256：<code>b5af21afb00513a30d718f8b818e766b092ef83fb172039feea8f26a27e38e74</code></font></p>
-</li>
-</ul>
-<hr>
-<h3 id="🔥-Static-Analysis-🔥"><a href="#🔥-Static-Analysis-🔥" class="headerlink" title="🔥 Static Analysis 🔥"></a><font size='5' align='center'>🔥 Static Analysis 🔥</font></h3><hr>
-<br>
-
-<h4 id="🛠️-Static-Analysis-Tools："><a href="#🛠️-Static-Analysis-Tools：" class="headerlink" title="🛠️ Static Analysis Tools："></a>🛠️ Static Analysis Tools：</h4><ul>
-<li><font size='3'>file → 檢視文件類型</font></li>
-<li><font size='3'>md5sum → 產生樣本的雜湊值</font></li>
-<li><font size='3'>Strings → 提取字串</font></li>
-<li><font size='3'>PeStudio → 查看執行檔</font></li>
-<li><font size='3'>Virustotal   → 查看執行檔</font></li>
-</ul>
-<br>
-
-<hr>
-<br>
-
-<h4 id="📝-File-Type"><a href="#📝-File-Type" class="headerlink" title="📝 File Type"></a>📝 File Type</h4><ul>
-<li><font size='3'>檔案的名稱、副檔名皆可以更改，所以需要檢查檔案類型。</font></li>
-</ul>
-<br>
-
-<p><img data-src='file.png' alt='File Type'></img></p>
-<br>
-
-<h4 id="📝-Fingerprinting"><a href="#📝-Fingerprinting" class="headerlink" title="📝 Fingerprinting"></a>📝 Fingerprinting</h4><ul>
-<li><font size='3'>Hash 基本上是唯一值，故可以拿來檢驗該檔案是否遭受變更 或者 該檔案為惡意軟體。</font></li>
-</ul>
-<br>
-
-<p><img data-src='md5.png' width='100%' alt='Fingerprinting'></img></p>
-<br>
-
-<h4 id="📝-Virustotal"><a href="#📝-Virustotal" class="headerlink" title="📝 Virustotal"></a>📝 Virustotal</h4><ul>
-<li>將提取到的 Hash 值，提交到 <a href="https://www.virustotal.com/gui/home/upload">Virustotal</a> 查看是否已經有紀錄</li>
-</ul>
-<br>
-
-<p><img data-src='virustotal.png' width='600' align='center' alt='virustotal'></img></p>
-<br>
-
-<h4 id="📝-Strings"><a href="#📝-Strings" class="headerlink" title="📝 Strings"></a>📝 Strings</h4><ul>
-<li><font size='3'>字串的提取可以從樣本中獲取一些有用的字串 ( 命令指令、控制 (C2) IP 、惡意 URL )。</font></li>
-<li><font size='3'>❗Strings 可能不會獲取有用的資訊，有可能有進行代碼的加密。❗</font></li>
-</ul>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 查看到全部的 string</span></span><br><span class="line">strings brbbot.exe</span><br><span class="line"></span><br><span class="line"><span class="comment"># 針對關鍵字尋找</span></span><br><span class="line">strings brbbot.exe | grep -iE <span class="string">&quot;http|https|cmd|powershell|.dll|.exe&quot;</span></span><br></pre></td></tr></table></figure>
-
-<br>
-
-<p><img data-src='strings.png' width='500' align='center' alt='Strings'></img><br><img data-src='pestudio-string.png' width='500' align='center' alt='PeStudio String'></img></p>
-<br>
-
+<h3 id="常用工具"><a href="#常用工具" class="headerlink" title="常用工具"></a>常用工具</h3><ol>
+<li><h4 id="Rufus"><a href="#Rufus" class="headerlink" title="Rufus"></a><a href="https://rufus.ie/zh_TW/">Rufus</a></h4><p> <img data-src='rufus.png' width='300'></img></p>
 <ul>
-<li><font size='3'>此案例就可以查看到一些資訊</font><ul>
-<li><font size='3'>查看有哪些可疑的 DLL 、AutoRun 的字眼</font></li>
+<li><font size='3'>步驟 1：下載安裝 Rufus</font></li>
+<li><font size='3'>步驟 2：準備 USB 隨身碟</font></li>
+<li><font size='3'>步驟 3：選擇 ISO檔來源、確認隨身碟位置（ 基本預設即可 ）</font></li>
+<li><font size='3'>步驟 4：開始燒錄等待完成</font></li>
 </ul>
 </li>
-</ul>
-<br>
-
-<p><img data-src='strings-1.png' width='500' align='center' alt='AutoRun'></img><br><img data-src='strings-2.png' width='500' align='center' alt='Dll'></img></p>
-<br>
-
-<hr>
-<h3 id="🔥-Dynamic-Analysis-🔥"><a href="#🔥-Dynamic-Analysis-🔥" class="headerlink" title="🔥 Dynamic Analysis 🔥"></a><font size='5' align='center'>🔥 Dynamic Analysis 🔥</font></h3><hr>
-<br>
-
-<h4 id="🛠️-Dynamic-Analysis-Tools"><a href="#🛠️-Dynamic-Analysis-Tools" class="headerlink" title="🛠️ Dynamic Analysis Tools:"></a>🛠️ Dynamic Analysis Tools:</h4><ul>
-<li><font size='3'>Process Hacker</font></li>
-<li><font size='3'>PEStudio</font></li>
-<li><font size='3'>Wireshark</font></li>
-</ul>
-<br>
-
-<hr>
-<br>
-
-<h4 id="📝-Process-Hacker"><a href="#📝-Process-Hacker" class="headerlink" title="📝 Process Hacker"></a>📝 Process Hacker</h4><ul>
-<li>Process Hacker</li>
-</ul>
-<p><img data-src='process-hacker.png' width='500' align='center' alt='ProcessHacker'></img></p>
-<br>
-
-<h4 id="🌐-Wireshark"><a href="#🌐-Wireshark" class="headerlink" title="🌐 Wireshark"></a>🌐 Wireshark</h4><br>
-
-<p><img data-src='wireshark.png' width='500' align='center' alt='WireShark DNS'></img></p>
-<p><img data-src='wireshark-2.png' width='500' align='center' alt='WireShark HTTP'></img></p>
-<br>
-
-<h5 id="Wireshark-Observations"><a href="#Wireshark-Observations" class="headerlink" title="Wireshark Observations:"></a>Wireshark Observations:</h5><ul>
-<li><font size='3'>觀察後可以看到有一個試圖連外面的封包 ( brb.3dtuts.by )</font></li>
-<li><font size='3'>過濾 HTTP 可以看到一個試圖向外傳遞參數的封包</font></li>
-</ul>
-<br>
-
-<blockquote>
-<p><font size='3'>本篇有利用 Remnux 中的 fakedns 來進行欺騙，也是將詢問 brb.3dtuts.by 位置的封包回應成 Remnux IP，所以圖片中封包的目標 IP 才會是 Remnux 的 IP。</font></p>
-</blockquote>
-<br>
-
-<hr>
-<br>
-
-<h4 id="📝-x64dbg"><a href="#📝-x64dbg" class="headerlink" title="📝 x64dbg"></a>📝 x64dbg</h4><br>
-
-<p><img data-src='x64dbg-1.png' width='500' align='center' alt='將 brbbot.exe 檔案匯入, 設置斷點 SetBPX ReadFile'></img></p>
-<br>
-
-<p><img data-src='x64dbg-2.png' width='500' align='center' alt='運行程序直到斷點處'></img></p>
-<br>
-
-<p><img data-src='x64dbg-6.png' width='500' align='center' alt='查看右側 RCX 處數字 ( 138 ) '></img></p>
-<br>
-
-<p><img data-src='x64dbg-7.png' width='500' align='center' alt='至標籤 Handles 重新整理'></img></p>
-<br>
-
-<p><img data-src='x64dbg-8.png' width='500' align='center' alt='找尋 138 ，看到讀取的檔案及位置'></img></p>
-<br>
-
-<p><img data-src='x64dbg-3.png' width='500' align='center' alt='ALT + F9，跳過 windows API 回到惡意代碼'></img></p>
-<br>
-
-<p><img data-src='x64dbg-4.png' width='500' align='center' alt='找到編碼處，點選 F4 運行到該行'></img></p>
-<br>
-
-<p><img data-src='x64dbg-5.png' width='500' align='center' alt='得到編碼結果'></img></p>
-<br>
-
+<li><h4 id="Etcher"><a href="#Etcher" class="headerlink" title="Etcher"></a><a href="https://etcher.balena.io/">Etcher</a></h4><p> <img data-src='etcher.png' width='500'></img></p>
 <ul>
-<li><font size='3'><code>uri=ads.php;exec=cexe;file=elif;conf=fnoc;exit=tixe;encode=5b;sleep=30000</code> </font></li>
-<li><font size='3'>根據得到的字串可以猜測編碼可能為 XOR 5b，故嘗試將封包中傳遞的參數進行解密看看：</font></li>
-</ul>
-<br>
-
-<p><img data-src='remnux-1.png' width='500' align='center' alt='至 Remnux 建立 encoded.hex 複製上去'></img></p>
-<br>
-
-<p><img data-src='remnux-2.png' width='500' align='center' alt='進行編碼轉換與解碼'></img></p>
-<br>
-
-  <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 將 hex 格式轉換成原始二進制數據</span></span><br><span class="line">xxd -r -p encoded.hex &gt; encoded.raw</span><br><span class="line"></span><br><span class="line"><span class="comment"># 使用 XOR 進行解碼</span></span><br><span class="line">translate.py encoded.raw decoded.txt <span class="string">&#x27;byte ^ 0x5b&#x27;</span></span><br></pre></td></tr></table></figure>
-
-<br>
-
-<ul>
-<li><font size='3'>這個惡意程式的開發者定義了一套「命令對應機制」，我們在 brbconfig.tmp 找到了這些對應關係</font><ul>
-<li>exit（退出）變成 tixe</li>
-<li>config（設定）變成 fnoc</li>
-<li>file（檔案）變成 elif</li>
-<li>exec（執行）變成 cexe</li>
+<li><font size='3'>步驟 1：下載安裝 Etcher</font></li>
+<li><font size='3'>步驟 2：準備 USB 隨身碟</font></li>
+<li><font size='3'>步驟 3：選擇 ISO檔來源</font></li>
+<li><font size='3'>步驟 4：確認隨身碟位置</font></li>
+<li><font size='3'>步驟 5：開始燒錄等待完成</font></li>
 </ul>
 </li>
+<li><h4 id="Ventoy"><a href="#Ventoy" class="headerlink" title="Ventoy"></a><a href="https://www.ventoy.net/en/download.html">Ventoy</a></h4><p> <img data-src='ventoy.png' width='300'></img></p>
+<ul>
+<li><font size='3'>步驟 1：下載安裝 Ventoy</font></li>
+<li><font size='3'>步驟 2：準備 USB 隨身碟</font></li>
+<li><font size='3'>步驟 3：打開 Ventoy2Disk.exe</font></li>
+<li><font size='3'>步驟 4：確認隨身碟位置</font></li>
+<li><font size='3'>步驟 5：選擇 Install</font></li>
+<li><font size='3'>步驟 6：等待完成後，可直接將 ISO 直接丟到隨身碟中 （ Window 與 Linux 都可 ）</font></li>
 </ul>
-<p><img data-src='remnux-3.png' width='500' align='center' alt='通過 remnux 建立一個假的服務器，並建立 ads.php 來進行通訊'></img><br><img data-src='remnux-4.png' width='500' align='center' alt='可以看到通訊的時候會自動打開 notepad'></img></p>
-<br>
+ <br>
 
+ <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line"># 解壓縮後，執行</span><br><span class="line">bash VentoyWeb.sh</span><br><span class="line"></span><br><span class="line"># 打開網頁 24680 Port，接下來與 Windows 相同操作</span><br><span class="line"></span><br></pre></td></tr></table></figure>
 
-
-<hr>
-<br>
-
-<h4 id="💡-結論"><a href="#💡-結論" class="headerlink" title="💡 結論"></a>💡 結論</h4><ul>
-<li><font size='3'>感染系統時生成一個編碼的 brbconfig.tmp 文件，並在創建後立即讀取該文件。</font></li>
-<li><font size='3'>惡意程式還會在 <code>C:\Users\roydo\AppData\Roaming</code> 註冊表鍵中創建名為 <code>brbbot</code> 的項目，以保持系統持久存在。</font></li>
-<li><font size='3'>透過DNS成功解析主機名後，試圖透過HTTP連接到 <code>brb.3dtuts.by</code></font></li>
-<li><font size='3'>HTTP 請求中，樣本向 <code>/ads.php</code> 發送GET請求，包含數個參數，其中兩個參數反映受感染系統的相關數據，這些數據被外傳給攻擊者。</font></li>
+</li>
+<li><h4 id="UNetbootin"><a href="#UNetbootin" class="headerlink" title="UNetbootin"></a><a href="https://unetbootin.github.io/">UNetbootin</a></h4><p> <img data-src='UNetbootin.png' width='500'></img></p>
+<ul>
+<li><font size='3'>步驟 1：下載安裝 UNetbootin</font></li>
+<li><font size='3'>步驟 2：準備 USB 隨身碟</font></li>
+<li><font size='3'>步驟 3：可選擇版本，軟體會自動幫忙下載，也可手動</font></li>
+<li><font size='3'>步驟 4：確認隨身碟位置</font></li>
+<li><font size='3'>步驟 5：開始燒錄等待完成</font></li>
 </ul>
-<br>
-
-<hr>
-<h4 id="🔗-參考來源"><a href="#🔗-參考來源" class="headerlink" title="🔗 參考來源"></a>🔗 參考來源</h4><ul>
-<li><font size='3'> <a href="https://medium.com/@deepu0092/malware-analysis-advanced-7bd3860f0d81">Malware Analysis — Advanced</a> </font></li>
-<li><font size='3'>  <a href="https://medium.com/@deepu0092/malware-analysis-for-beginners-cd4185516d90">Malware Analysis for Beginners</a> </font></li>
-</ul>
-<br>]]></content>
+</li>
+</ol>
+]]></content>
       <categories>
-        <category>analysis</category>
+        <category>工具</category>
       </categories>
       <tags>
-        <tag>analysis</tag>
-        <tag>malware</tag>
-        <tag>exe</tag>
-        <tag>brbbot</tag>
+        <tag>USB</tag>
+        <tag>ISO</tag>
+        <tag>Tool</tag>
       </tags>
   </entry>
   <entry>
@@ -550,7 +339,6 @@ vssadmin -->]]></content>
 <h4 id="🛠️-Static-Analysis-Tools"><a href="#🛠️-Static-Analysis-Tools" class="headerlink" title="🛠️ Static Analysis Tools"></a>🛠️ Static Analysis Tools</h4><ul>
 <li><font size='3'>PEStudio → 提取多種關鍵資訊</font></li>
 <li><font size='3'>Virustotal   → 檢查 hash</font></li>
-<li><font size='3'>floss → 提取字串</font></li>
 </ul>
 <br>
 
@@ -559,21 +347,18 @@ vssadmin -->]]></content>
 
 <h4 id="1️⃣-PEStudio"><a href="#1️⃣-PEStudio" class="headerlink" title="1️⃣ PEStudio"></a>1️⃣ PEStudio</h4><ul>
 <li><font size='3'>檔案的名稱、副檔名皆可以更改，所以需要檢查檔案類型。</font></li>
+<li><font size='3'>查看檔案資訊是否有可疑地方</font><ul>
+<li><font size='3'><code>CreateObject(&quot;Scripting.FileSystemObject&quot;)</code> ： 建立&#x2F;修改&#x2F;刪除檔案、寫入執行指令。</font></li>
+<li><font size='3'><code>Set kSPdG = YIEhr.CreateTextFile(YoSeb &amp; &quot;\&quot; &amp; randomVBSBatName, True)&quot;</code> ： 建立一個 bat 檔案。</font></li>
+</ul>
+</li>
 </ul>
 <br>
 
-<p><img data-src='pe-studio-1.png' width='500' alt='知道該檔案確定是 PE32 格式'></img></p>
+<p><img data-src='pe-studio-1.png' align='center' width='600' alt='知道該檔案確定是 PE32 格式'></img></p>
 <br>
 
-<h4 id="2️⃣-Fingerprinting"><a href="#2️⃣-Fingerprinting" class="headerlink" title="2️⃣ Fingerprinting"></a>2️⃣ Fingerprinting</h4><ul>
-<li><font size='3'>Hash 基本上是唯一值，故可以拿來檢驗該檔案是否遭受變更 或者 該檔案為惡意軟體。</font></li>
-</ul>
-<br>
-
-<p><img data-src='md5.png' width='100%' alt='查看 HASH 值'></img></p>
-<br>
-
-<h4 id="3️⃣-Virustotal"><a href="#3️⃣-Virustotal" class="headerlink" title="3️⃣ Virustotal"></a>3️⃣ Virustotal</h4><ul>
+<h4 id="2️⃣-Virustotal"><a href="#2️⃣-Virustotal" class="headerlink" title="2️⃣ Virustotal"></a>2️⃣ Virustotal</h4><ul>
 <li><font size='3'>將提取到的 Hash 值，提交到 <a href="https://www.virustotal.com/gui/home/upload">Virustotal</a> 查看是否已經有紀錄。</font></li>
 </ul>
 <br>
@@ -581,22 +366,11 @@ vssadmin -->]]></content>
 <p><img data-src='virustotal.png' width='600' align='center' alt='確定該檔案確實為惡意程式'></img></p>
 <br>
 
-<h4 id="4️⃣-Floss"><a href="#4️⃣-Floss" class="headerlink" title="4️⃣ Floss"></a>4️⃣ Floss</h4><ul>
-<li><font size='3'>字串的提取可以從樣本中獲取一些有用的字串 ( 命令指令、控制 (C2) IP 、惡意 URL )。</font></li>
-<li><font size='3'>❗可能無法完全解碼某些高度混淆的字符串❗</font></li>
+<h4 id="3️⃣-Virustotal"><a href="#3️⃣-Virustotal" class="headerlink" title="3️⃣ Virustotal"></a>3️⃣ Virustotal</h4><ul>
+<li><font size='3'>將提取到的 Hash 值，提交到 <a href="https://www.virustotal.com/gui/home/upload">Virustotal</a> 查看是否已經有紀錄。</font></li>
 </ul>
 <br>
 
-<p><img data-src='floss.png' width='500' align='center' alt='Floss'></img></p>
-<br>
-
-<h4 id="5️⃣-PEStudio"><a href="#5️⃣-PEStudio" class="headerlink" title="5️⃣ PEStudio"></a>5️⃣ PEStudio</h4><ul>
-<li><font size='3'>mscoree.dll 主要用於啟動 .NET 應用程式，負責將 .NET 代碼轉換為機器碼執行。</font></li>
-</ul>
-<br>
-
-<p><img data-src='pe-studio-1.png' width='600' align='center' alt='PE-Studio Library'></img></p>
-<br>
 
 <hr>
 <h3 id="🔥-Dynamic-Analysis-🔥"><a href="#🔥-Dynamic-Analysis-🔥" class="headerlink" title="🔥 Dynamic Analysis 🔥"></a><font size='5' align='center'>🔥 Dynamic Analysis 🔥</font></h3><hr>
@@ -626,7 +400,7 @@ vssadmin -->]]></content>
 </ul>
 </li>
 </ul>
-<p><img data-src='autoruns-1.png' width='700' align='center' alt='AutoRuns'></img></p>
+<p><img data-src='autoruns-1.png' width='700' align='center' alt='AutoRuns'></img>&#96;</p>
 <br>
 
 <hr>
@@ -745,96 +519,6 @@ vssadmin -->]]></content>
       </tags>
   </entry>
   <entry>
-    <title>【IDA PRO 程式解構】 - Hello World - 01</title>
-    <url>/posts/60293/</url>
-    <content><![CDATA[<hr>
-<h4 id="前言"><a href="#前言" class="headerlink" title="前言"></a><font size='5'>前言</font></h4><blockquote>
-<p><font size='3'>這篇文章紀錄 IDA PRO 軟體，分析 Hello World 的過程。</font></p>
-</blockquote>
-<font size='3'>
-在本練習中，我們將對 Hello.exe 檔案進行分析、修改的行為。
-</font>
-
-<hr>
-<span id="more"></span>
-
-
-<h5 id="⚙️-Lab-Environment："><a href="#⚙️-Lab-Environment：" class="headerlink" title="⚙️ Lab Environment："></a>⚙️ Lab Environment：</h5><ul>
-<li><font size='3'>Windows 11 ( IDA PRO )</font></li>
-</ul>
-<hr>
-<h5 id="🛠️-Static-Analysis-Tools："><a href="#🛠️-Static-Analysis-Tools：" class="headerlink" title="🛠️ Static Analysis Tools："></a>🛠️ Static Analysis Tools：</h5><ul>
-<li><font size='3'>IDA PRO</font></li>
-<li><font size='3'><code>非必須</code> Docker ( 準備 hello world 代碼 ) </font></li>
-</ul>
-<hr>
-<br>
-
-<h3 id="1-📝-Hello-World-程序"><a href="#1-📝-Hello-World-程序" class="headerlink" title="1. 📝 Hello World !! 程序"></a><font size='5'>1. 📝 Hello World !! 程序</font></h3><ul>
-<li><font size='3'>建立 <code>hello.c</code> 檔案</font></li>
-</ul>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">#include &lt;stdio.h&gt;</span><br><span class="line"></span><br><span class="line">int main() &#123;</span><br><span class="line">    printf(&quot;Hello, World!!&quot;);</span><br><span class="line">    return 0;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<ul>
-<li><font size='3'>使用 Docker 指令</font></li>
-</ul>
-<p><img data-src='docker-1.png' align='center' alt='docker 編譯'></img></p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line"># 使用 Docker 對該資料進行映射，映射後資料夾全部內容都會被拉進容器內</span><br><span class="line">docker run --rm -it -v .:/work -w /work gcc:latest bash</span><br><span class="line"></span><br><span class="line"># 在容器內安裝 MinGW</span><br><span class="line">apt update &amp;&amp; apt install -y mingw-w64</span><br><span class="line"></span><br><span class="line"># 對 hello.c 進行編譯</span><br><span class="line">x86_64-w64-mingw32-gcc hello.c -o hello.exe</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<br>
-
-<ul>
-<li><font size='3'>查看執行結果是否正常</font></li>
-</ul>
-<p><img data-src='hello.png' align='center' alt='Hello World'></img></p>
-<br>
-
-<hr>
-<br>
-
-<h3 id="2-📝-IDA-PRO-Analysis"><a href="#2-📝-IDA-PRO-Analysis" class="headerlink" title="2. 📝 IDA PRO Analysis"></a><font size='5'>2. 📝 IDA PRO Analysis</font></h3><ul>
-<li><font size='3'>使用 IDA PRO 打開 exe</font></li>
-</ul>
-<p><img data-src='ida-1.png' width='600' align='center' alt='Open IDA'></img></p>
-<br>
-
-<ul>
-<li><font size='3'>至 Strings 找到 Hello World 字樣 ( <code>Shift + F12</code> ) </font></li>
-</ul>
-<p><img data-src='ida-2.png' width='600' align='center' alt='IDA Strings'></img></p>
-<p><img data-src='ida-3.png' width='600' align='center' alt='Found Hello Word'></img></p>
-<p><img data-src='ida-4.png' width='600' align='center' alt='找到字樣後點選進去，選擇 hex dump'></img></p>
-<p><img data-src='ida-5.png' width='600' align='center' alt='選擇編輯，並將替換的編碼輸入進去'></img></p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line"># IDA PRO Test</span><br><span class="line">49 44 41 20 50 52 4F 20 54 65 73 74 00</span><br></pre></td></tr></table></figure>
-
-<p><img data-src='ida-6.png' width='600' align='center' alt='確認文字變更後，儲存並測試'></img></p>
-<p><img data-src='cmd-1.png' width='600' align='center' alt='🚀 確認無誤 🚀'></img></p>
-<br>
-
-<hr>
-<br>
-
-<h4 id="💡-結論"><a href="#💡-結論" class="headerlink" title="💡 結論"></a>💡 結論</h4><ul>
-<li><font size='3'>透過本次的練習，我們成功利用 IDA Pro 找到並修改可執行檔案 (hello.exe) 內的字串，將 “Hello, World!” 替換為 “IDA PRO Test”。</font></li>
-</ul>
-<br>
-
-<hr>
-<h4 id="🔗-參考來源"><a href="#🔗-參考來源" class="headerlink" title="🔗 參考來源"></a>🔗 參考來源</h4><ul>
-<li><font size='3'> <a href="https://blog.csdn.net/Onlyone_1314/article/details/108697155">IDA修改exe并保存运行</a> </font></li>
-<li><font size='3'> <a href="https://yujiewong.github.io/2017/03/28/%E7%AC%AC2%E7%AB%A0-%E9%80%86%E5%90%91%E5%88%86%E6%9E%90Hello-World-%E7%A8%8B%E5%BA%8F/">逆向分析Hello World! 程序</a> </font></li>
-</ul>
-<br>]]></content>
-      <categories>
-        <category>analysis</category>
-      </categories>
-      <tags>
-        <tag>Tool</tag>
-        <tag>IDA PRO</tag>
-        <tag>Analysis</tag>
-        <tag>Crack</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>【惡意軟體分析】基礎概念篇</title>
     <url>/posts/42213/</url>
     <content><![CDATA[<hr>
@@ -941,6 +625,307 @@ dnSpy - 針對.NET的逆向工具，包含靜態跟動態分析功能 -->
         <tag>analysis</tag>
         <tag>malware</tag>
         <tag>base</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>【惡意軟體分析】brbbot.exe - 01</title>
+    <url>/posts/10046/</url>
+    <content><![CDATA[<hr>
+<h4 id="前言"><a href="#前言" class="headerlink" title="前言"></a><font size='5'>前言</font></h4><blockquote>
+<p><font size='3'>這篇文章將說明分析惡意軟體。</font></p>
+</blockquote>
+<font size='3'>
+在本練習中，我們將對 brbbot.exe 惡意軟體進行靜態和動態分析，透過分析其樣本來了解其行為。
+</font>
+
+<br>
+
+<hr>
+<span id="more"></span>
+
+<h5 id="⚙️-Lab-Environment："><a href="#⚙️-Lab-Environment：" class="headerlink" title="⚙️ Lab Environment："></a>⚙️ Lab Environment：</h5><ul>
+<li><p><font size='3'>Linux Remnux ( Static Analysis )</font></p>
+</li>
+<li><p><font size='3'>Windows 11 ( Dynamic Analysis )</font></p>
+</li>
+<li><p><a href='https://bazaar.abuse.ch/sample/f47060d0f7de5ee651878eb18dd2d24b5003bdb03ef4f49879f448f05034a21e' target='_blank'><font size='3' color='#33ccff'>Brbbot.exe</font></a></p>
+</li>
+<li><p><font size='3'>HASH256：<code>b5af21afb00513a30d718f8b818e766b092ef83fb172039feea8f26a27e38e74</code></font></p>
+</li>
+</ul>
+<hr>
+<h3 id="🔥-Static-Analysis-🔥"><a href="#🔥-Static-Analysis-🔥" class="headerlink" title="🔥 Static Analysis 🔥"></a><font size='5' align='center'>🔥 Static Analysis 🔥</font></h3><hr>
+<br>
+
+<h4 id="🛠️-Static-Analysis-Tools："><a href="#🛠️-Static-Analysis-Tools：" class="headerlink" title="🛠️ Static Analysis Tools："></a>🛠️ Static Analysis Tools：</h4><ul>
+<li><font size='3'>file → 檢視文件類型</font></li>
+<li><font size='3'>md5sum → 產生樣本的雜湊值</font></li>
+<li><font size='3'>Strings → 提取字串</font></li>
+<li><font size='3'>PeStudio → 查看執行檔</font></li>
+<li><font size='3'>Virustotal   → 查看執行檔</font></li>
+</ul>
+<br>
+
+<hr>
+<br>
+
+<h4 id="1️⃣-File-Type"><a href="#1️⃣-File-Type" class="headerlink" title="1️⃣ File Type"></a>1️⃣ File Type</h4><ul>
+<li><font size='3'>檔案的名稱、副檔名皆可以更改，所以需要檢查檔案類型。</font></li>
+</ul>
+<br>
+
+<p><img data-src='file.png' alt='File Type'></img></p>
+<br>
+
+<h4 id="2️⃣-Fingerprinting"><a href="#2️⃣-Fingerprinting" class="headerlink" title="2️⃣ Fingerprinting"></a>2️⃣ Fingerprinting</h4><ul>
+<li><font size='3'>Hash 基本上是唯一值，故可以拿來檢驗該檔案是否遭受變更 或者 該檔案為惡意軟體。</font></li>
+</ul>
+<br>
+
+<p><img data-src='md5.png' width='100%' alt='Fingerprinting'></img></p>
+<br>
+
+<h4 id="3️⃣-Virustotal"><a href="#3️⃣-Virustotal" class="headerlink" title="3️⃣ Virustotal"></a>3️⃣ Virustotal</h4><ul>
+<li>將提取到的 Hash 值，提交到 <a href="https://www.virustotal.com/gui/home/upload">Virustotal</a> 查看是否已經有紀錄</li>
+</ul>
+<br>
+
+<p><img data-src='virustotal.png' width='600' align='center' alt='virustotal'></img></p>
+<br>
+
+<h4 id="4️⃣-Strings"><a href="#4️⃣-Strings" class="headerlink" title="4️⃣ Strings"></a>4️⃣ Strings</h4><ul>
+<li><font size='3'>字串的提取可以從樣本中獲取一些有用的字串 ( 命令指令、控制 (C2) IP 、惡意 URL )。</font></li>
+<li><font size='3'>❗Strings 可能不會獲取有用的資訊，有可能有進行代碼的加密。❗</font></li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 查看到全部的 string</span></span><br><span class="line">strings brbbot.exe</span><br><span class="line"></span><br><span class="line"><span class="comment"># 針對關鍵字尋找</span></span><br><span class="line">strings brbbot.exe | grep -iE <span class="string">&quot;http|https|cmd|powershell|.dll|.exe&quot;</span></span><br></pre></td></tr></table></figure>
+
+<br>
+
+<p><img data-src='strings.png' width='500' align='center' alt='Strings'></img><br><img data-src='pestudio-string.png' width='500' align='center' alt='PeStudio String'></img></p>
+<br>
+
+<ul>
+<li><font size='3'>此案例就可以查看到一些資訊</font><ul>
+<li><font size='3'>查看有哪些可疑的 DLL 、AutoRun 的字眼</font></li>
+</ul>
+</li>
+</ul>
+<br>
+
+<p><img data-src='strings-1.png' width='500' align='center' alt='AutoRun'></img><br><img data-src='strings-2.png' width='500' align='center' alt='Dll'></img></p>
+<br>
+
+<hr>
+<h3 id="🔥-Dynamic-Analysis-🔥"><a href="#🔥-Dynamic-Analysis-🔥" class="headerlink" title="🔥 Dynamic Analysis 🔥"></a><font size='5' align='center'>🔥 Dynamic Analysis 🔥</font></h3><hr>
+<br>
+
+<h4 id="🛠️-Dynamic-Analysis-Tools"><a href="#🛠️-Dynamic-Analysis-Tools" class="headerlink" title="🛠️ Dynamic Analysis Tools:"></a>🛠️ Dynamic Analysis Tools:</h4><ul>
+<li><font size='3'>Process Hacker</font></li>
+<li><font size='3'>PEStudio</font></li>
+<li><font size='3'>Wireshark</font></li>
+</ul>
+<br>
+
+<hr>
+<br>
+
+<h4 id="1️⃣-Process-Hacker"><a href="#1️⃣-Process-Hacker" class="headerlink" title="1️⃣ Process Hacker"></a>1️⃣ Process Hacker</h4><ul>
+<li>Process Hacker</li>
+</ul>
+<p><img data-src='process-hacker.png' width='500' align='center' alt='ProcessHacker'></img></p>
+<br>
+
+<h4 id="2️⃣-Wireshark"><a href="#2️⃣-Wireshark" class="headerlink" title="2️⃣ Wireshark"></a>2️⃣ Wireshark</h4><br>
+
+<p><img data-src='wireshark.png' width='500' align='center' alt='WireShark DNS'></img></p>
+<p><img data-src='wireshark-2.png' width='500' align='center' alt='WireShark HTTP'></img></p>
+<br>
+
+<h5 id="Wireshark-Observations"><a href="#Wireshark-Observations" class="headerlink" title="Wireshark Observations:"></a>Wireshark Observations:</h5><ul>
+<li><font size='3'>觀察後可以看到有一個試圖連外面的封包 ( brb.3dtuts.by )</font></li>
+<li><font size='3'>過濾 HTTP 可以看到一個試圖向外傳遞參數的封包</font></li>
+</ul>
+<br>
+
+<blockquote>
+<p><font size='3'>本篇有利用 Remnux 中的 fakedns 來進行欺騙，也是將詢問 brb.3dtuts.by 位置的封包回應成 Remnux IP，所以圖片中封包的目標 IP 才會是 Remnux 的 IP。</font></p>
+</blockquote>
+<br>
+
+<hr>
+<br>
+
+<h4 id="1️⃣-x64dbg"><a href="#1️⃣-x64dbg" class="headerlink" title="1️⃣ x64dbg"></a>1️⃣ x64dbg</h4><br>
+
+<p><img data-src='x64dbg-1.png' width='500' align='center' alt='將 brbbot.exe 檔案匯入, 設置斷點 SetBPX ReadFile'></img></p>
+<br>
+
+<p><img data-src='x64dbg-2.png' width='500' align='center' alt='運行程序直到斷點處'></img></p>
+<br>
+
+<p><img data-src='x64dbg-6.png' width='500' align='center' alt='查看右側 RCX 處數字 ( 138 ) '></img></p>
+<br>
+
+<p><img data-src='x64dbg-7.png' width='500' align='center' alt='至標籤 Handles 重新整理'></img></p>
+<br>
+
+<p><img data-src='x64dbg-8.png' width='500' align='center' alt='找尋 138 ，看到讀取的檔案及位置'></img></p>
+<br>
+
+<p><img data-src='x64dbg-3.png' width='500' align='center' alt='ALT + F9，跳過 windows API 回到惡意代碼'></img></p>
+<br>
+
+<p><img data-src='x64dbg-4.png' width='500' align='center' alt='找到編碼處，點選 F4 運行到該行'></img></p>
+<br>
+
+<p><img data-src='x64dbg-5.png' width='500' align='center' alt='得到編碼結果'></img></p>
+<br>
+
+<ul>
+<li><font size='3'><code>uri=ads.php;exec=cexe;file=elif;conf=fnoc;exit=tixe;encode=5b;sleep=30000</code> </font></li>
+<li><font size='3'>根據得到的字串可以猜測編碼可能為 XOR 5b，故嘗試將封包中傳遞的參數進行解密看看：</font></li>
+</ul>
+<br>
+
+<p><img data-src='remnux-1.png' width='500' align='center' alt='至 Remnux 建立 encoded.hex 複製上去'></img></p>
+<br>
+
+<p><img data-src='remnux-2.png' width='500' align='center' alt='進行編碼轉換與解碼'></img></p>
+<br>
+
+  <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 將 hex 格式轉換成原始二進制數據</span></span><br><span class="line">xxd -r -p encoded.hex &gt; encoded.raw</span><br><span class="line"></span><br><span class="line"><span class="comment"># 使用 XOR 進行解碼</span></span><br><span class="line">translate.py encoded.raw decoded.txt <span class="string">&#x27;byte ^ 0x5b&#x27;</span></span><br></pre></td></tr></table></figure>
+
+<br>
+
+<ul>
+<li><font size='3'>這個惡意程式的開發者定義了一套「命令對應機制」，我們在 brbconfig.tmp 找到了這些對應關係</font><ul>
+<li>exit（退出）變成 tixe</li>
+<li>config（設定）變成 fnoc</li>
+<li>file（檔案）變成 elif</li>
+<li>exec（執行）變成 cexe</li>
+</ul>
+</li>
+</ul>
+<p><img data-src='remnux-3.png' width='500' align='center' alt='通過 remnux 建立一個假的服務器，並建立 ads.php 來進行通訊'></img><br><img data-src='remnux-4.png' width='500' align='center' alt='可以看到通訊的時候會自動打開 notepad'></img></p>
+<br>
+
+
+
+<hr>
+<br>
+
+<h4 id="💡-結論"><a href="#💡-結論" class="headerlink" title="💡 結論"></a>💡 結論</h4><ul>
+<li><font size='3'>感染系統時生成一個編碼的 brbconfig.tmp 文件，並在創建後立即讀取該文件。</font></li>
+<li><font size='3'>惡意程式還會在 <code>C:\Users\roydo\AppData\Roaming</code> 註冊表鍵中創建名為 <code>brbbot</code> 的項目，以保持系統持久存在。</font></li>
+<li><font size='3'>透過DNS成功解析主機名後，試圖透過HTTP連接到 <code>brb.3dtuts.by</code></font></li>
+<li><font size='3'>HTTP 請求中，樣本向 <code>/ads.php</code> 發送GET請求，包含數個參數，其中兩個參數反映受感染系統的相關數據，這些數據被外傳給攻擊者。</font></li>
+</ul>
+<br>
+
+<hr>
+<h4 id="🔗-參考來源"><a href="#🔗-參考來源" class="headerlink" title="🔗 參考來源"></a>🔗 參考來源</h4><ul>
+<li><font size='3'> <a href="https://medium.com/@deepu0092/malware-analysis-advanced-7bd3860f0d81">Malware Analysis — Advanced</a> </font></li>
+<li><font size='3'>  <a href="https://medium.com/@deepu0092/malware-analysis-for-beginners-cd4185516d90">Malware Analysis for Beginners</a> </font></li>
+</ul>
+<br>]]></content>
+      <categories>
+        <category>analysis</category>
+      </categories>
+      <tags>
+        <tag>analysis</tag>
+        <tag>malware</tag>
+        <tag>exe</tag>
+        <tag>brbbot</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>【IDA PRO 程式解構】 - Hello World - 01</title>
+    <url>/posts/60293/</url>
+    <content><![CDATA[<hr>
+<h4 id="前言"><a href="#前言" class="headerlink" title="前言"></a><font size='5'>前言</font></h4><blockquote>
+<p><font size='3'>這篇文章紀錄 IDA PRO 軟體，分析 Hello World 的過程。</font></p>
+</blockquote>
+<font size='3'>
+在本練習中，我們將對 Hello.exe 檔案進行分析、修改的行為。
+</font>
+
+<hr>
+<span id="more"></span>
+
+
+<h5 id="⚙️-Lab-Environment："><a href="#⚙️-Lab-Environment：" class="headerlink" title="⚙️ Lab Environment："></a>⚙️ Lab Environment：</h5><ul>
+<li><font size='3'>Windows 11 ( IDA PRO )</font></li>
+</ul>
+<hr>
+<h5 id="🛠️-Static-Analysis-Tools："><a href="#🛠️-Static-Analysis-Tools：" class="headerlink" title="🛠️ Static Analysis Tools："></a>🛠️ Static Analysis Tools：</h5><ul>
+<li><font size='3'>IDA PRO</font></li>
+<li><font size='3'><code>非必須</code> Docker ( 準備 hello world 代碼 ) </font></li>
+</ul>
+<hr>
+<br>
+
+<h3 id="1-📝-Hello-World-程序"><a href="#1-📝-Hello-World-程序" class="headerlink" title="1. 📝 Hello World !! 程序"></a><font size='5'>1. 📝 Hello World !! 程序</font></h3><ul>
+<li><font size='3'>建立 <code>hello.c</code> 檔案</font></li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">#include &lt;stdio.h&gt;</span><br><span class="line"></span><br><span class="line">int main() &#123;</span><br><span class="line">    printf(&quot;Hello, World!!&quot;);</span><br><span class="line">    return 0;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li><font size='3'>使用 Docker 指令</font></li>
+</ul>
+<p><img data-src='docker-1.png' align='center' alt='docker 編譯'></img></p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line"># 使用 Docker 對該資料進行映射，映射後資料夾全部內容都會被拉進容器內</span><br><span class="line">docker run --rm -it -v .:/work -w /work gcc:latest bash</span><br><span class="line"></span><br><span class="line"># 在容器內安裝 MinGW</span><br><span class="line">apt update &amp;&amp; apt install -y mingw-w64</span><br><span class="line"></span><br><span class="line"># 對 hello.c 進行編譯</span><br><span class="line">x86_64-w64-mingw32-gcc hello.c -o hello.exe</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<br>
+
+<ul>
+<li><font size='3'>查看執行結果是否正常</font></li>
+</ul>
+<p><img data-src='hello.png' align='center' alt='Hello World'></img></p>
+<br>
+
+<hr>
+<br>
+
+<h3 id="2-📝-IDA-PRO-Analysis"><a href="#2-📝-IDA-PRO-Analysis" class="headerlink" title="2. 📝 IDA PRO Analysis"></a><font size='5'>2. 📝 IDA PRO Analysis</font></h3><ul>
+<li><font size='3'>使用 IDA PRO 打開 exe</font></li>
+</ul>
+<p><img data-src='ida-1.png' width='600' align='center' alt='Open IDA'></img></p>
+<br>
+
+<ul>
+<li><font size='3'>至 Strings 找到 Hello World 字樣 ( <code>Shift + F12</code> ) </font></li>
+</ul>
+<p><img data-src='ida-2.png' width='600' align='center' alt='IDA Strings'></img></p>
+<p><img data-src='ida-3.png' width='600' align='center' alt='Found Hello Word'></img></p>
+<p><img data-src='ida-4.png' width='600' align='center' alt='找到字樣後點選進去，選擇 hex dump'></img></p>
+<p><img data-src='ida-5.png' width='600' align='center' alt='選擇編輯，並將替換的編碼輸入進去'></img></p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line"># IDA PRO Test</span><br><span class="line">49 44 41 20 50 52 4F 20 54 65 73 74 00</span><br></pre></td></tr></table></figure>
+
+<p><img data-src='ida-6.png' width='600' align='center' alt='確認文字變更後，儲存並測試'></img></p>
+<p><img data-src='cmd-1.png' width='600' align='center' alt='🚀 確認無誤 🚀'></img></p>
+<br>
+
+<hr>
+<br>
+
+<h4 id="💡-結論"><a href="#💡-結論" class="headerlink" title="💡 結論"></a>💡 結論</h4><ul>
+<li><font size='3'>透過本次的練習，我們成功利用 IDA Pro 找到並修改可執行檔案 (hello.exe) 內的字串，將 “Hello, World!” 替換為 “IDA PRO Test”。</font></li>
+</ul>
+<br>
+
+<hr>
+<h4 id="🔗-參考來源"><a href="#🔗-參考來源" class="headerlink" title="🔗 參考來源"></a>🔗 參考來源</h4><ul>
+<li><font size='3'> <a href="https://blog.csdn.net/Onlyone_1314/article/details/108697155">IDA修改exe并保存运行</a> </font></li>
+<li><font size='3'> <a href="https://yujiewong.github.io/2017/03/28/%E7%AC%AC2%E7%AB%A0-%E9%80%86%E5%90%91%E5%88%86%E6%9E%90Hello-World-%E7%A8%8B%E5%BA%8F/">逆向分析Hello World! 程序</a> </font></li>
+</ul>
+<br>]]></content>
+      <categories>
+        <category>analysis</category>
+      </categories>
+      <tags>
+        <tag>Tool</tag>
+        <tag>IDA PRO</tag>
+        <tag>Analysis</tag>
+        <tag>Crack</tag>
       </tags>
   </entry>
 </search>
