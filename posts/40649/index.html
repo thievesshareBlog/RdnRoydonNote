@@ -21,33 +21,30 @@
     var CONFIG = {"hostname":"blog.thieves.site","root":"/","scheme":"Mist","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":false,"style":"mac"},"back2top":{"enable":true,"sidebar":true,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":true,"lazyload":true,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
-  <meta name="description" content="前言 這篇文章紀錄 IDA PRO 軟體，分析 Hello World 的過程。   在本練習中，我們將對 Hello.exe 檔案進行分析、修改的行為。">
+  <meta name="description" content="前言 這篇文章將說明分析惡意軟體。   在本練習中，我們將對 ime.exe 惡意檔案進行靜態和動態分析，透過分析其樣本來了解其行為。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="【IDA PRO 程式解構】 - Hello World - 01">
-<meta property="og:url" content="https://blog.thieves.site/posts/60293/index.html">
+<meta property="og:title" content="【惡意軟體分析】- 05">
+<meta property="og:url" content="https://blog.thieves.site/posts/40649/index.html">
 <meta property="og:site_name" content="Roydon&#39;s Note">
-<meta property="og:description" content="前言 這篇文章紀錄 IDA PRO 軟體，分析 Hello World 的過程。   在本練習中，我們將對 Hello.exe 檔案進行分析、修改的行為。">
+<meta property="og:description" content="前言 這篇文章將說明分析惡意軟體。   在本練習中，我們將對 ime.exe 惡意檔案進行靜態和動態分析，透過分析其樣本來了解其行為。">
 <meta property="og:locale" content="zh_TW">
-<meta property="og:image" content="https://blog.thieves.site/posts/60293/docker-1.png">
-<meta property="og:image" content="https://blog.thieves.site/posts/60293/hello.png">
-<meta property="og:image" content="https://blog.thieves.site/posts/60293/ida-1.png">
-<meta property="og:image" content="https://blog.thieves.site/posts/60293/ida-2.png">
-<meta property="og:image" content="https://blog.thieves.site/posts/60293/ida-3.png">
-<meta property="og:image" content="https://blog.thieves.site/posts/60293/ida-4.png">
-<meta property="og:image" content="https://blog.thieves.site/posts/60293/ida-5.png">
-<meta property="og:image" content="https://blog.thieves.site/posts/60293/ida-6.png">
-<meta property="og:image" content="https://blog.thieves.site/posts/60293/cmd-1.png">
-<meta property="article:published_time" content="2025-01-22T07:52:31.000Z">
-<meta property="article:modified_time" content="2025-02-14T07:58:36.366Z">
+<meta property="og:image" content="https://blog.thieves.site/posts/40649/pe-studio-1.png">
+<meta property="og:image" content="https://blog.thieves.site/posts/40649/pe-studio-2.png">
+<meta property="og:image" content="https://blog.thieves.site/posts/40649/virustotal.png">
+<meta property="og:image" content="https://blog.thieves.site/posts/40649/process-monitor-1.png">
+<meta property="og:image" content="https://blog.thieves.site/posts/40649/autoruns-1.png">
+<meta property="og:image" content="https://blog.thieves.site/posts/40649/ime-srg.png">
+<meta property="article:published_time" content="2025-02-18T08:25:21.000Z">
+<meta property="article:modified_time" content="2025-02-18T08:26:01.126Z">
 <meta property="article:author" content="Roydon">
-<meta property="article:tag" content="Tool">
-<meta property="article:tag" content="IDA PRO">
-<meta property="article:tag" content="Analysis">
-<meta property="article:tag" content="Crack">
+<meta property="article:tag" content="analysis">
+<meta property="article:tag" content="malware">
+<meta property="article:tag" content="exe">
+<meta property="article:tag" content="Pending">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://blog.thieves.site/posts/60293/docker-1.png">
+<meta name="twitter:image" content="https://blog.thieves.site/posts/40649/pe-studio-1.png">
 
-<link rel="canonical" href="https://blog.thieves.site/posts/60293/">
+<link rel="canonical" href="https://blog.thieves.site/posts/40649/">
 
 
 <script id="page-configurations">
@@ -60,7 +57,7 @@
   };
 </script>
 
-  <title>【IDA PRO 程式解構】 - Hello World - 01 | Roydon's Note</title>
+  <title>【惡意軟體分析】- 05 | Roydon's Note</title>
   
 
 
@@ -200,7 +197,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-TW">
-    <link itemprop="mainEntityOfPage" href="https://blog.thieves.site/posts/60293/">
+    <link itemprop="mainEntityOfPage" href="https://blog.thieves.site/posts/40649/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/death.svg">
@@ -213,7 +210,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          【IDA PRO 程式解構】 - Hello World - 01
+          【惡意軟體分析】- 05
         </h1>
 
         <div class="post-meta">
@@ -222,16 +219,10 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">發表於</span>
+              
 
-              <time title="創建時間：2025-01-22 15:52:31" itemprop="dateCreated datePublished" datetime="2025-01-22T15:52:31+08:00">2025-01-22</time>
+              <time title="創建時間：2025-02-18 16:25:21 / 修改時間：16:26:01" itemprop="dateCreated datePublished" datetime="2025-02-18T16:25:21+08:00">2025-02-18</time>
             </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新於</span>
-                <time title="修改時間：2025-02-14 15:58:36" itemprop="dateModified" datetime="2025-02-14T15:58:36+08:00">2025-02-14</time>
-              </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="far fa-folder"></i>
@@ -251,8 +242,8 @@
       </span>
       <span class="post-meta-item-text">Disqus：</span>
     
-    <a title="disqus" href="/posts/60293/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="posts/60293/" itemprop="commentCount"></span>
+    <a title="disqus" href="/posts/40649/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="posts/40649/" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -262,7 +253,7 @@
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">文章字數：</span>
-              <span>710</span>
+              <span>539</span>
             </span>
             <span class="post-meta-item" title="所需閱讀時間">
               <span class="post-meta-item-icon">
@@ -283,79 +274,103 @@
       
         <hr>
 <h4 id="前言"><a href="#前言" class="headerlink" title="前言"></a><font size='5'>前言</font></h4><blockquote>
-<p><font size='3'>這篇文章紀錄 IDA PRO 軟體，分析 Hello World 的過程。</font></p>
+<p><font size='3'>這篇文章將說明分析惡意軟體。</font></p>
 </blockquote>
 <font size='3'>
-在本練習中，我們將對 Hello.exe 檔案進行分析、修改的行為。
+在本練習中，我們將對 ime.exe 惡意檔案進行靜態和動態分析，透過分析其樣本來了解其行為。
 </font>
+
+<br>
 
 <hr>
 <span id="more"></span>
 
-
 <h5 id="⚙️-Lab-Environment："><a href="#⚙️-Lab-Environment：" class="headerlink" title="⚙️ Lab Environment："></a>⚙️ Lab Environment：</h5><ul>
-<li><font size='3'>Windows 11 ( IDA PRO )</font></li>
+<li><font size='3'>Linux Remnux ( Static Analysis )</font></li>
+<li><font size='3'>Windows 11 ( Dynamic Analysis )</font></li>
+<li><font size='3'>MD5：<code>36536F8C42C258DCC23889DE6D72019E</code></font></li>
 </ul>
 <hr>
-<h5 id="🛠️-Static-Analysis-Tools："><a href="#🛠️-Static-Analysis-Tools：" class="headerlink" title="🛠️ Static Analysis Tools："></a>🛠️ Static Analysis Tools：</h5><ul>
-<li><font size='3'>IDA PRO</font></li>
-<li><font size='3'><code>非必須</code> Docker ( 準備 hello world 代碼 ) </font></li>
-</ul>
-<hr>
+<h3 id="🔥-Static-Analysis-🔥"><a href="#🔥-Static-Analysis-🔥" class="headerlink" title="🔥 Static Analysis 🔥"></a><font size='5' align='center'>🔥 Static Analysis 🔥</font></h3><hr>
 <br>
 
-<h3 id="1-📝-Hello-World-程序"><a href="#1-📝-Hello-World-程序" class="headerlink" title="1. 📝 Hello World !! 程序"></a><font size='5'>1. 📝 Hello World !! 程序</font></h3><ul>
-<li><font size='3'>建立 <code>hello.c</code> 檔案</font></li>
+<h4 id="🛠️-Static-Analysis-Tools"><a href="#🛠️-Static-Analysis-Tools" class="headerlink" title="🛠️ Static Analysis Tools"></a>🛠️ Static Analysis Tools</h4><ul>
+<li><font size='3'>PEStudio → 提取多種關鍵資訊</font></li>
+<li><font size='3'>Virustotal   → 查看執行檔</font></li>
 </ul>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;stdio.h&gt;</span><br><span class="line"></span><br><span class="line">int main() &#123;</span><br><span class="line">    printf(&quot;Hello, World!!&quot;);</span><br><span class="line">    return 0;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<ul>
-<li><font size='3'>使用 Docker 指令</font></li>
-</ul>
-<p><img data-src='docker-1.png' align='center' alt='docker 編譯'></img></p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"># 使用 Docker 對該資料進行映射，映射後資料夾全部內容都會被拉進容器內</span><br><span class="line">docker run --rm -it -v .:/work -w /work gcc:latest bash</span><br><span class="line"></span><br><span class="line"># 在容器內安裝 MinGW</span><br><span class="line">apt update &amp;&amp; apt install -y mingw-w64</span><br><span class="line"></span><br><span class="line"># 對 hello.c 進行編譯</span><br><span class="line">x86_64-w64-mingw32-gcc hello.c -o hello.exe</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<br>
-
-<ul>
-<li><font size='3'>查看執行結果是否正常</font></li>
-</ul>
-<p><img data-src='hello.png' align='center' alt='Hello World'></img></p>
 <br>
 
 <hr>
 <br>
 
-<h3 id="2-📝-IDA-PRO-Analysis"><a href="#2-📝-IDA-PRO-Analysis" class="headerlink" title="2. 📝 IDA PRO Analysis"></a><font size='5'>2. 📝 IDA PRO Analysis</font></h3><ul>
-<li><font size='3'>使用 IDA PRO 打開 exe</font></li>
+<h4 id="1️⃣-PEStudio"><a href="#1️⃣-PEStudio" class="headerlink" title="1️⃣ PEStudio"></a>1️⃣ PEStudio</h4><ul>
+<li><font size='3'>針對檔案資訊進行初步查找</font></li>
 </ul>
-<p><img data-src='ida-1.png' width='600' align='center' alt='Open IDA'></img></p>
+<p><img data-src='pe-studio-1.png' width='700' align='center' alt='查看 Strings'></img></p>
 <br>
 
-<ul>
-<li><font size='3'>至 Strings 找到 Hello World 字樣 ( <code>Shift + F12</code> ) </font></li>
-</ul>
-<p><img data-src='ida-2.png' width='600' align='center' alt='IDA Strings'></img></p>
-<p><img data-src='ida-3.png' width='600' align='center' alt='Found Hello Word'></img></p>
-<p><img data-src='ida-4.png' width='600' align='center' alt='找到字樣後點選進去，選擇 hex dump'></img></p>
-<p><img data-src='ida-5.png' width='600' align='center' alt='選擇編輯，並將替換的編碼輸入進去'></img></p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"># IDA PRO Test</span><br><span class="line">49 44 41 20 50 52 4F 20 54 65 73 74 00</span><br></pre></td></tr></table></figure>
+<p><img data-src='pe-studio-2.png' width='700' align='center' alt='查看 HASH'></img></p>
+<br>
 
-<p><img data-src='ida-6.png' width='600' align='center' alt='確認文字變更後，儲存並測試'></img></p>
-<p><img data-src='cmd-1.png' width='600' align='center' alt='🚀 確認無誤 🚀'></img></p>
+<h4 id="2️⃣-Virustotal"><a href="#2️⃣-Virustotal" class="headerlink" title="2️⃣ Virustotal"></a>2️⃣ Virustotal</h4><ul>
+<li><font size='3'>將提取到的 Hash 值，提交到 <a target="_blank" rel="noopener" href="https://www.virustotal.com/gui/home/upload">Virustotal</a> 查看是否已經有紀錄。</font></li>
+</ul>
+<p><img data-src='virustotal.png' width='700' align='center' alt='確定該檔案確實為惡意程式'></img></p>
+<br>
+
+
+<br>
+
+<hr>
+<h3 id="🔥-Dynamic-Analysis-🔥"><a href="#🔥-Dynamic-Analysis-🔥" class="headerlink" title="🔥 Dynamic Analysis 🔥"></a><font size='5' align='center'>🔥 Dynamic Analysis 🔥</font></h3><hr>
+<br>
+
+<h4 id="🛠️-Dynamic-Analysis-Tools"><a href="#🛠️-Dynamic-Analysis-Tools" class="headerlink" title="🛠️ Dynamic Analysis Tools"></a>🛠️ Dynamic Analysis Tools</h4><ul>
+<li><font size='3'>Procmon -&gt; 監控時間段的進程</font></li>
+<li><font size='3'>AutoRuns -&gt; 查看進程</font><!-- - <font size='3'>Wireshark -> 查看封包狀況</font> --></li>
+</ul>
+<br>
+
+<hr>
+<br>
+
+<h4 id="1️⃣-Procmon"><a href="#1️⃣-Procmon" class="headerlink" title="1️⃣ Procmon"></a>1️⃣ Procmon</h4><ul>
+<li>監控程式的行為</li>
+</ul>
+<p><img data-src='process-monitor-1.png' width='700' align='center' alt='查看到有建立一個檔案'></img></p>
+<br>
+
+<h4 id="2️⃣-AutoRuns"><a href="#2️⃣-AutoRuns" class="headerlink" title="2️⃣ AutoRuns"></a>2️⃣ AutoRuns</h4><ul>
+<li>查看有無可疑的路徑、檔案<ul>
+<li>明顯添加一個可疑檔案</li>
+</ul>
+</li>
+</ul>
+<p><img data-src='autoruns-1.png' width='700' align='center' alt='AutoRuns'></img></p>
 <br>
 
 <hr>
 <br>
 
 <h4 id="💡-結論"><a href="#💡-結論" class="headerlink" title="💡 結論"></a>💡 結論</h4><ul>
-<li><font size='3'>透過本次的練習，我們成功利用 IDA Pro 找到並修改可執行檔案 (hello.exe) 內的字串，將 “Hello, World!” 替換為 “IDA PRO Test”。</font></li>
+<li><font size='3'>建立 Windows NT 自動執行 ( <code>ime.exe</code> )，會在該資料夾建立一個 <code>ime.srg</code> 檔案。</font></li>
+<li><font size='3'>移除 <code>ime.exe</code> 、 <code>ime.srg</code> 。</font></li>
 </ul>
 <br>
 
 <hr>
+<br>
+
+<h4 id="❓-遭遇的問題"><a href="#❓-遭遇的問題" class="headerlink" title="❓ 遭遇的問題"></a>❓ 遭遇的問題</h4><ul>
+<li><font size='3'>分析 <code>ime.srg</code> 檔案 - <code>Pending</code></font></li>
+</ul>
+<p><img data-src='ime-srg.png' width='700' align='center' alt='待解析'></img></p>
+<br>
+
+<hr>
 <h4 id="🔗-參考來源"><a href="#🔗-參考來源" class="headerlink" title="🔗 參考來源"></a>🔗 參考來源</h4><ul>
-<li><font size='3'> <a target="_blank" rel="noopener" href="https://blog.csdn.net/Onlyone_1314/article/details/108697155">IDA修改exe并保存运行</a> </font></li>
-<li><font size='3'> <a target="_blank" rel="noopener" href="https://yujiewong.github.io/2017/03/28/%E7%AC%AC2%E7%AB%A0-%E9%80%86%E5%90%91%E5%88%86%E6%9E%90Hello-World-%E7%A8%8B%E5%BA%8F/">逆向分析Hello World! 程序</a> </font></li>
+<li><font size='3'> 暫無 </font><!-- - <font size='3'> [A Beginner’s Analysis of RemcosRAT Malware
+](https://medium.com/@cam40303/a-beginners-analysis-of-remcosrat-malware-524fa43a4992) </font> --></li>
 </ul>
 <br>
     </div>
@@ -366,10 +381,10 @@
 
       <footer class="post-footer">
           <div class="post-tags">
-              <a href="/tags/Tool/" rel="tag"># Tool</a>
-              <a href="/tags/IDA-PRO/" rel="tag"># IDA PRO</a>
-              <a href="/tags/Analysis/" rel="tag"># Analysis</a>
-              <a href="/tags/Crack/" rel="tag"># Crack</a>
+              <a href="/tags/analysis/" rel="tag"># analysis</a>
+              <a href="/tags/malware/" rel="tag"># malware</a>
+              <a href="/tags/exe/" rel="tag"># exe</a>
+              <a href="/tags/Pending/" rel="tag"># Pending</a>
           </div>
 
         
@@ -378,13 +393,10 @@
         
     <div class="post-nav">
       <div class="post-nav-item">
-    <a href="/posts/5670/" rel="prev" title="【工具介紹】ISO 映像檔燒錄 USB 隨身碟">
-      <i class="fa fa-chevron-left"></i> 【工具介紹】ISO 映像檔燒錄 USB 隨身碟
+    <a href="/posts/49126/" rel="prev" title="【惡意軟體分析】- 04">
+      <i class="fa fa-chevron-left"></i> 【惡意軟體分析】- 04
     </a></div>
-      <div class="post-nav-item">
-    <a href="/posts/42213/" rel="next" title="【惡意軟體分析】基礎概念篇">
-      【惡意軟體分析】基礎概念篇 <i class="fa fa-chevron-right"></i>
-    </a></div>
+      <div class="post-nav-item"></div>
     </div>
       </footer>
     
@@ -450,7 +462,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%89%8D%E8%A8%80"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E2%9A%99%EF%B8%8F-Lab-Environment%EF%BC%9A"><span class="nav-number">1.1.</span> <span class="nav-text">⚙️ Lab Environment：</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%F0%9F%9B%A0%EF%B8%8F-Static-Analysis-Tools%EF%BC%9A"><span class="nav-number">1.2.</span> <span class="nav-text">🛠️ Static Analysis Tools：</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-%F0%9F%93%9D-Hello-World-%E7%A8%8B%E5%BA%8F"><span class="nav-number"></span> <span class="nav-text">1. 📝 Hello World !! 程序</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-%F0%9F%93%9D-IDA-PRO-Analysis"><span class="nav-number"></span> <span class="nav-text">2. 📝 IDA PRO Analysis</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%F0%9F%92%A1-%E7%B5%90%E8%AB%96"><span class="nav-number">1.</span> <span class="nav-text">💡 結論</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%F0%9F%94%97-%E5%8F%83%E8%80%83%E4%BE%86%E6%BA%90"><span class="nav-number">2.</span> <span class="nav-text">🔗 參考來源</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%89%8D%E8%A8%80"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E2%9A%99%EF%B8%8F-Lab-Environment%EF%BC%9A"><span class="nav-number">1.1.</span> <span class="nav-text">⚙️ Lab Environment：</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%F0%9F%94%A5-Static-Analysis-%F0%9F%94%A5"><span class="nav-number"></span> <span class="nav-text">🔥 Static Analysis 🔥</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%F0%9F%9B%A0%EF%B8%8F-Static-Analysis-Tools"><span class="nav-number">1.</span> <span class="nav-text">🛠️ Static Analysis Tools</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1%EF%B8%8F%E2%83%A3-PEStudio"><span class="nav-number">2.</span> <span class="nav-text">1️⃣ PEStudio</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2%EF%B8%8F%E2%83%A3-Virustotal"><span class="nav-number">3.</span> <span class="nav-text">2️⃣ Virustotal</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%F0%9F%94%A5-Dynamic-Analysis-%F0%9F%94%A5"><span class="nav-number"></span> <span class="nav-text">🔥 Dynamic Analysis 🔥</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%F0%9F%9B%A0%EF%B8%8F-Dynamic-Analysis-Tools"><span class="nav-number">1.</span> <span class="nav-text">🛠️ Dynamic Analysis Tools</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1%EF%B8%8F%E2%83%A3-Procmon"><span class="nav-number">2.</span> <span class="nav-text">1️⃣ Procmon</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2%EF%B8%8F%E2%83%A3-AutoRuns"><span class="nav-number">3.</span> <span class="nav-text">2️⃣ AutoRuns</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%F0%9F%92%A1-%E7%B5%90%E8%AB%96"><span class="nav-number">4.</span> <span class="nav-text">💡 結論</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E2%9D%93-%E9%81%AD%E9%81%87%E7%9A%84%E5%95%8F%E9%A1%8C"><span class="nav-number">5.</span> <span class="nav-text">❓ 遭遇的問題</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%F0%9F%94%97-%E5%8F%83%E8%80%83%E4%BE%86%E6%BA%90"><span class="nav-number">6.</span> <span class="nav-text">🔗 參考來源</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -643,9 +655,9 @@ if (document.querySelectorAll('pre.mermaid').length) {
 </script>
 <script>
   var disqus_config = function() {
-    this.page.url = "https://blog.thieves.site/posts/60293/";
-    this.page.identifier = "posts/60293/";
-    this.page.title = "【IDA PRO 程式解構】 - Hello World - 01";
+    this.page.url = "https://blog.thieves.site/posts/40649/";
+    this.page.identifier = "posts/40649/";
+    this.page.title = "【惡意軟體分析】- 05";
     };
   NexT.utils.loadComments(document.querySelector('#disqus_thread'), () => {
     if (window.DISQUS) {

