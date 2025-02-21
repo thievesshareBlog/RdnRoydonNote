@@ -858,7 +858,10 @@ vssadmin -->]]></content>
 <h4 id="1️⃣-Procmon"><a href="#1️⃣-Procmon" class="headerlink" title="1️⃣ Procmon"></a>1️⃣ Procmon</h4><ul>
 <li>監控程式的行為</li>
 </ul>
-<p><img data-src='process-monitor-1.png' width='700' align='center' alt='過濾資訊'></img></p>
+<p><img data-src='process-monitor-1.png' width='700' align='center' alt='injected_LoadExe.exe'></img></p>
+<br>
+
+<p><img data-src='process-monitor-2.png' width='700' align='center' alt='iusb3mon.exe'></img></p>
 <br>
 
 <h4 id="2️⃣-AutoRuns"><a href="#2️⃣-AutoRuns" class="headerlink" title="2️⃣ AutoRuns"></a>2️⃣ AutoRuns</h4><ul>
@@ -873,7 +876,6 @@ vssadmin -->]]></content>
 <h4 id="💡-結論"><a href="#💡-結論" class="headerlink" title="💡 結論"></a>💡 結論</h4><ul>
 <li><font size='3'>點擊後會自動將檔案帶入 <code>tmp</code> 資料夾中，</font></li>
 <li><font size='3'>移除 <code>&quot;C:\log/haha.txt&quot;</code> 、 <code>C:\Users\ADMINI~1\AppData\Local\Temp\1\RarSFX0\iusb3mon.dll</code>、。</font></li>
-<li><font size='3'>重新啟動？ kill process？</font></li>
 </ul>
 <br>
 
@@ -881,9 +883,10 @@ vssadmin -->]]></content>
 <br>
 
 <h4 id="❓-遭遇的問題"><a href="#❓-遭遇的問題" class="headerlink" title="❓ 遭遇的問題"></a>❓ 遭遇的問題</h4><ul>
-<li><font size='3'>分析 <code>ime.srg</code> 檔案 - <code>Pending</code></font></li>
+<li><font size='3'>暫無</font>  <!-- - <font size='3'>分析 `ime.srg` 檔案 - `Pending`</font> --></li>
 </ul>
-<p><img data-src='ime-srg.png' width='700' align='center' alt='待解析'></img></p>
+<!-- <img data-src='ime-srg.png' width='700' align='center' alt='待解析'></img> -->
+
 <br>
 
 <hr>
