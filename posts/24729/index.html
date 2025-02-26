@@ -23,17 +23,17 @@
 
   <meta name="description" content="前言 這篇文章紀錄關於 DLL Injection 的攻擊手法，實際建一個惡意程式來理解過程。   在本練習中，我們將針對 Explorer.exe ( 檔案總管 ) ，進行注入並打開 CMD 的簡單行為。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="【DLL Injection】注入攻擊 - 01">
-<meta property="og:url" content="https://blog.thieves.site/posts/33174/index.html">
+<meta property="og:title" content="【DLL Injection】注入攻擊 - 02">
+<meta property="og:url" content="https://blog.thieves.site/posts/24729/index.html">
 <meta property="og:site_name" content="Roydon&#39;s Note">
 <meta property="og:description" content="前言 這篇文章紀錄關於 DLL Injection 的攻擊手法，實際建一個惡意程式來理解過程。   在本練習中，我們將針對 Explorer.exe ( 檔案總管 ) ，進行注入並打開 CMD 的簡單行為。">
 <meta property="og:locale" content="zh_TW">
-<meta property="og:image" content="https://blog.thieves.site/posts/33174/docker-1.png">
-<meta property="og:image" content="https://blog.thieves.site/posts/33174/docker-2.png">
-<meta property="og:image" content="https://blog.thieves.site/posts/33174/run-1.png">
-<meta property="og:image" content="https://blog.thieves.site/posts/33174/run-2.png">
-<meta property="article:published_time" content="2025-02-26T06:04:33.000Z">
-<meta property="article:modified_time" content="2025-02-26T08:13:12.664Z">
+<meta property="og:image" content="https://blog.thieves.site/posts/24729/docker-1.png">
+<meta property="og:image" content="https://blog.thieves.site/posts/24729/docker-2.png">
+<meta property="og:image" content="https://blog.thieves.site/posts/24729/run-1.png">
+<meta property="og:image" content="https://blog.thieves.site/posts/24729/run-2.png">
+<meta property="article:published_time" content="2025-02-26T07:58:39.000Z">
+<meta property="article:modified_time" content="2025-02-26T08:00:30.080Z">
 <meta property="article:author" content="Roydon">
 <meta property="article:tag" content="Tool">
 <meta property="article:tag" content="Analysis">
@@ -42,9 +42,9 @@
 <meta property="article:tag" content="Injection">
 <meta property="article:tag" content="LAB">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://blog.thieves.site/posts/33174/docker-1.png">
+<meta name="twitter:image" content="https://blog.thieves.site/posts/24729/docker-1.png">
 
-<link rel="canonical" href="https://blog.thieves.site/posts/33174/">
+<link rel="canonical" href="https://blog.thieves.site/posts/24729/">
 
 
 <script id="page-configurations">
@@ -57,7 +57,7 @@
   };
 </script>
 
-  <title>【DLL Injection】注入攻擊 - 01 | Roydon's Note</title>
+  <title>【DLL Injection】注入攻擊 - 02 | Roydon's Note</title>
   
 
 
@@ -197,7 +197,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-TW">
-    <link itemprop="mainEntityOfPage" href="https://blog.thieves.site/posts/33174/">
+    <link itemprop="mainEntityOfPage" href="https://blog.thieves.site/posts/24729/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/death.svg">
@@ -210,7 +210,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          【DLL Injection】注入攻擊 - 01
+          【DLL Injection】注入攻擊 - 02
         </h1>
 
         <div class="post-meta">
@@ -221,7 +221,7 @@
               <span class="post-meta-item-text">發表於</span>
               
 
-              <time title="創建時間：2025-02-26 14:04:33 / 修改時間：16:13:12" itemprop="dateCreated datePublished" datetime="2025-02-26T14:04:33+08:00">2025-02-26</time>
+              <time title="創建時間：2025-02-26 15:58:39 / 修改時間：16:00:30" itemprop="dateCreated datePublished" datetime="2025-02-26T15:58:39+08:00">2025-02-26</time>
             </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -242,8 +242,8 @@
       </span>
       <span class="post-meta-item-text">Disqus：</span>
     
-    <a title="disqus" href="/posts/33174/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="posts/33174/" itemprop="commentCount"></span>
+    <a title="disqus" href="/posts/24729/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="posts/24729/" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -253,7 +253,7 @@
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">文章字數：</span>
-              <span>5.3k</span>
+              <span>5.1k</span>
             </span>
             <span class="post-meta-item" title="所需閱讀時間">
               <span class="post-meta-item-icon">
@@ -341,21 +341,16 @@
 <br>
 
 <h4 id="💡-結論"><a href="#💡-結論" class="headerlink" title="💡 結論"></a>💡 結論</h4><ul>
-<li><font size='3'>1. <code>DLL Injection</code> 是先找到、建立 Process 後，通過 Windows API（如 OpenProcess）獲取目標進程權限。</font></li>
-<li><font size='3'>利用 <code>VirtualAllocEx</code> 在目標進程中分配一塊內存，用於存放將要注入的 DLL 路徑或代碼。</font></li>
-<li><font size='3'>透過 <code>WriteProcessMemory</code> 將 DLL 文件的路徑寫入到剛剛分配的目標進程內存中</font></li>
-<li><font size='3'>在目標進程中創建一個新線程，並指定執行入口為 <code>LoadLibrary</code>（通常是 <code>LoadLibraryA</code> 或 <code>LoadLibraryW</code>）。</font></li>
-<li><font size='3'>當 DLL 被載入後，其 <code>DllMain</code> 函數會被呼叫，進而執行預設的代碼</font></li>
+<li><font size='3'>99999</font></li>
 </ul>
 <br>
 
 <hr>
-<br>
-
 <h4 id="🔗-參考來源"><a href="#🔗-參考來源" class="headerlink" title="🔗 參考來源"></a>🔗 參考來源</h4><ul>
-<li><font size='3'>暫無</font><br></li>
+<li><font size='3'> <a target="_blank" rel="noopener" href="https://blog.csdn.net/Onlyone_1314/article/details/108697155">IDA修改exe并保存运行</a> </font></li>
+<li><font size='3'> <a target="_blank" rel="noopener" href="https://yujiewong.github.io/2017/03/28/%E7%AC%AC2%E7%AB%A0-%E9%80%86%E5%90%91%E5%88%86%E6%9E%90Hello-World-%E7%A8%8B%E5%BA%8F/">逆向分析Hello World! 程序</a> </font></li>
 </ul>
-
+<br>
     </div>
 
     
@@ -378,13 +373,10 @@
         
     <div class="post-nav">
       <div class="post-nav-item">
-    <a href="/posts/33372/" rel="prev" title="【惡意軟體分析】- 10 - vbs">
-      <i class="fa fa-chevron-left"></i> 【惡意軟體分析】- 10 - vbs
+    <a href="/posts/33174/" rel="prev" title="【DLL Injection】注入攻擊 - 01">
+      <i class="fa fa-chevron-left"></i> 【DLL Injection】注入攻擊 - 01
     </a></div>
-      <div class="post-nav-item">
-    <a href="/posts/24729/" rel="next" title="【DLL Injection】注入攻擊 - 02">
-      【DLL Injection】注入攻擊 - 02 <i class="fa fa-chevron-right"></i>
-    </a></div>
+      <div class="post-nav-item"></div>
     </div>
       </footer>
     
@@ -643,9 +635,9 @@ if (document.querySelectorAll('pre.mermaid').length) {
 </script>
 <script>
   var disqus_config = function() {
-    this.page.url = "https://blog.thieves.site/posts/33174/";
-    this.page.identifier = "posts/33174/";
-    this.page.title = "【DLL Injection】注入攻擊 - 01";
+    this.page.url = "https://blog.thieves.site/posts/24729/";
+    this.page.identifier = "posts/24729/";
+    this.page.title = "【DLL Injection】注入攻擊 - 02";
     };
   NexT.utils.loadComments(document.querySelector('#disqus_thread'), () => {
     if (window.DISQUS) {
