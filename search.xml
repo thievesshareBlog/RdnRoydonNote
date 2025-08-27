@@ -266,9 +266,10 @@
 </ul>
 <br>]]></content>
       <categories>
-        <category>analysis</category>
+        <category>資安</category>
       </categories>
       <tags>
+        <tag>Reverse Engineering</tag>
         <tag>analysis</tag>
         <tag>malware</tag>
         <tag>brbbot</tag>
@@ -400,9 +401,10 @@
 </ul>
 <br>]]></content>
       <categories>
-        <category>analysis</category>
+        <category>資安</category>
       </categories>
       <tags>
+        <tag>Reverse Engineering</tag>
         <tag>analysis</tag>
         <tag>malware</tag>
         <tag>vbs</tag>
@@ -649,9 +651,10 @@
 <!-- bcdedit
 vssadmin -->]]></content>
       <categories>
-        <category>analysis</category>
+        <category>資安</category>
       </categories>
       <tags>
+        <tag>Reverse Engineering</tag>
         <tag>analysis</tag>
         <tag>malware</tag>
         <tag>exe</tag>
@@ -802,9 +805,10 @@ vssadmin -->]]></content>
 </ul>
 <br>]]></content>
       <categories>
-        <category>analysis</category>
+        <category>資安</category>
       </categories>
       <tags>
+        <tag>Reverse Engineering</tag>
         <tag>analysis</tag>
         <tag>malware</tag>
         <tag>vbs</tag>
@@ -917,9 +921,10 @@ vssadmin -->]]></content>
 </ul>
 <br>]]></content>
       <categories>
-        <category>analysis</category>
+        <category>資安</category>
       </categories>
       <tags>
+        <tag>Reverse Engineering</tag>
         <tag>analysis</tag>
         <tag>malware</tag>
         <tag>exe</tag>
@@ -1033,9 +1038,10 @@ vssadmin -->]]></content>
 </ul>
 <br>]]></content>
       <categories>
-        <category>analysis</category>
+        <category>資安</category>
       </categories>
       <tags>
+        <tag>Reverse Engineering</tag>
         <tag>analysis</tag>
         <tag>malware</tag>
         <tag>exe</tag>
@@ -1153,9 +1159,10 @@ vssadmin -->]]></content>
 </ul>
 <br>]]></content>
       <categories>
-        <category>analysis</category>
+        <category>資安</category>
       </categories>
       <tags>
+        <tag>Reverse Engineering</tag>
         <tag>analysis</tag>
         <tag>malware</tag>
         <tag>exe</tag>
@@ -1252,9 +1259,10 @@ vssadmin -->]]></content>
 </ul>
 <br>]]></content>
       <categories>
-        <category>analysis</category>
+        <category>資安</category>
       </categories>
       <tags>
+        <tag>Reverse Engineering</tag>
         <tag>analysis</tag>
         <tag>malware</tag>
         <tag>exe</tag>
@@ -1351,12 +1359,123 @@ vssadmin -->]]></content>
 </ul>
 <br>]]></content>
       <categories>
-        <category>analysis</category>
+        <category>資安</category>
       </categories>
       <tags>
+        <tag>Reverse Engineering</tag>
         <tag>analysis</tag>
         <tag>malware</tag>
         <tag>exe</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>【惡意軟體分析】基礎概念篇</title>
+    <url>/posts/42213/</url>
+    <content><![CDATA[<hr>
+<h4 id="前言"><a href="#前言" class="headerlink" title="前言"></a><font size='5'>前言</font></h4><blockquote>
+<p><font size='3'>轉職 ~~ 學習到 Malware Analysis 跟逆向分析的東西，把基礎概念與工具用途紀錄一下。</font></p>
+</blockquote>
+<hr>
+<span id="more"></span>
+
+
+<h2 id="📝-本篇說明紀錄兩個部分"><a href="#📝-本篇說明紀錄兩個部分" class="headerlink" title="📝 本篇說明紀錄兩個部分"></a><font size='3'>📝 本篇說明紀錄兩個部分</font></h2><ul>
+<li>Analysis Environment</li>
+<li>Analysis Step<ul>
+<li>Static Analysis</li>
+<li>Dynamic Analysis</li>
+<li>Reverse Engineering</li>
+</ul>
+</li>
+</ul>
+<br>
+
+<h2 id="📝-Analysis-Environment-分析環境"><a href="#📝-Analysis-Environment-分析環境" class="headerlink" title="📝 Analysis Environment ( 分析環境 )"></a>📝 Analysis Environment ( 分析環境 )</h2><hr>
+<ul>
+<li><font size='3'>最常見的就是 Windows ，大多的惡意程式都是針對 Windows 去設計。</font></li>
+<li><font size='3'>Remux Linux 的版本，裡面預載許多常用到的分析工具。</font></li>
+</ul>
+<br>
+
+<hr>
+<h2 id="🔥-Analysis-Step-🔥"><a href="#🔥-Analysis-Step-🔥" class="headerlink" title="🔥 Analysis Step 🔥"></a><font size='5' align='center'>🔥 Analysis Step 🔥</font></h2><hr>
+<br>
+
+
+<h3 id="📝-Analysis-Analysis"><a href="#📝-Analysis-Analysis" class="headerlink" title="📝 Analysis Analysis"></a><font size='5'>📝 Analysis Analysis</font></h3><hr>
+<ul>
+<li><font size='3'>不執行的去分析惡意程序的內容，針對 Windows 的話可以用下列工具</font><ul>
+<li><font size='3'><code>PE Studio</code> ：可以初步的做分析，查看 PE 資訊與 檔案的 strings。</font></li>
+<li><font size='3'><code>IDA</code> ：逆向標配，可以查看 assembly，需有組合語言的能力。</font></li>
+<li><font size='3'><code>Ghidra</code></font></li>
+<li><font size='3'><code>PE Bear</code> &#x2F;  <code>PE View</code> ：可以針對 PE 檔案格式做深入研究。</font></li>
+<li><font size='3'><code>oledump.py</code> ：針對 Office 格式 ( Word, Excel ) 分析裡面的 Macro。</font></li>
+<li><font size='3'><code>pdf-parser.py</code> ：針對 PDF 格式分析裡面的 Object。</font></li>
+</ul>
+</li>
+</ul>
+<br>
+
+
+<h3 id="📝-Dynamic-Analysis"><a href="#📝-Dynamic-Analysis" class="headerlink" title="📝 Dynamic Analysis"></a><font size='5' >📝 Dynamic Analysis</font></h3><hr>
+<ul>
+<li><font size='3'>靜態分析完了之後想驗證自己的想法，可以使用動態分析</font></li>
+<li><font size='3'>動態分析方法比較多種，但大致可以分成自動跟手動</font><ul>
+<li><font size='3'><code>Cuckoo</code> ：沙盒標配，資料相當完整，但偶而會被Anti-debug&#x2F;analysis的招式抓到直接不執行。</font></li>
+<li><font size='3'><code>ANY.RUN </code> ：可以直接跟沙盒內的 Windows VM 做互動。</font></li>
+</ul>
+</li>
+</ul>
+<br>
+
+<ul>
+<li><font size='3'>執行後去分析惡意程序的內容，針對 Windows 的話可以用下列工具</font><ul>
+<li><font size='3'><code>Process Hacker</code> ：記錄所有執行中的程式以及詳細內容 (Mutex, process handle…..) 一邊執行一邊看著，通常可以很好發現 Process Injection 的特徵。</font></li>
+<li><font size='3'><code>Process Explorer</code> ：記錄所有API Usage，但建議搭配視覺化工具像是ProcDOT。</font></li>
+<li><font size='3'><code>Wireshark</code> ：記錄所有網路封包。</font></li>
+<li><font size='3'><code>RegShot</code> ：對 Registry 做快照，通常在執行前與後進行快照，然後對比看是否有被修改。</font></li>
+<li><font size='3'><code>x64dbg</code> ：惡意程式分析、破解（Cracking）、程式錯誤診斷。</font></li>
+</ul>
+</li>
+</ul>
+<!-- INetSim - 在封閉的網路可以充當Server，支援各大常見protocol，已經內建在REMnux裡面。
+Apate DNS - 可以搭配 REMnux做使用，把所有網路Traffic都導向REMnux，並搭配INetSim做使用
+Fiddler - 超好用的Web proxy, 不用特別設定，就算在封閉環境內也可以看到未成功發出的Web request
+WinDBG  - Kernal mode debugger 
+dnSpy - 針對.NET的逆向工具，包含靜態跟動態分析功能 -->
+
+<br>
+
+
+<h3 id="📝-Reverse-Engineering"><a href="#📝-Reverse-Engineering" class="headerlink" title="📝 Reverse Engineering"></a><font size='5' >📝 Reverse Engineering</font></h3><hr>
+<ul>
+<li><font size='3'> 從已編譯的程式碼回溯分析其內部運作方式 的技術</font></li>
+<li><font size='3'>分析惡意程式（Malware Analysis）：找出病毒、木馬、勒索軟體的攻擊行為。</font></li>
+<li><font size='3'>破解軟體（Software Cracking）：繞過軟體授權、DRM、序號驗證。</font></li>
+<li><font size='3'>安全性分析（Security Research）：發現應用程式的漏洞（Exploit Development）。</font></li>
+<li><font size='3'>修復舊軟體（Legacy Software Maintenance）：當源碼遺失時，還原程式運作邏輯。</font></li>
+<li><font size='3'>常用逆向工程工具</font><ul>
+<li><font size='3'><code>IDA Pro</code> ：最強靜態分析、互動式反組譯	。</font></li>
+<li><font size='3'><code>Ghidra</code> ：NSA 開源逆向工具，支援多架構。</font></li>
+<li><font size='3'><code>RetDec</code> ：開源反編譯工具，可還原 C 程式碼</font></li>
+</ul>
+</li>
+</ul>
+<br>
+
+<hr>
+<h4 id="🔗-參考來源"><a href="#🔗-參考來源" class="headerlink" title="🔗 參考來源"></a>🔗 參考來源</h4><ul>
+<li><font size='3'> <a href="https://pentestwriteup.blogspot.com/2020/08/blog-post.html">惡意程式分析 - 常用工具篇</a> </font></li>
+</ul>
+]]></content>
+      <categories>
+        <category>資安</category>
+      </categories>
+      <tags>
+        <tag>Reverse Engineering</tag>
+        <tag>analysis</tag>
+        <tag>malware</tag>
+        <tag>base</tag>
       </tags>
   </entry>
   <entry>
@@ -1472,121 +1591,13 @@ vssadmin -->]]></content>
 </ul>
 <br>]]></content>
       <categories>
-        <category>analysis</category>
+        <category>資安</category>
       </categories>
       <tags>
+        <tag>Reverse Engineering</tag>
         <tag>analysis</tag>
         <tag>malware</tag>
         <tag>exe</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>【惡意軟體分析】基礎概念篇</title>
-    <url>/posts/42213/</url>
-    <content><![CDATA[<hr>
-<h4 id="前言"><a href="#前言" class="headerlink" title="前言"></a><font size='5'>前言</font></h4><blockquote>
-<p><font size='3'>轉職 ~~ 學習到 Malware Analysis 跟逆向分析的東西，把基礎概念與工具用途紀錄一下。</font></p>
-</blockquote>
-<hr>
-<span id="more"></span>
-
-
-<h2 id="📝-本篇說明紀錄兩個部分"><a href="#📝-本篇說明紀錄兩個部分" class="headerlink" title="📝 本篇說明紀錄兩個部分"></a><font size='3'>📝 本篇說明紀錄兩個部分</font></h2><ul>
-<li>Analysis Environment</li>
-<li>Analysis Step<ul>
-<li>Static Analysis</li>
-<li>Dynamic Analysis</li>
-<li>Reverse Engineering</li>
-</ul>
-</li>
-</ul>
-<br>
-
-<h2 id="📝-Analysis-Environment-分析環境"><a href="#📝-Analysis-Environment-分析環境" class="headerlink" title="📝 Analysis Environment ( 分析環境 )"></a>📝 Analysis Environment ( 分析環境 )</h2><hr>
-<ul>
-<li><font size='3'>最常見的就是 Windows ，大多的惡意程式都是針對 Windows 去設計。</font></li>
-<li><font size='3'>Remux Linux 的版本，裡面預載許多常用到的分析工具。</font></li>
-</ul>
-<br>
-
-<hr>
-<h2 id="🔥-Analysis-Step-🔥"><a href="#🔥-Analysis-Step-🔥" class="headerlink" title="🔥 Analysis Step 🔥"></a><font size='5' align='center'>🔥 Analysis Step 🔥</font></h2><hr>
-<br>
-
-
-<h3 id="📝-Analysis-Analysis"><a href="#📝-Analysis-Analysis" class="headerlink" title="📝 Analysis Analysis"></a><font size='5'>📝 Analysis Analysis</font></h3><hr>
-<ul>
-<li><font size='3'>不執行的去分析惡意程序的內容，針對 Windows 的話可以用下列工具</font><ul>
-<li><font size='3'><code>PE Studio</code> ：可以初步的做分析，查看 PE 資訊與 檔案的 strings。</font></li>
-<li><font size='3'><code>IDA</code> ：逆向標配，可以查看 assembly，需有組合語言的能力。</font></li>
-<li><font size='3'><code>Ghidra</code></font></li>
-<li><font size='3'><code>PE Bear</code> &#x2F;  <code>PE View</code> ：可以針對 PE 檔案格式做深入研究。</font></li>
-<li><font size='3'><code>oledump.py</code> ：針對 Office 格式 ( Word, Excel ) 分析裡面的 Macro。</font></li>
-<li><font size='3'><code>pdf-parser.py</code> ：針對 PDF 格式分析裡面的 Object。</font></li>
-</ul>
-</li>
-</ul>
-<br>
-
-
-<h3 id="📝-Dynamic-Analysis"><a href="#📝-Dynamic-Analysis" class="headerlink" title="📝 Dynamic Analysis"></a><font size='5' >📝 Dynamic Analysis</font></h3><hr>
-<ul>
-<li><font size='3'>靜態分析完了之後想驗證自己的想法，可以使用動態分析</font></li>
-<li><font size='3'>動態分析方法比較多種，但大致可以分成自動跟手動</font><ul>
-<li><font size='3'><code>Cuckoo</code> ：沙盒標配，資料相當完整，但偶而會被Anti-debug&#x2F;analysis的招式抓到直接不執行。</font></li>
-<li><font size='3'><code>ANY.RUN </code> ：可以直接跟沙盒內的 Windows VM 做互動。</font></li>
-</ul>
-</li>
-</ul>
-<br>
-
-<ul>
-<li><font size='3'>執行後去分析惡意程序的內容，針對 Windows 的話可以用下列工具</font><ul>
-<li><font size='3'><code>Process Hacker</code> ：記錄所有執行中的程式以及詳細內容 (Mutex, process handle…..) 一邊執行一邊看著，通常可以很好發現 Process Injection 的特徵。</font></li>
-<li><font size='3'><code>Process Explorer</code> ：記錄所有API Usage，但建議搭配視覺化工具像是ProcDOT。</font></li>
-<li><font size='3'><code>Wireshark</code> ：記錄所有網路封包。</font></li>
-<li><font size='3'><code>RegShot</code> ：對 Registry 做快照，通常在執行前與後進行快照，然後對比看是否有被修改。</font></li>
-<li><font size='3'><code>x64dbg</code> ：惡意程式分析、破解（Cracking）、程式錯誤診斷。</font></li>
-</ul>
-</li>
-</ul>
-<!-- INetSim - 在封閉的網路可以充當Server，支援各大常見protocol，已經內建在REMnux裡面。
-Apate DNS - 可以搭配 REMnux做使用，把所有網路Traffic都導向REMnux，並搭配INetSim做使用
-Fiddler - 超好用的Web proxy, 不用特別設定，就算在封閉環境內也可以看到未成功發出的Web request
-WinDBG  - Kernal mode debugger 
-dnSpy - 針對.NET的逆向工具，包含靜態跟動態分析功能 -->
-
-<br>
-
-
-<h3 id="📝-Reverse-Engineering"><a href="#📝-Reverse-Engineering" class="headerlink" title="📝 Reverse Engineering"></a><font size='5' >📝 Reverse Engineering</font></h3><hr>
-<ul>
-<li><font size='3'> 從已編譯的程式碼回溯分析其內部運作方式 的技術</font></li>
-<li><font size='3'>分析惡意程式（Malware Analysis）：找出病毒、木馬、勒索軟體的攻擊行為。</font></li>
-<li><font size='3'>破解軟體（Software Cracking）：繞過軟體授權、DRM、序號驗證。</font></li>
-<li><font size='3'>安全性分析（Security Research）：發現應用程式的漏洞（Exploit Development）。</font></li>
-<li><font size='3'>修復舊軟體（Legacy Software Maintenance）：當源碼遺失時，還原程式運作邏輯。</font></li>
-<li><font size='3'>常用逆向工程工具</font><ul>
-<li><font size='3'><code>IDA Pro</code> ：最強靜態分析、互動式反組譯	。</font></li>
-<li><font size='3'><code>Ghidra</code> ：NSA 開源逆向工具，支援多架構。</font></li>
-<li><font size='3'><code>RetDec</code> ：開源反編譯工具，可還原 C 程式碼</font></li>
-</ul>
-</li>
-</ul>
-<br>
-
-<hr>
-<h4 id="🔗-參考來源"><a href="#🔗-參考來源" class="headerlink" title="🔗 參考來源"></a>🔗 參考來源</h4><ul>
-<li><font size='3'> <a href="https://pentestwriteup.blogspot.com/2020/08/blog-post.html">惡意程式分析 - 常用工具篇</a> </font></li>
-</ul>
-]]></content>
-      <categories>
-        <category>analysis</category>
-      </categories>
-      <tags>
-        <tag>analysis</tag>
-        <tag>malware</tag>
-        <tag>base</tag>
       </tags>
   </entry>
   <entry>
@@ -1670,10 +1681,11 @@ dnSpy - 針對.NET的逆向工具，包含靜態跟動態分析功能 -->
 </ul>
 <br>]]></content>
       <categories>
-        <category>analysis</category>
+        <category>資安</category>
       </categories>
       <tags>
         <tag>Tool</tag>
+        <tag>Reverse Engineering</tag>
         <tag>IDA PRO</tag>
         <tag>Analysis</tag>
         <tag>Crack</tag>
@@ -1762,7 +1774,7 @@ dnSpy - 針對.NET的逆向工具，包含靜態跟動態分析功能 -->
 </ul>
 <br>]]></content>
       <categories>
-        <category>code</category>
+        <category>資安</category>
       </categories>
       <tags>
         <tag>Tool</tag>
@@ -1866,7 +1878,7 @@ dnSpy - 針對.NET的逆向工具，包含靜態跟動態分析功能 -->
 </ul>
 ]]></content>
       <categories>
-        <category>analysis</category>
+        <category>資安</category>
       </categories>
       <tags>
         <tag>analysis</tag>
