@@ -813,6 +813,120 @@ vssadmin -->]]></content>
       </tags>
   </entry>
   <entry>
+    <title>【惡意軟體分析】- 04</title>
+    <url>/posts/49126/</url>
+    <content><![CDATA[<hr>
+<h4 id="前言"><a href="#前言" class="headerlink" title="前言"></a><font size='5'>前言</font></h4><blockquote>
+<p><font size='3'>這篇文章將說明分析惡意軟體。</font></p>
+</blockquote>
+<font size='3'>
+在本練習中，我們將對 ime.exe 惡意檔案進行靜態和動態分析，透過分析其樣本來了解其行為。
+</font>
+
+<br>
+
+<hr>
+<span id="more"></span>
+
+<h5 id="⚙️-Lab-Environment："><a href="#⚙️-Lab-Environment：" class="headerlink" title="⚙️ Lab Environment："></a>⚙️ Lab Environment：</h5><ul>
+<li><font size='3'>Linux Remnux ( Static Analysis )</font></li>
+<li><font size='3'>Windows 11 ( Dynamic Analysis )</font></li>
+<li><font size='3'>MD5：<code>36536F8C42C258DCC23889DE6D72019E</code></font></li>
+</ul>
+<hr>
+<h3 id="🔥-Static-Analysis-🔥"><a href="#🔥-Static-Analysis-🔥" class="headerlink" title="🔥 Static Analysis 🔥"></a><font size='5' align='center'>🔥 Static Analysis 🔥</font></h3><hr>
+<br>
+
+<h4 id="🛠️-Static-Analysis-Tools"><a href="#🛠️-Static-Analysis-Tools" class="headerlink" title="🛠️ Static Analysis Tools"></a>🛠️ Static Analysis Tools</h4><ul>
+<li><font size='3'>PEStudio → 提取多種關鍵資訊</font></li>
+<li><font size='3'>Virustotal   → 查看執行檔</font></li>
+</ul>
+<br>
+
+<hr>
+<br>
+
+<h4 id="1️⃣-PEStudio"><a href="#1️⃣-PEStudio" class="headerlink" title="1️⃣ PEStudio"></a>1️⃣ PEStudio</h4><ul>
+<li><font size='3'>針對檔案資訊進行初步查找</font></li>
+</ul>
+<p><img data-src='pe-studio-1.png' width='700' align='center' alt='查看 Strings'></img></p>
+<br>
+
+<p><img data-src='pe-studio-2.png' width='700' align='center' alt='查看 HASH'></img></p>
+<br>
+
+<h4 id="2️⃣-Virustotal"><a href="#2️⃣-Virustotal" class="headerlink" title="2️⃣ Virustotal"></a>2️⃣ Virustotal</h4><ul>
+<li><font size='3'>將提取到的 Hash 值，提交到 <a href="https://www.virustotal.com/gui/home/upload">Virustotal</a> 查看是否已經有紀錄。</font></li>
+</ul>
+<p><img data-src='virustotal.png' width='700' align='center' alt='確定該檔案確實為惡意程式'></img></p>
+<br>
+
+
+<br>
+
+<hr>
+<h3 id="🔥-Dynamic-Analysis-🔥"><a href="#🔥-Dynamic-Analysis-🔥" class="headerlink" title="🔥 Dynamic Analysis 🔥"></a><font size='5' align='center'>🔥 Dynamic Analysis 🔥</font></h3><hr>
+<br>
+
+<h4 id="🛠️-Dynamic-Analysis-Tools"><a href="#🛠️-Dynamic-Analysis-Tools" class="headerlink" title="🛠️ Dynamic Analysis Tools"></a>🛠️ Dynamic Analysis Tools</h4><ul>
+<li><font size='3'>Procmon -&gt; 監控時間段的進程</font></li>
+<li><font size='3'>AutoRuns -&gt; 查看進程</font><!-- - <font size='3'>Wireshark -> 查看封包狀況</font> --></li>
+</ul>
+<br>
+
+<hr>
+<br>
+
+<h4 id="1️⃣-Procmon"><a href="#1️⃣-Procmon" class="headerlink" title="1️⃣ Procmon"></a>1️⃣ Procmon</h4><ul>
+<li>監控程式的行為</li>
+</ul>
+<p><img data-src='process-monitor-1.png' width='700' align='center' alt='查看到有建立一個檔案'></img></p>
+<br>
+
+<h4 id="2️⃣-AutoRuns"><a href="#2️⃣-AutoRuns" class="headerlink" title="2️⃣ AutoRuns"></a>2️⃣ AutoRuns</h4><ul>
+<li>查看有無可疑的路徑、檔案<ul>
+<li>明顯添加一個可疑檔案</li>
+</ul>
+</li>
+</ul>
+<p><img data-src='autoruns-1.png' width='700' align='center' alt='AutoRuns'></img></p>
+<br>
+
+<hr>
+<br>
+
+<h4 id="💡-結論"><a href="#💡-結論" class="headerlink" title="💡 結論"></a>💡 結論</h4><ul>
+<li><font size='3'>建立 Windows NT 自動執行 ( <code>ime.exe</code> )，會在該資料夾建立一個 <code>ime.srg</code> 檔案。</font></li>
+<li><font size='3'>移除 <code>ime.exe</code> 、 <code>ime.srg</code> 。</font></li>
+</ul>
+<br>
+
+<hr>
+<br>
+
+<h4 id="❓-遭遇的問題"><a href="#❓-遭遇的問題" class="headerlink" title="❓ 遭遇的問題"></a>❓ 遭遇的問題</h4><ul>
+<li><font size='3'>分析 <code>ime.srg</code> 檔案 - <code>Pending</code></font></li>
+</ul>
+<p><img data-src='ime-srg.png' width='700' align='center' alt='待解析'></img></p>
+<br>
+
+<hr>
+<h4 id="🔗-參考來源"><a href="#🔗-參考來源" class="headerlink" title="🔗 參考來源"></a>🔗 參考來源</h4><ul>
+<li><font size='3'> 暫無 </font><!-- - <font size='3'> [A Beginner’s Analysis of RemcosRAT Malware
+](https://medium.com/@cam40303/a-beginners-analysis-of-remcosrat-malware-524fa43a4992) </font> --></li>
+</ul>
+<br>]]></content>
+      <categories>
+        <category>analysis</category>
+      </categories>
+      <tags>
+        <tag>analysis</tag>
+        <tag>malware</tag>
+        <tag>exe</tag>
+        <tag>Pending</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>【惡意軟體分析】- 05</title>
     <url>/posts/40649/</url>
     <content><![CDATA[<hr>
@@ -916,120 +1030,6 @@ vssadmin -->]]></content>
 <hr>
 <h4 id="🔗-參考來源"><a href="#🔗-參考來源" class="headerlink" title="🔗 參考來源"></a>🔗 參考來源</h4><ul>
 <li><font size='3'> 暫無 </font></li>
-</ul>
-<br>]]></content>
-      <categories>
-        <category>analysis</category>
-      </categories>
-      <tags>
-        <tag>analysis</tag>
-        <tag>malware</tag>
-        <tag>exe</tag>
-        <tag>Pending</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>【惡意軟體分析】- 04</title>
-    <url>/posts/49126/</url>
-    <content><![CDATA[<hr>
-<h4 id="前言"><a href="#前言" class="headerlink" title="前言"></a><font size='5'>前言</font></h4><blockquote>
-<p><font size='3'>這篇文章將說明分析惡意軟體。</font></p>
-</blockquote>
-<font size='3'>
-在本練習中，我們將對 ime.exe 惡意檔案進行靜態和動態分析，透過分析其樣本來了解其行為。
-</font>
-
-<br>
-
-<hr>
-<span id="more"></span>
-
-<h5 id="⚙️-Lab-Environment："><a href="#⚙️-Lab-Environment：" class="headerlink" title="⚙️ Lab Environment："></a>⚙️ Lab Environment：</h5><ul>
-<li><font size='3'>Linux Remnux ( Static Analysis )</font></li>
-<li><font size='3'>Windows 11 ( Dynamic Analysis )</font></li>
-<li><font size='3'>MD5：<code>36536F8C42C258DCC23889DE6D72019E</code></font></li>
-</ul>
-<hr>
-<h3 id="🔥-Static-Analysis-🔥"><a href="#🔥-Static-Analysis-🔥" class="headerlink" title="🔥 Static Analysis 🔥"></a><font size='5' align='center'>🔥 Static Analysis 🔥</font></h3><hr>
-<br>
-
-<h4 id="🛠️-Static-Analysis-Tools"><a href="#🛠️-Static-Analysis-Tools" class="headerlink" title="🛠️ Static Analysis Tools"></a>🛠️ Static Analysis Tools</h4><ul>
-<li><font size='3'>PEStudio → 提取多種關鍵資訊</font></li>
-<li><font size='3'>Virustotal   → 查看執行檔</font></li>
-</ul>
-<br>
-
-<hr>
-<br>
-
-<h4 id="1️⃣-PEStudio"><a href="#1️⃣-PEStudio" class="headerlink" title="1️⃣ PEStudio"></a>1️⃣ PEStudio</h4><ul>
-<li><font size='3'>針對檔案資訊進行初步查找</font></li>
-</ul>
-<p><img data-src='pe-studio-1.png' width='700' align='center' alt='查看 Strings'></img></p>
-<br>
-
-<p><img data-src='pe-studio-2.png' width='700' align='center' alt='查看 HASH'></img></p>
-<br>
-
-<h4 id="2️⃣-Virustotal"><a href="#2️⃣-Virustotal" class="headerlink" title="2️⃣ Virustotal"></a>2️⃣ Virustotal</h4><ul>
-<li><font size='3'>將提取到的 Hash 值，提交到 <a href="https://www.virustotal.com/gui/home/upload">Virustotal</a> 查看是否已經有紀錄。</font></li>
-</ul>
-<p><img data-src='virustotal.png' width='700' align='center' alt='確定該檔案確實為惡意程式'></img></p>
-<br>
-
-
-<br>
-
-<hr>
-<h3 id="🔥-Dynamic-Analysis-🔥"><a href="#🔥-Dynamic-Analysis-🔥" class="headerlink" title="🔥 Dynamic Analysis 🔥"></a><font size='5' align='center'>🔥 Dynamic Analysis 🔥</font></h3><hr>
-<br>
-
-<h4 id="🛠️-Dynamic-Analysis-Tools"><a href="#🛠️-Dynamic-Analysis-Tools" class="headerlink" title="🛠️ Dynamic Analysis Tools"></a>🛠️ Dynamic Analysis Tools</h4><ul>
-<li><font size='3'>Procmon -&gt; 監控時間段的進程</font></li>
-<li><font size='3'>AutoRuns -&gt; 查看進程</font><!-- - <font size='3'>Wireshark -> 查看封包狀況</font> --></li>
-</ul>
-<br>
-
-<hr>
-<br>
-
-<h4 id="1️⃣-Procmon"><a href="#1️⃣-Procmon" class="headerlink" title="1️⃣ Procmon"></a>1️⃣ Procmon</h4><ul>
-<li>監控程式的行為</li>
-</ul>
-<p><img data-src='process-monitor-1.png' width='700' align='center' alt='查看到有建立一個檔案'></img></p>
-<br>
-
-<h4 id="2️⃣-AutoRuns"><a href="#2️⃣-AutoRuns" class="headerlink" title="2️⃣ AutoRuns"></a>2️⃣ AutoRuns</h4><ul>
-<li>查看有無可疑的路徑、檔案<ul>
-<li>明顯添加一個可疑檔案</li>
-</ul>
-</li>
-</ul>
-<p><img data-src='autoruns-1.png' width='700' align='center' alt='AutoRuns'></img></p>
-<br>
-
-<hr>
-<br>
-
-<h4 id="💡-結論"><a href="#💡-結論" class="headerlink" title="💡 結論"></a>💡 結論</h4><ul>
-<li><font size='3'>建立 Windows NT 自動執行 ( <code>ime.exe</code> )，會在該資料夾建立一個 <code>ime.srg</code> 檔案。</font></li>
-<li><font size='3'>移除 <code>ime.exe</code> 、 <code>ime.srg</code> 。</font></li>
-</ul>
-<br>
-
-<hr>
-<br>
-
-<h4 id="❓-遭遇的問題"><a href="#❓-遭遇的問題" class="headerlink" title="❓ 遭遇的問題"></a>❓ 遭遇的問題</h4><ul>
-<li><font size='3'>分析 <code>ime.srg</code> 檔案 - <code>Pending</code></font></li>
-</ul>
-<p><img data-src='ime-srg.png' width='700' align='center' alt='待解析'></img></p>
-<br>
-
-<hr>
-<h4 id="🔗-參考來源"><a href="#🔗-參考來源" class="headerlink" title="🔗 參考來源"></a>🔗 參考來源</h4><ul>
-<li><font size='3'> 暫無 </font><!-- - <font size='3'> [A Beginner’s Analysis of RemcosRAT Malware
-](https://medium.com/@cam40303/a-beginners-analysis-of-remcosrat-malware-524fa43a4992) </font> --></li>
 </ul>
 <br>]]></content>
       <categories>
