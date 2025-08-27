@@ -1,0 +1,841 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 7.3.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"blog.thieves.site","root":"/","scheme":"Mist","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":false,"style":"mac"},"back2top":{"enable":true,"sidebar":true,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":true,"lazyload":true,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="前言 這篇文章將說明分析惡意軟體。   在本練習中，我們將對 RemcosRAT.exe 惡意檔案進行靜態和動態分析，透過分析其樣本來了解其行為。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="【惡意軟體分析】- 02">
+<meta property="og:url" content="https://blog.thieves.site/posts/17031/index.html">
+<meta property="og:site_name" content="Roydon&#39;s Note">
+<meta property="og:description" content="前言 這篇文章將說明分析惡意軟體。   在本練習中，我們將對 RemcosRAT.exe 惡意檔案進行靜態和動態分析，透過分析其樣本來了解其行為。">
+<meta property="og:locale" content="zh_TW">
+<meta property="og:image" content="https://blog.thieves.site/posts/17031/file.png">
+<meta property="og:image" content="https://blog.thieves.site/posts/17031/md5.png">
+<meta property="og:image" content="https://blog.thieves.site/posts/17031/virustotal.png">
+<meta property="og:image" content="https://blog.thieves.site/posts/17031/floss.png">
+<meta property="og:image" content="https://blog.thieves.site/posts/17031/pe-studio-1.png">
+<meta property="og:image" content="https://blog.thieves.site/posts/17031/procmon-1.png">
+<meta property="og:image" content="https://blog.thieves.site/posts/17031/logs.dat.png">
+<meta property="og:image" content="https://blog.thieves.site/posts/17031/autoruns-1.png">
+<meta property="og:image" content="https://blog.thieves.site/posts/17031/task-1.png">
+<meta property="og:image" content="https://blog.thieves.site/posts/17031/md5-2.png">
+<meta property="og:image" content="https://blog.thieves.site/posts/17031/hide-malware.png">
+<meta property="og:image" content="https://blog.thieves.site/posts/17031/wireshark.png">
+<meta property="og:image" content="https://blog.thieves.site/posts/17031/wireshark-2.png">
+<meta property="og:image" content="https://blog.thieves.site/posts/17031/x64dbg-1.png">
+<meta property="og:image" content="https://blog.thieves.site/posts/17031/x64dbg-2.png">
+<meta property="og:image" content="https://blog.thieves.site/posts/17031/x64dbg-6.png">
+<meta property="og:image" content="https://blog.thieves.site/posts/17031/x64dbg-7.png">
+<meta property="og:image" content="https://blog.thieves.site/posts/17031/x64dbg-8.png">
+<meta property="og:image" content="https://blog.thieves.site/posts/17031/x64dbg-3.png">
+<meta property="og:image" content="https://blog.thieves.site/posts/17031/x64dbg-4.png">
+<meta property="og:image" content="https://blog.thieves.site/posts/17031/x64dbg-5.png">
+<meta property="og:image" content="https://blog.thieves.site/posts/17031/remnux-1.png">
+<meta property="og:image" content="https://blog.thieves.site/posts/17031/remnux-2.png">
+<meta property="og:image" content="https://blog.thieves.site/posts/17031/remnux-3.png">
+<meta property="og:image" content="https://blog.thieves.site/posts/17031/remnux-4.png">
+<meta property="article:published_time" content="2025-02-07T05:50:10.000Z">
+<meta property="article:modified_time" content="2025-08-27T13:50:54.197Z">
+<meta property="article:author" content="Roydon">
+<meta property="article:tag" content="analysis">
+<meta property="article:tag" content="malware">
+<meta property="article:tag" content="exe">
+<meta property="article:tag" content="RemcosRAT">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://blog.thieves.site/posts/17031/file.png">
+
+<link rel="canonical" href="https://blog.thieves.site/posts/17031/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-TW'
+  };
+</script>
+
+  <title>【惡意軟體分析】- 02 | Roydon's Note</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切換導航欄">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Roydon's Note</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首頁</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分類</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>標籤</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>歸檔</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜尋
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜尋..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="reading-progress-bar"></div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-TW">
+    <link itemprop="mainEntityOfPage" href="https://blog.thieves.site/posts/17031/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/death.svg">
+      <meta itemprop="name" content="Roydon">
+      <meta itemprop="description" content="『 百才無用自求歡 』">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Roydon's Note">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          【惡意軟體分析】- 02
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">發表於</span>
+
+              <time title="創建時間：2025-02-07 13:50:10" itemprop="dateCreated datePublished" datetime="2025-02-07T13:50:10+08:00">2025-02-07</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新於</span>
+                <time title="修改時間：2025-08-27 21:50:54" itemprop="dateModified" datetime="2025-08-27T21:50:54+08:00">2025-08-27</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分類於</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/analysis/" itemprop="url" rel="index"><span itemprop="name">analysis</span></a>
+                </span>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus：</span>
+    
+    <a title="disqus" href="/posts/17031/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="posts/17031/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  <br>
+            <span class="post-meta-item" title="文章字數">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">文章字數：</span>
+              <span>1k</span>
+            </span>
+            <span class="post-meta-item" title="所需閱讀時間">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">所需閱讀時間 &asymp;</span>
+              <span>1 分鐘</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <hr>
+<h4 id="前言"><a href="#前言" class="headerlink" title="前言"></a><font size='5'>前言</font></h4><blockquote>
+<p><font size='3'>這篇文章將說明分析惡意軟體。</font></p>
+</blockquote>
+<font size='3'>
+在本練習中，我們將對 RemcosRAT.exe 惡意檔案進行靜態和動態分析，透過分析其樣本來了解其行為。
+</font>
+
+<br>
+
+<hr>
+<span id="more"></span>
+
+<h5 id="⚙️-Lab-Environment："><a href="#⚙️-Lab-Environment：" class="headerlink" title="⚙️ Lab Environment："></a>⚙️ Lab Environment：</h5><ul>
+<li><p><font size='3'>Linux Remnux ( Static Analysis )</font></p>
+</li>
+<li><p><font size='3'>Windows 11 ( Dynamic Analysis )</font></p>
+</li>
+<li><p><a href='https://bazaar.abuse.ch/sample/ce39a137b9ff86bf23d7c62480a804e8d25c8b9154e9792b669374ac7f92e192/' target='_blank'><font size='3' color='#33ccff'>RemcosRAT.exe</font></a></p>
+</li>
+<li><p><font size='3'>HASH256：<code>ce39a137b9ff86bf23d7c62480a804e8d25c8b9154e9792b669374ac7f92e192</code></font></p>
+</li>
+</ul>
+<hr>
+<h3 id="🔥-Static-Analysis-🔥"><a href="#🔥-Static-Analysis-🔥" class="headerlink" title="🔥 Static Analysis 🔥"></a><font size='5' align='center'>🔥 Static Analysis 🔥</font></h3><hr>
+<br>
+
+<h4 id="🛠️-Static-Analysis-Tools"><a href="#🛠️-Static-Analysis-Tools" class="headerlink" title="🛠️ Static Analysis Tools"></a>🛠️ Static Analysis Tools</h4><ul>
+<li><font size='3'>file → 檢視文件類型</font></li>
+<li><font size='3'>md5sum → 產生樣本的雜湊值</font></li>
+<li><font size='3'>floss → 提取字串</font></li>
+<li><font size='3'>Virustotal   → 查看執行檔</font></li>
+<li><font size='3'>PEStudio → 提取多種關鍵資訊</font></li>
+</ul>
+<br>
+
+<hr>
+<br>
+
+<h4 id="1️⃣-File-Type"><a href="#1️⃣-File-Type" class="headerlink" title="1️⃣ File Type"></a>1️⃣ File Type</h4><ul>
+<li><font size='3'>檔案的名稱、副檔名皆可以更改，所以需要檢查檔案類型。</font></li>
+</ul>
+<br>
+
+<p><img data-src='file.png' alt='知道該檔案確定是 PE32 格式'></img></p>
+<br>
+
+<h4 id="2️⃣-Fingerprinting"><a href="#2️⃣-Fingerprinting" class="headerlink" title="2️⃣ Fingerprinting"></a>2️⃣ Fingerprinting</h4><ul>
+<li><font size='3'>Hash 基本上是唯一值，故可以拿來檢驗該檔案是否遭受變更 或者 該檔案為惡意軟體。</font></li>
+</ul>
+<br>
+
+<p><img data-src='md5.png' width='100%' alt='查看 HASH 值'></img></p>
+<br>
+
+<h4 id="3️⃣-Virustotal"><a href="#3️⃣-Virustotal" class="headerlink" title="3️⃣ Virustotal"></a>3️⃣ Virustotal</h4><ul>
+<li><font size='3'>將提取到的 Hash 值，提交到 <a target="_blank" rel="noopener" href="https://www.virustotal.com/gui/home/upload">Virustotal</a> 查看是否已經有紀錄。</font></li>
+</ul>
+<br>
+
+<p><img data-src='virustotal.png' width='600' align='center' alt='確定該檔案確實為惡意程式'></img></p>
+<br>
+
+<h4 id="4️⃣-Floss"><a href="#4️⃣-Floss" class="headerlink" title="4️⃣ Floss"></a>4️⃣ Floss</h4><ul>
+<li><font size='3'>字串的提取可以從樣本中獲取一些有用的字串 ( 命令指令、控制 (C2) IP 、惡意 URL )。</font></li>
+<li><font size='3'>❗可能無法完全解碼某些高度混淆的字符串❗</font></li>
+</ul>
+<br>
+
+<p><img data-src='floss.png' width='500' align='center' alt='Floss'></img></p>
+<br>
+
+<h4 id="5️⃣-PEStudio"><a href="#5️⃣-PEStudio" class="headerlink" title="5️⃣ PEStudio"></a>5️⃣ PEStudio</h4><ul>
+<li><font size='3'>mscoree.dll 主要用於啟動 .NET 應用程式，負責將 .NET 代碼轉換為機器碼執行。</font></li>
+</ul>
+<br>
+
+<p><img data-src='pe-studio-1.png' width='600' align='center' alt='PE-Studio Library'></img></p>
+<br>
+
+<hr>
+<h3 id="🔥-Dynamic-Analysis-🔥"><a href="#🔥-Dynamic-Analysis-🔥" class="headerlink" title="🔥 Dynamic Analysis 🔥"></a><font size='5' align='center'>🔥 Dynamic Analysis 🔥</font></h3><hr>
+<br>
+
+<h4 id="🛠️-Dynamic-Analysis-Tools"><a href="#🛠️-Dynamic-Analysis-Tools" class="headerlink" title="🛠️ Dynamic Analysis Tools"></a>🛠️ Dynamic Analysis Tools</h4><ul>
+<li><font size='3'>Procmon -&gt; 監控時間段的進程</font></li>
+<li><font size='3'>AutoRuns -&gt; 查看進程</font><!-- - <font size='3'>Wireshark -> 查看封包狀況</font> --></li>
+</ul>
+<br>
+
+<hr>
+<br>
+
+<h4 id="1️⃣-Procmon"><a href="#1️⃣-Procmon" class="headerlink" title="1️⃣ Procmon"></a>1️⃣ Procmon</h4><ul>
+<li><font size='3'>查看有無錄製到可疑的路徑、檔案行為</font><ul>
+<li><font size='3'>查找到有對兩個路徑的檔案進行更動 ( tmp 路徑下沒有檔案)</font></li>
+</ul>
+</li>
+</ul>
+<p><img data-src='procmon-1.png' width='700' align='center' alt='Procmon'></img></p>
+<br>
+
+<p><img data-src='logs.dat.png' width='700' align='center' alt='判斷為監控 Log'></img></p>
+<br>
+
+<h4 id="2️⃣-AutoRuns"><a href="#2️⃣-AutoRuns" class="headerlink" title="2️⃣ AutoRuns"></a>2️⃣ AutoRuns</h4><ul>
+<li>查看有無可疑的路徑、檔案<ul>
+<li>有添加到一個可疑排程</li>
+</ul>
+</li>
+</ul>
+<p><img data-src='autoruns-1.png' width='700' align='center' alt='AutoRuns'></img></p>
+<br>
+
+<p><img data-src='task-1.png' width='700' align='center' alt='排程'></img></p>
+<br>
+
+<p><img data-src='md5-2.png' width='700' align='center' alt='檢查 SzKneWgZlzw.exe 發現 hash 與原程式相同，故判斷為同一個檔案複製過去的'></img></p>
+<br>
+
+<hr>
+<br>
+
+<h4 id="💡-結論"><a href="#💡-結論" class="headerlink" title="💡 結論"></a>💡 結論</h4><ul>
+<li><font size='3'>該程式會偽裝成無害的檔案誘使受害者點擊。</font></li>
+<li><font size='3'>點擊後惡意程式會複製程式移動位置、修改名稱、建立 Task Scheduler ，來保持系統持久存在。</font></li>
+<li><font size='3'>建立排程 ( <code>C:\Users\Administrator\AppData\Roaming\SzKneWgZlzw.exe</code> ) ( 重新啟動後 <code>SzKneWgZlzw.exe</code> 開始運作 )。</font></li>
+<li><font size='3'>移除 Task Scheduler 、 <code>SzKneWgZlzw.exe</code> 、 <code>logs.dat</code> 。</font></li>
+</ul>
+<br>
+
+<hr>
+<br>
+
+<h4 id="❓-遭遇的問題"><a href="#❓-遭遇的問題" class="headerlink" title="❓ 遭遇的問題"></a>❓ 遭遇的問題</h4><ul>
+<li><font size='3'>查找 <code>SzKneWgZlzw.exe</code> 的時候沒有看見檔案 </font></li>
+</ul>
+<p><img data-src='hide-malware.png' width='700' align='center' alt='關閉 Hide Protected operating system files'></img></p>
+<br>
+
+<hr>
+<h4 id="🔗-參考來源"><a href="#🔗-參考來源" class="headerlink" title="🔗 參考來源"></a>🔗 參考來源</h4><ul>
+<li><font size='3'> <a target="_blank" rel="noopener" href="https://medium.com/@cam40303/a-beginners-analysis-of-remcosrat-malware-524fa43a4992">A Beginner’s Analysis of RemcosRAT Malware
+</a> </font></li>
+</ul>
+<br>
+
+<!-- #### 🌐 Wireshark
+
+<br>
+
+<img data-src='wireshark.png' width='500' align='center' alt='WireShark DNS'></img>
+
+<img data-src='wireshark-2.png' width='500' align='center' alt='WireShark HTTP'></img>
+
+<br>
+
+##### Wireshark Observations:
+  - <font size='3'>觀察後可以看到有一個試圖連外面的封包 ( brb.3dtuts.by )</font>
+  - <font size='3'>過濾 HTTP 可以看到一個試圖向外傳遞參數的封包</font>
+
+<br>
+
+> <font size='3'>本篇有利用 Remnux 中的 fakedns 來進行欺騙，也是將詢問 brb.3dtuts.by 位置的封包回應成 Remnux IP，所以圖片中封包的目標 IP 才會是 Remnux 的 IP。</font>
+
+<br> -->
+
+<hr>
+<!-- <br>
+
+#### 📝 x64dbg
+
+<br>
+
+<img data-src='x64dbg-1.png' width='500' align='center' alt='將 brbbot.exe 檔案匯入, 設置斷點 SetBPX ReadFile'></img>
+
+<br>
+
+<img data-src='x64dbg-2.png' width='500' align='center' alt='運行程序直到斷點處'></img>
+
+<br>
+
+<img data-src='x64dbg-6.png' width='500' align='center' alt='查看右側 RCX 處數字 ( 138 ) '></img>
+
+<br>
+
+<img data-src='x64dbg-7.png' width='500' align='center' alt='至標籤 Handles 重新整理'></img>
+
+<br>
+
+<img data-src='x64dbg-8.png' width='500' align='center' alt='找尋 138 ，看到讀取的檔案及位置'></img>
+
+<br>
+
+<img data-src='x64dbg-3.png' width='500' align='center' alt='ALT + F9，跳過 windows API 回到惡意代碼'></img>
+
+<br>
+
+<img data-src='x64dbg-4.png' width='500' align='center' alt='找到編碼處，點選 F4 運行到該行'></img>
+
+<br>
+
+<img data-src='x64dbg-5.png' width='500' align='center' alt='得到編碼結果'></img>
+
+<br>
+
+- <font size='3'>`uri=ads.php;exec=cexe;file=elif;conf=fnoc;exit=tixe;encode=5b;sleep=30000` </font>
+- <font size='3'>根據得到的字串可以猜測編碼可能為 XOR 5b，故嘗試將封包中傳遞的參數進行解密看看：</font>
+
+<br>
+
+<img data-src='remnux-1.png' width='500' align='center' alt='至 Remnux 建立 encoded.hex 複製上去'></img>
+
+<br>
+
+<img data-src='remnux-2.png' width='500' align='center' alt='進行編碼轉換與解碼'></img>
+
+<br>
+
+  <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 將 hex 格式轉換成原始二進制數據</span></span><br><span class="line">xxd -r -p encoded.hex &gt; encoded.raw</span><br><span class="line"></span><br><span class="line"><span class="comment"># 使用 XOR 進行解碼</span></span><br><span class="line">translate.py encoded.raw decoded.txt <span class="string">&#x27;byte ^ 0x5b&#x27;</span></span><br></pre></td></tr></table></figure>
+
+<br>
+
+<ul>
+<li><font size='3'>這個惡意程式的開發者定義了一套「命令對應機制」，我們在 brbconfig.tmp 找到了這些對應關係</font><ul>
+<li>exit（退出）變成 tixe</li>
+<li>config（設定）變成 fnoc</li>
+<li>file（檔案）變成 elif</li>
+<li>exec（執行）變成 cexe</li>
+</ul>
+</li>
+</ul>
+<p><img data-src='remnux-3.png' width='500' align='center' alt='通過 remnux 建立一個假的服務器，並建立 ads.php 來進行通訊'></img><br><img data-src='remnux-4.png' width='500' align='center' alt='可以看到通訊的時候會自動打開 notepad'></img></p>
+<p><br> –&gt;</p>
+<!-- bcdedit
+vssadmin -->
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/analysis/" rel="tag"># analysis</a>
+              <a href="/tags/malware/" rel="tag"># malware</a>
+              <a href="/tags/exe/" rel="tag"># exe</a>
+              <a href="/tags/RemcosRAT/" rel="tag"># RemcosRAT</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/posts/10046/" rel="prev" title="【惡意軟體分析】brbbot.exe - 01">
+      <i class="fa fa-chevron-left"></i> 【惡意軟體分析】brbbot.exe - 01
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/posts/32167/" rel="next" title="【惡意軟體分析】- 03 - vbs">
+      【惡意軟體分析】- 03 - vbs <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+    
+  <div class="comments">
+    <div id="disqus_thread">
+      <noscript>Please enable JavaScript to view the comments powered by Disqus.</noscript>
+    </div>
+  </div>
+  
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目錄
+        </li>
+        <li class="sidebar-nav-overview">
+          本站概要
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%89%8D%E8%A8%80"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E2%9A%99%EF%B8%8F-Lab-Environment%EF%BC%9A"><span class="nav-number">1.1.</span> <span class="nav-text">⚙️ Lab Environment：</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%F0%9F%94%A5-Static-Analysis-%F0%9F%94%A5"><span class="nav-number"></span> <span class="nav-text">🔥 Static Analysis 🔥</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%F0%9F%9B%A0%EF%B8%8F-Static-Analysis-Tools"><span class="nav-number">1.</span> <span class="nav-text">🛠️ Static Analysis Tools</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1%EF%B8%8F%E2%83%A3-File-Type"><span class="nav-number">2.</span> <span class="nav-text">1️⃣ File Type</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2%EF%B8%8F%E2%83%A3-Fingerprinting"><span class="nav-number">3.</span> <span class="nav-text">2️⃣ Fingerprinting</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3%EF%B8%8F%E2%83%A3-Virustotal"><span class="nav-number">4.</span> <span class="nav-text">3️⃣ Virustotal</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4%EF%B8%8F%E2%83%A3-Floss"><span class="nav-number">5.</span> <span class="nav-text">4️⃣ Floss</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5%EF%B8%8F%E2%83%A3-PEStudio"><span class="nav-number">6.</span> <span class="nav-text">5️⃣ PEStudio</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%F0%9F%94%A5-Dynamic-Analysis-%F0%9F%94%A5"><span class="nav-number"></span> <span class="nav-text">🔥 Dynamic Analysis 🔥</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%F0%9F%9B%A0%EF%B8%8F-Dynamic-Analysis-Tools"><span class="nav-number">1.</span> <span class="nav-text">🛠️ Dynamic Analysis Tools</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1%EF%B8%8F%E2%83%A3-Procmon"><span class="nav-number">2.</span> <span class="nav-text">1️⃣ Procmon</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2%EF%B8%8F%E2%83%A3-AutoRuns"><span class="nav-number">3.</span> <span class="nav-text">2️⃣ AutoRuns</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%F0%9F%92%A1-%E7%B5%90%E8%AB%96"><span class="nav-number">4.</span> <span class="nav-text">💡 結論</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E2%9D%93-%E9%81%AD%E9%81%87%E7%9A%84%E5%95%8F%E9%A1%8C"><span class="nav-number">5.</span> <span class="nav-text">❓ 遭遇的問題</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%F0%9F%94%97-%E5%8F%83%E8%80%83%E4%BE%86%E6%BA%90"><span class="nav-number">6.</span> <span class="nav-text">🔗 參考來源</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Roydon"
+      src="/images/death.svg">
+  <p class="site-author-name" itemprop="name">Roydon</p>
+  <div class="site-description" itemprop="description">『 百才無用自求歡 』</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">15</span>
+          <span class="site-state-item-name">文章</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">3</span>
+        <span class="site-state-item-name">分類</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">20</span>
+        <span class="site-state-item-name">標籤</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="mailto:thievesshare@gmail.com" title="E-Mail → mailto:thievesshare@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i></a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://www.youtube.com/@coding9413" title="YouTube → https:&#x2F;&#x2F;www.youtube.com&#x2F;@coding9413" rel="noopener" target="_blank"><i class="fab fa-youtube fa-fw"></i></a>
+      </span>
+  </div>
+
+
+
+      </div>
+        <div class="back-to-top motion-element">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2025</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Roydon</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+    <span title="總字數">19k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="所需總閱讀時間">17 分鐘</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://mist.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Mist</a> 強力驅動
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  
+  <script color='255,255,255' opacity='0.5' zIndex='-1' count='150' src="//cdn.jsdelivr.net/gh/theme-next/theme-next-canvas-nest@1/canvas-nest.min.js"></script>
+  <script src="/lib/anime.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js"></script>
+  <script src="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/medium-zoom@1/dist/medium-zoom.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/lozad@1/dist/lozad.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+<script>
+document.querySelectorAll('.pdfobject-container').forEach(element => {
+  let url = element.dataset.target;
+  let pdfOpenParams = {
+    navpanes : 0,
+    toolbar  : 0,
+    statusbar: 0,
+    pagemode : 'thumbs',
+    view     : 'FitH'
+  };
+  let pdfOpenFragment = '#' + Object.entries(pdfOpenParams).map(([key, value]) => `${key}=${encodeURIComponent(value)}`).join('&');
+  let fullURL = `/lib/pdf/web/viewer.html?file=${encodeURIComponent(url)}${pdfOpenFragment}`;
+
+  if (NexT.utils.supportsPDFs()) {
+    element.innerHTML = `<embed class="pdfobject" src="${url + pdfOpenFragment}" type="application/pdf" style="height: ${element.dataset.height};">`;
+  } else {
+    element.innerHTML = `<iframe src="${fullURL}" style="height: ${element.dataset.height};" frameborder="0"></iframe>`;
+  }
+});
+</script>
+
+
+<script>
+if (document.querySelectorAll('pre.mermaid').length) {
+  NexT.utils.getScript('//cdn.jsdelivr.net/npm/mermaid@8/dist/mermaid.min.js', () => {
+    mermaid.initialize({
+      theme    : 'forest',
+      logLevel : 3,
+      flowchart: { curve     : 'linear' },
+      gantt    : { axisFormat: '%m/%d/%Y' },
+      sequence : { actorMargin: 50 }
+    });
+  }, window.mermaid);
+}
+</script>
+
+
+  
+
+  
+
+<script>
+  function loadCount() {
+    var d = document, s = d.createElement('script');
+    s.src = 'https://cloud-blog.disqus.com/count.js';
+    s.id = 'dsq-count-scr';
+    (d.head || d.body).appendChild(s);
+  }
+  // defer loading until the whole page loading is completed
+  window.addEventListener('load', loadCount, false);
+</script>
+<script>
+  var disqus_config = function() {
+    this.page.url = "https://blog.thieves.site/posts/17031/";
+    this.page.identifier = "posts/17031/";
+    this.page.title = "【惡意軟體分析】- 02";
+    };
+  NexT.utils.loadComments(document.querySelector('#disqus_thread'), () => {
+    if (window.DISQUS) {
+      DISQUS.reset({
+        reload: true,
+        config: disqus_config
+      });
+    } else {
+      var d = document, s = d.createElement('script');
+      s.src = 'https://cloud-blog.disqus.com/embed.js';
+      s.setAttribute('data-timestamp', '' + +new Date());
+      (d.head || d.body).appendChild(s);
+    }
+  });
+</script>
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"log":true,"model":{"jsonPath":"https://cdn.jsdelivr.net/npm/live2d-widget-model-haruto@1.0.5/assets/haruto.model.json"},"display":{"superSample":2,"position":"right","width":180,"height":300,"hOffset":0,"vOffset":-40},"mobile":{"show":true,"scale":0.5},"react":{"opacity":1},"dialog":{"enable":true,"hitokoto":true,"script":{"every idle 10s":"text1","tap face":"text2","tap body":"text3"}}});</script></body>
+</html>

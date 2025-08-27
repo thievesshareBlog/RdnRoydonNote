@@ -1,0 +1,674 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 7.3.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"blog.thieves.site","root":"/","scheme":"Mist","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":false,"style":"mac"},"back2top":{"enable":true,"sidebar":true,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":true,"lazyload":true,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="前言 轉職 ~~ 學習到 Malware Analysis 跟逆向分析的東西，把基礎概念與工具用途紀錄一下。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="【惡意軟體分析】基礎概念篇">
+<meta property="og:url" content="https://blog.thieves.site/posts/42213/index.html">
+<meta property="og:site_name" content="Roydon&#39;s Note">
+<meta property="og:description" content="前言 轉職 ~~ 學習到 Malware Analysis 跟逆向分析的東西，把基礎概念與工具用途紀錄一下。">
+<meta property="og:locale" content="zh_TW">
+<meta property="article:published_time" content="2025-01-22T07:52:31.000Z">
+<meta property="article:modified_time" content="2025-08-27T13:50:54.231Z">
+<meta property="article:author" content="Roydon">
+<meta property="article:tag" content="analysis">
+<meta property="article:tag" content="malware">
+<meta property="article:tag" content="base">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="https://blog.thieves.site/posts/42213/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-TW'
+  };
+</script>
+
+  <title>【惡意軟體分析】基礎概念篇 | Roydon's Note</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切換導航欄">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Roydon's Note</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首頁</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分類</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>標籤</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>歸檔</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜尋
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜尋..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="reading-progress-bar"></div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-TW">
+    <link itemprop="mainEntityOfPage" href="https://blog.thieves.site/posts/42213/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/death.svg">
+      <meta itemprop="name" content="Roydon">
+      <meta itemprop="description" content="『 百才無用自求歡 』">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Roydon's Note">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          【惡意軟體分析】基礎概念篇
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">發表於</span>
+
+              <time title="創建時間：2025-01-22 15:52:31" itemprop="dateCreated datePublished" datetime="2025-01-22T15:52:31+08:00">2025-01-22</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新於</span>
+                <time title="修改時間：2025-08-27 21:50:54" itemprop="dateModified" datetime="2025-08-27T21:50:54+08:00">2025-08-27</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分類於</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/analysis/" itemprop="url" rel="index"><span itemprop="name">analysis</span></a>
+                </span>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus：</span>
+    
+    <a title="disqus" href="/posts/42213/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="posts/42213/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  <br>
+            <span class="post-meta-item" title="文章字數">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">文章字數：</span>
+              <span>1.2k</span>
+            </span>
+            <span class="post-meta-item" title="所需閱讀時間">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">所需閱讀時間 &asymp;</span>
+              <span>1 分鐘</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <hr>
+<h4 id="前言"><a href="#前言" class="headerlink" title="前言"></a><font size='5'>前言</font></h4><blockquote>
+<p><font size='3'>轉職 ~~ 學習到 Malware Analysis 跟逆向分析的東西，把基礎概念與工具用途紀錄一下。</font></p>
+</blockquote>
+<hr>
+<span id="more"></span>
+
+
+<h2 id="📝-本篇說明紀錄兩個部分"><a href="#📝-本篇說明紀錄兩個部分" class="headerlink" title="📝 本篇說明紀錄兩個部分"></a><font size='3'>📝 本篇說明紀錄兩個部分</font></h2><ul>
+<li>Analysis Environment</li>
+<li>Analysis Step<ul>
+<li>Static Analysis</li>
+<li>Dynamic Analysis</li>
+<li>Reverse Engineering</li>
+</ul>
+</li>
+</ul>
+<br>
+
+<h2 id="📝-Analysis-Environment-分析環境"><a href="#📝-Analysis-Environment-分析環境" class="headerlink" title="📝 Analysis Environment ( 分析環境 )"></a>📝 Analysis Environment ( 分析環境 )</h2><hr>
+<ul>
+<li><font size='3'>最常見的就是 Windows ，大多的惡意程式都是針對 Windows 去設計。</font></li>
+<li><font size='3'>Remux Linux 的版本，裡面預載許多常用到的分析工具。</font></li>
+</ul>
+<br>
+
+<hr>
+<h2 id="🔥-Analysis-Step-🔥"><a href="#🔥-Analysis-Step-🔥" class="headerlink" title="🔥 Analysis Step 🔥"></a><font size='5' align='center'>🔥 Analysis Step 🔥</font></h2><hr>
+<br>
+
+
+<h3 id="📝-Analysis-Analysis"><a href="#📝-Analysis-Analysis" class="headerlink" title="📝 Analysis Analysis"></a><font size='5'>📝 Analysis Analysis</font></h3><hr>
+<ul>
+<li><font size='3'>不執行的去分析惡意程序的內容，針對 Windows 的話可以用下列工具</font><ul>
+<li><font size='3'><code>PE Studio</code> ：可以初步的做分析，查看 PE 資訊與 檔案的 strings。</font></li>
+<li><font size='3'><code>IDA</code> ：逆向標配，可以查看 assembly，需有組合語言的能力。</font></li>
+<li><font size='3'><code>Ghidra</code></font></li>
+<li><font size='3'><code>PE Bear</code> &#x2F;  <code>PE View</code> ：可以針對 PE 檔案格式做深入研究。</font></li>
+<li><font size='3'><code>oledump.py</code> ：針對 Office 格式 ( Word, Excel ) 分析裡面的 Macro。</font></li>
+<li><font size='3'><code>pdf-parser.py</code> ：針對 PDF 格式分析裡面的 Object。</font></li>
+</ul>
+</li>
+</ul>
+<br>
+
+
+<h3 id="📝-Dynamic-Analysis"><a href="#📝-Dynamic-Analysis" class="headerlink" title="📝 Dynamic Analysis"></a><font size='5' >📝 Dynamic Analysis</font></h3><hr>
+<ul>
+<li><font size='3'>靜態分析完了之後想驗證自己的想法，可以使用動態分析</font></li>
+<li><font size='3'>動態分析方法比較多種，但大致可以分成自動跟手動</font><ul>
+<li><font size='3'><code>Cuckoo</code> ：沙盒標配，資料相當完整，但偶而會被Anti-debug&#x2F;analysis的招式抓到直接不執行。</font></li>
+<li><font size='3'><code>ANY.RUN </code> ：可以直接跟沙盒內的 Windows VM 做互動。</font></li>
+</ul>
+</li>
+</ul>
+<br>
+
+<ul>
+<li><font size='3'>執行後去分析惡意程序的內容，針對 Windows 的話可以用下列工具</font><ul>
+<li><font size='3'><code>Process Hacker</code> ：記錄所有執行中的程式以及詳細內容 (Mutex, process handle…..) 一邊執行一邊看著，通常可以很好發現 Process Injection 的特徵。</font></li>
+<li><font size='3'><code>Process Explorer</code> ：記錄所有API Usage，但建議搭配視覺化工具像是ProcDOT。</font></li>
+<li><font size='3'><code>Wireshark</code> ：記錄所有網路封包。</font></li>
+<li><font size='3'><code>RegShot</code> ：對 Registry 做快照，通常在執行前與後進行快照，然後對比看是否有被修改。</font></li>
+<li><font size='3'><code>x64dbg</code> ：惡意程式分析、破解（Cracking）、程式錯誤診斷。</font></li>
+</ul>
+</li>
+</ul>
+<!-- INetSim - 在封閉的網路可以充當Server，支援各大常見protocol，已經內建在REMnux裡面。
+Apate DNS - 可以搭配 REMnux做使用，把所有網路Traffic都導向REMnux，並搭配INetSim做使用
+Fiddler - 超好用的Web proxy, 不用特別設定，就算在封閉環境內也可以看到未成功發出的Web request
+WinDBG  - Kernal mode debugger 
+dnSpy - 針對.NET的逆向工具，包含靜態跟動態分析功能 -->
+
+<br>
+
+
+<h3 id="📝-Reverse-Engineering"><a href="#📝-Reverse-Engineering" class="headerlink" title="📝 Reverse Engineering"></a><font size='5' >📝 Reverse Engineering</font></h3><hr>
+<ul>
+<li><font size='3'> 從已編譯的程式碼回溯分析其內部運作方式 的技術</font></li>
+<li><font size='3'>分析惡意程式（Malware Analysis）：找出病毒、木馬、勒索軟體的攻擊行為。</font></li>
+<li><font size='3'>破解軟體（Software Cracking）：繞過軟體授權、DRM、序號驗證。</font></li>
+<li><font size='3'>安全性分析（Security Research）：發現應用程式的漏洞（Exploit Development）。</font></li>
+<li><font size='3'>修復舊軟體（Legacy Software Maintenance）：當源碼遺失時，還原程式運作邏輯。</font></li>
+<li><font size='3'>常用逆向工程工具</font><ul>
+<li><font size='3'><code>IDA Pro</code> ：最強靜態分析、互動式反組譯	。</font></li>
+<li><font size='3'><code>Ghidra</code> ：NSA 開源逆向工具，支援多架構。</font></li>
+<li><font size='3'><code>RetDec</code> ：開源反編譯工具，可還原 C 程式碼</font></li>
+</ul>
+</li>
+</ul>
+<br>
+
+<hr>
+<h4 id="🔗-參考來源"><a href="#🔗-參考來源" class="headerlink" title="🔗 參考來源"></a>🔗 參考來源</h4><ul>
+<li><font size='3'> <a target="_blank" rel="noopener" href="https://pentestwriteup.blogspot.com/2020/08/blog-post.html">惡意程式分析 - 常用工具篇</a> </font></li>
+</ul>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/analysis/" rel="tag"># analysis</a>
+              <a href="/tags/malware/" rel="tag"># malware</a>
+              <a href="/tags/base/" rel="tag"># base</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/posts/5670/" rel="prev" title="【工具介紹】ISO 映像檔燒錄 USB 隨身碟">
+      <i class="fa fa-chevron-left"></i> 【工具介紹】ISO 映像檔燒錄 USB 隨身碟
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/posts/60293/" rel="next" title="【IDA PRO】程式解構 - Hello World - 01">
+      【IDA PRO】程式解構 - Hello World - 01 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+    
+  <div class="comments">
+    <div id="disqus_thread">
+      <noscript>Please enable JavaScript to view the comments powered by Disqus.</noscript>
+    </div>
+  </div>
+  
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目錄
+        </li>
+        <li class="sidebar-nav-overview">
+          本站概要
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%89%8D%E8%A8%80"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%F0%9F%93%9D-%E6%9C%AC%E7%AF%87%E8%AA%AA%E6%98%8E%E7%B4%80%E9%8C%84%E5%85%A9%E5%80%8B%E9%83%A8%E5%88%86"><span class="nav-number"></span> <span class="nav-text">📝 本篇說明紀錄兩個部分</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%F0%9F%93%9D-Analysis-Environment-%E5%88%86%E6%9E%90%E7%92%B0%E5%A2%83"><span class="nav-number"></span> <span class="nav-text">📝 Analysis Environment ( 分析環境 )</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%F0%9F%94%A5-Analysis-Step-%F0%9F%94%A5"><span class="nav-number"></span> <span class="nav-text">🔥 Analysis Step 🔥</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%F0%9F%93%9D-Analysis-Analysis"><span class="nav-number"></span> <span class="nav-text">📝 Analysis Analysis</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%F0%9F%93%9D-Dynamic-Analysis"><span class="nav-number"></span> <span class="nav-text">📝 Dynamic Analysis</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%F0%9F%93%9D-Reverse-Engineering"><span class="nav-number"></span> <span class="nav-text">📝 Reverse Engineering</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%F0%9F%94%97-%E5%8F%83%E8%80%83%E4%BE%86%E6%BA%90"><span class="nav-number">1.</span> <span class="nav-text">🔗 參考來源</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Roydon"
+      src="/images/death.svg">
+  <p class="site-author-name" itemprop="name">Roydon</p>
+  <div class="site-description" itemprop="description">『 百才無用自求歡 』</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">15</span>
+          <span class="site-state-item-name">文章</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">3</span>
+        <span class="site-state-item-name">分類</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">20</span>
+        <span class="site-state-item-name">標籤</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="mailto:thievesshare@gmail.com" title="E-Mail → mailto:thievesshare@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i></a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://www.youtube.com/@coding9413" title="YouTube → https:&#x2F;&#x2F;www.youtube.com&#x2F;@coding9413" rel="noopener" target="_blank"><i class="fab fa-youtube fa-fw"></i></a>
+      </span>
+  </div>
+
+
+
+      </div>
+        <div class="back-to-top motion-element">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2025</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Roydon</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+    <span title="總字數">19k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="所需總閱讀時間">17 分鐘</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://mist.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Mist</a> 強力驅動
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  
+  <script color='255,255,255' opacity='0.5' zIndex='-1' count='150' src="//cdn.jsdelivr.net/gh/theme-next/theme-next-canvas-nest@1/canvas-nest.min.js"></script>
+  <script src="/lib/anime.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js"></script>
+  <script src="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/medium-zoom@1/dist/medium-zoom.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/lozad@1/dist/lozad.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+<script>
+document.querySelectorAll('.pdfobject-container').forEach(element => {
+  let url = element.dataset.target;
+  let pdfOpenParams = {
+    navpanes : 0,
+    toolbar  : 0,
+    statusbar: 0,
+    pagemode : 'thumbs',
+    view     : 'FitH'
+  };
+  let pdfOpenFragment = '#' + Object.entries(pdfOpenParams).map(([key, value]) => `${key}=${encodeURIComponent(value)}`).join('&');
+  let fullURL = `/lib/pdf/web/viewer.html?file=${encodeURIComponent(url)}${pdfOpenFragment}`;
+
+  if (NexT.utils.supportsPDFs()) {
+    element.innerHTML = `<embed class="pdfobject" src="${url + pdfOpenFragment}" type="application/pdf" style="height: ${element.dataset.height};">`;
+  } else {
+    element.innerHTML = `<iframe src="${fullURL}" style="height: ${element.dataset.height};" frameborder="0"></iframe>`;
+  }
+});
+</script>
+
+
+<script>
+if (document.querySelectorAll('pre.mermaid').length) {
+  NexT.utils.getScript('//cdn.jsdelivr.net/npm/mermaid@8/dist/mermaid.min.js', () => {
+    mermaid.initialize({
+      theme    : 'forest',
+      logLevel : 3,
+      flowchart: { curve     : 'linear' },
+      gantt    : { axisFormat: '%m/%d/%Y' },
+      sequence : { actorMargin: 50 }
+    });
+  }, window.mermaid);
+}
+</script>
+
+
+  
+
+  
+
+<script>
+  function loadCount() {
+    var d = document, s = d.createElement('script');
+    s.src = 'https://cloud-blog.disqus.com/count.js';
+    s.id = 'dsq-count-scr';
+    (d.head || d.body).appendChild(s);
+  }
+  // defer loading until the whole page loading is completed
+  window.addEventListener('load', loadCount, false);
+</script>
+<script>
+  var disqus_config = function() {
+    this.page.url = "https://blog.thieves.site/posts/42213/";
+    this.page.identifier = "posts/42213/";
+    this.page.title = "【惡意軟體分析】基礎概念篇";
+    };
+  NexT.utils.loadComments(document.querySelector('#disqus_thread'), () => {
+    if (window.DISQUS) {
+      DISQUS.reset({
+        reload: true,
+        config: disqus_config
+      });
+    } else {
+      var d = document, s = d.createElement('script');
+      s.src = 'https://cloud-blog.disqus.com/embed.js';
+      s.setAttribute('data-timestamp', '' + +new Date());
+      (d.head || d.body).appendChild(s);
+    }
+  });
+</script>
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"log":true,"model":{"jsonPath":"https://cdn.jsdelivr.net/npm/live2d-widget-model-haruto@1.0.5/assets/haruto.model.json"},"display":{"superSample":2,"position":"right","width":180,"height":300,"hOffset":0,"vOffset":-40},"mobile":{"show":true,"scale":0.5},"react":{"opacity":1},"dialog":{"enable":true,"hitokoto":true,"script":{"every idle 10s":"text1","tap face":"text2","tap body":"text3"}}});</script></body>
+</html>
