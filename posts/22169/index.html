@@ -1,0 +1,614 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 8.1.2">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"blog.cyberloonylab.com","root":"/","scheme":"Mist","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":false,"style":"mac"},"back2top":{"enable":true,"sidebar":true,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":true,"lazyload":true,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.json"};
+  </script>
+
+  <meta name="description" content="以實務分析角度理解 TLS 的角色、握手流程、憑證驗證與 Wireshark 觀察重點。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="【 Wireshark／網路實務 】 - 02：TLS 握手與憑證">
+<meta property="og:url" content="https://blog.cyberloonylab.com/posts/22169/index.html">
+<meta property="og:site_name" content="Roydon&#39;s Note">
+<meta property="og:description" content="以實務分析角度理解 TLS 的角色、握手流程、憑證驗證與 Wireshark 觀察重點。">
+<meta property="og:locale" content="zh_TW">
+<meta property="article:published_time" content="2026-01-20T08:17:14.000Z">
+<meta property="article:modified_time" content="2026-07-10T16:00:00.000Z">
+<meta property="article:author" content="Roydon">
+<meta property="article:tag" content="certificate">
+<meta property="article:tag" content="https">
+<meta property="article:tag" content="network-analysis">
+<meta property="article:tag" content="tls">
+<meta property="article:tag" content="wireshark">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="https://blog.cyberloonylab.com/posts/22169/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-TW'
+  };
+</script>
+
+  <title>【 Wireshark／網路實務 】 - 02：TLS 握手與憑證 | Roydon's Note</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切換導航欄">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Roydon's Note</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首頁</a>
+
+  </li>
+        <li class="menu-item menu-item-series">
+
+    <a href="/series/" rel="section"><i class="fa fa-book fa-fw"></i>series</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分類</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>標籤</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>歸檔</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜尋
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜尋..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="reading-progress-bar"></div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-TW">
+    <link itemprop="mainEntityOfPage" href="https://blog.cyberloonylab.com/posts/22169/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/death.svg">
+      <meta itemprop="name" content="Roydon">
+      <meta itemprop="description" content="『 百才無用自求歡 』">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Roydon's Note">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          【 Wireshark／網路實務 】 - 02：TLS 握手與憑證
+        </h1>
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">發表於</span>
+
+              <time title="創建時間：2026-01-20 16:17:14" itemprop="dateCreated datePublished" datetime="2026-01-20T16:17:14+08:00">2026-01-20</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新於</span>
+                <time title="修改時間：2026-07-11 00:00:00" itemprop="dateModified" datetime="2026-07-11T00:00:00+08:00">2026-07-11</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分類於</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%B6%B2%E8%B7%AF/" itemprop="url" rel="index"><span itemprop="name">網路</span></a>
+                </span>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus：</span>
+    
+    <a title="disqus" href="/posts/22169/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="posts/22169/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  <br>
+            <span class="post-meta-item" title="文章字數">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">文章字數：</span>
+              <span>1k</span>
+            </span>
+            <span class="post-meta-item" title="所需閱讀時間">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">所需閱讀時間 &asymp;</span>
+              <span>1 分鐘</span>
+            </span>
+            <div class="post-description">以實務分析角度理解 TLS 的角色、握手流程、憑證驗證與 Wireshark 觀察重點。</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>TLS 是 HTTPS 與許多加密服務的保護層。分析 TLS 時，重點不是嘗試「看懂所有加密後內容」，而是從握手、憑證、SNI 與連線行為判斷：這條連線是否符合預期、是否使用合理的加密設定，以及是否出現值得追查的異常。</p>
+<span id="more"></span>
+
+<h2 id="你會得到什麼"><a href="#你會得到什麼" class="headerlink" title="你會得到什麼"></a>你會得到什麼</h2><ul>
+<li>分辨 TCP、TLS 與 HTTP 在連線中的分工。</li>
+<li>讀懂 TLS 握手中可見的基本資訊。</li>
+<li>用 Wireshark 先找出可疑連線，再決定是否需要更深入蒐證。</li>
+</ul>
+<h2 id="1-TLS-在網路堆疊中的位置"><a href="#1-TLS-在網路堆疊中的位置" class="headerlink" title="1. TLS 在網路堆疊中的位置"></a>1. TLS 在網路堆疊中的位置</h2><p>以一般 HTTPS 連線為例，IP 負責傳遞封包、TCP 負責可靠傳輸，TLS 則在 TCP 之上建立加密與身分驗證通道；HTTP 才在 TLS 通道內傳送。這表示封包擷取工具通常仍能看到 IP、TCP 與 TLS 的連線資訊，但看不到已加密的 HTTP 內容。</p>
+<h2 id="2-最小可用的握手模型"><a href="#2-最小可用的握手模型" class="headerlink" title="2. 最小可用的握手模型"></a>2. 最小可用的握手模型</h2><p>握手細節會依 TLS 版本而不同，但可先用下列模型理解：</p>
+<ol>
+<li>用戶端提出可接受的 TLS 版本、密碼套件與延伸資訊。</li>
+<li>伺服器選擇設定並回傳憑證，讓用戶端驗證伺服器身分。</li>
+<li>雙方建立工作階段金鑰，後續應用資料改以對稱式加密傳送。</li>
+</ol>
+<p>分析時可先確認三件事：連線目標是否合理、憑證名稱是否對得上網域、協商出的版本與套件是否符合組織基準。</p>
+<h2 id="3-憑證驗證不只看「有沒有鎖頭」"><a href="#3-憑證驗證不只看「有沒有鎖頭」" class="headerlink" title="3. 憑證驗證不只看「有沒有鎖頭」"></a>3. 憑證驗證不只看「有沒有鎖頭」</h2><p>瀏覽器顯示安全連線，代表它完成了當下的驗證；調查時仍應比對憑證的主體名稱、簽發者、有效期限與實際連線的主機名稱。名稱不符、憑證過期、非預期的簽發者，或同一程式短時間連往大量不同網域，都是應進一步確認的訊號，而非單獨定罪的證據。</p>
+<h2 id="4-Wireshark-的實務起點"><a href="#4-Wireshark-的實務起點" class="headerlink" title="4. Wireshark 的實務起點"></a>4. Wireshark 的實務起點</h2><p>先以篩選器縮小範圍，再回到程序與時間線交叉驗證：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">tls.handshake</span><br><span class="line">tcp.port == 443</span><br><span class="line">ip.addr == 192.0.2.10</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><code>tls.handshake</code>：觀察 Client Hello、Server Hello 與憑證交換。</li>
+<li><code>tcp.port == 443</code>：找出常見 HTTPS 流量，但不要把 443 視為 TLS 的唯一埠號。</li>
+<li><code>ip.addr == ...</code>：將封包與已知主機或事件時間線關聯。</li>
+</ul>
+<h2 id="5-分析限制與下一步"><a href="#5-分析限制與下一步" class="headerlink" title="5. 分析限制與下一步"></a>5. 分析限制與下一步</h2><p>未持有工作階段金鑰時，TLS 的應用資料通常無法直接解密；這是設計目的，不是工具失效。應結合 DNS、端點程序樹、代理伺服器日誌與憑證資訊，建立行為證據鏈。若是自有測試環境，再依組織流程蒐集可供解密的診斷資料。</p>
+<h2 id="結論"><a href="#結論" class="headerlink" title="結論"></a>結論</h2><p>TLS 分析的價值在於辨識「加密連線的行為與身分」，而不是繞過加密。先建立 TCP → TLS → 應用協議的分層觀念，再把握手與端點證據關聯，才能避免只看見加密流量就停止分析。</p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/wireshark/" rel="tag"># wireshark</a>
+              <a href="/tags/network-analysis/" rel="tag"># network-analysis</a>
+              <a href="/tags/tls/" rel="tag"># tls</a>
+              <a href="/tags/https/" rel="tag"># https</a>
+              <a href="/tags/certificate/" rel="tag"># certificate</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/posts/33174/" rel="prev" title="【 逆向工程實務 】 - 02：DLL Injection 與程序注入">
+      <i class="fa fa-chevron-left"></i> 【 逆向工程實務 】 - 02：DLL Injection 與程序注入
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/posts/22168/" rel="next" title="【 Wireshark／網路實務 】 - 01：TCP、IP 與 UDP 封包模型">
+      【 Wireshark／網路實務 】 - 01：TCP、IP 與 UDP 封包模型 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+    
+  <div class="comments">
+    <div id="disqus_thread">
+      <noscript>Please enable JavaScript to view the comments powered by Disqus.</noscript>
+    </div>
+  </div>
+  
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目錄
+        </li>
+        <li class="sidebar-nav-overview">
+          本站概要
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%89%8D%E8%A8%80"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BD%A0%E6%9C%83%E5%BE%97%E5%88%B0%E4%BB%80%E9%BA%BC"><span class="nav-number">2.</span> <span class="nav-text">你會得到什麼</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-TLS-%E5%9C%A8%E7%B6%B2%E8%B7%AF%E5%A0%86%E7%96%8A%E4%B8%AD%E7%9A%84%E4%BD%8D%E7%BD%AE"><span class="nav-number">3.</span> <span class="nav-text">1. TLS 在網路堆疊中的位置</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-%E6%9C%80%E5%B0%8F%E5%8F%AF%E7%94%A8%E7%9A%84%E6%8F%A1%E6%89%8B%E6%A8%A1%E5%9E%8B"><span class="nav-number">4.</span> <span class="nav-text">2. 最小可用的握手模型</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-%E6%86%91%E8%AD%89%E9%A9%97%E8%AD%89%E4%B8%8D%E5%8F%AA%E7%9C%8B%E3%80%8C%E6%9C%89%E6%B2%92%E6%9C%89%E9%8E%96%E9%A0%AD%E3%80%8D"><span class="nav-number">5.</span> <span class="nav-text">3. 憑證驗證不只看「有沒有鎖頭」</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-Wireshark-%E7%9A%84%E5%AF%A6%E5%8B%99%E8%B5%B7%E9%BB%9E"><span class="nav-number">6.</span> <span class="nav-text">4. Wireshark 的實務起點</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-%E5%88%86%E6%9E%90%E9%99%90%E5%88%B6%E8%88%87%E4%B8%8B%E4%B8%80%E6%AD%A5"><span class="nav-number">7.</span> <span class="nav-text">5. 分析限制與下一步</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%B5%90%E8%AB%96"><span class="nav-number">8.</span> <span class="nav-text">結論</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Roydon"
+      src="/images/death.svg">
+  <p class="site-author-name" itemprop="name">Roydon</p>
+  <div class="site-description" itemprop="description">『 百才無用自求歡 』</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">9</span>
+          <span class="site-state-item-name">文章</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">3</span>
+        <span class="site-state-item-name">分類</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">25</span>
+        <span class="site-state-item-name">標籤</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="mailto:thievesshare@gmail.com" title="E-Mail → mailto:thievesshare@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i></a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://www.youtube.com/@coding9413" title="YouTube → https:&#x2F;&#x2F;www.youtube.com&#x2F;@coding9413" rel="noopener" target="_blank"><i class="fab fa-youtube fa-fw"></i></a>
+      </span>
+  </div>
+
+
+
+      </div>
+        <div class="back-to-top motion-element">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2026</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Roydon</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+    <span title="總字數">13k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="所需總閱讀時間">12 分鐘</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://mist.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Mist</a> 強力驅動
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  
+  <script color='255,255,255' opacity='0.5' zIndex='-1' count='150' src="//cdn.jsdelivr.net/gh/theme-next/theme-next-canvas-nest@1/canvas-nest.min.js"></script>
+  <script src="/lib/anime.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js"></script>
+  <script src="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/medium-zoom@1/dist/medium-zoom.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/lozad@1/dist/lozad.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+<script>
+document.querySelectorAll('.pdfobject-container').forEach(element => {
+  let url = element.dataset.target;
+  let pdfOpenParams = {
+    navpanes : 0,
+    toolbar  : 0,
+    statusbar: 0,
+    pagemode : 'thumbs',
+    view     : 'FitH'
+  };
+  let pdfOpenFragment = '#' + Object.entries(pdfOpenParams).map(([key, value]) => `${key}=${encodeURIComponent(value)}`).join('&');
+  let fullURL = `/lib/pdf/web/viewer.html?file=${encodeURIComponent(url)}${pdfOpenFragment}`;
+
+  if (NexT.utils.supportsPDFs()) {
+    element.innerHTML = `<embed class="pdfobject" src="${url + pdfOpenFragment}" type="application/pdf" style="height: ${element.dataset.height};">`;
+  } else {
+    element.innerHTML = `<iframe src="${fullURL}" style="height: ${element.dataset.height};" frameborder="0"></iframe>`;
+  }
+});
+</script>
+
+
+<script>
+if (document.querySelectorAll('pre.mermaid').length) {
+  NexT.utils.getScript('//cdn.jsdelivr.net/npm/mermaid@8/dist/mermaid.min.js', () => {
+    mermaid.initialize({
+      theme    : 'forest',
+      logLevel : 3,
+      flowchart: { curve     : 'linear' },
+      gantt    : { axisFormat: '%m/%d/%Y' },
+      sequence : { actorMargin: 50 }
+    });
+  }, window.mermaid);
+}
+</script>
+
+
+  
+
+  
+
+<script>
+  function loadCount() {
+    var d = document, s = d.createElement('script');
+    s.src = 'https://cloud-blog.disqus.com/count.js';
+    s.id = 'dsq-count-scr';
+    (d.head || d.body).appendChild(s);
+  }
+  // defer loading until the whole page loading is completed
+  window.addEventListener('load', loadCount, false);
+</script>
+<script>
+  var disqus_config = function() {
+    this.page.url = "https://blog.cyberloonylab.com/posts/22169/";
+    this.page.identifier = "posts/22169/";
+    this.page.title = "【 Wireshark／網路實務 】 - 02：TLS 握手與憑證";
+    };
+  NexT.utils.loadComments(document.querySelector('#disqus_thread'), () => {
+    if (window.DISQUS) {
+      DISQUS.reset({
+        reload: true,
+        config: disqus_config
+      });
+    } else {
+      var d = document, s = d.createElement('script');
+      s.src = 'https://cloud-blog.disqus.com/embed.js';
+      s.setAttribute('data-timestamp', '' + +new Date());
+      (d.head || d.body).appendChild(s);
+    }
+  });
+</script>
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"log":true,"model":{"jsonPath":"https://cdn.jsdelivr.net/npm/live2d-widget-model-haruto@1.0.5/assets/haruto.model.json"},"display":{"superSample":2,"position":"right","width":180,"height":300,"hOffset":0,"vOffset":-40},"mobile":{"show":true,"scale":0.5},"react":{"opacity":1},"dialog":{"enable":true,"hitokoto":true,"script":{"every idle 10s":"text1","tap face":"text2","tap body":"text3"}}});</script></body>
+</html>
